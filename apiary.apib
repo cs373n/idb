@@ -6,32 +6,43 @@ HOST: http://polls.apiblueprint.org/
 Marvel-World is a simple API allowing users to view comics, characters, stories, series, events, and the creators behind them.
 
 
-# Characters
-Characters from the Marvel World.
+# Group Characters
+Character related resources from the Marvel-World API.
 
-## List of all characters
+## List of all characters [/characters/]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
 ### Get all characters [GET]
++ Response 200 (application/json)
+
+    + Body
+    
+            { 
+                "Characters": [
+                  {
+                    "id": "1",
+                    "name": "Spider Man"
+                  },
+                  {
+                    "ID": "2",
+                    "Name": "Hulk"
+                  },
+                  {  
+                    "ID": "3",
+                    "Name": "Wolverine"
+                  },
+                  {
+                    "ID": "4",
+                    "Name": "Captain America"
+                  }
+                ]
+            }
+
+## Character [/characters/{character_ID}]
 
 
-## Properties
-- id: 1 (number, optional)
-- name: (string, optional)
-- thumbnail: (string, optional)
-- description: (string, optional)
 
 
-# Comics
-Comic issues from 
-
-## Properties
-- title: (string, optional)
-- description: (string, optional)
-- thumbnail: (string, optional)
-- 
-
-# 
 
 
 ## Questions Collection [/questions]
