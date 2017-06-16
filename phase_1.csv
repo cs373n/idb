@@ -1,0 +1,12 @@
+Story Title,Estimate,Vote Started,Voting Duration,Avg Voting Time,Fastest,Slowest
+Implement Series models,2,16/06/2017 18:09:50,0:00:04,0:00:02,Fantastic Four,Paul Davis
+Implement the Events model,2,16/06/2017 18:09:39,0:00:08,0:00:06,Fantastic Four,Paul Davis
+Implement 3 instances of each model,13,16/06/2017 18:09:03,0:00:32,0:00:24,Fantastic Four,Paul Davis
+Create an About Us page with bios for each team member,5,16/06/2017 18:08:41,0:00:19,0:00:10,Fantastic Four,Paul Davis
+Have beautiful background images on homepage,3,16/06/2017 18:07:34,0:01:03,0:00:31,Fantastic Four,Paul Davis
+Implement a Comics model,3,16/06/2017 18:06:52,0:00:34,0:00:09,Fantastic Four,Paul Davis
+Implement a character model,5,16/06/2017 18:05:48,0:01:02,0:00:43,Fantastic Four,Paul Davis
+Have a technical report documenting project,8,16/06/2017 18:05:15,0:00:27,0:00:20,Fantastic Four,Paul Davis
+Have a documented API using Apiary,3,16/06/2017 18:04:52,0:00:15,0:00:11,Fantastic Four,Paul Davis
+Have a nav bar to choose between models,2,16/06/2017 17:58:48,0:06:00,0:01:39,Fantastic Four,Paul Davis
+Create a header element in Bootstrap.,2,16/06/2017 17:40:40,0:00:28,0:00:12,Fantastic Four,Paul Davis
