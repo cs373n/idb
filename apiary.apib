@@ -9,10 +9,10 @@ Marvel-World is a simple API allowing users to view comics, characters, stories,
 # Group Characters
 Character related resources from the Marvel-World API.
 
-## List of all characters [/characters/]
+## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
-### Get all characters [GET]
+### Get all characters [GET /characters]
 + Response 200 (application/json)
 
     + Body
@@ -41,6 +41,30 @@ along with their unique ID's. The unique ID can be used to look up a certain cha
 ## Character [/characters/{character_ID}]
 
 
+# Group Comics
+Comic related resources of the Marvel-World API.
+
+## Comic Book Collection [/comics/]
+A collection of all the comic books that are available. Each comic has an associated ID with it.
+
+### Get all comics [GET]
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "Comics": [
+                  {
+                    "ID:": "1",
+                    "Name:": "The Amazing Spider Man"
+                  },
+                  {
+                    "ID:": "2",
+                    "Name:": "The Incredible Hulk"
+                  },
+                  {
+                    "ID:": "3",
+                    "Name": "
 
 
 
