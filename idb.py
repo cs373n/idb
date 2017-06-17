@@ -21,6 +21,11 @@ def characters():
     """
     return flask.render_template('characters.html')
 
+@app.route('/x-character')
+def xcharacter():
+	return flask.render_template('x-character.html')
+
 
 if __name__ == '__main__':
+	app.DEBUG = True
 	app.run()
