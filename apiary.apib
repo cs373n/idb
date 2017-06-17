@@ -12,7 +12,7 @@ Character related resources from the Marvel-World API.
 ## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
-### Get all characters [GET /characters]
+### Get all characters [GET]
 + Response 200 (application/json)
 
     + Body
@@ -39,12 +39,23 @@ along with their unique ID's. The unique ID can be used to look up a certain cha
             }
 
 ## Character [/characters/{character_ID}]
+Gets information on a certain character in the Marvel World database. Each character has an associated character ID. To a retrieve information for a certain character, 
+
+### Get Certain Character [GET]
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                
+                
+            }
 
 
 # Group Comics
 Comic related resources of the Marvel-World API.
 
-## Comic Book Collection [/comics/]
+## Comic Book Collection [/comics]
 A collection of all the comic books that are available. Each comic has an associated ID with it.
 
 ### Get all comics [GET]
@@ -64,81 +75,91 @@ A collection of all the comic books that are available. Each comic has an associ
                   },
                   {
                     "ID:": "3",
-                    "Name": "
+                    "Name": "Wolverine"
+                  },
+                  {
+                    "ID:": "4",
+                    "Name": "Captain America"
+                  }
+                ]
+            }
+
+## Comic Book [/comics/{comic_id}]
+Retrieves information for a specific comic book, depending on the ID. 
+
+### Get One Comic [GET /comics/{comic_ID}]
++ Response 200 (application/json)
+
+    + Body 
+    
+            {
+            
+            }
 
 
+# Group Series
+All event related resources from the Marvel-World API.
 
+## Event Collection [/series]
+A collection of all the events that are available. Each event has an id associated with it.
 
-## Questions Collection [/questions]
-
-### List All Questions [GET]
+### Get All Events [GET]
 
 + Response 200 (application/json)
 
-        [
+    + Body
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
+                "Series": [
+                  {
+                    "id:": "1",
+                    "Title:": ""
+                  },
+                  {
+                    "id:": "2",
+                    "Title:": ""
+                  },
+                  {
+                    "id:": "3",
+                    "Title:": ""
+                  },
+                    "id:": "4",
+                    "Title:": ""
+                  }
                 ]
             }
-        ]
+            
 
-### Create a New Question [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
 
-+ Request (application/json)
+# Group Events
+All event related resources from the Marvel-World API.
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+## Event Collection [/events]
+A collection of all the events that are available. Each event has an id associated with it.
 
-+ Response 201 (application/json)
+### Get All Events [GET]
 
-    + Headers
-
-            Location: /questions/2
++ Response 200 (application/json)
 
     + Body
-
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
+                "Events": [
+                  {
+                    "id:": "1",
+                    "Title:": ""
+                  },
+                  {
+                    "id:": "2",
+                    "Title:": ""
+                  },
+                  {
+                    "id:": "3",
+                    "Title:": ""
+                  },
+                    "id:": "4",
+                    "Title:": ""
+                  }
                 ]
             }
