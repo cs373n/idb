@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-  <meta charset="utf-8" />
-  <title>Hello world!</title>
-  <link type="text/css" rel="stylesheet"
-        href="{{ url_for('static',
-              filename='hello.css')}}" />
-</head>
-<body>
+{% extends "master.html" %}
 
-Routed through Flask (test). Welcome to the Marvel Universe!
+{% block bodymain %}
+<div class="jumbotron">
+  <div class="container text-center">
+    <h2>Welcome to the</h2>
+    <h1>MARVEL COMICS DATABASE</h1>
+  </div>
+</div>
+  
 
-</body>
-</html>
+{% endblock bodymain %}

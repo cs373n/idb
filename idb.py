@@ -14,6 +14,13 @@ def home():
 	"""
 	return flask.render_template('index.html')
 
+@app.route('/characters')
+def characters():
+    """
+    Displays list of all characters
+    """
+    return flask.render_template('characters.html')
+
 
 if __name__ == '__main__':
 	app.run()
