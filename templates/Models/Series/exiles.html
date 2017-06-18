@@ -1,0 +1,41 @@
+{% extends "x-series.html" %}
+
+{% block series %}
+<h1 class="page-header">Exiles</h1>
+{% endblock series %}
+
+{% block image %}
+<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg" alt="Exiles">
+{% endblock image %}
+
+{% block description %}
+<p>A team comprised of heroes pulled from different realities, the Exiles have spent years traveling from one alternate universe to another, working to repair each and hoping to one day complete their mission. One of the most action-packed, emotional and wonderfully unpredictable titles in the Marvel catalogue, Exiles is the perfect book for any Marvel fanboy.</p>
+{% endblock description %}
+
+{% block information %}
+<li>Start/End Year: 2001 - 2008</li>
+{% endblock information %}
+
+{% block charactersList %}
+<div class="row">
+	<div class="col-sm-2">
+    	<h2>Hulk</h2>
+    	<a href="{{ url_for('hulk') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg" alt="Hulk"></a>
+	</div>
+</div>
+{% endblock charactersList %}
+
+{% block comicsList %}
+<div class="col-lg-12 text-center">
+	<h2>
+		<small>No comics to show for this event.</small>
+	</h2>
+</div>
+{% endblock comicsList %}
+
+{% block eventsList %}
+<div class="col-sm-2">
+    <h2>House of M</h2>
+    <a href="{{ url_for('houseOfM') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg" alt="House of M"></a>
+</div>
+{% endblock eventsList %}

@@ -5,7 +5,7 @@
 {% endblock event %}
 
 {% block image %}
-<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" alt="Captain America #10">
+<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" alt="Infinity">
 {% endblock image %}
 
 {% block description %}
@@ -44,6 +44,6 @@
 {% block seriesList %}
 <div class="col-sm-2">
     <h2>Avengers</h2>
-    <a href="#"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg" alt="Avengers"></a>
+    <a href="{{ url_for('avengers') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg" alt="Avengers"></a>
 </div>
 {% endblock seriesList %}

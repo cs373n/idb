@@ -1,19 +1,19 @@
-{% extends "x-event.html" %}
+{% extends "x-series.html" %}
 
-{% block event %}
-<h1 class="page-header">House of M</h1>
-{% endblock event %}
+{% block series %}
+<h1 class="page-header">Avengers</h1>
+{% endblock series %}
 
 {% block image %}
-<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg" alt="House of M">
+<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg" alt="Avengers">
 {% endblock image %}
 
 {% block description %}
-<p>When the Scarlet Witch alters reality, the Avengers and X-Men face a world like none theyâ€™ve ever known! Writer Brian Michael Bendis and artist Olivier Coipel re-imagine the Marvel Universe with Magneto bringing mutantkind to prominence in an eight-issue event. As the only person who remembers how things used to be, can Wolverine set things right? Should he?</p>
+<p>Avengers Assemble! Iron Man, Thor, Captain America and the rest of Earth's Mightiest Heroes unite to stand against the threats none can face alone! See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action!</p>
 {% endblock description %}
 
 {% block information %}
-<li><small>No additional information</small></li>
+<li>Start/End Year: 1963 - 1996</li>
 {% endblock information %}
 
 {% block charactersList %}
@@ -41,9 +41,9 @@
 </div>
 {% endblock comicsList %}
 
-{% block seriesList %}
+{% block eventsList %}
 <div class="col-sm-2">
-    <h2>Exiles</h2>
-    <a href="{{ url_for('exiles') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg" alt="Exiles"></a>
+    <h2>Infinity</h2>
+    <a href="{{ url_for('infinity') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" alt="Infinity"></a>
 </div>
-{% endblock seriesList %}
+{% endblock eventsList %}
