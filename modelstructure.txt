@@ -1,0 +1,150 @@
+MODELS: CHARACTERS, COMICS, EVENTS, SERIES
+
+CHARACTERS: 
+
+	1.) HULK: 1009351
+		ATTRIBUTES:
+			1.) NAME (id: Hulk)
+			2.) DESCRIPTION: Caught in a gamma bomb explosion while trying to save the life of a teenager, Dr. Bruce Banner was transformed into the incredibly powerful creature called the Hulk. An all too often misunderstood hero, the angrier the Hulk gets, the stronger the Hulk gets.
+			3.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg
+			4.) COMICS: Chaos War #5
+			5.) EVENTS: Infinity
+
+	2.) CAPTAIN AMERICA (id: 1009165)
+		ATTRIBUTES:
+			1.) NAME: Captain America
+			2.) DESCRIPTION: Vowing to serve his country any way he could, young Steve Rogers took the super soldier serum to become America's one-man army. Fighting for the red, white and blue for over 60 years, Captain America is the living, breathing symbol of freedom and liberty.
+			3.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087.jpg
+			4.) COMICS: Captain America #10
+			5.) EVENTS: Chaos War
+
+	3.) HAWKEYE (id: 1009338)
+		ATTRIBUTES:
+			1.) NAME: Hawkeye
+			2.) DESCRIPTION: Trained by criminals, and inspired by heroes, Clint Barton has grown from a troubled youth into one of the greatest heroes on Earth. The world knows him best as Hawkeye: Earth's Mightiest Marksman.
+			3.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg
+			4.) COMICS: Captain Marvel #15
+			5.) EVENTS: House of M
+
+
+
+
+
+COMICS: 
+	
+	1.) Captain America #10
+		ATTRIBUTES:
+			1.) NAME: Captain America #10
+			2.) DESCRIPTION: What changes await Steve Roger's life now that the House of M is in control? In this new world order, watch the hero known as Captain America moves from the '40s to the present day, bearing witness to a changing landscape, watching as man becomes the minority, and mutant the ruler.
+			3.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/c/10/4d24fef511cb5.jpg
+			4.) CHARACTER: Captain America
+			5.) EVENTS: House of M
+	2.) Chaos War #5
+		ATTRIBUTES:
+			1.) NAME: Chaos War #5
+			2.) DESCRIPTION: THIS IS IT!! THE MARVEL UNIVERSE'S LAST STAND!  The Chaos King unleashes his ultimate attack against reality as we know it -- and our survival depends on a boy, his god, and their ragtag band of allies: The Mighty Thor! The Incredible Hulks! The Dead (and Living?) Avengers! The X-Men! Alpha Flight! But are they enough to stand against THE ANTI-ETERNITY ... The force that seeks to negate all existence itself? In this issue, the universe dies and everyone wins! ...What?
+			3.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/3/40/4f57d7051d323.jpg
+			4.) CHARACTER: Hulk
+			5.) EVENTS: Chaos War
+	3.) Captain Marvel #15
+		ATTRIBUTES:
+			1.) NAME: Captain Marvel #15
+			2.) DESCRIPTION: Expanding on the capture of Captain Marvel and Hawkeye! Plus: The return of Binary?! Fisticuffs! In spaaaaaaaaaaaace!
+			3.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/3/30/5212647d1bf19
+			4.) CHARACTER: Hawkeye
+			5.) EVENTS: Infinity
+
+
+
+
+SERIES: 
+
+	1.) AVENGERS
+		ATTRIBUTES:
+			1.) TITLE: Avengers
+			2.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg
+			3.) DESCRIPTION: Avengers Assemble! Iron Man, Thor, Captain America and the rest of Earth's Mightiest Heroes unite to stand against the threats none can face alone! See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action!
+			4.) START/END YEAR: 1963 - 1996
+			5.) EVENTS: Infinity
+			6.) CHARACTERS: Captain America, Hawkeye, Hulk
+
+
+	2.) Exiles
+		ATTRIBUTES:
+			1.) TITLE: Exiles
+			2.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg
+			3.) DESCRIPTION: A team comprised of heroes pulled from different realities, the Exiles have spent years traveling from one alternate universe to another, working to repair each and hoping to one day complete their mission. One of the most action-packed, emotional and wonderfully unpredictable titles in the Marvel catalogue, Exiles is the perfect book for any Marvel fanboy.
+			4.) START/END YEAR: 2001-2008
+			5.) EVENTS: House of M
+			6.) CHARACTERS: Hulk
+
+	3.) Incredible Hulks
+		ATTRIBUTES:
+			1.) TITLE: Incredible Hulks 
+			2.) IMAGE: http://i.annihil.us/u/prod/marvel/i/mg/6/50/5130fe4c5d844.jpg
+			3.) DESCRIPTION: Nobody loves you like your family--and nobody can you make you quite as crazy! With his son Skaar, cousin She-Hulk, ex-wife Red She-Hulk and more, Bruce Banner, aka the Incredible Hulk, attempts to harness his Gamma-powered brood for good!
+			4.) START/END YEAR: 2009 - 2011
+			5.) EVENTS: Chaos War
+			6.) CHARACTERS: Hulk, Hawkeye, Captain America
+
+
+
+
+EVENTS: 
+
+	1.) INFINITY
+		ATTRIBUTES:
+			1.) Infinity
+			2.) Image: http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg
+			3.) DESCRIPTION: While the most powerful Avengers journey into outer space in an attempt to unite the universe against the Builders, Thanos attacks the Earth in a six-issue event written by Jonathan Hickman with the art of Jim Cheung, Jerome Opena and Dustin Weaver! Featuring the Guardians of the Galaxy, the Inhumans and many more!
+			4.) CHARACTERS: hulk, captain america, hawkeye
+			5.) SERIES: Avengers
+
+	2.) HOUSE OF M    ID: 6951
+		ATTRIBUTES:
+			1.) House of M
+			2.) Image: http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg
+			3.) DESCRIPTION: When the Scarlet Witch alters reality, the Avengers and X-Men face a world like none theyâ€™ve ever known! Writer Brian Michael Bendis and artist Olivier Coipel re-imagine the Marvel Universe with Magneto bringing mutantkind to prominence in an eight-issue event. As the only person who remembers how things used to be, can Wolverine set things right? Should he?
+			4.) CHARACTERS: hulk, captain america, hawkeye
+			5.) SERIES: Exiles
+
+	3.) CHAOS WAR
+		ATTRIBUTES:
+			1.) Chaos War
+			2.) Image: http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg
+			3.) DESCRIPTION: When the Chaos King embarks on a campaign to wipe out all of existence, Hercules gathers the God Squad to stand in his way! Writers Greg Pak and Fred Van Lente join artist Khoi Pham to pit Herc and his rag tag team including Thor, the Silver Surfer and Amadeus Choâ against an all-powerful evil as dead heroes and villains rise around them!
+			4.) CHARACTERS: hulk, captain america, hawkeye
+			5.) SERIES: Incredible Hulks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
