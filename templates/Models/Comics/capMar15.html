@@ -22,16 +22,21 @@
 {% block charactersList %}
 <div class="col-sm-2">
     <h2>Hawkeye</h2>
-    <img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg" alt="Hawkeye">
+    <a href="{{ url_for('hawkeye') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg" alt="Hawkeye"></a>
 </div>
 {% endblock charactersList %}
 
 {% block eventsList %}
 <div class="col-sm-2">
     <h2>Infinity</h2>
-    <img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" alt="Infinity">
+    <a href="{{ url_for('infinity') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" alt="Infinity"></a>
 </div>
 {% endblock eventsList %}
 
 {% block seriesList %}
+<div class="col-lg-12 text-center">
+	<h2>
+		<small>No series to show for this character.</small>
+	</h2>
+</div>
 {% endblock seriesList %}

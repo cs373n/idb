@@ -28,6 +28,13 @@ def comicsHome():
     """
     return flask.render_template('Models/comicsHome.html')
 
+@app.route('/eventsHome')
+def eventsHome():
+    """
+    Displays list of all comics
+    """
+    return flask.render_template('Models/eventsHome.html')
+
 """
 Individual Character Pages
 """
@@ -57,6 +64,21 @@ def chaosWar5():
 @app.route('/capMar15')
 def capMar15():
 	return flask.render_template('Models/Comics/capMar15.html')
+
+"""
+Individual Events Pages
+"""
+@app.route('/infinity')
+def infinity():
+	return flask.render_template('Models/Events/infinity.html')
+
+@app.route('/houseOfM')
+def houseOfM():
+	return flask.render_template('Models/Events/houseOfM.html')
+
+@app.route('/chaosWar')
+def chaosWar():
+	return flask.render_template('Models/Events/chaosWar.html')
 
 
 if __name__ == '__main__':
