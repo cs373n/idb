@@ -14,12 +14,12 @@ def home():
 	"""
 	return flask.render_template('index.html')
 
-@app.route('/characters')
-def characters():
+@app.route('/charactersHome')
+def charactersHome():
     """
     Displays list of all characters
     """
-    return flask.render_template('characters.html')
+    return flask.render_template('charactersHome.html')
 
 @app.route('/hulk')
 def hulk():

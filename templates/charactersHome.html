@@ -1,0 +1,22 @@
+{% extends "modelHome.html" %}
+
+{% block model %}
+<h1>Characters</h1>
+{% endblock model %}
+
+{% block modelList %}
+    <div class="col-sm-4">
+      <h2>Hulk</h2>
+      <a href="{{ url_for('hulk') }}"><img src="http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
+    </div>
+    <div class="col-sm-4"> 
+      <h2>Captain America</h2>
+      <a href="{{ url_for('captainAmerica') }}"><img src="http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
+    </div>
+    <div class="col-sm-4"> 
+      <h2>Hawkeye</h2>
+      <a href="{{ url_for('hawkeye') }}"><img src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
+    </div>
+  </div>
+{% endblock modelList %}
+
