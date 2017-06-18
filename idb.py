@@ -21,9 +21,17 @@ def characters():
     """
     return flask.render_template('characters.html')
 
-@app.route('/x-character')
-def xcharacter():
-	return flask.render_template('x-character.html')
+@app.route('/hulk')
+def hulk():
+	return flask.render_template('hulk.html')
+
+@app.route('/captainAmerica')
+def captainAmerica():
+	return flask.render_template('captainAmerica.html')
+
+@app.route('/hawkeye')
+def hawkeye():
+	return flask.render_template('hawkeye.html')
 
 
 if __name__ == '__main__':
