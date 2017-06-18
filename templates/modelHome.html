@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+
+{% block bodymain %}
+<div class="jumbotron" style="background: transparent; font-color: white">
+    <div class="container text-center">
+        {% block model %}
+        {% endblock model %}        
+    </div>
+</div>
+
+<div class="container-fluid bg-4 text-center" style="font-color: white">    
+<br><br>
+  <div class="row">
+    {% block modelList %}
+    {% endblock modelList %}
+  </div>
+</div><br>
+{% endblock bodymain %}

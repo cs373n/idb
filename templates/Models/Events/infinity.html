@@ -1,0 +1,49 @@
+{% extends "x-event.html" %}
+
+{% block event %}
+<h1 class="page-header">Infinity</h1>
+{% endblock event %}
+
+{% block image %}
+<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" alt="Infinity">
+{% endblock image %}
+
+{% block description %}
+<p>While the most powerful Avengers journey into outer space in an attempt to unite the universe against the Builders, Thanos attacks the Earth in a six-issue event written by Jonathan Hickman with the art of Jim Cheung, Jerome Opena and Dustin Weaver! Featuring the Guardians of the Galaxy, the Inhumans and many more!</p>
+{% endblock description %}
+
+{% block information %}
+<li><small>No additional information</small></li>
+{% endblock information %}
+
+{% block charactersList %}
+<div class="row">
+	<div class="col-sm-2">
+    	<h2>Captain America</h2>
+    	<a href="{{ url_for('captainAmerica') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087.jpg" alt="Captain America"></a>
+	</div>
+	<div class="col-sm-2">
+    	<h2>Hawkeye</h2>
+    	<a href="{{ url_for('hawkeye') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg" alt="Hawkeye"></a>
+	</div>
+	<div class="col-sm-2">
+    	<h2>Hulk</h2>
+    	<a href="{{ url_for('hulk') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg" alt="Hulk"></a>
+	</div>
+</div>
+{% endblock charactersList %}
+
+{% block comicsList %}
+<div class="col-lg-12 text-center">
+	<h2>
+		<small>No comics to show for this event.</small>
+	</h2>
+</div>
+{% endblock comicsList %}
+
+{% block seriesList %}
+<div class="col-sm-2">
+    <h2>Avengers</h2>
+    <a href="{{ url_for('avengers') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg" alt="Avengers"></a>
+</div>
+{% endblock seriesList %}

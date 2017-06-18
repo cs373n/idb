@@ -6,8 +6,8 @@
     <!-- Portfolio Item Heading -->
     <div class="row">
         <div class="col-lg-12">
-          {% block charactername %}
-          {% endblock charactername %}
+          {% block series %}
+          {% endblock series %}
         </div>
     </div>
     <!-- /.row -->
@@ -19,25 +19,31 @@
             {% endblock image %}
         </div>
         <div class="col-md-4">
-            <h2>Character Description</h2>
+            <h2>Series Description</h2>
                 {% block description %}
                 {% endblock description %}
-            <h2>Character Attributes</h2>
+            <h2>Series Information</h2>
             <ul>
-                {% block attributes %}
-                {% endblock attributes %}
+                {% block information %}
+                {% endblock information %}
             </ul>
         </div>
     </div>
     <!-- /.row -->
     <ul class="nav nav-pills nav-justified">
-        <li class="active"><a data-toggle="pill" href="#comics">COMICS</a></li>
+        <li class="active"><a data-toggle="pill" href="#characters">CHARACTERS</a></li>
+        <li><a data-toggle="pill" href="#comics">COMICS</a></li>
         <li><a data-toggle="pill" href="#events">EVENTS</a></li>
-        <li><a data-toggle="pill" href="#series">SERIES</a></li>
     </ul>
 
-    <div id="thumbnail" class="tab-content">
-        <div id="comics" class="tab-pane fade in active">
+    <div class="tab-content text-center">
+        <div id="characters" class="tab-pane fade in active">
+            <div class="row">
+                {% block charactersList %}
+                {% endblock charactersList %}
+            </div>
+        </div>
+        <div id="comics" class="tab-pane fade">
             <div class="row">
                 {% block comicsList %}
                 {% endblock comicsList %}
@@ -47,12 +53,6 @@
             <div class="row">
                 {% block eventsList %}
                 {% endblock eventsList %}
-            </div>
-        </div>
-        <div id="series" class="tab-pane fade">
-            <div class="row">
-                {% block seriesList %}
-                {% endblock seriesList %}
             </div>
         </div>
     </div>

@@ -1,0 +1,42 @@
+{% extends "x-comic.html" %}
+
+{% block comic %}
+<h1 class="page-header">Captain America #10</h1>
+{% endblock comic %}
+
+{% block image %}
+<img class="img-responsive" src="http://i.annihil.us/u/prod/marvel/i/mg/c/10/4d24fef511cb5.jpg" alt="Captain America #10">
+{% endblock image %}
+
+{% block description %}
+<p>What changes await Steve Roger's life now that the House of M is in control? In this new world order, watch the hero known as Captain America moves from the '40s to the present day, bearing witness to a changing landscape, watching as man becomes the minority, and mutant the ruler.</p>
+{% endblock description %}
+
+{% block information %}
+<li>Page Count:</li>
+<li>ISBN:</li>
+<li>Prices:</li>
+<li>etc</li>
+{% endblock information %}
+
+{% block charactersList %}
+<div class="col-sm-2">
+    <h2>Captain America</h2>
+    <a href="{{ url_for('captainAmerica') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087.jpg" alt="Captain America"></a>
+</div>
+{% endblock charactersList %}
+
+{% block eventsList %}
+<div class="col-sm-2">
+    <h2>House of M</h2>
+    <a href="{{ url_for('houseOfM') }}"><img class="img-thumbnail" src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg" alt="House of M"></a>
+</div>
+{% endblock eventsList %}
+
+{% block seriesList %}
+<div class="col-lg-12 text-center">
+	<h2>
+		<small>No series to show for this character.</small>
+	</h2>
+</div>
+{% endblock seriesList %}

@@ -1,0 +1,21 @@
+{% extends "modelHome.html" %}
+
+{% block model %}
+<h1>Events</h1>
+{% endblock model %}
+
+{% block modelList %}
+    <div class="col-sm-4">
+      <h2>Infinity</h2>
+      <a href="{{ url_for('infinity') }}"><img src="http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg" class="img-responsive" style="width:100%" alt="infinity"></a>
+    </div>
+    <div class="col-sm-4"> 
+      <h2>House of M</h2>
+      <a href="{{ url_for('houseOfM') }}"><img src="http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg" class="img-responsive" style="width:100%" alt="House of M"></a>
+    </div>
+    <div class="col-sm-4"> 
+      <h2>Chaos War</h2>
+      <a href="{{ url_for('chaosWar') }}"><img src="http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg" class="img-responsive" style="width:100%" alt="Chaos War"></a>
+    </div>
+  </div>
+{% endblock modelList %}
