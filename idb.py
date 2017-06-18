@@ -19,21 +19,45 @@ def charactersHome():
     """
     Displays list of all characters
     """
-    return flask.render_template('charactersHome.html')
+    return flask.render_template('Models/charactersHome.html')
 
+@app.route('/comicsHome')
+def comicsHome():
+    """
+    Displays list of all comics
+    """
+    return flask.render_template('Models/comicsHome.html')
+
+"""
+Individual Character Pages
+"""
 @app.route('/hulk')
 def hulk():
-	return flask.render_template('hulk.html')
+	return flask.render_template('Models/Characters/hulk.html')
 
 @app.route('/captainAmerica')
 def captainAmerica():
-	return flask.render_template('captainAmerica.html')
+	return flask.render_template('Models/Characters/captainAmerica.html')
 
 @app.route('/hawkeye')
 def hawkeye():
-	return flask.render_template('hawkeye.html')
+	return flask.render_template('Models/Characters/hawkeye.html')
+
+"""
+Individual Comic Pages
+"""
+@app.route('/capAmer10')
+def capAmer10():
+	return flask.render_template('Models/Comics/capAmer10.html')
+
+@app.route('/chaosWar5')
+def chaosWar5():
+	return flask.render_template('Models/Comics/chaosWar5.html')
+
+@app.route('/capMar15')
+def capMar15():
+	return flask.render_template('Models/Comics/capMar15.html')
 
 
 if __name__ == '__main__':
-	app.DEBUG = True
 	app.run()
