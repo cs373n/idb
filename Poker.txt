@@ -1,0 +1,53 @@
+Planitpoker User Stories & Estimates:
+	Edmond Amataj, Paul Davis, Dean Carpenter, Saket Singh
+
+1) Implement the Character model, which will become a template for other model pages
+	-assume Flask backend and AWS already setup
+	-estimate 5 hours
+	-actual 8 hours
+
+2) Implement the Series model page
+	-assume Character model already setup
+	-estimate 2 hours
+	-actual 3 hours
+
+3) Implement the Events model page
+	-assume Character model already setup
+	-estimate 2 hours
+	-actual 3 hours
+
+4) Implement the Comics model page
+	-assume Character model already setup
+	-estimate 2 hours
+	-actual 3 hours
+
+5) Implement 3 instances of each model in tabs for each model page
+	-assume model template is setup, hosting is working, data is collected
+	-estimate 13 hours
+	-actual 12 hours
+
+6) Document a RESTful API in Apiary, do not actually implement yet
+	-assume implenentation not necessary at this stage, only GET requests necessary
+	-estimate 3 hours
+	-actual 8 hours
+
+7) Format and create a Technical Document describing the project
+	-assume all technologies used to date are documented
+	-estimate 8 hours
+	-actual 14 hours
+
+8) Collect Imagery and multimedia for use in static webpage
+	-assume APIs are scrapable and images are available
+	-estimate 3 hours
+	-actual 2 hour
+
+9) Gather bios from team members for use in an About Us page
+	-assume website will have About Us page in phase 2
+	-estimate 1 hour
+	-actual 1 hour
+
+10) Implement a nav bar that changes color from white to black when you hover over it
+	-assume navigation is already functional
+	-estimate 2 hours
+	-actual 2 hours
+ 
