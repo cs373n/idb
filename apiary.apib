@@ -12,44 +12,63 @@ Character related resources from the Marvel-World API.
 ## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
-### Get all characters [GET]
+### Get All Characters [GET]
 + Response 200 (application/json)
 
-    + Body
-    
             { 
                 "Characters": [
                   {
-                    "id": "1",
-                    "name": "Spider Man"
+                    "id": "1009351",
+                    "name": "Hulk"
                   },
                   {
-                    "ID": "2",
-                    "Name": "Hulk"
+                    "id": "1009165",
+                    "Name": "Captain America"
                   },
                   {  
-                    "ID": "3",
-                    "Name": "Wolverine"
-                  },
-                  {
-                    "ID": "4",
-                    "Name": "Captain America"
+                    "id": "1009338",
+                    "Name": "Hawkeye"
                   }
                 ]
             }
 
-## Character [/characters/{character_ID}]
-Gets information on a certain character in the Marvel World database. Each character has an associated character ID. To a retrieve information for a certain character, 
+## Character [/characters/{id}]
+Gets information on a certain character in the Marvel World database.ple
++ Parameters
+    + id: 1 (required, number) - unique id for each character
 
-### Get Certain Character [GET]
+
+### Retrieve Single Character [GET]
 + Response 200 (application/json)
 
     + Body
     
-            {
-                
-                
-            }
+              {
+                "id": 1009351,
+                "name": "Hulk",
+                "description": "Caught in a gamma bomb explosion while trying to save the life of a teenager, Dr. Bruce Banner was transformed into the incredibly powerful creature called the Hulk. An all too often misunderstood hero, the angrier the Hulk gets, the stronger the Hulk gets.",
+                "image": "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg",
+                "comics": "Chaos War #5",
+                "events": "Infinity"
+              },
+              {
+                "id": 1009165,
+                "name": "Captain America",
+                "description": "Vowing to serve his country any way he could, young Steve Rogers took the super soldier serum to become America's one-man army. Fighting for the red, white and blue for over 60 years, Captain America is the living, breathing symbol of freedom and liberty.",
+                "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087.jpg",
+                "comics": "Captain America #10",
+                "events": "Chaos War"
+              },
+              {
+                "id": 1009338,
+                "name": "Hawkeye",
+                "description": "Trained by criminals, and inspired by heroes, Clint Barton has grown 
+                "from a troubled youth into one of the greatest heroes on Earth. The world knows him 
+                "best as Hawkeye: Earth's Mightiest Marksman.",
+                "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg",
+                "comics": "Captain Marvel #15",
+                "events": "House of M"
+              }
 
 
 # Group Comics
@@ -58,7 +77,7 @@ Comic related resources of the Marvel-World API.
 ## Comic Book Collection [/comics]
 A collection of all the comic books that are available. Each comic has an associated ID with it.
 
-### Get all comics [GET]
+### Get All Comics [GET]
 + Response 200 (application/json)
 
     + Body
@@ -66,44 +85,75 @@ A collection of all the comic books that are available. Each comic has an associ
             {
                 "Comics": [
                   {
-                    "ID:": "1",
-                    "Name:": "The Amazing Spider Man"
+                    "id": "1",
+                    "title": "Chaos War #5",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/40/4f57d7051d323.jpg"
                   },
                   {
-                    "ID:": "2",
-                    "Name:": "The Incredible Hulk"
+                    "id": "2",
+                    "title": "Captain America #10"
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/c/10/4d24fef511cb5.jpg"
                   },
                   {
-                    "ID:": "3",
-                    "Name": "Wolverine"
-                  },
-                  {
-                    "ID:": "4",
-                    "Name": "Captain America"
+                    "id": "3",
+                    "title": "Captain Marvel #15",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/30/5212647d1bf19"
                   }
                 ]
             }
 
-## Comic Book [/comics/{comic_id}]
-Retrieves information for a specific comic book, depending on the ID. 
+## Comic Book [/comics/{id}]
+Retrieves information for a specific comic book. 
 
-### Get One Comic [GET /comics/{comic_ID}]
++ Parameters 
+    + id : 1 (number) - a unique identifier of the comic book.
+
+
+### Retrieve Single Comic [GET]
 + Response 200 (application/json)
 
     + Body 
     
             {
-            
+                   {
+                    "id": "1",
+                    "name:": "Chaos War #5",
+                    "description": "THIS IS IT!! THE MARVEL UNIVERSE'S LAST STAND! The Chaos King unleashes 
+                    "his ultimate attack against reality as we know it -- and our survival depends on a boy, his god, 
+                    "and their ragtag band of allies: The Mighty Thor! The Incredible Hulks! The Dead (and Living?) 
+                    "Avengers! The X-Men! Alpha Flight! But are they enough to stand against THE ANTI-ETERNITY ... 
+                    "The force that seeks to negate all existence itself? 
+                    "In this issue, the universe dies and everyone wins! ...What?",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/40/4f57d7051d323.jpg",
+                    "character": "Incredible Hulk",
+                    "event": "Chaos War"
+                  },
+                  {
+                    "id": "2",
+                    "name:": "The Chaos War #15",
+                    "description": "What changes await Steve Roger's life now that the House of M is in control? In this new world order, watch the hero known as Captain America moves from the '40s to the present day, bearing witness to a changing landscape, watching as man becomes the minority, and mutant the ruler.",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/c/10/4d24fef511cb5.jpg",
+                    "character": "Captain America",
+                    "event": "House of M"
+                  },
+                  {
+                    "id": "3",
+                    "name:": "Captain Marvel #15",
+                    "description": "Expanding on the capture of Captain Marvel and Hawkeye! Plus: The return of Binary?! Fisticuffs! In spaaaaaaaaaaaace!",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/30/5212647d1bf19",
+                    "character": "Hawkeye",
+                    "event": "Infinity"
+                  }
             }
 
 
 # Group Series
 All event related resources from the Marvel-World API.
 
-## Event Collection [/series]
-A collection of all the events that are available. Each event has an id associated with it.
+## Series Collection [/series]
+A collection of all the series that are available in the Marvel-World database. Each series has an id associated with it.
 
-### Get All Events [GET]
+### Get All Comic Series [GET]
 
 + Response 200 (application/json)
 
@@ -112,24 +162,62 @@ A collection of all the events that are available. Each event has an id associat
             {
                 "Series": [
                   {
-                    "id:": "1",
-                    "Title:": ""
+                    "id": "1",
+                    "Title": "Avengers",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg"
                   },
                   {
                     "id:": "2",
-                    "Title:": ""
+                    "Title:": "Exiles"
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg"
                   },
                   {
                     "id:": "3",
-                    "Title:": ""
-                  },
-                    "id:": "4",
-                    "Title:": ""
+                    "Title:": "Incredible Hulks"
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/6/50/5130fe4c5d844.jpg"
                   }
                 ]
             }
             
+## Series [/series/{id}]
+Retrieves information for a specific comic series.
 
++ Parameters 
+    + id : 1 (number) - a unique identifier of the comic series.
+            
+### Retrieve Certain Comic Series [GET]
++ Response 200 (application/json)
+
+    + Body 
+    
+            {
+                {
+                    "id": "1",
+                    "Title": "Avengers",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg",
+                    "Description": "Avengers Assemble! Iron Man, Thor, Captain America and the rest of Earth's Mightiest Heroes unite to stand against the threats none can face alone! See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action!",
+                    "Start/End Year": "1963 - 1996",
+                    "Event": "Infinityy",
+                    "Characters": "Captain America, Hawkeye, Hulk"
+                  },
+                  {
+                    "id": "2",
+                    "Title": "Exiles",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg",
+                    "Description": "A team comprised of heroes pulled from different realities, the Exiles have spent years traveling from one alternate universe to another, working to repair each and hoping to one day complete their mission. One of the most action-packed, emotional and wonderfully unpredictable titles in the Marvel catalogue, Exiles is the perfect book for any Marvel fanboy.",
+                    "Start/End Year": "2001 - 2008",
+                    "Event": "House of M",
+                    "Characters": "Hulk"
+                  },
+                    "id": "3",
+                    "Title": "Incredible Hulks",
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/6/50/5130fe4c5d844.jpg",
+                    "Description": "Nobody loves you like your family--and nobody can you make you quite as crazy! With his son Skaar, cousin She-Hulk, ex-wife Red She-Hulk and more, Bruce Banner, aka the Incredible Hulk, attempts to harness his Gamma-powered brood for good!",
+                    "Start/End Year": "2009 - 2011",
+                    "Event": "Chaos War",
+                    "Characters": "Hulk, Hawkeye, Captain America, Hawkeye, Hulk"
+                  }
+            }
 
 
 # Group Events
@@ -148,18 +236,58 @@ A collection of all the events that are available. Each event has an id associat
                 "Events": [
                   {
                     "id:": "1",
-                    "Title:": ""
+                    "Title:": "Infinity"
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg",
                   },
                   {
                     "id:": "2",
-                    "Title:": ""
+                    "Title:": "House of M"
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg",
                   },
                   {
                     "id:": "3",
-                    "Title:": ""
-                  },
-                    "id:": "4",
-                    "Title:": ""
+                    "Title:": "Chaos War"
+                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg",
                   }
                 ]
+            }
+            
+## Event [/events/{id}]
+Retrieves information for a specific event. 
+
++ Parameters 
+    + id : 1 (number) - a unique identifier of the event.
+
+### Retrive Certain Event [GET]    
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "id:": "1",
+                "Title:": "Infinity"
+                "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg",
+                "Description": "While the most powerful Avengers journey into outer space in an attempt to unite the universe against the Builders, Thanos attacks the Earth in a six-issue event written by Jonathan Hickman with the art of Jim Cheung, Jerome Opena and Dustin Weaver! Featuring the Guardians of the Galaxy, the Inhumans and many more!",
+                "Characters": "Hulk, Hawkeye, Captain America",
+                "Series": "Avengers"
+                },
+                {
+                "id:": "2",
+                "Title:": "House of M"
+                "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg",
+                "Description": "When the Scarlet Witch alters reality, the Avengers and X-Men face a world like none theyâ€™ve ever known! Writer Brian Michael Bendis and artist Olivier Coipel re-imagine the Marvel Universe with Magneto bringing mutantkind to prominence in an eight-issue event. As the only person who remembers how things used to be, can Wolverine set things right? Should he?",
+                "Characters": "Hulk, Hawkeye, Captain America",
+                "Series": "Exiles"
+                },
+                {
+                "id:": "3",
+                "Title:": "Chaos War"
+                "image": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg",
+                "Description": "When the Chaos King embarks on a campaign to wipe out all of existence, 
+                "Hercules gathers the God Squad to stand in his way! Writers Greg Pak and Fred Van Lente 
+                "join artist Khoi Pham to pit Herc and his rag tag team including Thor, the Silver Surfer 
+                "and Amadeus Choâ against an all-powerful evil as dead heroes and villains rise around them!",
+                "Characters": "Hulk, Hawkeye, Captain America",
+                "Series": "Incredible Hulks"
+                }
             }
