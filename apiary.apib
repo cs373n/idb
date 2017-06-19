@@ -3,7 +3,7 @@ HOST: http://polls.apiblueprint.org/
 
 # Marvel-World API
 
-Marvel-World is a simple API allowing users to view comics, characters, stories, series, events, and the creators behind them.
+Marvel-World is a simple API allowing users to view characters, comics, series, and events of the Marvel-World database.  
 
 
 # Group Characters
@@ -33,7 +33,7 @@ along with their unique ID's. The unique ID can be used to look up a certain cha
             }
 
 ## Character [/characters/{id}]
-Gets information on a certain character in the Marvel World database.ple
+Retrieves information on a certain character.
 + Parameters
     + id: 1 (required, number) - unique id for each character
 
@@ -75,7 +75,7 @@ Gets information on a certain character in the Marvel World database.ple
 Comic related resources of the Marvel-World API.
 
 ## Comic Book Collection [/comics]
-A collection of all the comic books that are available. Each comic has an associated ID with it.
+A collection of all the comic books that are available. The list of comics contains a comic's title, image, and a unique ID. The unique ID can be used to look up a certain comic.
 
 ### Get All Comics [GET]
 + Response 200 (application/json)
@@ -151,7 +151,7 @@ Retrieves information for a specific comic book.
 All event related resources from the Marvel-World API.
 
 ## Series Collection [/series]
-A collection of all the series that are available in the Marvel-World database. Each series has an id associated with it.
+A collection of all the series that are available in the Marvel-World database. The list of series contains a series' title, image, and a unique ID. The unique ID can be used to look up a certain series.
 
 ### Get All Comic Series [GET]
 
@@ -184,8 +184,8 @@ Retrieves information for a specific comic series.
 
 + Parameters 
     + id : 1 (number) - a unique identifier of the comic series.
-            
-### Retrieve Certain Comic Series [GET]
+
+### Retrieve a  ofSingle Comic Series [GET]
 + Response 200 (application/json)
 
     + Body 
@@ -224,7 +224,7 @@ Retrieves information for a specific comic series.
 All event related resources from the Marvel-World API.
 
 ## Event Collection [/events]
-A collection of all the events that are available. Each event has an id associated with it.
+A collection of all the events that are available. The list of events contains an event's title, image, and a unique ID. The unique ID can be used to look up a certain event.
 
 ### Get All Events [GET]
 
