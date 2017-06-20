@@ -42,6 +42,13 @@ def seriesHome():
     """
     return flask.render_template('Models/seriesHome.html')
 
+@app.route('/aboutPage')
+def aboutPage():
+    """
+    Displays about page
+    """
+    return flask.render_template('Models/aboutPage.html')
+
 """
 Individual Character Pages
 """
