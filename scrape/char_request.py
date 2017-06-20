@@ -11,11 +11,11 @@ marvel = MarvelRequest()
 json.loads(String) takes in json formatted string, and outputs 
  data according to the conversion table at json library website
 """
-# characters = json.loads(response.text)
 
-for offset in range(100, 1000, 20):
+for offset in range(100, 200, 20):
 
     response = marvel.request("characters", offset)  # No trailing slash allowed here
+    print(response.status_code)
     assert response.status_code == 200
     characters = json.loads(response.text)
 
@@ -38,11 +38,17 @@ for offset in range(100, 1000, 20):
 
                         elif char_attribute_keys == 'comics':
                             print("Number of comics appeared in: " + str(char_attribute['available']))
+                            for comic in char_attribute['items']:
+                                print("Comics: " + comic['name'])
 
                         elif char_attribute_keys == 'series':
                             print("Number of series appeared in: " + str(char_attribute['available']))
+                            for series in char_attribute['items']:
+                                print("Series: " + series['name'])
 
                         elif char_attribute_keys == 'events':
                             print("Number of events appeared in: " + str(char_attribute['available']))
+                            for events in char_attribute['items']:
+                                print("Events: " + series['name'])
 
                     print('\n')
