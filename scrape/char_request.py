@@ -23,7 +23,7 @@ for offset in range(100, 200, 20):
         # char_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
         if char_meta_keys == 'results':
             for char in char_meta_data:
-                if char['description'] != "":
+                if char['description'] != None:
                     for char_attribute_keys, char_attribute in char.items():
                         # now stepping through name, description, thumbnail, etc.
                         if char_attribute_keys == 'name':

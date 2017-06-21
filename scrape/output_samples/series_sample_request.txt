@@ -1,0 +1,531 @@
+200
+Start Year: 2003
+Title: Alias Vol. 1 (2003)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2003
+Number of events in series: 0
+
+
+Start Year: 2003
+Title: Alias Vol. 2: Come Home (2003)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2003
+Number of events in series: 0
+
+
+Start Year: 2003
+Title: Alias Vol. 3: The Underneath (2003)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2003
+Number of events in series: 0
+
+
+Start Year: 2004
+Title: Alias Vol. 4: The Secret Origins of Jessica Jones (2004)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2004
+Number of events in series: 0
+
+
+Start Year: 2009
+Title: All Select Comics 70th Anniversary Special (2009)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/e0/4bb435ba832ed.jpg
+End Year: 2009
+Number of events in series: 0
+
+
+Start Year: 2009
+Title: All Winners Comics 70th Anniversary Special (2009)
+Characters in series: 2
+Characters: Red Skull
+Characters: Sub-Mariner
+http://i.annihil.us/u/prod/marvel/i/mg/9/00/4bb414e6de226.jpg
+End Year: 2009
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Captain America (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/9/30/542eed66c2e03.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Captain America Special (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: ALL-NEW CAPTAIN AMERICA SPECIAL (2015 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2016
+Title: All-New Captain America Vol. 1: Hydra Ascendant (2016)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2016
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Captain America Vol. 1: Hydra Ascendant (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/a/f0/55898e36ed8ff.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Captain America: Fear Him (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Captain America: Fear Him (2015 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/4/60/54db89f683509.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Captain America: Fear Him Infinite Comic (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/6/d0/56942b535cef5.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Doop (2014 - Present)
+Characters in series: 1
+Characters: Doop
+http://i.annihil.us/u/prod/marvel/i/mg/5/03/542d783a22068.jpg
+End Year: 2099
+Number of events in series: 1
+Events: Marvel NOW!
+
+
+Start Year: 2014
+Title: All-New Doop (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+200
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/7/30/542d7848aef75.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/7/30/542d7848aef75.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ghost Rider Vol. 1: Engines of Vengeance (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Ghost Rider Vol. 2: Legend (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2017
+Title: All-New Guardians of the Galaxy (2017 - Present)
+Characters in series: 1
+Characters: Guardians of the Galaxy
+http://i.annihil.us/u/prod/marvel/i/mg/9/30/59039ca49c0bb.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Hawkeye (2015)
+Characters in series: 1
+Characters: Hawkeye
+http://i.annihil.us/u/prod/marvel/i/mg/e/f0/553a6d4aeae4b.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Hawkeye (2015 - 2016)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/3/80/5639137fdd412.jpg
+End Year: 2016
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Inhumans (2015 - Present)
+Characters in series: 1
+Characters: Inhumans
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2016
+Title: ALL-NEW INHUMANS VOL. 1: GLOBAL OUTREACH (2016)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2016
+Number of events in series: 0
+
+
+Start Year: 2016
+Title: All-New Inhumans Vol. 2: Skyspears (2016)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2016
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Invaders (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/6/d0/542d785a30f9f.jpg
+End Year: 2099
+Number of events in series: 1
+Events: Original Sin
+
+
+Start Year: 2014
+Title: All-New Invaders Vol. 1: Gods and Soldiers (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Invaders Vol. 2: Original Sin (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Invaders Vol. 3: The Martians Are Coming (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2008
+Title: All-New Iron Manual (2008)
+Characters in series: 1
+Characters: Iron Man
+http://i.annihil.us/u/prod/marvel/i/mg/9/80/4bb8277ee044e.jpg
+End Year: 2008
+Number of events in series: 0
+
+
+200
+Start Year: 2014
+Title: All-New Marvel Now! Point One (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/3/b0/542d785e5c046.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Marvel Now! Previews (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Miracleman Annual (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2006
+Title: All-New Official Handbook of the Marvel Universe A to Z (2006)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/c0/4bc6061ade06e.jpg
+End Year: 2006
+Number of events in series: 0
+
+
+Start Year: 2008
+Title: All-New Official Handbook of the Marvel Universe a to Z Vol. 1 Premiere (2008)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc316432279b.jpg
+End Year: 2008
+Number of events in series: 0
+
+
+Start Year: 2008
+Title: All-New Official Handbook of the Marvel Universe a to Z Vol. 2 (2008)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/c/80/4bb85bbfb4189.jpg
+End Year: 2008
+Number of events in series: 0
+
+
+Start Year: 2007
+Title: All-New Official Handbook of the Marvel Universe a to Z: Update (2007)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/f/60/4bc5abe298e2e.jpg
+End Year: 2007
+Number of events in series: 0
+
+
+Start Year: 2007
+Title: All-New Official Handbook of the Marvel Universe a to Z: Update (2007)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/3/50/4bc39229715c2.jpg
+End Year: 2007
+Number of events in series: 0
+
+
+Start Year: 2009
+Title: All-New Savage She-Hulk (2009)
+Characters in series: 7
+Characters: Daken
+Characters: Dark Avengers
+Characters: Hulk
+Characters: Sentry (Robert Reynolds)
+Characters: She-Hulk (Jennifer Walters)
+Characters: She-Hulk (Lyra)
+Characters: Thundra
+http://i.annihil.us/u/prod/marvel/i/mg/6/d0/4bb574ed79551.jpg
+End Year: 2009
+Number of events in series: 1
+Events: Dark Reign
+
+
+Start Year: 2014
+Title: All-New Ultimates (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/7/20/5457f0398fec4.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New Ultimates Vol. 1: Power for Power (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Ultimates Vol. 2: No Gods, No Monsters (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New Wolverine (2015 - Present)
+Characters in series: 6
+Characters: Angel (Warren Worthington III)
+Characters: Captain America
+Characters: Gambit
+Characters: Nick Fury
+Characters: Tyger Tiger
+Characters: X-23
+http://i.annihil.us/u/prod/marvel/i/mg/6/90/55a8047538ead.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2016
+Title: All-New Wolverine Annual (2016 - Present)
+Characters in series: 1
+Characters: X-23
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
+Start Year: 2016
+Title: All-New Wolverine Vol. 1: The Four Sisters (2016)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2016
+Number of events in series: 0
+
+
+Start Year: 2016
+Title: All-New Wolverine Vol. 2: Civil War II (2016)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2016
+Number of events in series: 0
+
+
+Start Year: 2017
+Title: All-New Wolverine Vol. 3: Enemy of the State II (2017)
+Characters in series: 2
+Characters: X-23
+Characters: X-Men
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2017
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New X-Factor (2014 - Present)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/3/50/542d786f3103c.jpg
+End Year: 2099
+Number of events in series: 1
+Events: Axis
+
+
+Start Year: 2014
+Title: ALL-NEW X-FACTOR VOL. 1: NOT BRAND X TPB (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+Start Year: 2014
+Title: All-New X-Factor Vol. 2: Change of Decay (2014)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2014
+Number of events in series: 0
+
+
+200
+Start Year: 2015
+Title: All-New X-Factor Vol. 3: Axis (2015)
+Characters in series: 0
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2015
+Number of events in series: 0
+
+
+Start Year: 2015
+Title: All-New X-Men (2015 - Present)
+Characters in series: 4
+Characters: Inhumans
+Characters: Madelyne Pryor
+Characters: X-23
+Characters: X-Men
+http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg
+End Year: 2099
+Number of events in series: 0
+
+
