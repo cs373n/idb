@@ -20,17 +20,27 @@ for offset in range(100, 200, 20):
     characters = json.loads(response.text)
 
     for char_meta_keys, char_meta_data in characters['data'].items():
-        # char_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
+    # char_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
         if char_meta_keys == 'results':
             for char in char_meta_data:
                 if char['description'] != None:
                     for char_attribute_keys, char_attribute in char.items():
                         # now stepping through name, description, thumbnail, etc.
                         if char_attribute_keys == 'name':
-                            print('Name: ' + char_attribute)
+                            name = char_attribute
+                            name = name.encode('utf-8')
+                            print('Name: ' + name)
 
                         elif char_attribute_keys == 'description':
-                            print('Description: ' + char_attribute)
+                             """
+                             Error arose when using str(description) and 
+                             transferring output to text file: You must not
+                             use str(...) to strip away unicode symbols
+                             that often appear in Marvel descriptions!
+                             """
+                             desc = char_attribute
+                             desc = desc.encode('utf-8')
+                             print('Description: ' + desc)
 
                         elif char_attribute_keys == 'thumbnail':
                             pic_path = char_attribute['path'] + '.' + char_attribute['extension']
