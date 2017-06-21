@@ -12,7 +12,7 @@ json.loads(String) takes in json formatted string, and outputs
  data according to the conversion table at json library website
 """
 
-for offset in range(100, 200, 20):
+for offset in range(0, 100, 20):
 
     response = marvel.request("series", offset)  # No trailing slash allowed here
     print(response.status_code)
@@ -27,11 +27,21 @@ for offset in range(100, 200, 20):
                     for series_attribute_keys, series_attribute in series.items():
                         # now stepping through title, description, thumbnail, etc.
                         if series_attribute_keys == 'title':
-                            print('Title: ' + series_attribute)
+                            temp_title = series_attribute
+                            temp_title = temp_title.encode('utf-8')
+                            print('Title: ' + temp_title)
 
                         elif series_attribute_keys == 'description':
                             if series_attribute != None:
-                                print('Description: ' + series_attribute)
+                                """
+                                Error arose when using str(description) and 
+                                transferring output to text file: You must not
+                                use str(...) to strip away unicode symbols
+                                that often appear in Marvel descriptions!
+                                """
+                                desc = series_attribute
+                                desc = desc.encode('utf-8')
+                                print('Description: ' + desc)
 
                         elif series_attribute_keys == 'thumbnail':
                             pic_path = series_attribute['path'] + '.' + series_attribute['extension']
@@ -46,7 +56,9 @@ for offset in range(100, 200, 20):
                         elif series_attribute_keys == 'characters':
                             print("Characters in series: " + str(series_attribute['available']))
                             for character in series_attribute['items']:
-                                print("Characters: " + character['name'])
+                                name = character['name']
+                                name = name.encode('utf-8')
+                                print("Characters: " + name)
 
                         elif series_attribute_keys == 'events':
                             print("Number of events in series: " + str(series_attribute['available']))
