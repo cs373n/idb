@@ -1,0 +1,6 @@
+// Cool Class Diagram
+[Series|title:string; image: string; description:string; start_yr: int; end_yr: int]
+[Character|id:int; name:string; image:string; height: int; weight: int; character_type: string]
+[Event|title:string; image: string; description: string]
+[Comic|name:string; description: string; image: string; UPC: string; page_ct: int; price: double]
+[Series]1..*-1..*[Character], [Character]1..*-1..*[Comic], [Character]0..*-1..*[Event], [Series]1..*-1[Comic], [Series]0..*-0..*[Event], [Event]0..*-1[Comic]
