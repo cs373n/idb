@@ -1,8 +1,8 @@
 var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
 
 module.exports = {
-	entry: './app/static/index.js',
+	entry: './app/static/index.jsx',
 	output: {
 		path: path.resolve(__dirname, './app/static/dist'),
 		filename: 'bundle.js'
@@ -13,7 +13,4 @@ module.exports = {
 		{ test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}
 		]
 	},
-	plugins: [new HtmlWebpackPlugin({
-		template: 'app/templates/index.html'
-	})]
 }

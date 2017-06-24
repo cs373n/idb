@@ -2,7 +2,7 @@
   "name": "idb",
   "version": "1.0.0",
   "description": "",
-  "main": "./app/static/index.jsx",
+  "main": "./app/index.jsx",
   "scripts": {
     "start": "python idb.py"
   },
