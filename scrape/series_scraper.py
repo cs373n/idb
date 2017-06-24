@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:idb@localhost/idb_chars'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://XXXXX:XXXXX@localhost/idb_chars'      
 db = SQLAlchemy(app)
 
 
@@ -30,8 +30,8 @@ class Series(db.Model):
 
 class MarvelRequest():
     def __init__(self):
-        self.privateKey = "b22cea6ea538c71e8d3524cbf13f8da4eb3d6c02"
-        self.publicKey = "9f6871291df763f4dad8bf8f7b1c290e"
+        self.privateKey = "*******************************"
+        self.publicKey = "*******************************"
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
