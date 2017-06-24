@@ -1,8 +1,8 @@
 {
-  "name": "github-battle",
+  "name": "idb",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./app/static/index.jsx",
   "scripts": {
     "start": "python idb.py"
   },
@@ -12,7 +12,7 @@
       "react"
     ]
   },
-  "author": "",
+  "author": "Fantastic Four",
   "license": "ISC",
   "dependencies": {
     "react": "^15.6.1",
