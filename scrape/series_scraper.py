@@ -3,26 +3,32 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://XXXXX:XXXXX@localhost/idb_chars'      
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://*******:********@localhost/marveldb'
 db = SQLAlchemy(app)
 
 
 class Series(db.Model):
-    title = db.Column(db.String(150), primary_key=True)
-    description = db.Column(db.String(1300))
-    num_characters = db.Column(db.String(5))
-    start_year = db.Column(db.String(5), primary_key=True)
-    end_year = db.Column(db.String(5), primary_key=True)
-    num_events = db.Column(db.String(5))
+    series_id = db.Column(db.String(10), primary_key=True)
+    series_title = db.Column(db.String(150))
+    series_desc = db.Column(db.String(1300))
+    series_url = db.Column(db.String(150))
+    series_start = db.Column(db.String(5))
+    series_end = db.Column(db.String(5))
+    series_numChars = db.Column(db.String(5))
+    series_numComics = db.Column(db.String(5))
+    series_numEvents = db.Column(db.String(5))
 
-    def __init__(self, title, description, num_characters, start_year,
-		 end_year, num_events):
-        self.title = title
-        self.description = description
-	self.num_characters = num_characters
-	self.start_year = start_year
-	self.end_year = end_year
-	self.num_events = num_events
+    def __init__(self, series_id, series_title, series_desc, series_url, 
+		 series_start, series_end, series_numChars, series_numComics, series_numEvents):
+	self.series_id = series_id        
+	self.series_title = series_title
+        self.series_desc = series_desc
+	self.series_url = series_url
+	self.series_start = series_start
+	self.series_end = series_end
+	self.series_numChars = series_numChars
+	self.series_numComics = series_numComics
+	self.series_numEvents = series_numEvents
 
     def __repr__(self):
         return '<User %r>' % self.title
@@ -30,8 +36,8 @@ class Series(db.Model):
 
 class MarvelRequest():
     def __init__(self):
-        self.privateKey = "*******************************"
-        self.publicKey = "*******************************"
+        self.privateKey = "******************************"
+        self.publicKey = "**********************"
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -58,18 +64,21 @@ def main():
 
 	index = 0
 
-	for offset in range(0, 100000, 20):
+	for offset in range(0, 10000, 20):
 
 	    response = marvel.request("series", offset)  # No trailing slash allowed here
 	    print(response.status_code)
 	    assert response.status_code == 200
 	    series = json.loads(response.text)
-
-	    temp_title = ""
+	    
+	    idNum = ""
+	    title = ""
 	    desc = ""
-	    numChars = ""
-	    startYear = ""
-	    endYear = ""
+	    path = ""
+	    start = ""
+	    end = ""
+           numChars = ""
+	    numComics = ""
 	    numEvents = ""    
 
 
@@ -77,13 +86,18 @@ def main():
 		# series_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
 		if series_meta_keys == 'results':
 		    for series in series_meta_data:
+			#if series['id'] != "":
 			if series['description'] != "":
 			    for series_attribute_keys, series_attribute in series.items():
 				# now stepping through title, description, thumbnail, etc.
-				if series_attribute_keys == 'title':
-				    temp_title = series_attribute
-				    temp_title = temp_title.encode('utf-8')
-				    #print('Title: ' + temp_title)
+				if series_attribute_keys == 'id':
+				    idNum = str(series_attribute)
+				    #idNum = idNum.encode('utf-8')
+				
+				elif series_attribute_keys == 'title':
+				    title = series_attribute
+				    title = title.encode('utf-8')
+				    #print('Title: ' + title)
 
 				elif series_attribute_keys == 'description':
 				    if series_attribute != None:
@@ -98,16 +112,16 @@ def main():
 					#print('Description: ' + desc)
 
 				elif series_attribute_keys == 'thumbnail':
-				    pic_path = series_attribute['path'] + '.' + series_attribute['extension']
-				    #print(pic_path)
-
+				    path = str(series_attribute['path'] + '.' + series_attribute['extension'])
+				    print(path)		
+			
 				elif series_attribute_keys == 'startYear':
 				    #print("Start Year: " + str(series_attribute))
-				    startYear = str(series_attribute)
+				    start = str(series_attribute)
 
 				elif series_attribute_keys == 'endYear':
 				    #print("End Year: " + str(series_attribute))
-				    endYear = str(series_attribute)
+				    end = str(series_attribute)
 
 				elif series_attribute_keys == 'characters':
 				    #print("Characters in series: " + str(series_attribute['available']))
@@ -116,6 +130,14 @@ def main():
 				    #    name = character['name']
 				    #    name = name.encode('utf-8')
 				    #    print("Characters: " + name)
+				
+				elif series_attribute_keys == 'comics':
+				    #print("Comics in series: " + str(series_attribute['available']))
+				    numComics = str(series_attribute['available'])
+				    #for comic in series_attribute['items']:
+				    #    name = comic['name']
+				    #    name = name.encode('utf-8')
+				    #    print("Comics: " + name)
 
 				elif series_attribute_keys == 'events':
 				    #print("Number of events in series: " + str(series_attribute['available']))
@@ -124,7 +146,7 @@ def main():
 				    #    print("Events: " + events['name'])
 
 			    #print('\n')
-			    newEntry = Series(temp_title, desc, numChars, startYear, endYear, numEvents)
+			    newEntry = Series(idNum, title, desc, path, start, end, numChars, numComics, numEvents)
 			    db.session.merge(newEntry)
 			    db.session.commit()
 			    index += 1	
