@@ -1,0 +1,14 @@
+#mycss .navbar-inverse .navbar-brand {
+  color: white;
+}
+
+#mycss .navbar-inverse .navbar-nav > li > a {
+  color: white;
+}
+
+#mycss .navbar-inverse .navbar-nav > li > a:hover,
+	   .navbar-inverse .navbar-nav > li > a:focus,
+	   .navbar-inverse .navbar-nav > li > a:active {
+  color: black;
+  background-color: transparent;
+}
