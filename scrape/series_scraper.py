@@ -77,7 +77,7 @@ def main():
 	    path = ""
 	    start = ""
 	    end = ""
-            numChars = ""
+           numChars = ""
 	    numComics = ""
 	    numEvents = ""    
 
