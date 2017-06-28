@@ -1,101 +1,10 @@
 import requests, json, time, datetime, hashlib
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://*******:********@localhost/marveldb'
-db = SQLAlchemy(app)
-
-
-class Series(db.Model):
-    series_id = db.Column(db.String(10), primary_key=True)
-    series_title = db.Column(db.String(150))
-    series_desc = db.Column(db.String(1300))
-    series_url = db.Column(db.String(150))		# image url? 
-    series_start = db.Column(db.String(5))
-    series_end = db.Column(db.String(5))
-    series_numChars = db.Column(db.String(5))
-    series_numComics = db.Column(db.String(5))
-    series_numEvents = db.Column(db.String(5))
-
-    def __init__(self, series_id, series_title, series_desc, series_url, 
-		 series_start, series_end, series_numChars, series_numComics, series_numEvents):
-	self.series_id = series_id        
-	self.series_title = series_title
-    self.series_desc = series_desc
-	self.series_url = series_url
-	self.series_start = series_start
-	self.series_end = series_end
-	self.series_numChars = series_numChars			# necessary?
-	self.series_numComics = series_numComics		
-	self.series_numEvents = series_numEvents		
-
-    def __repr__(self):
-        return '<User %r>' % self.title
-
-
-class Characters(db.Model):
-	character_id = db.Column(db.String(10), primary_key=True)
-	character_name = db.Column(db.String(150))
-    character_url = db.Column(db.String(150))
-    character_height = db.Column(db.String(5))
-    character_weight = db.Column(db.String(5))
-    character_type = db.Column(db.String(50))
-    
-    def __init__(self, character_id, character_name, character_url, 
-		 character_height, character_weight, character_type):
-	self.character_id = series_id        
-	self.character_name = series_title
-    self.character_url = character_url
-	self.character_height = character_height
-	self.character_weight = character_weight
-	self.character_type = character_type			
-
-
-
-class Events(db.Model):
-	event_id = db.Column(db.String(10), primary_key=True)
-	event_title = db.Column(db.String(150))
-	event_url = db.Column(db.String(150))
-	event_desc = db.Column(db.String(1300))
-
-
-	def __init__(self, event_id, event_title, event_url, event_desc):
-	self.event_id = event_id
-	self.event_title = event_title
-	self.event_url = event_url
-	self.event_desc = event_desc
-
-
-
-
-class Comics(db.Model):
-	comic_id = db.Column(db.String(10))
-	comic_name = db.Column(db.String(150))
-	comic_desc = db.Column(db.String(1300))
-	comic_url = db.Column(db.String(150))
-	comic_UPC = db.Column(db.String(50))
-	comic_pageCt = db.Column(db.String(10))
-	comic_price = db.Column(db.String(10))
-
-
-	def __init__(self, comic_id, comic_name, comic_desc, comic_url, comic_UPC,
-		comic_pageCt, comic_price):
-	self.comic_id = comic_id
-	self.comic_name = comic_name
-	self.comic_desc = comic_desc
-	self.comic_url = comic_url
-	self.comic_UPC = comic_UPC
-	self.comic_pageCt = comic_pageCt
-	self.comic_price = comic_price
-
-
-
+from models import db, Series
 
 class MarvelRequest():
     def __init__(self):
-        self.privateKey = "******************************"
-        self.publicKey = "**********************"
+        self.privateKey = "**********************************"
+	self.publicKey = "***************************"
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -135,7 +44,7 @@ def main():
 	    path = ""
 	    start = ""
 	    end = ""
-           numChars = ""
+            numChars = ""
 	    numComics = ""
 	    numEvents = ""    
 
@@ -171,7 +80,7 @@ def main():
 
 				elif series_attribute_keys == 'thumbnail':
 				    path = str(series_attribute['path'] + '.' + series_attribute['extension'])
-				    print(path)		
+				    #print(path)		
 			
 				elif series_attribute_keys == 'startYear':
 				    #print("Start Year: " + str(series_attribute))
@@ -204,7 +113,7 @@ def main():
 				    #    print("Events: " + events['name'])
 
 			    #print('\n')
-			    newEntry = Series(idNum, title, desc, path, start, end, numChars, numComics, numEvents)
+			    newEntry = Series(idNum, title, desc, path, start, end)
 			    db.session.merge(newEntry)
 			    db.session.commit()
 			    index += 1	
