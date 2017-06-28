@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var NavLink = require('react-router-dom').NavLink;
 
 var navStyle = { 
@@ -22,7 +21,7 @@ class NavBar extends React.Component {
 				        <span className="icon-bar"></span>
 				        <span className="icon-bar"></span>                      
 				      </button>
-				      //<NavLink className="navbar-brand" to="/" style={brandFont}>MARVEL</a>
+				      {/*<NavLink className="navbar-brand" to="/" style={brandFont}>MARVEL</a>*/}
 				    </div>
 				    <div className="collapse navbar-collapse" id="myNavbar">
 				      <ul className="nav navbar-nav">
@@ -42,3 +41,4 @@ class NavBar extends React.Component {
 }
 
 module.exports = NavBar;
+
