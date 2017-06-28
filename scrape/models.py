@@ -12,9 +12,13 @@ db = SQLAlchemy(app)
 
 
 # many-to-many relationship tables
-character_comic = db.Table('character_comic', 
-    db.Column('character_id', db.Integer, ForeignKey('character.id')), 
-    db.Column('comic_id', db.Integer, ForeignKey('comic.id'))
+creator_series = db.Table('creator_series', 
+    db.Column('creator_id', db.Integer, ForeignKey('creator.id')), 
+    db.Column('series_id', db.Integer, ForeignKey('series.id'))
+)
+creator_events = db.Table('creator_event',
+    db.Column('creator_id', db.Integer, ForeignKey('creator.id')),
+    db.Column('event_id', db.Integer, ForeignKey('event_id'))
 )
 character_series = db.Table('character_series',
     db.Column('character_id', db.Integer, ForeignKey('character.id')),
@@ -24,36 +28,52 @@ character_event = db.Table('character_event',
     db.Column('character_id', db.Integer, ForeignKey('character.id')),
     db.Column('event_id', db.Integer, ForeignKey('event.id'))
 )
+event_series = db.Table('event_id',
+    db.Column('event_id', db.Integer, ForeignKey('event.id')),
+    db.Column('series_id', db.Integer, ForeignKey('series.id'))
+)
+
 
 
 # Models a series object. 
 class Series(db.Model):
     id = db.Column(db.Integer, primary_key=True)	
     title = db.Column(db.String(150))		# string or unicode?
-    desc = db.Column(db.String(1300))
-    url = db.Column(db.String(150))		 
+    desc = db.Column(db.String(1300))	 
     start = db.Column(db.Integer)		
     end = db.Column(db.Integer)
+    img = db.Column(db.String(150)) 
+    num_creators = db.Column(db.Integer)
+    num_characters = db.Column(db.Integer)
+    num_comics = db.Column(db.Integer)
+    num_events = db.Column(db.Integer)
     
     # one-to-many
-    comics = db.relationship('Comic', backref='series', lazy='dynamic')
+    #comics = db.relationship('Comic', backref='series', lazy='dynamic')
+
 
     # many-to-many
-    # characters, events
+    # characters, events, creator
 
-    def __init__(self, id, title, desc, img, start, end):
+
+    def __init__(self, id, title, desc, start, end, img, num_creators, num_characters, num_comics, num_events):
     	assert title != ""
         #assert series_desc != ""
         assert img != ""
         assert start > 0
         assert end > 0
 
-	self.id = id        
-	self.title = title
-	self.desc = desc
-	self.img = img
-	self.start = start
-	self.end = end
+    	self.id = id 
+    	self.title = title
+    	self.desc = desc
+    	self.start = start
+    	self.end = end
+        self.img = img
+        self.num_creators = num_creators
+        self.num_characters = num_characters
+        self.num_comics = num_comics
+        self.num_events = num_events
+
 
 
 # Models a Character object
@@ -62,25 +82,25 @@ class Character(db.Model):
     name = db.Column(db.String(20))
     desc = db.Column(db.String(1300))
     img = db.Column(db.String(150))
+    num_comics = db.Column(db.Integer)
+    num_series = db.Column(db.Integer)
+    num_events = db.Column(db.Integer)
     
-    #character_height = db.Column(db.String(5))		# int?
-    #character_weight = db.Column(db.String(5))
-    #character_type = db.Column(db.String(50))
-    
-    def __init__(self, id, name, desc, img):
-    	assert name != ""
-        assert img != ""
-        #assert character_height > 0
-        #assert character_weight >= 0
-        #assert character_type != ""
 
-	self.id = id        
-	self.name = name
-	self.desc = desc
-	self.img = img
-	#self.character_height = character_height
-	#self.character_weight = character_weight
-	#self.character_type = character_type			
+    def __init__(self, id, name, desc, img, num_comics, num_series, num_events):
+    	assert name != ""
+
+       # assert img != ""
+       
+
+    	self.id = id        
+    	self.name = name
+    	self.desc = desc
+    	self.img = img
+        self.num_comics = num_comics
+        self.num_series = num_series
+        self.num_events = num_events
+				
 
 
 # Models an Event object
@@ -89,52 +109,41 @@ class Event(db.Model):
     title = db.Column(db.String(150))
     desc = db.Column(db.String(1300))
     img = db.Column(db.String(150))
-    
-    # one-to-many
-    comics = db.relationship('Comic', backref='event', lazy='dynamic')
-    
+    num_creators = db.Column(db.Integer)
+    num_characters = db.Column(db.Integer)
+    num_comics = db.Column(db.Integer)
+    num_series = db.Column(db.Integer)
 
-    def __init__(self, id, title, desc, img):
-	assert event_title != ""
-        assert event_url != ""
-        assert event_desc != ""
+   
 
-	self.id = id
-	self.title = title
-	self.desc = desc
-	self.img = img
+    def __init__(self, id, title, desc, img, num_creators, num_characters, num_comics, num_series):
+
+    	self.id = id
+    	self.title = title
+    	self.desc = desc
+    	self.img = img
+        self.num_creators = num_creators
+        self.num_characters = num_characters
+        self.num_comics = num_comics
+        self.num_series = num_series
 
 
-
-# Models a Comic object
-class Comic(db.Model):
+# Models a Creator object
+class Creator(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(150))
-    issue = db.Column(db.Integer)
-    desc = db.Column(db.String(1300))
-    upc = db.Column(db.Integer)
-    pages = db.Column(db.Integer)
-    price = db.Column(db.Float)  
+    full_name = db.Column(db.String(150))
     img = db.Column(db.String(150))
+    num_comics = db.Column(db.Integer)
+    num_series = db.Column(db.Integer)
+    num_events = db.Column(db.Integer)
 
-    # one-to-one
-    series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
-    
 
-    def __init__(self, id, title, issue, desc, upc, pages, price, img):
-        assert comic_name != ""
-        #assert comic_desc != ""
-        assert img != ""
-        #assert comic_UPC != ""
-        assert comic_pages >= 0
-        #assert comic_price != ""
+    def __init__(self, id, full_name, img, num_comics, num_series, num_events):
+        
 
-	self.id = id
-	self.title = title
-	self.issue = issue
-	self.desc = desc
-	self.upc = upc
-	self.pages = pages
-	self.price = price
-	self.img = img
+    	self.id = id
+    	self.full_name = full_name
+    	self.img = img
+        self.num_comics = num_comics
+        self.num_series = num_series
+        self.num_events = num_events
