@@ -4,7 +4,7 @@ from models import db, Series
 class MarvelRequest():
     def __init__(self):
         self.privateKey = "**********************************"
-	self.publicKey = "***************************"
+		self.publicKey = "***************************"
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -37,14 +37,15 @@ def main():
 	    print(response.status_code)
 	    assert response.status_code == 200
 	    series = json.loads(response.text)
-	    
+
 	    idNum = ""
 	    title = ""
 	    desc = ""
 	    path = ""
 	    start = ""
 	    end = ""
-            numChars = ""
+	    numCreators = ""
+        numChars = ""
 	    numComics = ""
 	    numEvents = ""    
 
@@ -77,11 +78,6 @@ def main():
 					desc = series_attribute
 					desc = desc.encode('utf-8')
 					#print('Description: ' + desc)
-
-				elif series_attribute_keys == 'thumbnail':
-				    path = str(series_attribute['path'] + '.' + series_attribute['extension'])
-				    #print(path)		
-			
 				elif series_attribute_keys == 'startYear':
 				    #print("Start Year: " + str(series_attribute))
 				    start = str(series_attribute)
@@ -90,21 +86,27 @@ def main():
 				    #print("End Year: " + str(series_attribute))
 				    end = str(series_attribute)
 
+				elif series_attribute_keys == 'thumbnail':
+				    path = str(series_attribute['path'])
+				    temp = path.split('/')
+				    for v in temp :
+				    	if v == 'image_not_available':
+				    		path = None
+				   	if path != None:
+				   		path =  path + '.' + series_attribute['extension'])
+				    print (path)
+
+				elif series_attribute_keys == 'creators':
+				    #print("Comics in series: " + str(series_attribute['available']))
+				    numCreators = str(series_attribute['available'])
+
 				elif series_attribute_keys == 'characters':
 				    #print("Characters in series: " + str(series_attribute['available']))
 				    numChars = str(series_attribute['available'])
-				    #for character in series_attribute['items']:
-				    #    name = character['name']
-				    #    name = name.encode('utf-8')
-				    #    print("Characters: " + name)
 				
 				elif series_attribute_keys == 'comics':
 				    #print("Comics in series: " + str(series_attribute['available']))
 				    numComics = str(series_attribute['available'])
-				    #for comic in series_attribute['items']:
-				    #    name = comic['name']
-				    #    name = name.encode('utf-8')
-				    #    print("Comics: " + name)
 
 				elif series_attribute_keys == 'events':
 				    #print("Number of events in series: " + str(series_attribute['available']))
@@ -113,7 +115,7 @@ def main():
 				    #    print("Events: " + events['name'])
 
 			    #print('\n')
-			    newEntry = Series(idNum, title, desc, path, start, end)
+			    newEntry = Series(idNum, title, desc, start, end, path, numCreators, numCharacters, numComics, numEvents)
 			    db.session.merge(newEntry)
 			    db.session.commit()
 			    index += 1	
