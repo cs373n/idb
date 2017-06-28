@@ -1,10 +1,10 @@
 import requests, json, time, datetime, hashlib
-from models import db, Series
+from models import db, Creator
 
 class MarvelRequest():
     def __init__(self):
- 	self.publicKey = "9f6871291df763f4dad8bf8f7b1c290e"
-        self.privateKey = "b22cea6ea538c71e8d3524cbf13f8da4eb3d6c02"
+        self.privateKey = "**********************************"
+		self.publicKey = "***************************"
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -33,61 +33,51 @@ def main():
 
 	for offset in range(0, 10000, 20):
 
-	    response = marvel.request("series", offset)  # No trailing slash allowed here
+	    response = marvel.request("events", offset)  # No trailing slash allowed here
 	    print(response.status_code)
 	    assert response.status_code == 200
-	    series = json.loads(response.text)
+	    events = json.loads(response.text)
 
 	    idNum = ""
 	    title = ""
 	    desc = ""
 	    path = ""
-	    start = ""
-	    end = ""
 	    numCreators = ""
-            numChars = ""
+        numChars = ""
 	    numComics = ""
-	    numEvents = ""    
+	    numSeries = ""    
 
 
-	    for series_meta_keys, series_meta_data in series['data'].items():
+	    for events_meta_keys, events_meta_data in events['data'].items():
 		# series_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
-		if series_meta_keys == 'results':
-		    for series in series_meta_data:
+		if events_meta_keys == 'results':
+		    for series in events_meta_data:
 			#if series['id'] != "":
-			if series['description'] != "":
-			    for series_attribute_keys, series_attribute in series.items():
+			if events['description'] != "":
+			    for events_attribute_keys, events_attribute in events.items():
 				# now stepping through title, description, thumbnail, etc.
-				if series_attribute_keys == 'id':
-				    idNum = str(series_attribute)
+				if events_attribute_keys == 'id':
+				    idNum = str(events_attribute)
 				    #idNum = idNum.encode('utf-8')
 				
-				elif series_attribute_keys == 'title':
-				    title = series_attribute
+				elif events_attribute_keys == 'title':
+				    title = events_attribute
 				    title = title.encode('utf-8')
 				    #print('Title: ' + title)
 
-				elif series_attribute_keys == 'description':
-				    if series_attribute != None:
+				elif events_attribute_keys == 'description':
+				    if events_attribute != None:
 					"""
 					Error arose when using str(description) and 
 					transferring output to text file: You must not
 					use str(...) to strip away unicode symbols
 					that often appear in Marvel descriptions!
 					"""
-					desc = series_attribute
+					desc = events_attribute
 					desc = desc.encode('utf-8')
-					#print('Description: ' + desc)
-				elif series_attribute_keys == 'startYear':
-				    #print("Start Year: " + str(series_attribute))
-				    start = str(series_attribute)
-
-				elif series_attribute_keys == 'endYear':
-				    #print("End Year: " + str(series_attribute))
-				    end = str(series_attribute)
-
-				elif series_attribute_keys == 'thumbnail':
-				    path = str(series_attribute['path'])
+				
+				elif events_attribute_keys == 'thumbnail':
+				    path = str(events_attribute['path'])
 				    temp = path.split('/')
 				    for v in temp :
 				    	if v == 'image_not_available':
@@ -96,30 +86,32 @@ def main():
 				   		path =  path + '.' + series_attribute['extension']
 				    print (path)
 
-				elif series_attribute_keys == 'creators':
+				elif events_attribute_keys == 'creators':
 				    #print("Comics in series: " + str(series_attribute['available']))
-				    numCreators = str(series_attribute['available'])
+				    numCreators = str(events_attribute['available'])
 
-				elif series_attribute_keys == 'characters':
+				elif events_attribute_keys == 'characters':
 				    #print("Characters in series: " + str(series_attribute['available']))
-				    numChars = str(series_attribute['available'])
+				    numChars = str(events_attribute['available'])
 				
-				elif series_attribute_keys == 'comics':
+				elif events_attribute_keys == 'comics':
 				    #print("Comics in series: " + str(series_attribute['available']))
-				    numComics = str(series_attribute['available'])
+				    numComics = str(events_attribute['available'])
 
-				elif series_attribute_keys == 'events':
+				elif events_attribute_keys == 'series':
 				    #print("Number of events in series: " + str(series_attribute['available']))
-				    numEvents = str(series_attribute['available'])
-				    #for events in series_attribute['items']:
-				    #    print("Events: " + events['name'])
+				    numSeries = str(events_attribute['available'])
+				    uris = []
+				    for series in events_attribute['items'] :
+				    	resource_path = str(series['resourceURI']).split('/')
+				    	uris += resource_path[-1]
 
 			    #print('\n')
-			    newEntry = Series(idNum, title, desc, start, end, path, numCreators, numCharacters, numComics, numEvents)
+			    newEntry = Event(idNum, title, desc, path, numCreators, numChars, numComics, numSeries)
 			    db.session.merge(newEntry)
 			    db.session.commit()
 			    index += 1	
-			    print("processed series " + str(index))
+			    print("processed events " + str(index))
 
 if __name__ == '__main__':
   main()

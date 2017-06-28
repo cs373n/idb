@@ -16,9 +16,9 @@ creator_series = db.Table('creator_series',
     db.Column('creator_id', db.Integer, ForeignKey('creator.id')), 
     db.Column('series_id', db.Integer, ForeignKey('series.id'))
 )
-creator_events = db.Table('creator_event',
+creator_event = db.Table('creator_event',
     db.Column('creator_id', db.Integer, ForeignKey('creator.id')),
-    db.Column('event_id', db.Integer, ForeignKey('event_id'))
+    db.Column('event_id', db.Integer, ForeignKey('event.id'))
 )
 character_series = db.Table('character_series',
     db.Column('character_id', db.Integer, ForeignKey('character.id')),
@@ -86,7 +86,7 @@ class Character(db.Model):
     num_series = db.Column(db.Integer)
     num_events = db.Column(db.Integer)
     
-
+    
     def __init__(self, id, name, desc, img, num_comics, num_series, num_events):
     	assert name != ""
 
