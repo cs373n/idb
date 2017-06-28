@@ -2,9 +2,9 @@
   "name": "idb",
   "version": "1.0.0",
   "description": "",
-  "main": "./app/index.jsx",
+  "main": "./app/static/components/App.jsx",
   "scripts": {
-    "start": "python idb.py"
+    "start": "python ./app/idb.py"
   },
   "babel": {
     "presets": [
