@@ -22,6 +22,9 @@ class MarvelRequest():
 
 
 def main():
+
+	fcreators = open('events_creators.txt', 'w')
+
 	marvel = MarvelRequest()
 
 	"""
@@ -38,7 +41,7 @@ def main():
 	    assert response.status_code == 200
 	    events = json.loads(response.text)
 
-	    idNum = ""
+	    idNum = 0
 	    title = ""
 	    desc = ""
 	    path = ""
@@ -55,6 +58,10 @@ def main():
 			if events['id'] != "":
 			    for events_attribute_keys, events_attribute in events.items():
 				# now stepping through title, description, thumbnail, etc.
+				
+				
+								
+				'''
 				if events_attribute_keys == 'id':
 				    idNum = str(events_attribute)
 				    #idNum = idNum.encode('utf-8')
@@ -84,11 +91,26 @@ def main():
 				    if path != None:
 				        path =  path + '.' + events_attribute['extension']
 				    #print (path)
+				'''	    
+			        identity = events['id']
 
+				if events_attribute_keys == 'id':
+				    identity = int(events_attribute)
+			            
 				elif events_attribute_keys == 'creators':
 				    #print("Comics in events: " + str(series_attribute['available']))
-				    numCreators = str(events_attribute['available'])
+				    #numCreators = str(events_attribute['available'])
+				    #if idNum == 0:
+			            #    continue
 
+				    uris = [identity]
+				    assert uris[0] != 0
+				    for string in events_attribute['items'] :
+			 	        resource_path = str(string['resourceURI']).split('/')
+					uris.append(int(resource_path[-1]))
+				    #print(str(uris))	
+				    fcreators.write(str(uris) + '\n')
+				'''    
 				elif events_attribute_keys == 'characters':
 				    #print("Characters in events: " + str(series_attribute['available']))
 				    numChars = str(events_attribute['available'])
@@ -105,10 +127,10 @@ def main():
 				    #	resource_path = str(events['resourceURI']).split('/')
 				    #	uris += resource_path[-1]
 
-			    #print('\n')
 			    newEntry = Event(idNum, title, desc, path, numCreators, numChars, numComics, numSeries)
 			    db.session.merge(newEntry)
 			    db.session.commit()
+			    '''
 			    index += 1	
 			    print("processed events " + str(index))
 

@@ -22,6 +22,10 @@ class MarvelRequest():
 
 
 def main():
+
+	fevents = open('character_events.txt', 'w')
+
+
 	marvel = MarvelRequest()
 
 	"""
@@ -38,7 +42,7 @@ def main():
 	    assert response.status_code == 200
 	    characters = json.loads(response.text)
 
-	    idNum = ""
+	    idNum = 0
 	    name = ""
 	    desc = ""
 	    path = ""
@@ -54,6 +58,7 @@ def main():
 			if characters['id'] != "":
 			    for characters_attribute_keys, characters_attribute in characters.items():
 				# now stepping through title, description, thumbnail, etc.
+				'''
 				if characters_attribute_keys == 'id':
 				    idNum = str(characters_attribute)
 				    #idNum = idNum.encode('utf-8')
@@ -97,20 +102,23 @@ def main():
 				    #	resource_path = str(series['resourceURI']).split('/')
 				    #	uris += resource_path[-1]
 
+				'''
+
+				if characters_attribute_keys == 'id':
+				    idNum = int(characters_attribute)
+				 
 				elif characters_attribute_keys == 'events':
-				    #print("Number of events in characters: " + str(characters_attribute['available']))
-				    numEvents = str(characters_attribute['available'])
-				    #uris = []
-				    #for events in characters_attribute['items'] :
-				    #	resource_path = str(events['resourceURI']).split('/')
-				    #	uris += resource_path[-1]
-				    #for events in characters_attribute['items']:
-				    #    print("Events: " + events['name'])
+				    #numEvents = str(characters_attribute['available'])
+				    uris = [idNum]
+				    for events in characters_attribute['items'] :
+				    	resource_path = str(events['resourceURI']).split('/')
+				    	uris.append(int(resource_path[-1]))
+				    fevents.write(str(uris) + '\n')
 
 			    #print('\n')
-			    newEntry = Character(idNum, name, desc, path, numComics, numSeries, numEvents)
-			    db.session.merge(newEntry)
-			    db.session.commit()
+			    #newEntry = Character(idNum, name, desc, path, numComics, numSeries, numEvents)
+			    #db.session.merge(newEntry)
+			    #db.session.commit()
 			    index += 1	
 			    print("processed characters " + str(index))
 

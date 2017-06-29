@@ -22,6 +22,12 @@ class MarvelRequest():
 
 
 def main():
+	
+	fcharacters = open('series_characters.txt', 'a')
+	fcreators = open('series_creators.txt', 'a')
+	fevents = open('series_events.txt', 'a')
+		
+	
 	marvel = MarvelRequest()
 
 	"""
@@ -31,14 +37,14 @@ def main():
 
 	index = 0
 
-	for offset in range(1020, 10000, 20):
+	for offset in range(7400, 10000, 20):
 
 	    response = marvel.request("series", offset)  # No trailing slash allowed here
 	    print(response.status_code)
 	    assert response.status_code == 200
 	    series = json.loads(response.text)
 
-	    idNum = ""
+	    idNum = 0
 	    title = ""
 	    desc = ""
 	    path = ""
@@ -54,14 +60,13 @@ def main():
 		# series_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
 		if series_meta_keys == 'results':
 		    for series in series_meta_data:
-			#if series['id'] != "":
-			if series['description'] != "":
+			if series['id'] != "":
 			    for series_attribute_keys, series_attribute in series.items():
 				# now stepping through title, description, thumbnail, etc.
-				if series_attribute_keys == 'id':
-				    idNum = str(series_attribute)
+				#if series_attribute_keys == 'id':
+				#    idNum = str(series_attribute)
 				    #idNum = idNum.encode('utf-8')
-				
+				'''
 				elif series_attribute_keys == 'title':
 				    title = series_attribute
 				    title = title.encode('utf-8')
@@ -95,37 +100,41 @@ def main():
 				    if path != None:
 				       path =  str(path) + '.' + str(series_attribute['extension'])
 				    #  print (path)
-
+				'''
+				if series_attribute_keys == 'id':
+				    idNum = int(series_attribute)
+				
 				elif series_attribute_keys == 'creators':
 				    #print("Comics in series: " + str(series_attribute['available']))
-				    numCreators = str(series_attribute['available'])
-				    #creator_ids = []
-				    #for creator_uri in series_attribute['items']:
-			            #    resource_path = creator_uri['resourceURI'].split('/')
-				    #	creator_ids.append(resource_path[-1])
-
+				    #numCreators = str(series_attribute['available'])
+				    creator_ids = [idNum]
+				    for creator_uri in series_attribute['items']:
+			                resource_path = creator_uri['resourceURI'].split('/')
+				    	creator_ids.append(int(resource_path[-1]))
+				    fcreators.write(str(creator_ids) + '\n')
 				elif series_attribute_keys == 'characters':
 				    #print("Characters in series: " + str(series_attribute['available']))
-				    numChars = str(series_attribute['available'])
-				    #character_ids = []
-				    #for character in series_attribute['items']:
-			            #    resource_path = character['resourceURI'].split('/')
-				    #	character_ids += resource_path[-1]
+				    #numChars = str(series_attribute['available'])
+				    character_ids = [idNum]
+				    for character in series_attribute['items']:
+			                resource_path = character['resourceURI'].split('/')
+				    	character_ids.append(int(resource_path[-1]))
+				    fcharacters.write(str(character_ids) + '\n')
 
-				elif series_attribute_keys == 'comics':
-				    numComics = str(series_attribute['available'])
+#				elif series_attribute_keys == 'comics':
+#				    numComics = str(series_attribute['available'])
 
 				elif series_attribute_keys == 'events':
-				    numEvents = str(series_attribute['available'])
-				    #event_ids = []
-				    #for event in series_attribute['items']:
-			            #    resource_path = creator['resourceURI'].split('/')
-				    #	event_ids += resource_path[-1]
+				    #numEvents = str(series_attribute['available'])
+				    event_ids = [idNum]
+				    for event in series_attribute['items']:
+			                resource_path = event['resourceURI'].split('/')
+				    	event_ids.append(int(resource_path[-1]))
+				    fevents.write(str(event_ids) + '\n')
 
-
-			    newEntry = Series(idNum, title, desc, start, end, path, numCreators, numChars, numComics, numEvents)
-			    db.session.merge(newEntry)
-			    db.session.commit()
+#			    newEntry = Series(idNum, title, desc, start, end, path, numCreators, numChars, numComics, numEvents)
+#			    db.session.merge(newEntry)
+#			    db.session.commit()
 			    index += 1	
 			    print("processed series " + str(index))
 
