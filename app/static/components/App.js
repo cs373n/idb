@@ -5,9 +5,7 @@ var Router = ReactRouter.BrowserRouter;
 var Route = ReactRouter.Route;
 var NavBar = require('./NavBar.js');
 var Home = require('./Home.js');
-
-//import NavBar from './NavBar.js'
-//import Home from './Home.js'
+var Creators = require('./Creators.js');
 
 class App extends React.Component {
 	render() {
@@ -15,7 +13,8 @@ class App extends React.Component {
 		<Router>
 			<div>
 				<NavBar />
-				<Route path='/home' component={Home} />
+				<Route exact path='/' component={Home} />
+				<Route path='/creators' component={Creators} />
 			</div>
 		</Router>
 		)

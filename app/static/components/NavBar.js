@@ -1,5 +1,7 @@
 var React = require('react');
 var NavLink = require('react-router-dom').NavLink;
+var LinkContainer = require('react-router-bootstrap').LinkContainer;
+import { Nav, Navbar, NavItem } from 'react-bootstrap';
 
 var navStyle = { 
 	backgroundColor: 'red', 
@@ -13,29 +15,36 @@ var brandFont = {
 class NavBar extends React.Component {
 	render() {
 		return (
-			<nav className="navbar navbar-inverse navbar-fixed-top" style={navStyle}>
-  				<div className="container-fluid">
-				    <div className="navbar-header">
-				      <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				        <span className="icon-bar"></span>
-				        <span className="icon-bar"></span>
-				        <span className="icon-bar"></span>                      
-				      </button>
-				      {/*<NavLink className="navbar-brand" to="/" style={brandFont}>MARVEL</a>*/}
-				    </div>
-				    <div className="collapse navbar-collapse" id="myNavbar">
-				      <ul className="nav navbar-nav">
-				        <li><NavLink exact activeClassName="active" to="/">HOME</NavLink></li>
-				        <li><NavLink activeClassName="active" to="/characters">CHARACTERS</NavLink></li>
-				        <li><NavLink activeClassName="active" to="/creators">CREATORS</NavLink></li>
-				        <li><NavLink activeClassName="active" to="/events">EVENTS</NavLink></li>
-				        <li><NavLink activeClassName="active" to="/series">SERIES</NavLink></li>
-				        <li><NavLink activeClassName="active" to="/about">ABOUT</NavLink></li>
-				      </ul>
-				    </div>
-				</div>
-			</nav>
-
+			<Navbar inverse collapseOnSelect>
+			    <Navbar.Header>
+			    	<LinkContainer to="/">
+			      		<Navbar.Brand>MARVEL</Navbar.Brand>
+			     	</LinkContainer>
+			      <Navbar.Toggle />
+			    </Navbar.Header>
+			    <Navbar.Collapse>
+			      <Nav pullLeft>
+			      	<LinkContainer exact={true} to="/">
+				        <NavItem eventKey={1} >HOME</NavItem>
+				    </LinkContainer>
+				    <LinkContainer to="/characters">
+				        <NavItem eventKey={2} >CHARACTERS</NavItem>
+				    </LinkContainer>
+				    <LinkContainer to="/creators">
+				        <NavItem eventKey={3} >CREATORS</NavItem>
+				    </LinkContainer>
+				 	<LinkContainer to="/events">
+				        <NavItem eventKey={4} >EVENTS</NavItem>
+				    </LinkContainer>
+				    <LinkContainer to="/series">
+				        <NavItem eventKey={5} >SERIES</NavItem>
+				    </LinkContainer>
+				    <LinkContainer to="/about">
+				        <NavItem eventKey={6} >ABOUT</NavItem>
+				    </LinkContainer>    
+			      </Nav>
+				</Navbar.Collapse>
+			</Navbar>
 		)
 	}
 }

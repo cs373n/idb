@@ -10,4 +10,4 @@ class Home extends React.Component{
 	}
 }
 
-module.exports = App;
+module.exports = Home;
