@@ -3,19 +3,11 @@ var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 
-var navStyle = { 
-	backgroundColor: 'red', 
-	fontSize: '22px'
-};
-
-var brandFont = {
-	fontSize: '30px'
-};
 
 class NavBar extends React.Component {
 	render() {
 		return (
-			<Navbar inverse collapseOnSelect>
+			<Navbar fixedTop inverse collapseOnSelect>
 			    <Navbar.Header>
 			    	<LinkContainer to="/">
 			      		<Navbar.Brand>MARVEL</Navbar.Brand>
