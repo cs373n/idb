@@ -1,4 +1,4 @@
 .idea/
-scrape/__pycache__
+app/scrape/__pycache__
 node_modules
 dist

@@ -1,5 +1,5 @@
 '''
-WARNING running this will erase the entire Series table from the database
+WARNING running this will erase the entire database and reinitialize the tables
 '''
 
 def main():
@@ -8,9 +8,7 @@ def main():
 
     if x=="delete":
         from models import db
-        from models import Series
-
- 	
+         	
 	# delete existing table
 	db.drop_all()
 
