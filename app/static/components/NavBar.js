@@ -3,11 +3,16 @@ var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 
+var navStyle = {
+    marginBottom: '0',
+    borderRadius: '0',
+    backgroundColor: 'red',
+};
 
 class NavBar extends React.Component {
 	render() {
 		return (
-			<Navbar fixedTop inverse collapseOnSelect>
+			<Navbar inverse collapseOnSelect>
 			    <Navbar.Header>
 			    	<LinkContainer to="/">
 			      		<Navbar.Brand>MARVEL</Navbar.Brand>
@@ -15,7 +20,7 @@ class NavBar extends React.Component {
 			      <Navbar.Toggle />
 			    </Navbar.Header>
 			    <Navbar.Collapse>
-			      <Nav pullLeft>
+			      <Nav>
 			      	<LinkContainer exact={true} to="/">
 				        <NavItem eventKey={1} >HOME</NavItem>
 				    </LinkContainer>

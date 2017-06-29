@@ -2,8 +2,8 @@ var axios = require('axios');
 
 var urlEndPoint = "http://gateway.marvel.com/v1/public/";
 var ts = new Date().getTime();
-var privateKey = "c0cca37e9e919d673f13d91eadaaa1c7c683c745"
-var publicKey = "8097970cb5bc96d3dd151e9f983b76c8";
+var privateKey = ""
+var publicKey = "";
 var md5 = require('md5');
 var md5hash = md5(ts+privateKey+publicKey);
 
@@ -23,6 +23,39 @@ module.exports = {
 
 	      // data.data?? .....y tho
 	      return response.data.data.results; // Return an array of characters
+	   	});
+  	},
+
+  	getCreators: function () {
+    var encodedURI = window.encodeURI(urlEndPoint + "/creators" + params);
+
+	return axios.get(encodedURI)
+	    .then(function (response) {
+
+	      // data.data?? .....y tho
+	      return response.data.data.results; // Return an array of creators
+	   	});
+  	},
+
+  	getEvents: function () {
+    var encodedURI = window.encodeURI(urlEndPoint + "/events" + params);
+
+	return axios.get(encodedURI)
+	    .then(function (response) {
+
+	      // data.data?? .....y tho
+	      return response.data.data.results; // Return an array of creators
+	   	});
+  	},
+
+  	getSeries: function () {
+    var encodedURI = window.encodeURI(urlEndPoint + "/series" + params);
+
+	return axios.get(encodedURI)
+	    .then(function (response) {
+
+	      // data.data?? .....y tho
+	      return response.data.data.results; // Return an array of creators
 	   	});
   	}
 };

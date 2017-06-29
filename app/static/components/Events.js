@@ -8,34 +8,34 @@ var fixMargin = {
 	margin: '0'
 }
 
-class Creators extends React.Component{
+class Events extends React.Component{
 	constructor(props) {
 	    super();
 	    this.state = {
-	      creators: null
+	      events: null
     	};
 
     	// Maybe.... this.updateChars = this.updateChars.bind(this);
   	}
 
 	componentDidMount() {
-	    this.updateCreators(this.state.creators)
+	    this.updateEvents(this.state.events)
 	}
 
-	updateCreators(creators) {
+	updateEvents(events) {
 
 		this.setState(function() {
 			return {
-				creators: creators
+				events: events
 			}
 		});
 
-		api.getCreators()
-	      .then(function (creators) {
+		api.getEvents()
+	      .then(function (events) {
 	        this.setState(function () {
-	          console.log(creators)
+	          console.log(events)
 	          return {
-	            creators: creators
+	            events: events
 	          }
 	        });
 	      }.bind(this));
@@ -43,9 +43,9 @@ class Creators extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var creatorsCopy = this.state.creators
-		for(var i = 0; i < creatorsCopy.length; i++) {
-			cardsArray.push(<Card name={creatorsCopy[i].fullName} img={creatorsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+		var eventsCopy = this.state.events
+		for(var i = 0; i < eventsCopy.length; i++) {
+			cardsArray.push(<Card name={eventsCopy[i].fullName} img={eventsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
 		}
 		return cardsArray;
 	}
@@ -53,9 +53,9 @@ class Creators extends React.Component{
 	render(){
 		return(
 			<div className="container">
-				<PageHeader className="text-center" style={fixMargin}>CREATORS</PageHeader>
+				<PageHeader className="text-center" style={fixMargin}>EVENTS</PageHeader>
 
-				{!this.state.creators
+				{!this.state.events
 		          ? <p>LOADING!</p>
 		          /* Table here */
 		          : <Table cards={this.createCards()}/>
@@ -66,4 +66,4 @@ class Creators extends React.Component{
 
 }
 
-module.exports = Creators;
+module.exports = Events;

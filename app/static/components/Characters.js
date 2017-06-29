@@ -1,6 +1,12 @@
 var React = require('react');
 import { PageHeader } from 'react-bootstrap';
-var api = require('./api.js')
+var api = require('./api.js');
+var Table = require('./Table.js');
+var Card = require('./Card.js')
+
+var fixMargin = {
+	margin: '0'
+}
 
 class Characters extends React.Component{
 	constructor(props) {
@@ -35,17 +41,24 @@ class Characters extends React.Component{
 	      }.bind(this));
 	}
 
+	createCards() {
+		var cardsArray = [];
+		var charsCopy = this.state.characters
+		for(var i = 0; i < charsCopy.length; i++) {
+			cardsArray.push(<Card name={charsCopy[i].name} img={charsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+		}
+		return cardsArray;
+	}
+
 	render(){
 		return(
-			<div>
-				<div>
-					<PageHeader className="text-center">CHARACTERS</PageHeader>
-				</div>
+			<div className="container">
+				<PageHeader className="text-center" style={fixMargin}>CHARACTERS</PageHeader>
 
 				{!this.state.characters
 		          ? <p>LOADING!</p>
 		          /* Table here */
-		          : "pls wrk" + this.state.characters[0].name + "\n" + this.state.characters[0].description
+		          : <Table cards={this.createCards()}/>
 		        }
 			</div>
 		)

@@ -2,3 +2,5 @@
 app/scrape/__pycache__
 node_modules
 dist
+app/npm-debug.log
+npm-debug.log

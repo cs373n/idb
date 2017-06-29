@@ -8,34 +8,34 @@ var fixMargin = {
 	margin: '0'
 }
 
-class Creators extends React.Component{
+class Series extends React.Component{
 	constructor(props) {
 	    super();
 	    this.state = {
-	      creators: null
+	      series: null
     	};
 
     	// Maybe.... this.updateChars = this.updateChars.bind(this);
   	}
 
 	componentDidMount() {
-	    this.updateCreators(this.state.creators)
+	    this.updateSeries(this.state.series)
 	}
 
-	updateCreators(creators) {
+	updateSeries(series) {
 
 		this.setState(function() {
 			return {
-				creators: creators
+				series: series
 			}
 		});
 
-		api.getCreators()
-	      .then(function (creators) {
+		api.getSeries()
+	      .then(function (series) {
 	        this.setState(function () {
-	          console.log(creators)
+	          console.log(series)
 	          return {
-	            creators: creators
+	            series: series
 	          }
 	        });
 	      }.bind(this));
@@ -43,9 +43,9 @@ class Creators extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var creatorsCopy = this.state.creators
-		for(var i = 0; i < creatorsCopy.length; i++) {
-			cardsArray.push(<Card name={creatorsCopy[i].fullName} img={creatorsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+		var seriesCopy = this.state.series
+		for(var i = 0; i < seriesCopy.length; i++) {
+			cardsArray.push(<Card name={seriesCopy[i].fullName} img={seriesCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
 		}
 		return cardsArray;
 	}
@@ -53,9 +53,9 @@ class Creators extends React.Component{
 	render(){
 		return(
 			<div className="container">
-				<PageHeader className="text-center" style={fixMargin}>CREATORS</PageHeader>
+				<PageHeader className="text-center" style={fixMargin}>Series</PageHeader>
 
-				{!this.state.creators
+				{!this.state.series
 		          ? <p>LOADING!</p>
 		          /* Table here */
 		          : <Table cards={this.createCards()}/>
@@ -66,4 +66,4 @@ class Creators extends React.Component{
 
 }
 
-module.exports = Creators;
+module.exports = Series;
