@@ -1,10 +1,10 @@
 import requests, json, time, datetime, hashlib
-from models import db, Creator
+from models import db, Event
 
 class MarvelRequest():
     def __init__(self):
-        self.privateKey = "**********************************"
-		self.publicKey = "***************************"
+        self.privateKey = ""
+	self.publicKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -43,17 +43,16 @@ def main():
 	    desc = ""
 	    path = ""
 	    numCreators = ""
-        numChars = ""
+            numChars = ""
 	    numComics = ""
 	    numSeries = ""    
 
 
 	    for events_meta_keys, events_meta_data in events['data'].items():
-		# series_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
+		# events_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
 		if events_meta_keys == 'results':
-		    for series in events_meta_data:
-			#if series['id'] != "":
-			if events['description'] != "":
+		    for events in events_meta_data:
+			if events['id'] != "":
 			    for events_attribute_keys, events_attribute in events.items():
 				# now stepping through title, description, thumbnail, etc.
 				if events_attribute_keys == 'id':
@@ -82,29 +81,29 @@ def main():
 				    for v in temp :
 				    	if v == 'image_not_available':
 				    		path = None
-				   	if path != None:
-				   		path =  path + '.' + series_attribute['extension']
-				    print (path)
+				    if path != None:
+				        path =  path + '.' + events_attribute['extension']
+				    #print (path)
 
 				elif events_attribute_keys == 'creators':
-				    #print("Comics in series: " + str(series_attribute['available']))
+				    #print("Comics in events: " + str(series_attribute['available']))
 				    numCreators = str(events_attribute['available'])
 
 				elif events_attribute_keys == 'characters':
-				    #print("Characters in series: " + str(series_attribute['available']))
+				    #print("Characters in events: " + str(series_attribute['available']))
 				    numChars = str(events_attribute['available'])
 				
 				elif events_attribute_keys == 'comics':
-				    #print("Comics in series: " + str(series_attribute['available']))
+				    #print("Comics in events: " + str(series_attribute['available']))
 				    numComics = str(events_attribute['available'])
 
 				elif events_attribute_keys == 'series':
-				    #print("Number of events in series: " + str(series_attribute['available']))
+				    #print("Number of series in event: " + str(series_attribute['available']))
 				    numSeries = str(events_attribute['available'])
-				    uris = []
-				    for series in events_attribute['items'] :
-				    	resource_path = str(series['resourceURI']).split('/')
-				    	uris += resource_path[-1]
+				    #uris = []
+				    #fori events in events_attribute['items'] :
+				    #	resource_path = str(events['resourceURI']).split('/')
+				    #	uris += resource_path[-1]
 
 			    #print('\n')
 			    newEntry = Event(idNum, title, desc, path, numCreators, numChars, numComics, numSeries)

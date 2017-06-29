@@ -1,10 +1,10 @@
 import requests, json, time, datetime, hashlib
-from models import db, Series
+from models import db, Series, Event, Character, Creator
 
 class MarvelRequest():
     def __init__(self):
- 	self.publicKey = "9f6871291df763f4dad8bf8f7b1c290e"
-        self.privateKey = "b22cea6ea538c71e8d3524cbf13f8da4eb3d6c02"
+ 	self.publicKey = ""
+        self.privateKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -31,7 +31,7 @@ def main():
 
 	index = 0
 
-	for offset in range(0, 10000, 20):
+	for offset in range(1020, 10000, 20):
 
 	    response = marvel.request("series", offset)  # No trailing slash allowed here
 	    print(response.status_code)
@@ -92,30 +92,38 @@ def main():
 				    for v in temp :
 				    	if v == 'image_not_available':
 				    		path = None
-				   	if path != None:
-				   		path =  path + '.' + series_attribute['extension']
-				    print (path)
+				    if path != None:
+				       path =  str(path) + '.' + str(series_attribute['extension'])
+				    #  print (path)
 
 				elif series_attribute_keys == 'creators':
 				    #print("Comics in series: " + str(series_attribute['available']))
 				    numCreators = str(series_attribute['available'])
+				    #creator_ids = []
+				    #for creator_uri in series_attribute['items']:
+			            #    resource_path = creator_uri['resourceURI'].split('/')
+				    #	creator_ids.append(resource_path[-1])
 
 				elif series_attribute_keys == 'characters':
 				    #print("Characters in series: " + str(series_attribute['available']))
 				    numChars = str(series_attribute['available'])
-				
+				    #character_ids = []
+				    #for character in series_attribute['items']:
+			            #    resource_path = character['resourceURI'].split('/')
+				    #	character_ids += resource_path[-1]
+
 				elif series_attribute_keys == 'comics':
-				    #print("Comics in series: " + str(series_attribute['available']))
 				    numComics = str(series_attribute['available'])
 
 				elif series_attribute_keys == 'events':
-				    #print("Number of events in series: " + str(series_attribute['available']))
 				    numEvents = str(series_attribute['available'])
-				    #for events in series_attribute['items']:
-				    #    print("Events: " + events['name'])
+				    #event_ids = []
+				    #for event in series_attribute['items']:
+			            #    resource_path = creator['resourceURI'].split('/')
+				    #	event_ids += resource_path[-1]
 
-			    #print('\n')
-			    newEntry = Series(idNum, title, desc, start, end, path, numCreators, numCharacters, numComics, numEvents)
+
+			    newEntry = Series(idNum, title, desc, start, end, path, numCreators, numChars, numComics, numEvents)
 			    db.session.merge(newEntry)
 			    db.session.commit()
 			    index += 1	

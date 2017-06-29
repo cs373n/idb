@@ -3,8 +3,8 @@ from models import db, Creator
 
 class MarvelRequest():
     def __init__(self):
-        self.privateKey = "**********************************"
-		self.publicKey = "***************************"
+        self.privateKey = ""
+	self.publicKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -38,29 +38,29 @@ def main():
 	    assert response.status_code == 200
 	    creators = json.loads(response.text)
 
-	    idNum = ""
-	    full_name = ""
-	    path = ""
-	    numComics = ""
-	    numSeries = ""  
-	    numEvents = ""  
+	    #idNum = ""
+	    #full_name = ""
+	    #path = ""
+	    #numComics = ""
+	    #numSeries = ""  
+	    #numEvents = ""  
 
 
 	    for creators_meta_keys, creators_meta_data in creators['data'].items():
-		# series_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
+		# creators_meta_keys: offset, limit, total, count, results[] from Marvel JSON structure
 		if creators_meta_keys == 'results':
-		    for series in creators_meta_data:
-			#if series['id'] != "":
-			if creators['description'] != "":
+		    for creators in creators_meta_data:
+			if creators['id'] != "":
+			#if creators['description'] != "":
 			    for creators_attribute_keys, creators_attribute in creators.items():
 				# now stepping through title, description, thumbnail, etc.
 				if creators_attribute_keys == 'id':
-				    idNum = str(creators_attribute)
+				    idNum = creators_attribute
 				    #idNum = idNum.encode('utf-8')
 				
 				elif creators_attribute_keys == 'fullName':
 				    full_name = creators_attribute
-				    full_name = title.encode('utf-8')
+				    full_name = full_name.encode('utf-8')
 				    #print('Title: ' + title)
 
 				elif creators_attribute_keys == 'thumbnail':
@@ -69,30 +69,30 @@ def main():
 				    for v in temp :
 				    	if v == 'image_not_available':
 				    		path = None
-				   	if path != None:
-				   		path =  path + '.' + series_attribute['extension']
-				    print (path)
+				    if path != None:
+				        path =  path + '.' + creators_attribute['extension']
+				    #print (path)
 
 				elif creators_attribute_keys == 'comics':
-				    #print("Comics in series: " + str(series_attribute['available']))
+				    #print("Comics in creators: " + str(creators_attribute['available']))
 				    numComics = str(creators_attribute['available'])
 
 				elif creators_attribute_keys == 'series':
 				    #print("Number of events in series: " + str(series_attribute['available']))
 				    numSeries = str(creators_attribute['available'])
-				    uris = []
-				    for series in creators_attribute['items'] :
-				    	resource_path = str(series['resourceURI']).split('/')
-				    	uris += resource_path[-1]
+				    #uris = []
+				    #for series in creators_attribute['items'] :
+				    #	resource_path = str(series['resourceURI']).split('/')
+				    #	uris += resource_path[-1]
 
 
-				 elif creators_attribute_keys == 'events':
-				    #print("Number of events in series: " + str(series_attribute['available']))
+	                        elif creators_attribute_keys == 'events':
+				    #print("Number of events in creators: " + str(creators_attribute['available']))
 				    numEvents = str(creators_attribute['available'])
-				   	uris = []
-				    for events in creators_attribute['items'] :
-				    	resource_path = str(events['resourceURI']).split('/')
-				    	uris += resource_path[-1]
+				    #	uris = []
+				    #for events in creators_attribute['items'] :
+				    #	resource_path = str(events['resourceURI']).split('/')
+				    #	uris += resource_path[-1]
 
 			    newEntry = Creator(idNum, full_name, path, numComics, numSeries, numEvents)
 			    db.session.merge(newEntry)
