@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+//var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: './app/static/components/App.js',
@@ -13,9 +13,9 @@ module.exports = {
 		{ test: /\.(js)$/, use: 'babel-loader' },
 		{ test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}
 		]
-	},
+	}
 
-	plugins: [new HtmlWebpackPlugin({
+	/*plugins: [new HtmlWebpackPlugin({
 		template: 'app/templates/index.html'
-		})]
+		})]*/
 }
