@@ -10,19 +10,23 @@ class Card extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      name: props.name,
-	      image: props.img
+	      modelInstance: props.modelInstance,
+	      modelLink: props.modelLink
     	};
     }
 	render() {
+		const { modelInstance } = this.state;
+		var title = modelInstance.name ? modelInstance.name : modelInstance.title;
 		return (
 			<div>
 				<div className="text-center" style={cardStyle}>
-					{this.state.name}
+					{title}
 				</div>
 				<div>
-					<Link to="/characterInstance">
-						<img className="img-responsive center-block img-rounded" src={this.state.image} alt={this.state.name}/>
+					<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
+						<img className="img-responsive center-block img-rounded" 
+							 src={modelInstance.img} 
+							 alt={title}/>
 					</Link>
 				</div>
 			</div>
