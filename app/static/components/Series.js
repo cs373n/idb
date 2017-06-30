@@ -45,7 +45,7 @@ class Series extends React.Component{
 		var cardsArray = [];
 		var seriesCopy = this.state.series
 		for(var i = 0; i < seriesCopy.length; i++) {
-			cardsArray.push(<Card name={seriesCopy[i].fullName} img={seriesCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+			cardsArray.push(<Card name={seriesCopy[i].title} img={seriesCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
 		}
 		return cardsArray;
 	}
