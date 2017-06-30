@@ -30,10 +30,10 @@ class Characters extends React.Component{
 			}
 		});
 
-		api.getCharacters()
+		api.getOurCharacters()
 	      .then(function (chars) {
 	        this.setState(function () {
-	          console.log(chars)
+	          console.log("In Characters.js: " + chars)
 	          return {
 	            characters: chars
 	          }
@@ -43,9 +43,16 @@ class Characters extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var charsCopy = this.state.characters
+		var charsCopy = this.state.characters;
 		for(var i = 0; i < charsCopy.length; i++) {
-			cardsArray.push(<Card name={charsCopy[i].name} img={charsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+			if(charsCopy[i].img && charsCopy[i].img != "") {
+				charsCopy[i].img = charsCopy[i].img.slice(0, -4);
+				cardsArray.push(<Card name={charsCopy[i].name} img={charsCopy[i].img+"/standard_xlarge.jpg"} />);
+			}
+
+			else {
+				cardsArray.push(<Card name={charsCopy[i].name} img={"http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg"} />);
+			}
 		}
 		return cardsArray;
 	}
