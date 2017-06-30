@@ -1,6 +1,6 @@
 // Cool Class Diagram
-[Series|title:string; image: string; description:string; start_yr: int; end_yr: int]
-[Character|id:int; name:string; image:string; height: int; weight: int; character_type: string]
-[Event|title:string; image: string; description: string]
-[Comic|name:string; description: string; image: string; UPC: string; page_ct: int; price: double]
-[Series]1..*-1..*[Character], [Character]1..*-1..*[Comic], [Character]0..*-1..*[Event], [Series]1..*-1[Comic], [Series]0..*-0..*[Event], [Event]0..*-1[Comic]
+[Series|id:int; title:string; desc: string; start: int; end: int; img: string; num_creators: int; num_characters: int; num_comics: int; num_events: int]
+[Character|id:int; name:string; desc: string; img:string; num_comics: int; num_series: int; num_events: int]
+[Event|id:int; title:string; desc: string; img: string; num_creators: int; num_characters: int; num_comics: int; num_series: int]
+[Creator|id:int; full_name: string; img: string; num_comics: int; num_series: int; num_events: int]
+[Series]0..*-1..*[Character], [Series]1..*-1..*[Creator], [Character]0..*-1..*[Event], [Character]0..*-1..*[Series],[Series]1..*-1[Creator], [Series]0..*-1..*[Event], [Event]1..*-0..*[Creator]
