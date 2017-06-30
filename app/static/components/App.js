@@ -16,6 +16,8 @@ var Series = require('./Series.js');
 // Instance Pages
 var CharacterInstance = require('./CharacterInstance.js');
 
+// Home Pages Cards
+var Card = require('./Card.js');
 
 class App extends React.Component {
 	render() {
@@ -28,14 +30,17 @@ class App extends React.Component {
 						<Route exact path='/' component={Home} />
 						
 						<Route path='/characters' component={Characters} />
-						<Route path='/characterInstance' component={CharacterInstance} />
+						<Route path='/characterInstance/:charID' component={CharacterInstance} />
 
 						<Route path='/creators' component={Creators} />
+						<Route path='/characterInstance/:creatorID' component={CreatorInstance} />
 						
 						<Route path='/events' component={Events} />
+						<Route path='/characterInstance/:eventID' component={EventsInstance} />
 						
 						<Route path='/series' component={Series} />
-						
+						<Route path='/characterInstance/:seriesID' component={SeriesInstance} />
+
 						<Route render={function() {
 							return <p>Page Not Found!</p>
 						}} />
