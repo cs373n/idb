@@ -19,7 +19,7 @@ class Characters extends React.Component{
   	}
 
 	componentDidMount() {
-	    this.updateChars(this.state.characters)
+	    this.updateChars(this.state.characters);
 	}
 
 	updateChars(chars) {
@@ -30,10 +30,9 @@ class Characters extends React.Component{
 			}
 		});
 
-		api.getOurCharacters()
+		api.getCharacters()
 	      .then(function (chars) {
 	        this.setState(function () {
-	          console.log("In Characters.js: " + chars)
 	          return {
 	            characters: chars
 	          }
@@ -46,12 +45,17 @@ class Characters extends React.Component{
 		var charsCopy = this.state.characters;
 		for(var i = 0; i < charsCopy.length; i++) {
 			if(charsCopy[i].img && charsCopy[i].img != "") {
-				charsCopy[i].img = charsCopy[i].img.slice(0, -4);
-				cardsArray.push(<Card name={charsCopy[i].name} img={charsCopy[i].img+"/standard_xlarge.jpg"} />);
+				charsCopy[i].img = charsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/characterInstance" 
+								      modelInstance={charsCopy[i]} />);
+				console.log(charsCopy[i]);
 			}
 
 			else {
-				cardsArray.push(<Card name={charsCopy[i].name} img={"http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg"} />);
+				charsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+				console.log(charsCopy[i]);
+				cardsArray.push(<Card modelLink="/characterInstance" 
+								 	  modelInstance={charsCopy[i]} />);
 			}
 		}
 		return cardsArray;
