@@ -1,4 +1,5 @@
 import { Well } from 'react-bootstrap';
+var Link = require('react-router-dom').Link;
 var React = require('react');
 
 var cardStyle = {
@@ -20,7 +21,9 @@ class Card extends React.Component {
 					{this.state.name}
 				</div>
 				<div>
-					<img className="img-responsive center-block img-rounded" src={this.state.image} alt={this.state.name}/>
+					<Link to="/characterInstance">
+						<img className="img-responsive center-block img-rounded" src={this.state.image} alt={this.state.name}/>
+					</Link>
 				</div>
 			</div>
 		)
