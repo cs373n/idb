@@ -13,6 +13,9 @@ var Creators = require('./Creators.js');
 var Events = require('./Events.js');
 var Series = require('./Series.js');
 
+// Instance Pages
+var CharacterInstance = require('./CharacterInstance.js');
+
 
 class App extends React.Component {
 	render() {
@@ -23,10 +26,16 @@ class App extends React.Component {
 				<div>
 					<Switch>
 						<Route exact path='/' component={Home} />
+						
 						<Route path='/characters' component={Characters} />
+						<Route path='/characterInstance' component={CharacterInstance} />
+
 						<Route path='/creators' component={Creators} />
+						
 						<Route path='/events' component={Events} />
+						
 						<Route path='/series' component={Series} />
+						
 						<Route render={function() {
 							return <p>Page Not Found!</p>
 						}} />
