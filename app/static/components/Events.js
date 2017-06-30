@@ -45,7 +45,7 @@ class Events extends React.Component{
 		var cardsArray = [];
 		var eventsCopy = this.state.events
 		for(var i = 0; i < eventsCopy.length; i++) {
-			cardsArray.push(<Card name={eventsCopy[i].fullName} img={eventsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+			cardsArray.push(<Card name={eventsCopy[i].title} img={eventsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
 		}
 		return cardsArray;
 	}
