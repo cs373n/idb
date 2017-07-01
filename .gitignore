@@ -6,3 +6,4 @@ app/npm-debug.log
 npm-debug.log
 paulcommit.sh
 deancommit.sh
+*.pyc
