@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.schema import ForeignKey
-import flask.ext.restless
-from flask.ext.cors import CORS
 
 db = SQLAlchemy()
 
@@ -43,9 +41,9 @@ class Series(db.Model):
     num_comics = db.Column(db.Integer)
     num_events = db.Column(db.Integer)
     
-    characters = db.relationship('Character', secondary=character_series, backref=db.backref('character_series_backref', lazy='dynamic'))
-    creators = db.relationship('Creator', secondary=creator_series, backref=db.backref('creator_series_backref', lazy='dynamic'))
-    events = db.relationship('Event', secondary=event_series, backref=db.backref('event_series_backref', lazy='dynamic'))
+    characters = db.relationship('Character', secondary=character_series, backref=db.backref('series', lazy='dynamic'))
+    creators = db.relationship('Creator', secondary=creator_series, backref=db.backref('series', lazy='dynamic'))
+    events = db.relationship('Event', secondary=event_series, backref=db.backref('series', lazy='dynamic'))
     
     def __init__(self, id, title, desc, start, end, img, num_creators, num_characters, num_comics, num_events):
     	assert title != ""
@@ -61,9 +59,9 @@ class Series(db.Model):
         self.img = img
         self.num_creators = num_creators
         self.num_characters = num_characters
-        #self.num_comics = num_comics
-        #self.num_events = num_events
-    ''
+        self.num_comics = num_comics
+        self.num_events = num_events
+    
 
 # Models a Character object
 class Character(db.Model):
@@ -75,7 +73,7 @@ class Character(db.Model):
     num_series = db.Column(db.Integer)
     num_events = db.Column(db.Integer)
     
-    events = db.relationship('Event', secondary=character_event, backref=db.backref('character_event_backref', lazy='dynamic'))
+    events = db.relationship('Event', secondary=character_event, backref=db.backref('characters', lazy='dynamic'))
 
 
     def __init__(self, id, name, desc, img, num_comics, num_series, num_events):
@@ -102,7 +100,7 @@ class Event(db.Model):
     num_comics = db.Column(db.Integer)
     num_series = db.Column(db.Integer)
 
-    creators = db.relationship('Creator', secondary=creator_event, backref=db.backref('creator_event_backref', lazy='dynamic'))
+    creators = db.relationship('Creator', secondary=creator_event, backref=db.backref('events', lazy='dynamic'))
 
 
     def __init__(self, id, title, desc, img, num_creators, num_characters, num_comics, num_series):
