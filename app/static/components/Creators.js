@@ -14,8 +14,6 @@ class Creators extends React.Component{
 	    this.state = {
 	      creators: null
     	};
-
-    	// Maybe.... this.updateChars = this.updateChars.bind(this);
   	}
 
 	componentDidMount() {
@@ -33,7 +31,6 @@ class Creators extends React.Component{
 		api.getCreators()
 	      .then(function (creators) {
 	        this.setState(function () {
-	          console.log(creators)
 	          return {
 	            creators: creators
 	          }
@@ -43,9 +40,19 @@ class Creators extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var creatorsCopy = this.state.creators
+		var creatorsCopy = this.state.creators;
 		for(var i = 0; i < creatorsCopy.length; i++) {
-			cardsArray.push(<Card name={creatorsCopy[i].fullName} img={creatorsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+			if(creatorsCopy[i].img && creatorsCopy[i].img != "") {
+				creatorsCopy[i].img = creatorsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/creatorInstance" 
+								      modelInstance={creatorsCopy[i]} />);
+			}
+
+			else {
+				creatorsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/creatorInstance" 
+								 	  modelInstance={creatorsCopy[i]} />);
+			}
 		}
 		return cardsArray;
 	}

@@ -33,7 +33,6 @@ class Events extends React.Component{
 		api.getEvents()
 	      .then(function (events) {
 	        this.setState(function () {
-	          console.log(events)
 	          return {
 	            events: events
 	          }
@@ -43,9 +42,19 @@ class Events extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var eventsCopy = this.state.events
+		var eventsCopy = this.state.events;
 		for(var i = 0; i < eventsCopy.length; i++) {
-			cardsArray.push(<Card name={eventsCopy[i].title} img={eventsCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+			if(eventsCopy[i].img && eventsCopy[i].img != "") {
+				eventsCopy[i].img = eventsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/eventInstance" 
+								      modelInstance={eventsCopy[i]} />);
+			}
+
+			else {
+				eventsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/eventInstance" 
+								 	  modelInstance={eventsCopy[i]} />);
+			}
 		}
 		return cardsArray;
 	}

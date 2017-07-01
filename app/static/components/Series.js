@@ -33,7 +33,6 @@ class Series extends React.Component{
 		api.getSeries()
 	      .then(function (series) {
 	        this.setState(function () {
-	          console.log(series)
 	          return {
 	            series: series
 	          }
@@ -43,9 +42,19 @@ class Series extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var seriesCopy = this.state.series
+		var seriesCopy = this.state.series;
 		for(var i = 0; i < seriesCopy.length; i++) {
-			cardsArray.push(<Card name={seriesCopy[i].title} img={seriesCopy[i].thumbnail.path+"/standard_xlarge.jpg"} />);
+			if(seriesCopy[i].img && seriesCopy[i].img != "") {
+				seriesCopy[i].img = seriesCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/seriesInstance" 
+								      modelInstance={seriesCopy[i]} />);
+			}
+
+			else {
+				seriesCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/seriesInstance" 
+								 	  modelInstance={seriesCopy[i]} />);
+			}
 		}
 		return cardsArray;
 	}
@@ -53,7 +62,7 @@ class Series extends React.Component{
 	render(){
 		return(
 			<div className="container">
-				<PageHeader className="text-center" style={fixMargin}>Series</PageHeader>
+				<PageHeader className="text-center" style={fixMargin}>SERIES</PageHeader>
 
 				{!this.state.series
 		          ? <p>LOADING!</p>

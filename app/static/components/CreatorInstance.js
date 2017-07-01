@@ -8,49 +8,50 @@ var h2Font = {
 	fontSize: '20px',
 };
 
-class CharacterInstance extends React.Component {
+class CreatorInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      character: null
+	      creator: null
     	};
   	}
 
 	componentDidMount() {
-	    this.updateCharacter(this.state.character);
+	    this.updateCreator(this.state.creator);
 	}
 
-	updateCharacter(char) {
-		var charID = this.props.match.params.charID;
+	updateCreator(creator) {
+		var charID = this.props.match.params.creatorID;
 
 		this.setState(function() {
 			return {
-				character: char
+				creator: creator
 			}
 		});
 
-		api.getCharacter(charID)
-	      .then(function (char) {
+		api.getCreator(charID)
+	      .then(function (creator) {
 	        this.setState(function () {
 	          return {
-	            character: char
+	            creator: creator
 	          }
 	        });
 	      }.bind(this));
 	}
 
 	fixImage() {
-		const { character } = this.state;
+		const { creator } = this.state;
 
-		if(character.img && character.img != "") {
-			return character.img.slice(0, -4) + "/portrait_incredible.jpg";
+		if(creator.img && creator.img != "") {
+			return creator.img.slice(0, -4) + "/portrait_incredible.jpg";
 		}
+
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
 	}
 
 	createSeriesCards() {
 		var cardsArray = [];
-		var assocSeries = this.state.character.character_series_backref;
+		var assocSeries = this.state.creator.creator_series_backref;
 		for(var i = 0; i < assocSeries.length; i++) {
 			if(assocSeries[i].img && assocSeries[i].img != "") {
 				assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
@@ -61,7 +62,7 @@ class CharacterInstance extends React.Component {
 
 			else {
 				assocSeries[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				console.log(assocSeries[i]);
+				console.log("createSeries in CreatorInstance" + assocSeries[i]);
 				cardsArray.push(<Card modelLink="/seriesInstance" 
 								 	  modelInstance={assocSeries[i]} />);
 			}
@@ -69,20 +70,20 @@ class CharacterInstance extends React.Component {
 		return cardsArray;
 	}
 
-	createEventsCards() {
+	createEventCards() {
 		var cardsArray = [];
-		var assocEvents = this.state.character.events;
+		var assocEvents = this.state.creator.creator_event_backref;
 		for(var i = 0; i < assocEvents.length; i++) {
 			if(assocEvents[i].img && assocEvents[i].img != "") {
 				assocEvents[i].img = assocEvents[i].img.slice(0, -4) + "/standard_xlarge.jpg";
 				cardsArray.push(<Card modelLink="/eventInstance" 
 								      modelInstance={assocEvents[i]}/>);
-				console.log(assocEvents[i]);
+				console.log("creator events: " + assocEvents[i]);
 			}
 
 			else {
 				assocEvents[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				console.log(assocEvents[i]);
+				console.log("creator events else: " + assocEvents[i]);
 				cardsArray.push(<Card modelLink="/eventInstance" 
 								 	  modelInstance={assocEvents[i]} />);
 			}
@@ -91,29 +92,29 @@ class CharacterInstance extends React.Component {
 	}
 
 	render() {
-		const { character } = this.state;
+		const { creator } = this.state;
 
-		if(!character) {
+		if(!creator) {
 			return <p>LOADING!</p>
 		}
 		else {
 
 			return (
 				<div className="container">
-					<PageHeader className="text-left">{character.name}</PageHeader>
+					<PageHeader className="text-left">{creator.name}</PageHeader>
 					<Grid>
 						<Row>
 							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={character.name}/>
+								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.name}/>
 							</Col>
 
 							<Col className="text-left" md={9}>
 								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{character.desc}</p>
+								<p>{creator.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
-									<li>Appears in {character.num_series} Series</li>
-									<li>Appears in {character.num_events} Events</li>
+									<li>Contributed to {creator.num_series} Series</li>
+									<li>Contributed to {creator.num_events} Events</li>
 								</ul>
 							</Col>
 						</Row>
@@ -128,7 +129,7 @@ class CharacterInstance extends React.Component {
 	    				</Tab>
 	    				<Tab eventKey={2} title="EVENTS">
 	    					<br/>
-	    					<Table cards={this.createEventsCards()}/>
+	    					<Table cards={this.createEventCards()}/>
 	    				</Tab>	
 	 				 </Tabs>
 
@@ -139,4 +140,4 @@ class CharacterInstance extends React.Component {
 	}
 }
 
-module.exports = CharacterInstance;
+module.exports = CreatorInstance;

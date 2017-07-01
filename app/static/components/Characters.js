@@ -14,8 +14,6 @@ class Characters extends React.Component{
 	    this.state = {
 	      characters: null
     	};
-
-    	// Maybe.... this.updateChars = this.updateChars.bind(this);
   	}
 
 	componentDidMount() {
@@ -48,7 +46,6 @@ class Characters extends React.Component{
 				charsCopy[i].img = charsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
 				cardsArray.push(<Card modelLink="/characterInstance" 
 								      modelInstance={charsCopy[i]} />);
-				console.log(charsCopy[i]);
 			}
 
 			else {
