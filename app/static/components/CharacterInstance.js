@@ -14,8 +14,6 @@ class CharacterInstance extends React.Component {
 	    this.state = {
 	      character: null
     	};
-
-    	// Maybe.... this.updateChars = this.updateChars.bind(this);
   	}
 
 	componentDidMount() {
@@ -24,7 +22,6 @@ class CharacterInstance extends React.Component {
 
 	updateCharacter(char) {
 		var charID = this.props.match.params.charID;
-		console.log("this.props.match.params: " + charID);
 
 		this.setState(function() {
 			return {
@@ -48,7 +45,6 @@ class CharacterInstance extends React.Component {
 		if(character.img && character.img != "") {
 			return character.img.slice(0, -4) + "/portrait_incredible.jpg";
 		}
-
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
 	}
 
@@ -79,7 +75,7 @@ class CharacterInstance extends React.Component {
 		for(var i = 0; i < assocEvents.length; i++) {
 			if(assocEvents[i].img && assocEvents[i].img != "") {
 				assocEvents[i].img = assocEvents[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/eventsInstance" 
+				cardsArray.push(<Card modelLink="/eventInstance" 
 								      modelInstance={assocEvents[i]}/>);
 				console.log(assocEvents[i]);
 			}
@@ -87,7 +83,7 @@ class CharacterInstance extends React.Component {
 			else {
 				assocEvents[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 				console.log(assocEvents[i]);
-				cardsArray.push(<Card modelLink="/eventsInstance" 
+				cardsArray.push(<Card modelLink="/eventInstance" 
 								 	  modelInstance={assocEvents[i]} />);
 			}
 		}
