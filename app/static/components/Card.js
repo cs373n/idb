@@ -17,6 +17,9 @@ class Card extends React.Component {
 	render() {
 		const { modelInstance } = this.state;
 		var title = modelInstance.name ? modelInstance.name : modelInstance.title;
+		if (title == null && modelInstance.full_name) {
+			title = modelInstance.full_name;
+		}
 		return (
 			<div>
 				<div className="text-center" style={cardStyle}>
