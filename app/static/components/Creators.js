@@ -32,7 +32,7 @@ class Creators extends React.Component{
 	      .then(function (creators) {
 	        this.setState(function () {
 	          return {
-	            creators: creators
+	            creators: creators.objects
 	          }
 	        });
 	      }.bind(this));

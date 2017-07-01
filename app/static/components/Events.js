@@ -34,7 +34,7 @@ class Events extends React.Component{
 	      .then(function (events) {
 	        this.setState(function () {
 	          return {
-	            events: events
+	            events: events.objects
 	          }
 	        });
 	      }.bind(this));

@@ -94,7 +94,7 @@ class SeriesInstance extends React.Component {
 		}
 		else {
 
-			console.log("SeriesInstance render(): " + series.title)
+			console.log("SeriesInstance render(): " + series.characters)
 			return (
 				<div className="container">
 					<PageHeader className="text-left">{series.title}</PageHeader>
