@@ -3,7 +3,6 @@ import { PageHeader, Pagination } from 'react-bootstrap';
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
-var CharacterPagination = require('./CharacterPagination.js');
 
 var fixMargin = {
 	margin: '0'
@@ -69,7 +68,7 @@ class Characters extends React.Component{
 		//this.updateChars(null);
 	}
 
-	createCards() {
+	/*createCards() {
 		var cardsArray = [];
 		var charsCopy = this.state.characters;
 		console.log("In create cards: " + charsCopy);
@@ -82,6 +81,25 @@ class Characters extends React.Component{
 
 			else {
 				charsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+				cardsArray.push(<Card modelLink="/characterInstance" 
+								 	  modelInstance={charsCopy[i]} />);
+			}
+		}
+		return cardsArray;
+	}*/
+
+	createCards() {
+		var cardsArray = [];
+		var charsCopy = this.state.characters;
+		console.log("In create cards: " + charsCopy);
+		for(var i = 0; i < charsCopy.length; i++) {
+			if(charsCopy[i].img && charsCopy[i].img != "") {
+				cardsArray.push(<Card modelLink="/characterInstance"
+					modelInstance={charsCopy[i]} />);
+			}
+
+			else {
+				charsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
 				cardsArray.push(<Card modelLink="/characterInstance" 
 								 	  modelInstance={charsCopy[i]} />);
 			}
