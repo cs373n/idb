@@ -4,7 +4,7 @@ to the appropriate function with the @app.route('/') decorator
 """ 
 
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS, cross-origin
 from flask_sqlalchemy import SQLAlchemy
 
 # latest stable version of flask-restless uses deprecated import syntax
