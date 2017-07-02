@@ -36,7 +36,11 @@ test: app/models.py app/tests.py .pylintrc
 	#-$(PYLINT) app/models.py
 	#-$(PYLINT) app/tests.py
 
-	-$(COVERAGE) report -m app/tests.py app/models.py app/idb.py
+	-$(COVERAGE) run --branch app/tests.py 
+	-$(COVERAGE) report --include=app/models.py 
+	-$(COVERAGE) report --include=app/idb.py
+	-$(COVERAGE) report --include=app/tests.py
+	python app/scrape/reset_database.py
 	python app/models.py
 	python app/tests.py
 
