@@ -26,14 +26,6 @@ module.exports = {
                     //'q': JSON.stringify({"filters": filter}),
                     'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
-
-
-                // q={"filters":[{"and":[{"name":"age","op":"lt","val":10},{"name":"age","op":"gt","val":20}]}]}
-
-			    /* var q = {order_by: [{field: $scope.sort_order, direction: $scope.sort_desc ? "desc": "asc"}]};
-			    if ($scope.query) {
-			        q.filters = [{name: "todo", op: "like", val: "%" + $scope.query + "%"} ];
-			    } */
             })
             .then(function(response) {
                 console.log("In getCharacters: ");
@@ -45,16 +37,24 @@ module.exports = {
             });
     },
 
-    getCreators: function() {
+    getCreators: function(page, filter, orderBy) {
+
         var encodedURI = window.encodeURI(baseURL + "creator");
-
+        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
+
                 headers: {
                     'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
-                console.log("In getCreators: " + response.data);
+                console.log("In getCreators: ");
+                console.log(response);
 
                 return response.data;
             }).catch(function(error) {
@@ -62,16 +62,24 @@ module.exports = {
             });
     },
 
-    getEvents: function() {
+    getEvents: function(page, filter, orderBy) {
+
         var encodedURI = window.encodeURI(baseURL + "event");
-
+        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
+
                 headers: {
                     'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
-                console.log("In getEvents: " + response.data);
+                console.log("In getEvents: ");
+                console.log(response);
 
                 return response.data;
             }).catch(function(error) {
@@ -79,7 +87,32 @@ module.exports = {
             });
     },
 
-    getSeries: function() {
+    getSeries: function(page, filter, orderBy) {
+
+        var encodedURI = window.encodeURI(baseURL + "series");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getSeries: ");
+                console.log(response);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    /*getSeries: function() {
         var encodedURI = window.encodeURI(baseURL + "series");
 
         return axios.get(encodedURI, {
@@ -94,7 +127,7 @@ module.exports = {
             }).catch(function(error) {
                 console.log(error);
             });
-    },
+    },*/
 
     // *******************************************************************
     // Begin scraping individual model instances, one instance is returned
