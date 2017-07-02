@@ -30,7 +30,6 @@ install:
 before_script:
     - uname -a
     - printenv | sort
-    - make versions
     - psql -c 'create database travis_ci_test;' -U postgres
 
 
@@ -38,5 +37,5 @@ script:
     - date
     - make test
 
-notifications:
-    slack: cs373-ut:NQeMTshj4bAVXnatgGvUaD6j
+#notifications:
+#    slack: cs373-ut:NQeMTshj4bAVXnatgGvUaD6j
