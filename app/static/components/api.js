@@ -1,61 +1,207 @@
 var axios = require('axios');
 
-var urlEndPoint = "http://gateway.marvel.com/v1/public/";
-var ts = new Date().getTime();
-var privateKey = ""
-var publicKey = "";
-var md5 = require('md5');
-var md5hash = md5(ts+privateKey+publicKey);
-
-// Construct the required URL params
-var params = "?ts=" + ts + "&apikey=" + publicKey + 
-	"&hash=" + md5hash;
-
-// Marvel Example URL:
-//http://gateway.marvel.com/v1/public/comics?ts=1&apikey=1234&hash=ffd275c5130566a2916217b101f26150
+var baseURL = "http://marveldb.net/api/";
 
 module.exports = {
-  getCharacters: function () {
-    var encodedURI = window.encodeURI(urlEndPoint + "/characters" + params);
 
-	return axios.get(encodedURI)
-	    .then(function (response) {
+    // ************************************************************************
+    // Begin scraping model homepages, returns 6 individual instances per query
+    // ************************************************************************
 
-	      // data.data?? .....y tho
-	      return response.data.data.results; // Return an array of characters
-	   	});
-  	},
+    getCharacters: function(page, filter, orderBy) {
 
-  	getCreators: function () {
-    var encodedURI = window.encodeURI(urlEndPoint + "/creators" + params);
+        // Endpoint is character... but returns many characters...
+        // (╯°□°)╯︵ ┻━┻ 
 
-	return axios.get(encodedURI)
-	    .then(function (response) {
+        var encodedURI = window.encodeURI(baseURL + "character");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
 
-	      // data.data?? .....y tho
-	      return response.data.data.results; // Return an array of creators
-	   	});
-  	},
+                headers: {
+                    'Content-Type': 'application/json'
+                },
 
-  	getEvents: function () {
-    var encodedURI = window.encodeURI(urlEndPoint + "/events" + params);
+                params: {
+                    'page': page,
+                    //'q': JSON.stringify({"filters": filter}),
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getCharacters: ");
+                console.log(response);
 
-	return axios.get(encodedURI)
-	    .then(function (response) {
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
 
-	      // data.data?? .....y tho
-	      return response.data.data.results; // Return an array of creators
-	   	});
-  	},
+    getCreators: function(page, filter, orderBy) {
 
-  	getSeries: function () {
-    var encodedURI = window.encodeURI(urlEndPoint + "/series" + params);
+        var encodedURI = window.encodeURI(baseURL + "creator");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
 
-	return axios.get(encodedURI)
-	    .then(function (response) {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
 
-	      // data.data?? .....y tho
-	      return response.data.data.results; // Return an array of creators
-	   	});
-  	}
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getCreators: ");
+                console.log(response);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getEvents: function(page, filter, orderBy) {
+
+        var encodedURI = window.encodeURI(baseURL + "event");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getEvents: ");
+                console.log(response);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getSeries: function(page, filter, orderBy) {
+
+        var encodedURI = window.encodeURI(baseURL + "series");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getSeries: ");
+                console.log(response);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    /*getSeries: function() {
+        var encodedURI = window.encodeURI(baseURL + "series");
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getSeries: " + response.data);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },*/
+
+    // *******************************************************************
+    // Begin scraping individual model instances, one instance is returned
+    // *******************************************************************
+
+    getCharacter: function(id) {
+        var encodedURI = window.encodeURI(baseURL + "character/" + id);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getCharacter: " + response.data);
+                return response.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getCreator: function(id) {
+        var encodedURI = window.encodeURI(baseURL + "creator/" + id);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getCreator: " + response.data);
+                return response.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getEvent: function(id) {
+        var encodedURI = window.encodeURI(baseURL + "event/" + id);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getEvent: " + response.data);
+                return response.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    // Downsides of being both plural and singular, and no method overloading
+    // ┬─┬﻿ ︵ /(.□. \）
+
+    getOneSeries: function(id) {
+        var encodedURI = window.encodeURI(baseURL + "series/" + id);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getOneSeries: " + response.data);
+                return response.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
 };
