@@ -9,7 +9,7 @@ else ifeq ($(CI), true)                # Travis CI
     PYTHON   := python3.5 
     PIP      := pip3.5 
     PYLINT   := pylint 
-    COVERAGE := coverage-3.5 
+    COVERAGE := coverage 
     PYDOC    := pydoc3.5 
     AUTOPEP8 := autopep8 
 else ifeq ($(shell uname -p), unknown) # Docker 
@@ -37,6 +37,7 @@ test: app/models.py app/tests.py .pylintrc
 	#-$(PYLINT) app/tests.py
 
 	-$(COVERAGE) report -m app/tests.py app/models.py app/idb.py
+	python app/models.py
 	python app/tests.py
 
 clean:
