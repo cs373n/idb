@@ -50,7 +50,7 @@ class CharacterInstance extends React.Component {
 
 	createSeriesCards() {
 		var cardsArray = [];
-		var assocSeries = this.state.character.character_series_backref;
+		var assocSeries = this.state.character.series;
 		for(var i = 0; i < assocSeries.length; i++) {
 			if(assocSeries[i].img && assocSeries[i].img != "") {
 				assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
