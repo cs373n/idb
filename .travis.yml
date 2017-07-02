@@ -30,12 +30,12 @@ install:
 before_script:
     - uname -a
     - printenv | sort
-    - psql -c 'create database travis_ci_test;' -U postgres
-
+    - psql -c 'create database marveldb;' -U postgres
+    - psql -c "ALTER USER postgres WITH PASSWORD 'idb';" -U postgres
 
 script:
     - date
     - make test
 
-#notifications:
-#    slack: cs373-ut:NQeMTshj4bAVXnatgGvUaD6j
+notifications:
+    slack: cs373-ut:NQeMTshj4bAVXnatgGvUaD6j
