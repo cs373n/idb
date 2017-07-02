@@ -4,7 +4,7 @@ to the appropriate function with the @app.route('/') decorator
 """ 
 
 from flask import Flask
-from flask.ext.cors import CORS
+from flask_cors import CORS
 import flask.ext.restless
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,6 +12,8 @@ app = Flask(__name__)
 CORS(app, headers=['Content-Type'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:idb@localhost/marveldb'
+app.config['SQLALCHEMY_POOL_SIZE'] = 100
+
 
 db = SQLAlchemy(app)
 
@@ -37,4 +39,5 @@ def home():
 
 
 if __name__ == '__main__':
+	app.DEBUG=True;
 	app.run()
