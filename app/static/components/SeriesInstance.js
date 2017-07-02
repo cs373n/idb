@@ -51,6 +51,7 @@ class SeriesInstance extends React.Component {
 	createCharacterCards() {
 		var cardsArray = [];
 		var assocCharacters = this.state.series.characters; // (╯°□°)╯︵ ┻━┻
+		if(assocCharacters) {
 			for(var i = 0; i < assocCharacters.length; i++) {
 				if(assocCharacters[i].img && assocCharacters[i].img != "") {
 					assocCharacters[i].img = assocCharacters[i].img.slice(0, -4) + "/standard_xlarge.jpg";
@@ -64,23 +65,26 @@ class SeriesInstance extends React.Component {
 									 	  modelInstance={assocCharacters[i]} />);
 				}
 			}
+		}
 		return cardsArray;
 	}
 
 	createCreatorCards() {
 		var cardsArray = [];
 		var assocCreators = this.state.series.creators; // (╯°□°)╯︵ ┻━┻
-		for(var i = 0; i < assocCreators.length; i++) {
-			if(assocCreators[i].img && assocCreators[i].img != "") {
-				assocCreators[i].img = assocCreators[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/creatorInstance" 
-								      modelInstance={assocCreators[i]}/>);
-			}
+		if(assocCreators) {
+			for(var i = 0; i < assocCreators.length; i++) {
+				if(assocCreators[i].img && assocCreators[i].img != "") {
+					assocCreators[i].img = assocCreators[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/creatorInstance" 
+									      modelInstance={assocCreators[i]}/>);
+				}
 
-			else {
-				assocCreators[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/creatorInstance" 
-								 	  modelInstance={assocCreators[i]} />);
+				else {
+					assocCreators[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/creatorInstance" 
+									 	  modelInstance={assocCreators[i]} />);
+				}
 			}
 		}
 		return cardsArray;
@@ -94,7 +98,6 @@ class SeriesInstance extends React.Component {
 		}
 		else {
 
-			console.log("SeriesInstance render(): " + series.characters)
 			return (
 				<div className="container">
 					<PageHeader className="text-left">{series.title}</PageHeader>
@@ -119,11 +122,11 @@ class SeriesInstance extends React.Component {
 					<br/>
 
 					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab seriesKey={1} title="CHARACTERS">
+	    				<Tab eventKey={1} title="CHARACTERS">
 	    					<br/>
 	    					<Table cards={this.createCharacterCards()}/>
 	    				</Tab>
-	    				<Tab seriesKey={2} title="CREATORS">
+	    				<Tab eventKey={2} title="CREATORS">
 	    					<br/>
 	    					<Table cards={this.createCreatorCards()}/>
 	    				</Tab>	
