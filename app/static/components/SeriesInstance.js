@@ -112,8 +112,8 @@ class SeriesInstance extends React.Component {
 								<p>{series.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
-									<li>Contains {series.num_characters} characters</li>
-									<li>{series.num_creators} creators contributed to this series</li>
+									<li>Contains {series.characters.length} characters</li>
+									<li>{series.creators.length} creators contributed to this series</li>
 								</ul>
 							</Col>
 						</Row>
