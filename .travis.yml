@@ -1,0 +1,28 @@
+sudo: false
+
+language: python
+
+python:
+    - "2.7"
+
+before_install:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+
+install:
+    - npm install
+    - pip install autopep8
+    - pip install coverage
+    - pip install pylint
+
+before_script:
+    - uname -a
+    - printenv | sort
+    - make versions
+
+script:
+    - date
+    - make test
+
+notifications:
+    slack: cs373-ut:NQeMTshj4bAVXnatgGvUaD6j
