@@ -8,3 +8,5 @@ paulcommit.sh
 deancommit.sh
 *.pyc
 broken_img_links.txt
+package.json
+webpack.config.js
