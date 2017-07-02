@@ -8,7 +8,7 @@ module.exports = {
     // Begin scraping model homepages, returns 6 individual instances per query
     // ************************************************************************
 
-    getCharacters: function(page, filter) {
+    getCharacters: function(page, filter, orderBy) {
 
         // Endpoint is character... but returns many characters...
         // (╯°□°)╯︵ ┻━┻ 
@@ -16,15 +16,24 @@ module.exports = {
         var encodedURI = window.encodeURI(baseURL + "character");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
-        		
+
                 headers: {
                     'Content-Type': 'application/json'
                 },
 
                 params: {
                     'page': page,
-                    'q': JSON.stringify({"filters": filter})
+                    //'q': JSON.stringify({"filters": filter}),
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
+
+
+                // q={"filters":[{"and":[{"name":"age","op":"lt","val":10},{"name":"age","op":"gt","val":20}]}]}
+
+			    /* var q = {order_by: [{field: $scope.sort_order, direction: $scope.sort_desc ? "desc": "asc"}]};
+			    if ($scope.query) {
+			        q.filters = [{name: "todo", op: "like", val: "%" + $scope.query + "%"} ];
+			    } */
             })
             .then(function(response) {
                 console.log("In getCharacters: ");
