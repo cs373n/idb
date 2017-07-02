@@ -35,14 +35,14 @@ class App extends React.Component {
 						<Route path='/characters' component={Characters} />
 						<Route path='/characterInstance/:charID' component={CharacterInstance} />
 
-						<Route path='/creators' component={Creators} />
-						<Route path='/creatorInstance/:creatorID' component={CreatorInstance} />
-						
 						<Route path='/events' component={Events} />
 						<Route path='/eventInstance/:eventID' component={EventInstance} />
-						
+
 						<Route path='/series' component={Series} />
 						<Route path='/seriesInstance/:seriesID' component={SeriesInstance} />
+
+						<Route path='/creators' component={Creators} />
+						<Route path='/creatorInstance/:creatorID' component={CreatorInstance} />
 
 						<Route render={function() {
 							return <p>Page Not Found!</p>
