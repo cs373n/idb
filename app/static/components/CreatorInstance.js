@@ -117,8 +117,8 @@ class CreatorInstance extends React.Component {
 								<p>{creator.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
-									<li>Contributed to {creator.num_series} Series</li>
-									<li>Contributed to {creator.num_events} Events</li>
+									<li>Contributed to {creator.series.length} Series</li>
+									<li>Contributed to {creator.events.length} Events</li>
 								</ul>
 							</Col>
 						</Row>
