@@ -3,7 +3,7 @@ WARNING running this will erase the entire database and reinitialize the tables
 '''
 
 def main():
-
+    '''
     x = raw_input("\nWARNING: About to ERASE the database, type 'delete' to continue erasing: ")
 
     if x=="delete":
@@ -18,5 +18,8 @@ def main():
 	print("\nDatabase erased and reinitialized\n")
     else:
 	print("\nNothing deleted.  Have a good day.\n")
-
+    '''
+    from models import db
+    db.drop_all()
+    db.create_all()
 main()
