@@ -5,8 +5,14 @@ to the appropriate function with the @app.route('/') decorator
 
 from flask import Flask
 from flask_cors import CORS
-import flask.ext.restless
 from flask_sqlalchemy import SQLAlchemy
+
+# latest stable version of flask-restless uses deprecated import syntax
+import warnings
+from flask.exthook import ExtDeprecationWarning
+warnings.simplefilter('ignore', ExtDeprecationWarning)
+import flask.ext.restless
+
 
 app = Flask(__name__)
 CORS(app, headers=['Content-Type'])
