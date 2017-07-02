@@ -8,7 +8,7 @@ module.exports = {
     // Begin scraping model homepages, returns 6 individual instances per query
     // ************************************************************************
 
-    getCharacters: function(page, filter) {
+    getCharacters: function(page, filter, orderBy) {
 
         // Endpoint is character... but returns many characters...
         // (╯°□°)╯︵ ┻━┻ 
@@ -16,14 +16,15 @@ module.exports = {
         var encodedURI = window.encodeURI(baseURL + "character");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
-        		
+
                 headers: {
                     'Content-Type': 'application/json'
                 },
 
                 params: {
                     'page': page,
-                    'q': JSON.stringify({"filters": filter})
+                    //'q': JSON.stringify({"filters": filter}),
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -36,16 +37,24 @@ module.exports = {
             });
     },
 
-    getCreators: function() {
+    getCreators: function(page, filter, orderBy) {
+
         var encodedURI = window.encodeURI(baseURL + "creator");
-
+        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
+
                 headers: {
                     'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
-                console.log("In getCreators: " + response.data);
+                console.log("In getCreators: ");
+                console.log(response);
 
                 return response.data;
             }).catch(function(error) {
@@ -53,16 +62,24 @@ module.exports = {
             });
     },
 
-    getEvents: function() {
+    getEvents: function(page, filter, orderBy) {
+
         var encodedURI = window.encodeURI(baseURL + "event");
-
+        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
+
                 headers: {
                     'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
-                console.log("In getEvents: " + response.data);
+                console.log("In getEvents: ");
+                console.log(response);
 
                 return response.data;
             }).catch(function(error) {
@@ -70,7 +87,32 @@ module.exports = {
             });
     },
 
-    getSeries: function() {
+    getSeries: function(page, filter, orderBy) {
+
+        var encodedURI = window.encodeURI(baseURL + "series");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getSeries: ");
+                console.log(response);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    /*getSeries: function() {
         var encodedURI = window.encodeURI(baseURL + "series");
 
         return axios.get(encodedURI, {
@@ -85,7 +127,7 @@ module.exports = {
             }).catch(function(error) {
                 console.log(error);
             });
-    },
+    },*/
 
     // *******************************************************************
     // Begin scraping individual model instances, one instance is returned
