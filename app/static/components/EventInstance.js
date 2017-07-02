@@ -50,7 +50,7 @@ class EventInstance extends React.Component {
 
 	createCharacterCards() {
 		var cardsArray = [];
-		var assocCharacters = this.state.event.character_event_backref;
+		var assocCharacters = this.state.event.characters;
 		for(var i = 0; i < assocCharacters.length; i++) {
 			if(assocCharacters[i].img && assocCharacters[i].img != "") {
 				assocCharacters[i].img = assocCharacters[i].img.slice(0, -4) + "/standard_xlarge.jpg";
@@ -69,7 +69,7 @@ class EventInstance extends React.Component {
 
 	createSeriesCards() {
 		var cardsArray = [];
-		var assocSeries = this.state.event.event_series_backref;
+		var assocSeries = this.state.event.series;
 		for(var i = 0; i < assocSeries.length; i++) {
 			if(assocSeries[i].img && assocSeries[i].img != "") {
 				assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
