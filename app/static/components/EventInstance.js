@@ -51,17 +51,19 @@ class EventInstance extends React.Component {
 	createCharacterCards() {
 		var cardsArray = [];
 		var assocCharacters = this.state.event.characters;
-		for(var i = 0; i < assocCharacters.length; i++) {
-			if(assocCharacters[i].img && assocCharacters[i].img != "") {
-				assocCharacters[i].img = assocCharacters[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/characterInstance" 
-								      modelInstance={assocCharacters[i]}/>);
-			}
+		if(assocCharacters) {
+			for(var i = 0; i < assocCharacters.length; i++) {
+				if(assocCharacters[i].img && assocCharacters[i].img != "") {
+					assocCharacters[i].img = assocCharacters[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/characterInstance" 
+									      modelInstance={assocCharacters[i]}/>);
+				}
 
-			else {
-				assocCharacters[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/characterInstance" 
-								 	  modelInstance={assocCharacters[i]} />);
+				else {
+					assocCharacters[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/characterInstance" 
+									 	  modelInstance={assocCharacters[i]} />);
+				}
 			}
 		}
 		return cardsArray;
@@ -70,17 +72,19 @@ class EventInstance extends React.Component {
 	createSeriesCards() {
 		var cardsArray = [];
 		var assocSeries = this.state.event.series;
-		for(var i = 0; i < assocSeries.length; i++) {
-			if(assocSeries[i].img && assocSeries[i].img != "") {
-				assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/seriesInstance" 
-								      modelInstance={assocSeries[i]}/>);
-			}
+		if(assocSeries) {
+			for(var i = 0; i < assocSeries.length; i++) {
+				if(assocSeries[i].img && assocSeries[i].img != "") {
+					assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/seriesInstance" 
+									      modelInstance={assocSeries[i]}/>);
+				}
 
-			else {
-				assocSeries[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/seriesInstance" 
-								 	  modelInstance={assocSeries[i]} />);
+				else {
+					assocSeries[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/seriesInstance" 
+									 	  modelInstance={assocSeries[i]} />);
+				}
 			}
 		}
 		return cardsArray;
@@ -108,8 +112,8 @@ class EventInstance extends React.Component {
 								<p>{event.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
-									<li>Contains {event.num_characters} characters</li>
-									<li>{event.num_series} series in this event</li>
+									<li>Contains {event.characters.length} characters</li>
+									<li>{event.series.length} series in this event</li>
 								</ul>
 							</Col>
 						</Row>

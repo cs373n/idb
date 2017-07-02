@@ -112,23 +112,6 @@ module.exports = {
             });
     },
 
-    /*getSeries: function() {
-        var encodedURI = window.encodeURI(baseURL + "series");
-
-        return axios.get(encodedURI, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(function(response) {
-                console.log("In getSeries: " + response.data);
-
-                return response.data;
-            }).catch(function(error) {
-                console.log(error);
-            });
-    },*/
-
     // *******************************************************************
     // Begin scraping individual model instances, one instance is returned
     // *******************************************************************
@@ -196,7 +179,8 @@ module.exports = {
                 }
             })
             .then(function(response) {
-                console.log("In getOneSeries: " + response.data);
+                console.log("In getOneSeries: ");
+                console.log(response.data);
                 return response.data;
 
             }).catch(function(error) {
