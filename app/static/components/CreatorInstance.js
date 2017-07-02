@@ -52,20 +52,22 @@ class CreatorInstance extends React.Component {
 	createSeriesCards() {
 		var cardsArray = [];
 		var assocSeries = this.state.creator.series;
-		for(var i = 0; i < assocSeries.length; i++) {
-			if(assocSeries[i].img && assocSeries[i].img != "") {
-				assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/seriesInstance" 
-								      modelInstance={assocSeries[i]}/>);
-				console.log(assocSeries[i]);
-			}
+		if(assocSeries) {
+			for(var i = 0; i < assocSeries.length; i++) {
+					if(assocSeries[i].img && assocSeries[i].img != "") {
+						assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+						cardsArray.push(<Card modelLink="/seriesInstance" 
+										      modelInstance={assocSeries[i]}/>);
+						console.log(assocSeries[i]);
+					}
 
-			else {
-				assocSeries[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				console.log("createSeries in CreatorInstance" + assocSeries[i]);
-				cardsArray.push(<Card modelLink="/seriesInstance" 
-								 	  modelInstance={assocSeries[i]} />);
-			}
+					else {
+						assocSeries[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+						console.log("createSeries in CreatorInstance" + assocSeries[i]);
+						cardsArray.push(<Card modelLink="/seriesInstance" 
+										 	  modelInstance={assocSeries[i]} />);
+					}
+				}
 		}
 		return cardsArray;
 	}
@@ -73,19 +75,21 @@ class CreatorInstance extends React.Component {
 	createEventCards() {
 		var cardsArray = [];
 		var assocEvents = this.state.creator.event;
-		for(var i = 0; i < assocEvents.length; i++) {
-			if(assocEvents[i].img && assocEvents[i].img != "") {
-				assocEvents[i].img = assocEvents[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/eventInstance" 
-								      modelInstance={assocEvents[i]}/>);
-				console.log("creator events: " + assocEvents[i]);
-			}
+		if(assocEvents) {
+			for(var i = 0; i < assocEvents.length; i++) {
+				if(assocEvents[i].img && assocEvents[i].img != "") {
+					assocEvents[i].img = assocEvents[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+					cardsArray.push(<Card modelLink="/eventInstance" 
+									      modelInstance={assocEvents[i]}/>);
+					console.log("creator events: " + assocEvents[i]);
+				}
 
-			else {
-				assocEvents[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				console.log("creator events else: " + assocEvents[i]);
-				cardsArray.push(<Card modelLink="/eventInstance" 
-								 	  modelInstance={assocEvents[i]} />);
+				else {
+					assocEvents[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+					console.log("creator events else: " + assocEvents[i]);
+					cardsArray.push(<Card modelLink="/eventInstance" 
+									 	  modelInstance={assocEvents[i]} />);
+				}
 			}
 		}
 		return cardsArray;
