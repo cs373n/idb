@@ -8,20 +8,22 @@ module.exports = {
     // Begin scraping model homepages, returns 6 individual instances per query
     // ************************************************************************
 
-    getCharacters: function(page) {
+    getCharacters: function(page, filter) {
 
         // Endpoint is character... but returns many characters...
         // (╯°□°)╯︵ ┻━┻ 
 
         var encodedURI = window.encodeURI(baseURL + "character");
-
+        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
+        		
                 headers: {
                     'Content-Type': 'application/json'
                 },
 
                 params: {
-                    'page': page
+                    'page': page,
+                    'q': JSON.stringify({"filters": filter})
                 }
             })
             .then(function(response) {
