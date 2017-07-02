@@ -112,8 +112,8 @@ class EventInstance extends React.Component {
 								<p>{event.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
-									<li>Contains {event.num_characters} characters</li>
-									<li>{event.num_series} series in this event</li>
+									<li>Contains {event.characters.length} characters</li>
+									<li>{event.series.length} series in this event</li>
 								</ul>
 							</Col>
 						</Row>
