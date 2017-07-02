@@ -116,8 +116,8 @@ class CharacterInstance extends React.Component {
 								<p>{character.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
-									<li>Appears in {character.num_series} Series</li>
-									<li>Appears in {character.num_events} Events</li>
+									<li>Appears in {character.series.length} Series</li>
+									<li>Appears in {character.events.length} Events</li>
 								</ul>
 							</Col>
 						</Row>
