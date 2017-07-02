@@ -51,7 +51,7 @@ class CreatorInstance extends React.Component {
 
 	createSeriesCards() {
 		var cardsArray = [];
-		var assocSeries = this.state.creator.creator_series_backref;
+		var assocSeries = this.state.creator.series;
 		for(var i = 0; i < assocSeries.length; i++) {
 			if(assocSeries[i].img && assocSeries[i].img != "") {
 				assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
@@ -72,7 +72,7 @@ class CreatorInstance extends React.Component {
 
 	createEventCards() {
 		var cardsArray = [];
-		var assocEvents = this.state.creator.creator_event_backref;
+		var assocEvents = this.state.creator.event;
 		for(var i = 0; i < assocEvents.length; i++) {
 			if(assocEvents[i].img && assocEvents[i].img != "") {
 				assocEvents[i].img = assocEvents[i].img.slice(0, -4) + "/standard_xlarge.jpg";
