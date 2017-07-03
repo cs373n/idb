@@ -13,12 +13,7 @@ def main():
     try:
         if sys.argv[1] == 'delete':
             
-	    from app.idb import db
-	    from app.idb import app
-	    from app.models import Character
-	    from app.models import Series
-	    from app.models import Creator
-	    from app.models import Event
+	    from app.scrape.models import db
 
 	    db.drop_all()
 	    db.create_all()
