@@ -126,11 +126,11 @@ class CharacterInstance extends React.Component {
 					<br/>
 
 					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="SERIES">
+	    				<Tab eventKey={1} title="FEATURED SERIES">
 	    					<br/>
 	    					<Table cards={this.createSeriesCards()}/>
 	    				</Tab>
-	    				<Tab eventKey={2} title="EVENTS">
+	    				<Tab eventKey={2} title="FEATURED EVENTS">
 	    					<br/>
 	    					<Table cards={this.createEventsCards()}/>
 	    				</Tab>	
