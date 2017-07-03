@@ -35,14 +35,14 @@ class About extends React.Component{
 			            <ul style={{'fontSize': '20px'}}>
 			                <li>BIO: 
 			                    <p>Dean Carpenter was formerly an Aviation Electronics Technician for the United States Navy 
-			        prior to joining the University of Texas. He enjoys weight lifting, biking, mobile development, 
-			        and documentaries. He will be graduating in Spring 2019 with a B.S. in Computer Science.</p>
+							        prior to joining the University of Texas. He enjoys mobile development, biking, 
+							        and sports. He will be graduating in Spring 2019 with a B.S. in Computer Science.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>Setting up Flask, AWS, Scraping data from APIs</p>
+			                    <p>React, Javascript, Flask, AWS, Apache, Scraping data using Python & Ajax</p>
 			                </li>
-			                <li>NO. OF COMMITS: 7</li>
-			                <li>NO. OF ISSUES: 4</li>
+			                <li>NO. OF COMMITS: 89</li>
+			                <li>NO. OF ISSUES: 14</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
 			        </div>
@@ -57,9 +57,9 @@ class About extends React.Component{
 			         He will be graduating in December 2018 with a B.S. in Computer Science.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>Configuring AWS and Collaboration tools, Writing Technical Report</p>
+			                    <p>Setting up AWS EC2 instances. Installing Flask, PostgreSQL, SQLAlchemy, and Flask-Restless.  Configuring Restful API, populating database with scraped data </p>
 			                </li>
-			                <li>NO. OF COMMITS: 2</li>
+			                <li>NO. OF COMMITS: 36</li>
 			                <li>NO. OF ISSUES: 5</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
@@ -79,7 +79,7 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>Apiary documentation, back-end, database</p>
 			                </li>
-			                <li>NO. OF COMMITS: 8</li>
+			                <li>NO. OF COMMITS: 14</li>
 			                <li>NO. OF ISSUES: 2</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
@@ -93,9 +93,9 @@ class About extends React.Component{
 			                    <p>Paul Davis just returned from taking a year off of school to work in the Technical Theater industry. He is currently attending the University of Texas at Austin pursuing a B.S. in Computer Science. He hopes to graduate by December 2018. Hobbies include League of Legends, Netflix, and other sedentary activities.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>Front End Development and Web Page Design using BootStrap</p>
+			                    <p>Front End Development using React, HTML/CSS/Javascript, BootStrap</p>
 			                </li>
-			                <li>NO. OF COMMITS: 12</li>
+			                <li>NO. OF COMMITS: 60</li>
 			                <li>NO. OF ISSUES: 9</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
@@ -125,6 +125,7 @@ class About extends React.Component{
 			                    <li>APIARY API: <a href="http://docs.cs373n.apiary.io/#">http://docs.cs373n.apiary.io/#</a></li>
 			                    <li>GITHUB REPO: <a href="https://github.com/cs373n/idb">https://github.com/cs373n/idb</a></li>
 			                    <li>TRELLO: <a href="https://trello.com/b/tpLlxzNl/fantastic-four">https://trello.com/b/tpLlxzNl/fantastic-four</a></li>
+			                    <li>Travis CI: <a href="https://travis-ci.org/cs373n/">https://travis-ci.org/cs373n/</a></li>
 			                </ul>
 			            </div>
 			        </div>
@@ -148,9 +149,9 @@ class About extends React.Component{
 			                <div className="row">
 			                    <br/>
 			                    <ul style={{'fontSize': '22px'}}>
-			                        <li>TOOLS USED: AWS, Apache, Flask, Bootstrap, Slack, Trello, Planitpoker, Git, Postman</li>
+			                        <li>TOOLS USED: AWS, Apache, Flask, Bootstrap, React, Slack, Trello, Planitpoker, Git, Postman</li>
 			                        <li>TOOL USE: Refer to our technical writeup</li>
-			                        <li>OPTIONAL TOOLS: We used Postman to test the API calls for the Comic Vine API.</li>
+			                        <li>OPTIONAL TOOLS: Webpack, Babel, React-Bootstrap, Flask-Restless</li>
 			                    </ul>
 			                </div>
 			        </div>
