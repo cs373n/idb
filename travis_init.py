@@ -14,6 +14,7 @@ def main():
         if sys.argv[1] == 'delete':
             
 	    from app.scrape.models import db
+	    from app.models import Character, Creator, Event, Series
 
 	    db.drop_all()
 	    db.create_all()
