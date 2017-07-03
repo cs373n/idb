@@ -89,7 +89,7 @@ class SeriesInstance extends React.Component {
 
 							<Col className="text-left" md={9}>
 								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{series.desc}</p>
+								<p>{(series.desc == null || series.desc == "") ? "Description not available." : series.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
 									<li>Contains {series.characters.length} characters</li>
