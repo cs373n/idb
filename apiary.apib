@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://marveldb.net
+HOST: http://marveldb.net/api
 
 # Marvel-World API
 
@@ -9,30 +9,62 @@ Marvel-World is a simple API allowing users to view characters, comics, series, 
 # Group Characters
 Character related resources from the Marvel-World API.
 
-## Character Collection [/characters]
+## Character Collection [/character]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
 ### Get All Characters [GET]
 + Response 200 (application/json)
 
             { 
-                "Characters": [
-                  {
-                    "id": "1009351",
-                    "name": "Hulk"
-                  },
-                  {
-                    "id": "1009165",
-                    "Name": "Captain America"
-                  },
-                  {  
-                    "id": "1009338",
-                    "Name": "Hawkeye"
-                  }
-                ]
+                "num_results": "1485",
+                "objects": [
+                    {
+                        "desc": "AIM is a terrorist organization bent on destroying the world."
+                        "events": [ ],
+                        "id": "1009144",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg"
+                        "name": "A.I.M.",
+                        "num_comics": "33",
+                        "num_events": "0",
+                        "num_series": "23,
+                        "series" : [{ }]
+                    },
+                    {
+                        "desc": "Formerly known as Emil Blonsky, a spy of Soviet Yugoslavian origin working for the KGB, the Abomination gained his powers after receiving a dose of gamma radiation similar to that which transformed Bruce Banner into the incredible Hulk."
+                        "events": [
+                            {
+                                "desc": "When the Chaos King embarks on a campaign to wipe out all of existence, Hercules gathers the God Squad to stand in his way! Writers Greg Pak and Fred Van Lente join artist Khoi Pham to pit Herc and his rag tag teamâ€”including Thor, the Silver Surfer and Amadeus Choâ€”against an all-powerful evil as dead heroes and villains rise around them!",
+                                "id": "296",
+                                "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg",
+                                "num_characters": "45",
+                                "num_comics": "21",
+                                "num_creators": "32",
+                                "num_series" : "11",
+                                "title": "Chaos War"
+                            },
+                            {
+                                "desc": "When the Mad Titan, Thanos, acquires the all-powerful Infinity Gauntlet and erases half the universe, the survivors must attempt to topple an omnipotent opponent! Led by the resurrected Adam Warlock and aided by primal cosmic forces, Earthâ€™s protectors enter cosmic warfare in a six-issue event written by Jim Starlin and featuring the art of George Perez and Ron Lim!",
+                                "id": "253",
+                                "img": "http://i.annihil.us/u/prod/marvel/i/mg/5/00/51ca150f0a044.jpg",
+                                "num_characters": "37",
+                                "num_comics": "25",
+                                "num_creators": "52",
+                                "num_series": "6",
+                                "title": "Infinity Gauntlet"
+                            }
+                        ],
+                        "id": "1009146",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg",
+                        "name": "Abomination (Emil Blonsky)",
+                        "num_comics": "44",
+                        "num_events": "2",
+                        "num_series": "25",
+                        "series": [{ }]
+                    }
+               ]
             }
 
-## Character [/characters/{id}]
+## Character [/character/{id}]
 Retrieves information on a certain character.
 + Parameters
     + id: 1 (required, number) - unique id for each character
@@ -44,125 +76,85 @@ Retrieves information on a certain character.
     + Body
     
               {
-                "id": 1009351,
-                "name": "Hulk",
-                "description": "Caught in a gamma bomb explosion while trying to save the life of a teenager, Dr. Bruce Banner was transformed into the incredibly powerful creature called the Hulk. An all too often misunderstood hero, the angrier the Hulk gets, the stronger the Hulk gets.",
-                "image": "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0.jpg",
-                "height": "7' 8'"
-                "weight": "1040lbs - 1400lbs"
-                "character_type": "Radiation"
-                "friends": "Beau Banner, Doctor Strange, Nighthawk"
-                "enemies": "Abomination, Colossus, Wolverine"
-                "comics": "Chaos War #5",
-                "events": "Infinity"
-              },
-              {
-                "id": 1009165,
-                "name": "Captain America",
-                "description": "Vowing to serve his country any way he could, young Steve Rogers took the super soldier serum to become America's one-man army. Fighting for the red, white and blue for over 60 years, Captain America is the living, breathing symbol of freedom and liberty.",
-                "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087.jpg",
-                "height": "6'2'"
-                "weight": "240 lbs"
-                "character_type": "Human"
-                "friends": "Andromeda, Black Marvel, Union Jack"
-                "enemies": "Agent Orange, Black Toad, Stone-Face"
-                "comics": "Captain America #10",
-                "events": "Chaos War"
-              },
-              {
-                "id": 1009338,
-                "name": "Hawkeye",
-                "description": "Trained by criminals, and inspired by heroes, Clint Barton has grown 
-                "from a troubled youth into one of the greatest heroes on Earth. The world knows him 
-                "best as Hawkeye: Earth's Mightiest Marksman.",
-                "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/90/50fecaf4f101b.jpg",
-                "height": "6'3"
-                "weight": "230 lbs"
-                "character_type": "Human"
-                "friends": "Black Panther, Charcoal, Hotshot"
-                "enemies": "Aquarius, Doctor Octopus, Whirlwind"
-                "comics": "Captain Marvel #15",
-                "events": "House of M"
+                "desc": "Formerly known as Emil Blonsky, a spy of Soviet Yugoslavian origin working for the KGB, the Abomination gained his powers after receiving a dose of gamma radiation similar to that which transformed Bruce Banner into the incredible Hulk.",
+                "events": [ { } ],
+                "id": "1009146",
+                "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg",
+                "name": "Abomination (Emil Blonsky)",
+                "num_comics": "44",
+                "num_events": "2",
+                "num_series": "25",
+                series: [ { } ]
               }
 
 
-# Group Comics
+# Group Creators
 Comic related resources of the Marvel-World API.
 
-## Comic Book Collection [/comics]
+## Creator Collection [/creator]
 A collection of all the comic books that are available. The list of comics contains a comic's title, image, and a unique ID. The unique ID can be used to look up a certain comic.
 
-### Get All Comics [GET]
+### Get All Creators [GET]
 + Response 200 (application/json)
 
     + Body
     
             {
-                "Comics": [
+                "num_results": "6114",
+                "objects": [
                   {
+                    "events": [ ],
+                    "full_name": "Tim Bradstreet",
                     "id": "1",
-                    "title": "Chaos War #5",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/40/4f57d7051d323.jpg"
+                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
+                    "num_comics": "99",
+                    "num_events": "0",
+                    "num_series": "35",
+                    "series": [
+                                {
+                                }
+                              ]
                   },
-                  {
+                  { 
+                    "events": [ ],
+                    "full_name": "Garth Ennis",
                     "id": "2",
-                    "title": "Captain America #10"
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/c/10/4d24fef511cb5.jpg"
-                  },
-                  {
-                    "id": "3",
-                    "title": "Captain Marvel #15",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/30/5212647d1bf19"
-                  }
+                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
+                    "num_comics": "99",
+                    "num_events": "0",
+                    "num_series": "24",
+                    "series": [
+                                {
+                                }
+                              ]
+                   }
                 ]
             }
 
-## Comic Book [/comics/{id}]
+
+## Creator [/creator/{id}]
 Retrieves information for a specific comic book. 
 
 + Parameters 
     + id : 1 (number) - a unique identifier of the comic book.
 
 
-### Retrieve Single Comic [GET]
+### Retrieve Single Creator [GET]
 + Response 200 (application/json)
 
     + Body 
     
             {
                    {
-                    "id": "1",
-                    "name:": "Chaos War #5",
-                    "description": "THIS IS IT!! THE MARVEL UNIVERSE'S LAST STAND! The Chaos King unleashes his ultimate attack against reality as we know it -- and our survival depends on a boy, his god, and their ragtag band of allies: The Mighty Thor! The Incredible Hulks! The Dead (and Living?) Avengers! The X-Men! Alpha Flight! But are they enough to stand against THE ANTI-ETERNITY ... The force that seeks to negate all existence itself? In this issue, the universe dies and everyone wins! ...What?",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/40/4f57d7051d323.jpg",
-                    "character": "Incredible Hulk",
-                    "event": "Chaos War"
-                    "UPC": "5960607365-00511"
-                    "Page Count": "32"
-                    "Digital Price": "$1.99"
-                  },
-                  {
+                    "events": [],
+                    "full_name": "Garth Ennis",
                     "id": "2",
-                    "name:": "The Chaos War #15",
-                    "description": "What changes await Steve Roger's life now that the House of M is in control? In this new world order, watch the hero known as Captain America moves from the '40s to the present day, bearing witness to a changing landscape, watching as man becomes the minority, and mutant the ruler.",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/c/10/4d24fef511cb5.jpg",
-                    "character": "Captain America",
-                    "event": "House of M"
-                    "UPC": "5960605652-01011"
-                    "Page Count": "31"
-                    "Digital Price": "$1.99"
-                  },
-                  {
-                    "id": "3",
-                    "name:": "Captain Marvel #15",
-                    "description": "Expanding on the capture of Captain Marvel and Hawkeye! Plus: The return of Binary?! Fisticuffs! In spaaaaaaaaaaaace!",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/30/5212647d1bf19",
-                    "character": "Hawkeye",
-                    "event": "Infinity"
-                    "UPC": "75960607809701511"
-                    "Page Count": "31"
-                    "Digital Price": "$1.99"
-                  }
+                    "img": ""http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
+                    "num_comics": "99",
+                    "num_events": "0",
+                    "num_series": "24",
+                    "series": [ { } ]
+                   }
             }
 
 
@@ -179,25 +171,54 @@ A collection of all the series that are available in the Marvel-World database. 
     + Body
     
             {
-                "Series": [
+                "num_results": "9433",
+                "objects": [
                   {
-                    "id": "1",
-                    "Title": "Avengers",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg"
-                  },
-                  {
-                    "id:": "2",
-                    "Title:": "Exiles"
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg"
-                  },
-                  {
-                    "id:": "3",
-                    "Title:": "Incredible Hulks"
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/6/50/5130fe4c5d844.jpg"
-                  }
+                    "characters": [
+                        {
+                            "desc": "",
+                            "id": "1009318",
+                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/80/52696ba1353e7.jpg",
+                            "name": "Ghost Rider (Johnny Blaze)",
+                            "num_comics": "235",
+                            "num_events": "6",
+                            "num_series": "64"
+                        },
+                        {
+                            "desc": "Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.",
+                            "id": "1009610",
+                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg",
+                            "name": "Spider-Man",
+                            "num_comics": "2973",
+                            "num_events": "32",
+                            "num_series": "638"
+                        }
+                    ],
+                    "creators": [
+                        {
+                            "full_name": "Axel Alonso",
+                            "id": "4014",
+                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc4782a5a42e.jpg",
+                            "num_comics": "480",
+                            "num_events": "9",
+                            "num_series": "152"
+                        }
+                    ],
+                    "desc": "",
+                    "end": "1999",
+                    "events": [],
+                    "id": "3",
+                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/4ba92cccf096a.jpg",
+                    "num_characters": "0",
+                    "num_comics": "1",
+                    "num_creators": "0",
+                    "num_events": "0",
+                    "start": "1999",
+                    "title" : "Amazing Spider-Man Vol. III: Until the Stars Turn Cold (1999)"
                 ]
             }
-            
+                  
+                  
 ## Series [/series/{id}]
 Retrieves information for a specific comic series.
 
@@ -210,39 +231,75 @@ Retrieves information for a specific comic series.
     + Body 
     
             {
-                {
-                    "id": "1",
-                    "Title": "Avengers",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/519baa6d1890a.jpg",
-                    "Description": "Avengers Assemble! Iron Man, Thor, Captain America and the rest of Earth's Mightiest Heroes unite to stand against the threats none can face alone! See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action!",
-                    "Start/End Year": "1963 - 1996",
-                    "Event": "Infinity",
-                    "Characters": "Captain America, Hawkeye, Hulk"
-                  },
-                  {
-                    "id": "2",
-                    "Title": "Exiles",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/3/10/4bc37e0080808.jpg",
-                    "Description": "A team comprised of heroes pulled from different realities, the Exiles have spent years traveling from one alternate universe to another, working to repair each and hoping to one day complete their mission. One of the most action-packed, emotional and wonderfully unpredictable titles in the Marvel catalogue, Exiles is the perfect book for any Marvel fanboy.",
-                    "Start/End Year": "2001 - 2008",
-                    "Event": "House of M",
-                    "Characters": "Hulk"
-                  },
-                    "id": "3",
-                    "Title": "Incredible Hulks",
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/6/50/5130fe4c5d844.jpg",
-                    "Description": "Nobody loves you like your family--and nobody can you make you quite as crazy! With his son Skaar, cousin She-Hulk, ex-wife Red She-Hulk and more, Bruce Banner, aka the Incredible Hulk, attempts to harness his Gamma-powered brood for good!",
-                    "Start/End Year": "2009 - 2011",
-                    "Event": "Chaos War",
-                    "Characters": "Hulk, Hawkeye, Captain America, Hawkeye, Hulk"
-                  }
+            
+                    "characters": [
+                        {
+                        "desc": "",
+                        "id": "1009191",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/8/a0/523ca6f2b11e4.jpg",
+                        "name": "Blade",
+                        "num_comics": "39",
+                        "num_events": "2",
+                        "num_series": "19"
+                        },
+                        {
+                        "desc": "",
+                        "id": "1009281",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg",
+                        "name": "Doctor Doom",
+                        "num_comics": "238",
+                        "num_events": "9",
+                        "num_series": "128"
+                        }
+                    ],
+                    "creators": [
+                        {
+                        "full_name": "Howard Chaykin",
+                        "id": "808",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/40/4bc5e29c24ccf.jpg",
+                        "num_comics": "154",
+                        "num_events": "4",
+                        "num_series": "74"
+                        },
+                        {
+                        "full_name": "Edgar Delgado",
+                        "id": "430",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc4782a5a42e.jpg",
+                        "num_comics": "293",
+                        "num_events": "11",
+                        "num_series": "99"
+                        }
+                    ],
+                    "desc": "",
+                    "end": "1999",
+                    "events": [
+                        {
+                        "desc": "After a horrific tragedy raises questions on whether or not super heroes should register with the government, longtime Avengers teammates Captain America and Iron Man end up on opposite sides of the argument! Writer Mark Millar and artist Steve McNiven split the Marvel Universe in two as friend fights friend in one of the most celebrated and successful events of all-time!",
+                        "id": "238",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/2/d0/51cb5356c2063.jpg",
+                        "num_characters": "89",
+                        "num_comics": "140",
+                        "num_creators": "140",
+                        "num_series": "62",
+                        "title": "Civil War"
+                        }
+                    ],
+                    "id": "5",
+                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc670e50bd91.jpg",
+                    "num_characters": "3",
+                    "num_comics": "1",
+                    "num_creators": "15",
+                    "num_events": "0",
+                    "start": "1999",
+                    "title": "Black Window Vol. I (1999)"
             }
+                
 
 
 # Group Events
 All event related resources from the Marvel-World API.
 
-## Event Collection [/events]
+## Event Collection [/event]
 A collection of all the events that are available. The list of events contains an event's title, image, and a unique ID. The unique ID can be used to look up a certain event.
 
 ### Get All Events [GET]
@@ -252,26 +309,73 @@ A collection of all the events that are available. The list of events contains a
     + Body
     
             {
-                "Events": [
+                "num_results": "75",
+                "objects": [
                   {
-                    "id:": "1",
-                    "Title:": "Infinity"
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg",
-                  },
-                  {
-                    "id:": "2",
-                    "Title:": "House of M"
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg",
-                  },
-                  {
-                    "id:": "3",
-                    "Title:": "Chaos War"
-                    "image": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg",
-                  }
-                ]
+                    "characters": [ 
+                            {
+                            "desc": "Adam Warlock is an artificially created human who was born in a cocoon at a scientific complex called The Beehive.",
+                            "id": "1010354",
+                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/a/f0/5202887448860.jpg",
+                            "name": "Adam Warlock",
+                            "num_comics": "126",
+                            "num_events": "10",
+                            "num_series": "54"
+                            },
+                            {
+                            "desc": "",
+                            "id": "1010370",
+                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/1/60/52695277ee088.jpg",
+                            "name": "Alpha Flight",
+                            "num_comics": "187",
+                            "num_events": "5",
+                            "num_series": "29"
+                            }
+                        ],
+                    "creators": [
+                            {
+                            "full_name": "Stein",
+                            id: "2632",
+                            img: "",
+                            num_comics: "7",
+                            num_events: "2",
+                            num_series: "5"
+                            },
+                            {
+                            full_name: "Paul Becton",
+                            id: "1935",
+                            img: "http://i.annihil.us/u/prod/marvel/i/mg/f/20/4bb6abafe8516.jpg",
+                            num_comics: "179",
+                            num_events: "6",
+                            num_series: "39"
+                            }
+                        ],
+                    "desc": "The Magus, the purged, evil side of Adam Warlock believed to have been dead, has returned in order to collect the Infinity Gems and recreate the Infinity Gauntlet itself. He sent evil doppelgangers of Marvel's superheroes to attack and usurp the originals. Thanos, exiled since his defeat during the Infinity Gauntlet event, learned of the Magus' plans and set out to aid Adam Warlock and the heroes in defending the universe.",
+                    "id": "29",
+                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/51ca14b3dce00.jpg",
+                    "num_characters": "57",
+                    "num_comics": "40",
+                    "num_creators": "106",
+                    "num_series": "13",
+                    "series": [
+                        {
+                            "desc": "",
+                            "end": "2099",
+                            "id": "15616",
+                            "img": "",
+                            "num_characters": "0",
+                            "num_comics": "0",
+                            "num_creators": "0",
+                            "num_events": "0",
+                            "start": "2011",
+                            "title": "Alpha Flight (2011 - Present)"
+                        }
+                    ],
+                    "title": "Infinity War"
+                }
             }
             
-## Event [/events/{id}]
+## Event [/event/{id}]
 Retrieves information for a specific event. 
 
 + Parameters 
@@ -283,30 +387,47 @@ Retrieves information for a specific event.
     + Body
     
             {
-                "id:": "1",
-                "Title:": "Infinity"
-                "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/51c4aaa0b1f4f.jpg",
-                "Description": "While the most powerful Avengers journey into outer space in an attempt to unite the universe against the Builders, Thanos attacks the Earth in a six-issue event written by Jonathan Hickman with the art of Jim Cheung, Jerome Opena and Dustin Weaver! Featuring the Guardians of the Galaxy, the Inhumans and many more!",
-                "Characters": "Hulk, Hawkeye, Captain America",
-                "Series": "Avengers"
-                },
-                {
-                "id:": "2",
-                "Title:": "House of M"
-                "image": "http://i.annihil.us/u/prod/marvel/i/mg/e/90/51cb5330eabdf.jpg",
-                "Description": "When the Scarlet Witch alters reality, the Avengers and X-Men face a world like none theyâ€™ve ever known! Writer Brian Michael Bendis and artist Olivier Coipel re-imagine the Marvel Universe with Magneto bringing mutantkind to prominence in an eight-issue event. As the only person who remembers how things used to be, can Wolverine set things right? Should he?",
-                "Characters": "Hulk, Hawkeye, Captain America",
-                "Series": "Exiles"
-                },
-                {
-                "id:": "3",
-                "Title:": "Chaos War"
-                "image": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg",
-                "Description": "When the Chaos King embarks on a campaign to wipe out all of existence, 
-                "Hercules gathers the God Squad to stand in his way! Writers Greg Pak and Fred Van Lente 
-                "join artist Khoi Pham to pit Herc and his rag tag team including Thor, the Silver Surfer 
-                "and Amadeus Choâ against an all-powerful evil as dead heroes and villains rise around them!",
-                "Characters": "Hulk, Hawkeye, Captain America",
-                "Series": "Incredible Hulks"
-                }
+                "characters": [
+                    {
+                        "desc": "",
+                        "id": "1009159",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/8/03/526165ed93180.jpg",
+                        "name": "Archangel",
+                        "num_comics": "549",
+                        "num_events": "18",
+                        "num_series": "141"
+                    }
+                ],
+                "creators": [
+                    {
+                        "full_name": "Mark Bagley",
+                        "id": "87",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/b0/4bc5d2f67f706.jpg",
+                        "num_comics": "613",
+                        "num_events": "13",
+                        "num_series": "201"
+                    }
+                ],
+                "desc": "The terrorist organization A.I.M. seek to resurrect the powerful reality-altering mutant named Proteus, and it's up to the various X-teams and the New Warriors to stop them.",
+                "id": "32",
+                "img": "http://i.annihil.us/u/prod/marvel/i/mg/d/60/51c9e88b7fbd9.jpg",
+                "num_characters": "37",
+                "num_comics": "4",
+                "num_creators": "35",
+                "num_series": "4",
+                "series": [
+                    {
+                        "desc": "The X-Men of tomorrow get their start! Professor X recruits a second class of young students who end forging their own legacy in this fondly remembered series that combined mutant adventure with coming of age drama.",
+                        "end": "2004",
+                        "id": "563",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/a/10/5131014676185.jpg",
+                        "num_characters": "14",
+                        "num_comics": "13",
+                        "num_creators": "22",
+                        "num_events": "0",
+                        "start": "2003",
+                        "title": "New Mutants (2003 - 2004)"
+                    },
+                ],
+                "title": "Kings of Pain"
             }
