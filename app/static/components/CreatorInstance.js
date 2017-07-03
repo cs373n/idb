@@ -81,11 +81,11 @@ class CreatorInstance extends React.Component {
 
 			return (
 				<div className="container">
-					<PageHeader className="text-left">{creator.name}</PageHeader>
+					<PageHeader className="text-left">{creator.full_name}</PageHeader>
 					<Grid>
 						<Row>
 							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.name}/>
+								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
 							</Col>
 
 							<Col className="text-left" md={9}>
