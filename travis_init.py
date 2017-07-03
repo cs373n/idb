@@ -16,7 +16,7 @@ def main():
 	    from app.idb import db, app
 	    from app.models import Character, Series, Event, Creator
 
-	    #db.drop_all()
+	    db.drop_all()
 	    
 	    db.create_all()
 	    newCharacter = Character(1009146, "Abomination (Emil Blonsky)", "This is a test description", "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg", 44, 2, 4)
