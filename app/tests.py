@@ -1,6 +1,7 @@
 from unittest import main, TestCase
 from idb import db, app
 from models import Character, Event, Series, Creator
+import requests, json
 
 class UnitTest(TestCase):
 
@@ -68,14 +69,62 @@ class UnitTest(TestCase):
         self.assertEqual(query.id, 9021090)
         self.assertEqual(query.title, "The Big Short")
         self.assertEqual(query.desc, "Wall Street trips and falls")
-        self.assertEqual(
-            query.img, "http://www.bankofamerica.com/freemoney.jpg")
+        self.assertEqual(query.img, "http://www.bankofamerica.com/freemoney.jpg")
         self.assertEqual(query.num_creators, 987654)
         self.assertEqual(query.num_characters, 1000)
         self.assertEqual(query.num_comics, 787)
         self.assertEqual(query.num_series, 1)
         db.session.delete(newEvent)
         db.session.commit()
+
+    def test_character_get_request(self):
+        
+	api_request = requests.get("http://marveldb.net/api/character/1009146")
+	api_id = (json.loads(api_request.text))["id"]
+	api_img = (json.loads(api_request.text))["img"]
+
+	db_request = db.session.query(Character).get(1009146)
+	db_id = db_request.id 
+	db_img = db_request.img
+	self.assertEqual(api_id, db_id)
+	self.assertEqual(api_img, db_img)
+
+    def test_series_get_request(self):
+        
+	api_request = requests.get("http://marveldb.net/api/series/7524")
+	api_id = (json.loads(api_request.text))["id"]
+	api_img = (json.loads(api_request.text))["img"]
+
+	db_request = db.session.query(Series).get(7524)
+	db_id = db_request.id 
+	db_img = db_request.img
+	self.assertEqual(api_id, db_id)
+	self.assertEqual(api_img, db_img)
+
+    def test_creator_get_request(self):
+        
+	api_request = requests.get("http://marveldb.net/api/creator/621")
+	api_id = (json.loads(api_request.text))["id"]
+	api_img = (json.loads(api_request.text))["img"]
+
+	db_request = db.session.query(Creator).get(621)
+	db_id = db_request.id 
+	db_img = db_request.img
+	self.assertEqual(api_id, db_id)
+	self.assertEqual(api_img, db_img)
+
+
+    def test_event_get_request(self):
+        
+	api_request = requests.get("http://marveldb.net/api/event/306")
+	api_id = (json.loads(api_request.text))["id"]
+	api_img = (json.loads(api_request.text))["img"]
+
+	db_request = db.session.query(Event).get(306)
+	db_id = db_request.id 
+	db_img = db_request.img
+	self.assertEqual(api_id, db_id)
+	self.assertEqual(api_img, db_img)
 
 
 if __name__ == "__main__":
