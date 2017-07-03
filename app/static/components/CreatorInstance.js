@@ -74,7 +74,7 @@ class CreatorInstance extends React.Component {
 
 	createEventCards() {
 		var cardsArray = [];
-		var assocEvents = this.state.creator.event;
+		var assocEvents = this.state.creator.events;
 		if(assocEvents) {
 			for(var i = 0; i < assocEvents.length; i++) {
 				if(assocEvents[i].img && assocEvents[i].img != "") {
@@ -127,11 +127,11 @@ class CreatorInstance extends React.Component {
 					<br/>
 
 					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="SERIES">
+	    				<Tab eventKey={1} title="FEATURED SERIES">
 	    					<br/>
 	    					<Table cards={this.createSeriesCards()}/>
 	    				</Tab>
-	    				<Tab eventKey={2} title="EVENTS">
+	    				<Tab eventKey={2} title="FEATURED EVENTS">
 	    					<br/>
 	    					<Table cards={this.createEventCards()}/>
 	    				</Tab>	
