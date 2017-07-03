@@ -122,11 +122,11 @@ class EventInstance extends React.Component {
 					<br/>
 
 					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="CHARACTERS">
+	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
 	    					<br/>
 	    					<Table cards={this.createCharacterCards()}/>
 	    				</Tab>
-	    				<Tab eventKey={2} title="SERIES">
+	    				<Tab eventKey={2} title="FEATURED SERIES">
 	    					<br/>
 	    					<Table cards={this.createSeriesCards()}/>
 	    				</Tab>	
