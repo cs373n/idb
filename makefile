@@ -46,4 +46,4 @@ clean:
 	rm -f app/.coverage
 	rm -f app/tests.tmp
 	rm -f .pylintrc
-
+	rm -f .coverage
