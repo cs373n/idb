@@ -119,19 +119,10 @@ class Events extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var eventsCopy = this.state.events;
-		for(var i = 0; i < eventsCopy.length; i++) {
-			if(eventsCopy[i].img && eventsCopy[i].img != "") {
-				eventsCopy[i].img = eventsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+		const { events } = this.state;
+		for(var i = 0; i < events.length; i++) {
 				cardsArray.push(<Card modelLink="/eventInstance" 
-								      modelInstance={eventsCopy[i]} />);
-			}
-
-			else {
-				eventsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/eventInstance" 
-								 	  modelInstance={eventsCopy[i]} />);
-			}
+								      modelInstance={events[i]} />);
 		}
 		return cardsArray;
 	}

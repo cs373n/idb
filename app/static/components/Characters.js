@@ -116,7 +116,7 @@ class Characters extends React.Component{
 		
 	}
 
-	createCards() {
+	/*createCards() {
 		var cardsArray = [];
 		var charsCopy = this.state.characters;
 		for(var i = 0; i < charsCopy.length; i++) {
@@ -127,10 +127,20 @@ class Characters extends React.Component{
 			}
 
 			else {
-				charsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+				charsCopy[i].img = imgNotFound;
 				cardsArray.push(<Card modelLink="/characterInstance" 
 								 	  modelInstance={charsCopy[i]} />);
 			}
+		}
+		return cardsArray;
+	}*/
+
+	createCards() {
+		var cardsArray = [];
+		var { characters } = this.state;
+		for(var i = 0; i < characters.length; i++) {
+				cardsArray.push(<Card modelLink="/characterInstance" 
+								      modelInstance={characters[i]} />);
 		}
 		return cardsArray;
 	}
