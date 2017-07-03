@@ -170,9 +170,6 @@ class Creators extends React.Component{
 							<Button bsStyle="primary" onClick={() => this.applyFilter(1)}>
 									Photo Available
 							</Button>
-							<Button bsStyle="primary" onClick={() => this.applyFilter(2)}>
-									Description Available
-							</Button>
 						</Col>
 						<Col className="pull-right" md={6}>
 							<h3>SORT BY:</h3>
