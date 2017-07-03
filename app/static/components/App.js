@@ -23,7 +23,7 @@ var SeriesInstance = require('./SeriesInstance.js');
 var Card = require('./Card.js');
 
 // Misc
-var Footer = require('./Footer.js');
+//var Footer = require('./Footer.js');
 var About = require('./About.js');
 
 class App extends React.Component {
