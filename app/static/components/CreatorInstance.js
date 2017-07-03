@@ -93,6 +93,7 @@ class CreatorInstance extends React.Component {
 								<ul>
 									<li>Contributed to {creator.series.length} Series</li>
 									<li>Contributed to {creator.events.length} Events</li>
+									<li>Contributed to {creator.num_comics} Comics</li>
 								</ul>
 							</Col>
 						</Row>
