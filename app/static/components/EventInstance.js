@@ -100,7 +100,7 @@ class EventInstance extends React.Component {
 
 			return (
 				<div className="container">
-					<PageHeader className="text-left">{event.name}</PageHeader>
+					<PageHeader className="text-left">{event.title}</PageHeader>
 					<Grid>
 						<Row>
 							<Col md={3}>
