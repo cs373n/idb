@@ -13,12 +13,16 @@ def main():
     try:
         if sys.argv[1] == 'delete':
             
-	    from app.idb import db, app
-	    from app.models import Character, Series, Event, Creator
+	    from app.idb import db
+	    from app.idb import app
+	    from app.models import Character
+	    from app.models import Series
+	    from app.models import Creator
+	    from app.models import Event
 
 	    db.drop_all()
-	    
 	    db.create_all()
+	    
 	    newCharacter = Character(1009146, "Abomination (Emil Blonsky)", "This is a test description", "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg", 44, 2, 4)
 
 	    newCreator = Creator(621, "Adriana Melo", "http://i.annihil.us/u/prod/marvel/i/mg/c/40/4bb45e7cc293b.jpg", 25, 4, 11)
