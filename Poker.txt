@@ -5,31 +5,31 @@ Planitpoker Phase #2 User Stories & Estimates:
 
 1) Implement filter
 	- estimate: 8 hours
-	- actual 
+	- actual: 5 hours
 2) Implementing sorting and pagination
 	- estimate: 13 hours
-	- actual 
+	- actual: 12 hours
 3) Create Series homepage using React and Javascript
 	- estimate: 30 minutes
-	- actual 
+	- actual: 1 hour
 4) Create Creators homepage using React and Javascript
 	- estimate: 30 minutes
-	- actual 
+	- actual: 1 hour
 5) Create Events homepage using React and Javascript
 	- estimate: 1 hour
-	- actual 
+	- actual: 1 hour
 6) Create Characters homepage using React and Javascript
-	- estimate: 2 hour
-	- actual 
+	- estimate: 2 hours
+	- actual: 3 hours
 7) Update Technical document with new technologies used for Phase 2
 	- estimate: 5 hours
-	- actual 
+	- actual: 4 hours 
 8) Implement a RESTFul API using Flask and SQLAlchemy
 	- estimate: 3 hours
-	- actual 
+	- actual: 10 hours
 9) Install and Configure PostreSQL and SQLAlchemy on server
 	- estimate: 20 hours
-	- actual 
+	- actual: 13 hours
 10) Create a UML diagram that outlines the models of our website with relations labeled
 	- estimate: 2 hours
-	- actual 
+	- actual: 1 hour
