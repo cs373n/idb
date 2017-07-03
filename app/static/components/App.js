@@ -22,6 +22,10 @@ var SeriesInstance = require('./SeriesInstance.js');
 // Home Pages Cards
 var Card = require('./Card.js');
 
+// Misc
+//var Footer = require('./Footer.js');
+var About = require('./About.js');
+
 class App extends React.Component {
 	render() {
 		return (
@@ -44,12 +48,15 @@ class App extends React.Component {
 						<Route path='/creators' component={Creators} />
 						<Route path='/creatorInstance/:creatorID' component={CreatorInstance} />
 
+						<Route path='/about' component={About} />
+
 						<Route render={function() {
 							return <p>Page Not Found!</p>
 						}} />
 					</Switch>
+				{/*Footer*/}
 				</div>
-			</div>	
+			</div>
 		</Router>
 		)
 	}

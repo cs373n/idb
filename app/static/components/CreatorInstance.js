@@ -54,20 +54,8 @@ class CreatorInstance extends React.Component {
 		var assocSeries = this.state.creator.series;
 		if(assocSeries) {
 			for(var i = 0; i < assocSeries.length; i++) {
-					if(assocSeries[i].img && assocSeries[i].img != "") {
-						assocSeries[i].img = assocSeries[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-						cardsArray.push(<Card modelLink="/seriesInstance" 
-										      modelInstance={assocSeries[i]}/>);
-						console.log(assocSeries[i]);
-					}
-
-					else {
-						assocSeries[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-						console.log("createSeries in CreatorInstance" + assocSeries[i]);
-						cardsArray.push(<Card modelLink="/seriesInstance" 
-										 	  modelInstance={assocSeries[i]} />);
-					}
-				}
+				cardsArray.push(<Card modelLink="/seriesInstance" modelInstance={assocSeries[i]}/>);
+			}
 		}
 		return cardsArray;
 	}
@@ -77,19 +65,7 @@ class CreatorInstance extends React.Component {
 		var assocEvents = this.state.creator.events;
 		if(assocEvents) {
 			for(var i = 0; i < assocEvents.length; i++) {
-				if(assocEvents[i].img && assocEvents[i].img != "") {
-					assocEvents[i].img = assocEvents[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-					cardsArray.push(<Card modelLink="/eventInstance" 
-									      modelInstance={assocEvents[i]}/>);
-					console.log("creator events: " + assocEvents[i]);
-				}
-
-				else {
-					assocEvents[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-					console.log("creator events else: " + assocEvents[i]);
-					cardsArray.push(<Card modelLink="/eventInstance" 
-									 	  modelInstance={assocEvents[i]} />);
-				}
+				cardsArray.push(<Card modelLink="/eventInstance" modelInstance={assocEvents[i]}/>);
 			}
 		}
 		return cardsArray;
@@ -105,20 +81,19 @@ class CreatorInstance extends React.Component {
 
 			return (
 				<div className="container">
-					<PageHeader className="text-left">{creator.name}</PageHeader>
+					<PageHeader className="text-left">{creator.full_name}</PageHeader>
 					<Grid>
 						<Row>
 							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.name}/>
+								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
 							</Col>
 
 							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{creator.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
 									<li>Contributed to {creator.series.length} Series</li>
 									<li>Contributed to {creator.events.length} Events</li>
+									<li>Contributed to {creator.num_comics} Comics</li>
 								</ul>
 							</Col>
 						</Row>

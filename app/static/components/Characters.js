@@ -118,19 +118,10 @@ class Characters extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var charsCopy = this.state.characters;
-		for(var i = 0; i < charsCopy.length; i++) {
-			if(charsCopy[i].img && charsCopy[i].img != "") {
-				charsCopy[i].img = charsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+		var { characters } = this.state;
+		for(var i = 0; i < characters.length; i++) {
 				cardsArray.push(<Card modelLink="/characterInstance" 
-								      modelInstance={charsCopy[i]} />);
-			}
-
-			else {
-				charsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/characterInstance" 
-								 	  modelInstance={charsCopy[i]} />);
-			}
+								      modelInstance={characters[i]} />);
 		}
 		return cardsArray;
 	}
@@ -167,21 +158,26 @@ class Characters extends React.Component{
 					<Row>
 						<Col md={6}>
 							<h3>FILTER BY:</h3>
-							<Button bsStyle="primary" onClick={() => this.applyFilter(1)}>
-									Photo Available
-							</Button>
-							<Button bsStyle="primary" onClick={() => this.applyFilter(2)}>
-									Description Available
-							</Button>
+							<ButtonToolbar>
+								<Button bsStyle="primary" onClick={() => this.applyFilter(1)}>
+										Photo Available
+								</Button>
+								<Button bsStyle="primary" onClick={() => this.applyFilter(2)}>
+										Description Available
+								</Button>
+							</ButtonToolbar>
+							<p/>
+							{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
+							{this.state.hasDesc ? <p>Description Filter Applied</p> : <p/>}
 						</Col>
 						<Col className="pull-right" md={6}>
 							<h3>SORT BY:</h3>
-							<Button bsStyle="primary" onClick={() => this.applySort(1)}>
-									Ascending
-							</Button>
-							<Button bsStyle="primary" onClick={() => this.applySort(2)}>
-									Descending
-							</Button>
+								<Button bsStyle="primary" onClick={() => this.applySort(1)}>
+										Ascending
+								</Button>
+								<Button bsStyle="primary" onClick={() => {this.applySort(2)}}>
+										Descending
+								</Button>
 						</Col>
 					</Row>
 				</Grid>

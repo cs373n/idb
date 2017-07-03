@@ -118,19 +118,10 @@ class Creators extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var creatorsCopy = this.state.creators;
-		for(var i = 0; i < creatorsCopy.length; i++) {
-			if(creatorsCopy[i].img && creatorsCopy[i].img != "") {
-				creatorsCopy[i].img = creatorsCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+		const { creators } = this.state;
+		for(var i = 0; i < creators.length; i++) {
 				cardsArray.push(<Card modelLink="/creatorInstance" 
-								      modelInstance={creatorsCopy[i]} />);
-			}
-
-			else {
-				creatorsCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/creatorInstance" 
-								 	  modelInstance={creatorsCopy[i]} />);
-			}
+								      modelInstance={creators[i]} />);
 		}
 		return cardsArray;
 	}

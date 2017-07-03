@@ -118,19 +118,10 @@ class Series extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		var seriesCopy = this.state.series;
-		for(var i = 0; i < seriesCopy.length; i++) {
-			if(seriesCopy[i].img && seriesCopy[i].img != "") {
-				seriesCopy[i].img = seriesCopy[i].img.slice(0, -4) + "/standard_xlarge.jpg";
+		const { series } = this.state;
+		for(var i = 0; i < series.length; i++) {
 				cardsArray.push(<Card modelLink="/seriesInstance" 
-								      modelInstance={seriesCopy[i]} />);
-			}
-
-			else {
-				seriesCopy[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-				cardsArray.push(<Card modelLink="/seriesInstance" 
-								 	  modelInstance={seriesCopy[i]} />);
-			}
+								      modelInstance={series[i]} />);
 		}
 		return cardsArray;
 	}
