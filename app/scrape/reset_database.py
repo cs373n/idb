@@ -1,25 +1,28 @@
 '''
-WARNING running this will erase the entire database and reinitialize the tables
+WARNING running this with command line argument 'delete' will erase 
+the entire database and reinitialize the tables
 '''
 
+import sys
+
 def main():
-    '''
-    x = raw_input("\nWARNING: About to ERASE the database, type 'delete' to continue erasing: ")
-
-    if x=="delete":
-        from models import db
+    
+    try:
+        if sys.argv[1]=="delete":
+            from models import db
          	
-	# delete existing table
-	db.drop_all()
+	    # delete existing table
+	    db.drop_all()
 
-	# reinitialize blank table
-	db.create_all()
+	    # reinitialize blank table
+	    db.create_all()
    	
-	print("\nDatabase erased and reinitialized\n")
-    else:
+	    print("\nDatabase erased and reinitialized\n")
+
+	else:
+            print("\nNothing deleted.  Have a good day.\n")
+
+    except Exception:
 	print("\nNothing deleted.  Have a good day.\n")
-    '''
-    from models import db
-    db.drop_all()
-    db.create_all()
+    
 main()

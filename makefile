@@ -40,13 +40,10 @@ test: app/models.py app/tests.py .pylintrc
 	-$(COVERAGE) report --include=app/models.py 
 	-$(COVERAGE) report --include=app/idb.py
 	-$(COVERAGE) report --include=app/tests.py
-	python app/scrape/reset_database.py
-	python app/models.py
-	python app/tests.py
 
 clean:
 	rm -f app/*.pyc
 	rm -f app/.coverage
 	rm -f app/tests.tmp
 	rm -f .pylintrc
-
+	rm -f .coverage

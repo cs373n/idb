@@ -2,8 +2,6 @@ from unittest import main, TestCase
 from idb import db, app
 from models import Character, Event, Series, Creator
 
-db.create_all()
-
 class UnitTest(TestCase):
 
     def test_add_series(self):

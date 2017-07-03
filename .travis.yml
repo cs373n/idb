@@ -32,6 +32,7 @@ before_script:
     - printenv | sort
     - psql -c 'create database marveldb;' -U postgres
     - psql -c "ALTER USER postgres WITH PASSWORD 'idb';" -U postgres
+    - python app/scrape/reset_database.py delete
 
 script:
     - date
