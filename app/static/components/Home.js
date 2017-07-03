@@ -1,10 +1,33 @@
 var React = require('react');
-import { Timeline } from 'react-twitter-widgets'
+import { Timeline } from 'react-twitter-widgets';
+import { Carousel } from 'react-bootstrap';
 
 class Home extends React.Component{
 	render(){
 		return(
-			<div className='container'>
+			<div>
+			<Carousel>
+			    <Carousel.Item>
+			      <img className="center-block" width={900} height={500} alt="900x500" src="http://wallpapercave.com/wp/aZDhA0n.jpg"/>
+			    </Carousel.Item>
+			    <Carousel.Item animateIn>
+			      <img className="center-block" width={900} height={500} alt="900x500" src="http://wallpapercave.com/wp/y5qI6aT.jpg"/>
+			    </Carousel.Item>
+			    <Carousel.Item>
+			      <img className="center-block" width={900} height={500} alt="900x500" src="http://cdn.wallpapersafari.com/45/23/NszuDQ.jpg"/>
+			    </Carousel.Item>
+			    <Carousel.Item>
+			      <img className="center-block" width={900} height={500} alt="900x500" src="http://wallpapercave.com/wp/cpxAd7t.jpg"/>
+			    </Carousel.Item>
+			    <Carousel.Item>
+			      <img className="center-block" width={900} height={500} alt="900x500" src="http://i.imgur.com/j6ELJse.jpg"/>
+			    </Carousel.Item>
+			</Carousel>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<div className="container float-right">
 			<Timeline
 			    dataSource={{
 			      sourceType: 'profile',
@@ -12,11 +35,13 @@ class Home extends React.Component{
 			    }}
 			    options={{
 			      username: 'Marvel',
-			      height: '600',
-			      width: '300'
+			      height: '1200',
+			      width: '500',
+			      align: 'right'
 			    }}
 			    onLoad={() => console.log('Timeline is loaded!')}
 			/>
+			</div>
 			</div>
 		)
 	}

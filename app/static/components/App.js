@@ -23,7 +23,7 @@ var SeriesInstance = require('./SeriesInstance.js');
 var Card = require('./Card.js');
 
 // Misc
-//var Footer = require('./Footer.js');
+var Footer = require('./Footer.js');
 var About = require('./About.js');
 
 class App extends React.Component {
@@ -54,7 +54,7 @@ class App extends React.Component {
 							return <p>Page Not Found!</p>
 						}} />
 					</Switch>
-				{/*Footer*/}
+				<Footer/>
 				</div>
 			</div>
 		</Router>
