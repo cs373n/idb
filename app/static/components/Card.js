@@ -6,6 +6,8 @@ var cardStyle = {
 	fontSize: '24px'
 };
 
+var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+
 class Card extends React.Component {
 	constructor(props) {
 	    super();
@@ -14,6 +16,18 @@ class Card extends React.Component {
 	      modelLink: props.modelLink
     	};
     }
+
+    styleImage(){
+    	const { modelInstance } = this.state;
+		if(modelInstance.img && modelInstance.img != "") {
+			return modelInstance.img.slice(0, -4) + "/standard_xlarge.jpg";
+		}
+
+		else {
+			return imgNotFound;
+		}
+	}
+
 	render() {
 		const { modelInstance } = this.state;
 		var title = modelInstance.name ? modelInstance.name : modelInstance.title;
@@ -28,7 +42,7 @@ class Card extends React.Component {
 				<div>
 					<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
 						<img className="img-responsive center-block img-rounded" 
-							 src={modelInstance.img} 
+							 src={this.styleImage()} 
 							 alt={title}/>
 					</Link>
 				</div>
