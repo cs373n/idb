@@ -89,8 +89,6 @@ class CreatorInstance extends React.Component {
 							</Col>
 
 							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{creator.desc}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
 									<li>Contributed to {creator.series.length} Series</li>
