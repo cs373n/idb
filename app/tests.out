@@ -1,0 +1,27 @@
+coverage  run --branch app/tests.py 
+........
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.566s
+
+OK
+
+coverage  report --include=app/models.py 
+Name            Stmts   Miss Branch BrPart  Cover
+-------------------------------------------------
+app/models.py      89      0      0      0   100%
+
+coverage  report --include=app/idb.py
+Name         Stmts   Miss Branch BrPart  Cover
+----------------------------------------------
+app/idb.py      26      4      2      1    82%
+
+coverage  report --include=app/tests.py
+Name           Stmts   Miss Branch BrPart  Cover
+------------------------------------------------
+app/tests.py     102      0      2      1    99%
+
+
+The command "make test" exited with 0.
+
+Done. Your build exited with 0.
