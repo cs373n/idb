@@ -109,7 +109,7 @@ class EventInstance extends React.Component {
 
 							<Col className="text-left" md={9}>
 								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{event.desc}</p>
+								<p>{event.desc ? event.desc : "Description not available."}</p>
 								<PageHeader style={h2Font}>Statistics</PageHeader>
 								<ul>
 									<li>Contains {event.characters.length} characters</li>
