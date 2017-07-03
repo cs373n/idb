@@ -50,20 +50,10 @@ class SeriesInstance extends React.Component {
 
 	createCharacterCards() {
 		var cardsArray = [];
-		var assocCharacters = this.state.series.characters; // (╯°□°)╯︵ ┻━┻
+		var assocCharacters = this.state.series.characters; 
 		if(assocCharacters) {
 			for(var i = 0; i < assocCharacters.length; i++) {
-				if(assocCharacters[i].img && assocCharacters[i].img != "") {
-					assocCharacters[i].img = assocCharacters[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-					cardsArray.push(<Card modelLink="/characterInstance" 
-									      modelInstance={assocCharacters[i]}/>);
-				}
-
-				else {
-					assocCharacters[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-					cardsArray.push(<Card modelLink="/characterInstance" 
-									 	  modelInstance={assocCharacters[i]} />);
-				}
+					cardsArray.push(<Card modelLink="/characterInstance" modelInstance={assocCharacters[i]}/>);
 			}
 		}
 		return cardsArray;
@@ -71,20 +61,10 @@ class SeriesInstance extends React.Component {
 
 	createCreatorCards() {
 		var cardsArray = [];
-		var assocCreators = this.state.series.creators; // (╯°□°)╯︵ ┻━┻
+		var assocCreators = this.state.series.creators; 
 		if(assocCreators) {
 			for(var i = 0; i < assocCreators.length; i++) {
-				if(assocCreators[i].img && assocCreators[i].img != "") {
-					assocCreators[i].img = assocCreators[i].img.slice(0, -4) + "/standard_xlarge.jpg";
-					cardsArray.push(<Card modelLink="/creatorInstance" 
-									      modelInstance={assocCreators[i]}/>);
-				}
-
-				else {
-					assocCreators[i].img = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
-					cardsArray.push(<Card modelLink="/creatorInstance" 
-									 	  modelInstance={assocCreators[i]} />);
-				}
+					cardsArray.push(<Card modelLink="/creatorInstance" modelInstance={assocCreators[i]}/>);
 			}
 		}
 		return cardsArray;
