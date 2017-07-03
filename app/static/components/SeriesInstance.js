@@ -122,11 +122,11 @@ class SeriesInstance extends React.Component {
 					<br/>
 
 					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="CHARACTERS">
+	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
 	    					<br/>
 	    					<Table cards={this.createCharacterCards()}/>
 	    				</Tab>
-	    				<Tab eventKey={2} title="CREATORS">
+	    				<Tab eventKey={2} title="FEATURED CREATORS">
 	    					<br/>
 	    					<Table cards={this.createCreatorCards()}/>
 	    				</Tab>	
