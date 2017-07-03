@@ -5,7 +5,7 @@ var Card = require('./Card.js');
 var api = require('./api.js');
 
 var h2Font = {
-	fontSize: '20px',
+	fontSize: '20px'
 };
 
 class EventInstance extends React.Component {
