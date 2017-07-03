@@ -2,16 +2,13 @@ var React = require('react');
 var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
-var navStyle = {
-    marginBottom: '0',
-    borderRadius: '0',
-    backgroundColor: 'red',
-};
 
 class NavBar extends React.Component {
 	render() {
 		return (
+			<div>
 			<Navbar inverse collapseOnSelect>
 			    <Navbar.Header>
 			    	<LinkContainer to="/">
@@ -42,6 +39,7 @@ class NavBar extends React.Component {
 			      </Nav>
 				</Navbar.Collapse>
 			</Navbar>
+			</div>
 		)
 	}
 }
