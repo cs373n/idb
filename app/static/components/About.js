@@ -119,7 +119,7 @@ class About extends React.Component{
 			            <div className="row">
 			                <br/>
 			                <ul style={{'fontSize': '22px'}}>
-			                    <li>TOTAL NO. OF COMMITS: 286</li>
+			                    <li>TOTAL NO. OF COMMITS: 283</li>
 			                    <li>TOTAL NO. OF ISSUES: 38</li>
 			                    <li>TOTAL NO. OF UNIT TESTS: 8</li>
 			                    <li>APIARY API: <a href="http://docs.cs373n.apiary.io/#">http://docs.cs373n.apiary.io/#</a></li>
