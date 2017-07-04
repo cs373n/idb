@@ -156,21 +156,32 @@ class Creators extends React.Component{
 				<PageHeader className="text-center" style={fixMargin}>CREATORS</PageHeader>
 				<Grid>
 					<Row>
-						<Col md={6}>
-							<h3>FILTER BY:</h3>
-							<Button bsStyle="primary" onClick={() => this.applyFilter(1)}>
-									Photo Available
-							</Button>
+						<Col md={4}/>
+						<Col md={4}>
+							<ul className="list-inline list-unstyled">
+								<li>
+									<h3>FILTER BY:</h3>
+									<ButtonToolbar>
+										<Button bsStyle="red" onClick={() => this.applyFilter(1)}>
+												Photo Available
+										</Button>
+									</ButtonToolbar>
+									{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
+								</li>
+								<li className="pull-right">
+									<h3>SORT BY:</h3>
+									<ButtonToolbar>
+										<Button bsStyle="red" onClick={() => this.applySort(1)}>
+												Ascending
+										</Button>
+										<Button bsStyle="red" onClick={() => this.applySort(2)}>
+												Descending
+										</Button>
+									</ButtonToolbar>
+								</li>
+							</ul>
 						</Col>
-						<Col className="pull-right" md={6}>
-							<h3>SORT BY:</h3>
-							<Button bsStyle="primary" onClick={() => this.applySort(1)}>
-									Ascending
-							</Button>
-							<Button bsStyle="primary" onClick={() => this.applySort(2)}>
-									Descending
-							</Button>
-						</Col>
+						<Col md={4}/>
 					</Row>
 				</Grid>
 				<PageHeader/> {/*Makes line across screen*/}
