@@ -2,6 +2,7 @@ var React = require('react');
 import { PageHeader, Pagination, Button, 
 		 ButtonGroup, ButtonToolbar,
 		 Grid, Row, Col } from 'react-bootstrap';
+import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
@@ -9,6 +10,8 @@ var Card = require('./Card.js');
 var fixMargin = {
 	margin: '0'
 }
+
+bootstrapUtils.addStyle(Button,'red');
 
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
@@ -156,29 +159,36 @@ class Characters extends React.Component{
 				<PageHeader className="text-center" style={fixMargin}>CHARACTERS</PageHeader>
 				<Grid>
 					<Row>
+						<Col md={3}/>
 						<Col md={6}>
-							<h3>FILTER BY:</h3>
-							<ButtonToolbar>
-								<Button bsStyle="primary" onClick={() => this.applyFilter(1)}>
-										Photo Available
-								</Button>
-								<Button bsStyle="primary" onClick={() => this.applyFilter(2)}>
-										Description Available
-								</Button>
-							</ButtonToolbar>
-							<p/>
-							{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
-							{this.state.hasDesc ? <p>Description Filter Applied</p> : <p/>}
+							<ul className="list-inline list-unstyled">
+								<li>
+									<h3 className="text-center">FILTER BY:</h3>
+									<ButtonToolbar>
+										<Button bsStyle="red" onClick={() => this.applyFilter(1)}>
+												Photo Available
+										</Button>
+										<Button bsStyle="red" onClick={() => this.applyFilter(2)}>
+												Description Available
+										</Button>
+									</ButtonToolbar>
+									{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
+									{this.state.hasDesc ? <p>Description Filter Applied</p> : <p/>}
+								</li>
+								<li className="pull-right">
+									<h3 className="text-center">SORT BY:</h3>
+									<ButtonToolbar>
+										<Button bsStyle="red" onClick={() => this.applySort(1)}>
+												Ascending
+										</Button>
+										<Button bsStyle="red" onClick={() => this.applySort(2)}>
+												Descending
+										</Button>
+									</ButtonToolbar>
+								</li>
+							</ul>
 						</Col>
-						<Col className="pull-right" md={6}>
-							<h3>SORT BY:</h3>
-								<Button bsStyle="primary" onClick={() => this.applySort(1)}>
-										Ascending
-								</Button>
-								<Button bsStyle="primary" onClick={() => {this.applySort(2)}}>
-										Descending
-								</Button>
-						</Col>
+						<Col md={3}/>
 					</Row>
 				</Grid>
 				<PageHeader/> {/*Makes line across screen*/}

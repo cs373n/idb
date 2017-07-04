@@ -157,24 +157,36 @@ class Events extends React.Component{
 				<PageHeader className="text-center" style={fixMargin}>EVENTS</PageHeader>
 				<Grid>
 					<Row>
+						<Col md={3}/>
 						<Col md={6}>
-							<h3>FILTER BY:</h3>
-							<Button bsStyle="primary" onClick={() => this.applyFilter(1)}>
-									Photo Available
-							</Button>
-							<Button bsStyle="primary" onClick={() => this.applyFilter(2)}>
-									Description Available
-							</Button>
+							<ul className="list-inline list-unstyled">
+								<li>
+									<h3 className="text-center">FILTER BY:</h3>
+									<ButtonToolbar>
+										<Button bsStyle="red" onClick={() => this.applyFilter(1)}>
+												Photo Available
+										</Button>
+										<Button bsStyle="red" onClick={() => this.applyFilter(2)}>
+												Description Available
+										</Button>
+									</ButtonToolbar>
+									{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
+									{this.state.hasDesc ? <p>Description Filter Applied</p> : <p/>}
+								</li>
+								<li className="pull-right">
+									<h3 className="text-center">SORT BY:</h3>
+									<ButtonToolbar>
+										<Button bsStyle="red" onClick={() => this.applySort(1)}>
+												Ascending
+										</Button>
+										<Button bsStyle="red" onClick={() => this.applySort(2)}>
+												Descending
+										</Button>
+									</ButtonToolbar>
+								</li>
+							</ul>
 						</Col>
-						<Col className="pull-right" md={6}>
-							<h3>SORT BY:</h3>
-							<Button bsStyle="primary" onClick={() => this.applySort(1)}>
-									Ascending
-							</Button>
-							<Button bsStyle="primary" onClick={() => this.applySort(2)}>
-									Descending
-							</Button>
-						</Col>
+						<Col md={3}/>
 					</Row>
 				</Grid>
 				<PageHeader/> {/*Makes line across screen*/}
