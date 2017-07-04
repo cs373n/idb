@@ -61,7 +61,7 @@ class About extends React.Component{
 			                </li>
 			                <li>NO. OF COMMITS: 36</li>
 			                <li>NO. OF ISSUES: 5</li>
-			                <li>NO. OF UNIT TESTS: 0</li>
+			                <li>NO. OF UNIT TESTS: 8</li>
 			            </ul>
 			        </div>
 
@@ -119,9 +119,9 @@ class About extends React.Component{
 			            <div className="row">
 			                <br/>
 			                <ul style={{'fontSize': '22px'}}>
-			                    <li>TOTAL NO. OF COMMITS: 48</li>
-			                    <li>TOTAL NO. OF ISSUES: 20</li>
-			                    <li>TOTAL NO. OF UNIT TESTS: 0</li>
+			                    <li>TOTAL NO. OF COMMITS: 286</li>
+			                    <li>TOTAL NO. OF ISSUES: 38</li>
+			                    <li>TOTAL NO. OF UNIT TESTS: 8</li>
 			                    <li>APIARY API: <a href="http://docs.cs373n.apiary.io/#">http://docs.cs373n.apiary.io/#</a></li>
 			                    <li>GITHUB REPO: <a href="https://github.com/cs373n/idb">https://github.com/cs373n/idb</a></li>
 			                    <li>TRELLO: <a href="https://trello.com/b/tpLlxzNl/fantastic-four">https://trello.com/b/tpLlxzNl/fantastic-four</a></li>
