@@ -29,21 +29,20 @@ else                                   # UTCS
 endif 
 
 
-.pylintrc: 
-	$(PYLINT) --disable=locally-disabled --reports=no --generate-rcfile > $@ 
-
-test: app/models.py app/tests.py .pylintrc
-	#-$(PYLINT) app/models.py
-	#-$(PYLINT) app/tests.py
-
-	-$(COVERAGE) run --branch app/tests.py 
-	-$(COVERAGE) report --include=app/models.py 
-	-$(COVERAGE) report --include=app/idb.py
-	-$(COVERAGE) report --include=app/tests.py
+test:
+	$(PYLINT) --generate-rcfile > app/pylintrc 
+	@echo
+	$(PYLINT) app/idb.py --rcfile=app/pylintrc 
+	$(PYLINT) app/models.py --rcfile=app/pylintrc 
+	$(PYLINT) app/tests.py --rcfile=app/pylintrc
+	$(COVERAGE) run --branch app/tests.py 
+	@echo
+	@$(COVERAGE) report -m app/tests.py app/models.py app/idb.py
+	@echo
 
 clean:
 	rm -f app/*.pyc
 	rm -f app/.coverage
 	rm -f app/tests.tmp
-	rm -f .pylintrc
+	rm -f app/pylintrc
 	rm -f .coverage
