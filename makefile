@@ -44,5 +44,5 @@ clean:
 	rm -f app/*.pyc
 	rm -f app/.coverage
 	rm -f app/tests.tmp
-	rm -f .pylintrc
+	rm -f app/pylintrc
 	rm -f .coverage
