@@ -1,4 +1,11 @@
-from flask import Flask
+# pylint: disable = invalid-name
+# pylint: disable = missing-docstring
+# pylint: disable = no-member
+# pylint: disable = redefined-builtin
+# pylint: disable = too-few-public-methods
+# pylint: disable = too-many-arguments
+# pylint: disable = too-many-instance-attributes
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.schema import ForeignKey
 
@@ -9,32 +16,32 @@ creator_series = db.Table('creator_series',
                           db.Column(
                               'creator_id', db.Integer, ForeignKey('creator.id')),
                           db.Column(
-                          'series_id', db.Integer, ForeignKey('series.id'))
-                          )
+                              'series_id', db.Integer, ForeignKey('series.id'))
+                         )
 creator_event = db.Table('creator_event',
                          db.Column(
                              'creator_id', db.Integer, ForeignKey('creator.id')),
                          db.Column(
-                         'event_id', db.Integer, ForeignKey('event.id'))
-                         )
+                             'event_id', db.Integer, ForeignKey('event.id'))
+                        )
 character_series = db.Table('character_series',
                             db.Column(
                                 'character_id', db.Integer, ForeignKey('character.id')),
                             db.Column(
-                            'series_id', db.Integer, ForeignKey('series.id'))
-                            )
+                                'series_id', db.Integer, ForeignKey('series.id'))
+                           )
 character_event = db.Table('character_event',
                            db.Column(
                                'character_id', db.Integer, ForeignKey('character.id')),
                            db.Column(
-                           'event_id', db.Integer, ForeignKey('event.id'))
-                           )
+                               'event_id', db.Integer, ForeignKey('event.id'))
+                          )
 event_series = db.Table('event_series',
                         db.Column(
                             'event_id', db.Integer, ForeignKey('event.id')),
                         db.Column(
-                        'series_id', db.Integer, ForeignKey('series.id'))
-                        )
+                            'series_id', db.Integer, ForeignKey('series.id'))
+                       )
 
 
 # Models a series object.
@@ -57,7 +64,8 @@ class Series(db.Model):
     events = db.relationship(
         'Event', secondary=event_series, backref=db.backref('series', lazy='dynamic'))
 
-    def __init__(self, id, title, desc, start, end, img, num_creators, num_characters, num_comics, num_events):
+    def __init__(self, id, title, desc, start, end, img, num_creators,
+                 num_characters, num_comics, num_events):
         assert title != ""
         assert img != ""
         assert start > 0
