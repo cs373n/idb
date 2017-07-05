@@ -1,6 +1,7 @@
 var React = require('react');
 var Link = require('react-router-dom').Link;
 import { FormGroup, FormControl } from 'react-bootstrap';
+import { browserHistory, withRouter } from 'react-router';
 
 class Search extends React.Component {
 	constructor(props){
@@ -10,15 +11,19 @@ class Search extends React.Component {
 		};
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
   	handleChange(e) {
-    	this.setState({ value: e.value });
+    	this.setState({ value: e.target.value });
   	}
 
   	handleSubmit(event){
   		event.preventDefault();
   		console.log("did stuff");
+  		var searchEndPoint = this.state.value
+  		console.log(searchEndPoint);
+  		this.props.history.push("/searchResults/" + searchEndPoint);
   	}
 
 	render(){
@@ -39,4 +44,4 @@ class Search extends React.Component {
 	}
 }
 
-module.exports = Search;
+module.exports = withRouter(Search);
