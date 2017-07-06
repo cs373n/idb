@@ -24,7 +24,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask.exthook import ExtDeprecationWarning
-from models import Character, Event, Creator, Series
+from models import Character, Comic, Creator, Event, Series
 
 # latest stable version of flask-restless uses deprecated import syntax
 import warnings
@@ -43,10 +43,11 @@ db = SQLAlchemy(app)
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
-manager.create_api(Character, methods=['GET'], results_per_page=6)
-manager.create_api(Series, methods=['GET'], results_per_page=6)
-manager.create_api(Creator, methods=['GET'], results_per_page=6)
-manager.create_api(Event, methods=['GET'], results_per_page=6)
+manager.create_api(Character, collection_name='characters',methods=['GET'], results_per_page=6)
+manager.create_api(Comic, collection_name='comics', methods=['GET'], results_per_page=6)
+manager.create_api(Creator, collection_name='creators', methods=['GET'], results_per_page=6)
+manager.create_api(Event, collection_name='events', methods=['GET'], results_per_page=6)
+manager.create_api(Series, collection_name='series', methods=['GET'], results_per_page=6)
 
 @app.route('/<path:path>')
 def index(path):
