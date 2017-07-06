@@ -20,9 +20,7 @@ class SearchForm extends React.Component {
 
   	handleSubmit(event){
   		event.preventDefault();
-  		console.log("did stuff");
   		var searchEndPoint = this.state.value
-  		console.log(searchEndPoint);
   		this.props.history.push("/searchResults/" + searchEndPoint);
   	}
 
