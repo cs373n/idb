@@ -11,6 +11,7 @@ class SearchResults extends React.Component {
 		super();
 		this.state = {
 			searchString: null,
+			multiSearch: false,
 			searchResults: null,
 			modelType: 'character', // CharactER, not CharactERS (╯°□°)╯︵ ┻━┻ 
 			activePage: 1,
@@ -26,7 +27,7 @@ class SearchResults extends React.Component {
 		this.buildFilter = this.buildFilter.bind(this);
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateSearchResults(this.state.searchString, this.state.searchResults);
 	}
 
@@ -38,13 +39,14 @@ class SearchResults extends React.Component {
 	}
 
 	updateSearchResults(searchString, searchResults) {
-		console.log(this.props.match.params.searchString);
 		this.setState({searchString: this.props.match.params.searchString, searchResults: searchResults}, function() {
-		var filter;
-		console.log(this.state.searchString);
-		const { modelType } = this.state;
-		if(modelType === 'character') {
 
+		var filter;
+		
+		const { modelType } = this.state;
+		
+		if(modelType === 'character') {
+			
 			filter = this.buildFilter();
 
 			api.getCharacters(this.state.activePage, filter, orderByAsc)
@@ -106,16 +108,16 @@ class SearchResults extends React.Component {
 		const { modelType } = this.state;
 		const { searchString } = this.state;
 		if(modelType === 'character') {
-			return [{"or": [{"name": "name", "op": "like", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
+			return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
+							{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
 			//return [{'name': 'desc','op': 'any', 'val': searchString}];
 		}
 		else if(modelType === 'event' || modelType === 'series'){
-			return [{"or": [{"name": "title", "op": "like", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
+			return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+							{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
 		}
 		else if(modelType === 'creator'){
-			return [{"name": "full_name", "op": "like", "val": "%" + searchString + "%"}];
+			return [{"name": "full_name", "op": "ilike", "val": "%" + searchString + "%"}];
 		}
 	}
 
@@ -191,7 +193,7 @@ class SearchResults extends React.Component {
 		return(
 			<div className="container">
 				<PageHeader className="text-left">SEARCH RESULTS FOR: "{this.state.searchString}"</PageHeader>
-				<Tabs animation bsStyle="pills" defaultActiveKey={1} onSelect={this.handleTabSelect}>
+				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect}>
 					<Tab eventKey={1} title="CHARACTERS">
 						<br/>
 						{this.loadTable()}
