@@ -1,7 +1,7 @@
 var React = require('react');
 var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
-var Search = require('./Search.js');
+var SearchForm = require('./SearchForm.js');
 import { Nav, Navbar, NavItem, FormGroup, FormControl } from 'react-bootstrap';
 //import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
@@ -40,7 +40,7 @@ class NavBar extends React.Component {
 			      </Nav>
 
 			      <Nav pullRight>
-			      	<Search />
+			      	<SearchForm />
 			      </Nav>
 				</Navbar.Collapse>
 			</Navbar>
