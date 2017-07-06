@@ -18,6 +18,7 @@ var CharacterInstance = require('./CharacterInstance.js');
 var CreatorInstance = require('./CreatorInstance.js');
 var EventInstance = require('./EventInstance.js');
 var SeriesInstance = require('./SeriesInstance.js');
+var SearchResults = require('./SearchResults.js');
 
 // Home Pages Cards
 var Card = require('./Card.js');
@@ -48,7 +49,7 @@ class App extends React.Component {
 			    }
 			    `}
 			    </style>
-				<Router>
+				<Router history={history}>
 					<div>
 						<NavBar />
 						<div>
@@ -68,6 +69,8 @@ class App extends React.Component {
 								<Route path='/creatorInstance/:creatorID' component={CreatorInstance} />
 
 								<Route path='/about' component={About} />
+
+								<Route path='/searchResults/:searchString' component={SearchResults} />
 
 								<Route render={function() {
 									return <p>Page Not Found!</p>

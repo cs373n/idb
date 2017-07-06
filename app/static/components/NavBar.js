@@ -1,8 +1,9 @@
 var React = require('react');
 var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
-import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+var SearchForm = require('./SearchForm.js');
+import { Nav, Navbar, NavItem, FormGroup, FormControl } from 'react-bootstrap';
+//import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
 
 class NavBar extends React.Component {
@@ -36,6 +37,10 @@ class NavBar extends React.Component {
 				    <LinkContainer to="/about">
 				        <NavItem eventKey={6} >ABOUT</NavItem>
 				    </LinkContainer>    
+			      </Nav>
+
+			      <Nav pullRight>
+			      	<SearchForm />
 			      </Nav>
 				</Navbar.Collapse>
 			</Navbar>
