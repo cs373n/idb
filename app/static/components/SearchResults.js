@@ -4,20 +4,24 @@ var Table = require('./Table.js');
 var SearchCard = require('./SearchCard.js');
 import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
 
+var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
+
 class SearchResults extends React.Component {
 	constructor(props) {
 		super();
 		this.state = {
 			searchString: null,
 			searchResults: null,
-			modelType: null,
+			modelType: 'character', // CharactER, not CharactERS (╯°□°)╯︵ ┻━┻ 
 			activePage: 1,
 	      	numPages: 0
 		}
 		this.updateSearchResults = this.updateSearchResults.bind(this);
 		this.createSearchCards = this.createSearchCards.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
+		this.handleTabSelect = this.handleTabSelect.bind(this);
 		this.loadTable = this.loadTable.bind(this);
+		this.buildFilter = this.buildFilter.bind(this);
 	}
 
 	componentDidMount() {
@@ -27,51 +31,125 @@ class SearchResults extends React.Component {
 	componentWillReceiveProps(nextProps){
 		this.setState({searchString: this.props.match.params.searchString}, 
 					  function() {
-					  	this.updateSearchResults(this.state.searchString, this.state.searchResults)
+					  	this.updateSearchResults(this.state.searchString, this.state.searchResults);
 					  });
 	}
 
 	updateSearchResults(searchString, searchResults) {
-		this.setState({searchString: this.props.match.params.searchString, searchResults: searchResults});
-		
-		api.getCharacters(this.state.activePage, {}, {})
-	      .then(function (chars) {
-	        this.setState(function () {
-	          return {
-	            searchResults: chars.objects,
-	            numPages: chars.total_pages
-	          }
-	        });
-	      }.bind(this));
+		console.log(this.props.match.params.searchString);
+		this.setState({searchString: this.props.match.params.searchString, searchResults: searchResults}, function() {
+		var filter;
+		console.log(this.state.searchString);
+		const { modelType } = this.state;
+		if(modelType === 'character') {
+
+			filter = this.buildFilter();
+
+			api.getCharacters(this.state.activePage, filter, orderByAsc)
+		      .then(function (chars) {
+		        this.setState(function () {
+		          return {
+		            searchResults: chars.objects,
+		            numPages: chars.total_pages
+		          }
+		        });
+		      }.bind(this));
+		}
+		else if(modelType === 'event'){
+			api.getEvents(this.state.activePage, {}, {})
+		      .then(function (chars) {
+		        this.setState(function () {
+		          return {
+		            searchResults: chars.objects,
+		            numPages: chars.total_pages
+		          }
+		        });
+		      }.bind(this));
+		}
+		else if(modelType === 'series'){
+			api.getSeries(this.state.activePage, {}, {})
+		      .then(function (chars) {
+		        this.setState(function () {
+		          return {
+		            searchResults: chars.objects,
+		            numPages: chars.total_pages
+		          }
+		        });
+		      }.bind(this));
+		}
+		else if(modelType === 'creator'){
+			api.getCreators(this.state.activePage, {}, {})
+		      .then(function (chars) {
+		        this.setState(function () {
+		          return {
+		            searchResults: chars.objects,
+		            numPages: chars.total_pages
+		          }
+		        });
+		      }.bind(this));
+		}
+	});
+	}
+
+	//[{"or":[{"name":"age","op":"lt","val":10},{"name":"age","op":"gt","val":20}]}]
+
+	buildFilter() {
+		const { modelType } = this.state;
+		const { searchString } = this.state;
+		if(modelType === 'character') {
+			return [{"or": [{"name": "name", "op": "like", "val": "%" + searchString + "%"}, 
+							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
+			//return [{'name': 'desc','op': 'any', 'val': searchString}];
+		}
 	}
 
 	handleSelect(eventKey){
 		this.setState({activePage: eventKey}, function () {
-			console.log(this.state.activePage);
 			this.updateSearchResults(this.state.searchString, null);
 		});
 	}
 
-	createSearchCards(modelType){
+	handleTabSelect(eventKey){
+		var modelType;
+		if(eventKey === 1){
+			modelType = 'character';
+		}
+		else if(eventKey === 2){
+			modelType = 'event';
+		}
+		else if(eventKey === 3){
+			modelType = 'series';
+		}
+		else if(eventKey === 4){
+			modelType = 'creator';
+		}
+
+		this.setState({modelType: modelType},
+					  function(){
+					  	this.updateSearchResults(this.state.searchString, null);
+					  });
+	}
+
+	createSearchCards(){
 		var cardsArray = [];
 		var { searchResults } = this.state;
-		var modelLink = "/" + modelType + "Instance";
+		var modelLink = "/" + this.state.modelType + "Instance";
 		for(var i = 0; i < searchResults.length; i++) {
 				cardsArray.push(<SearchCard modelLink={modelLink}
 								      		modelInstance={searchResults[i]} 
-								      		modelType={modelType}/>);
+								      		modelType={this.state.modelType}/>);
 		}
 		return cardsArray;
 	}
 
-	loadTable(modelType){
+	loadTable(){
 		if(!this.state.searchResults){
             return <p>LOADING!</p>;
         }   
         else{
          	return (
          		<div>
-	         		<Table cards={this.createSearchCards(modelType)}/>
+	         		<Table cards={this.createSearchCards()}/>
 	          		<Pagination
 			       	prev
 			        next
@@ -89,25 +167,26 @@ class SearchResults extends React.Component {
 	}
 
 	render(){
+		
 		return(
 			<div className="container">
 				<PageHeader className="text-left">SEARCH RESULTS FOR: "{this.state.searchString}"</PageHeader>
-				<Tabs bsStyle="pills" defaultActiveKey={1}>
+				<Tabs animation bsStyle="pills" defaultActiveKey={1} onSelect={this.handleTabSelect}>
 					<Tab eventKey={1} title="CHARACTERS">
 						<br/>
-						{this.loadTable('character')}
+						{this.loadTable()}
 					</Tab>
 					<Tab eventKey={2} title="EVENTS">
 						<br/>
-						{this.loadTable('event')}
+						{this.loadTable()}
 					</Tab>
 					<Tab eventKey={3} title="SERIES">
 						<br/>
-						{this.loadTable('series')}
+						{this.loadTable()}
 					</Tab>	
 					<Tab eventKey={4} title="CREATORS">
 						<br/>
-						{this.loadTable('creator')}
+						{this.loadTable()}
 					</Tab>		
 				</Tabs>
 			</div>
