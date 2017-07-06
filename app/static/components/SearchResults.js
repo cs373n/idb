@@ -31,7 +31,7 @@ class SearchResults extends React.Component {
 	componentWillReceiveProps(nextProps){
 		this.setState({searchString: this.props.match.params.searchString}, 
 					  function() {
-					  	this.updateSearchResults(this.state.searchString, this.state.searchResults);
+					  	this.updateSearchResults(this.state.searchString, null);
 					  });
 	}
 
