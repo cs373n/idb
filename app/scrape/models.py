@@ -200,7 +200,7 @@ class Comic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
     issue_num = db.Column(db.Integer)
-    desc = db.Column(db.String(2000))
+    desc = db.Column(db.String(2500))
     upc = db.Column(db.String(30))
     pg_ct = db.Column(db.Integer)
     price = db.Column(db.Float)
