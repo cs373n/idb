@@ -16,6 +16,8 @@ class SearchResults extends React.Component {
 			activePage: 1,
 	      	numPages: 0
 		}
+
+
 		this.updateSearchResults = this.updateSearchResults.bind(this);
 		this.createSearchCards = this.createSearchCards.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
@@ -31,7 +33,7 @@ class SearchResults extends React.Component {
 	componentWillReceiveProps(nextProps){
 		this.setState({searchString: this.props.match.params.searchString}, 
 					  function() {
-					  	this.updateSearchResults(this.state.searchString, this.state.searchResults);
+					  	this.updateSearchResults(this.state.searchString, null);
 					  });
 	}
 
@@ -56,7 +58,10 @@ class SearchResults extends React.Component {
 		      }.bind(this));
 		}
 		else if(modelType === 'event'){
-			api.getEvents(this.state.activePage, {}, {})
+
+			filter = this.buildFilter();
+
+			api.getEvents(this.state.activePage, filter, {})
 		      .then(function (chars) {
 		        this.setState(function () {
 		          return {
@@ -67,7 +72,10 @@ class SearchResults extends React.Component {
 		      }.bind(this));
 		}
 		else if(modelType === 'series'){
-			api.getSeries(this.state.activePage, {}, {})
+
+			filter = this.buildFilter();
+
+			api.getSeries(this.state.activePage, filter, {})
 		      .then(function (chars) {
 		        this.setState(function () {
 		          return {
@@ -78,7 +86,10 @@ class SearchResults extends React.Component {
 		      }.bind(this));
 		}
 		else if(modelType === 'creator'){
-			api.getCreators(this.state.activePage, {}, {})
+
+			filter = this.buildFilter();
+
+			api.getCreators(this.state.activePage, filter, {})
 		      .then(function (chars) {
 		        this.setState(function () {
 		          return {
@@ -91,8 +102,6 @@ class SearchResults extends React.Component {
 	});
 	}
 
-	//[{"or":[{"name":"age","op":"lt","val":10},{"name":"age","op":"gt","val":20}]}]
-
 	buildFilter() {
 		const { modelType } = this.state;
 		const { searchString } = this.state;
@@ -100,6 +109,13 @@ class SearchResults extends React.Component {
 			return [{"or": [{"name": "name", "op": "like", "val": "%" + searchString + "%"}, 
 							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
 			//return [{'name': 'desc','op': 'any', 'val': searchString}];
+		}
+		else if(modelType === 'event' || modelType === 'series'){
+			return [{"or": [{"name": "title", "op": "like", "val": "%" + searchString + "%"}, 
+							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
+		}
+		else if(modelType === 'creator'){
+			return [{"name": "full_name", "op": "like", "val": "%" + searchString + "%"}];
 		}
 	}
 
@@ -124,7 +140,8 @@ class SearchResults extends React.Component {
 			modelType = 'creator';
 		}
 
-		this.setState({modelType: modelType},
+		this.setState({modelType: modelType,
+					   activePage: 1},
 					  function(){
 					  	this.updateSearchResults(this.state.searchString, null);
 					  });
@@ -145,6 +162,9 @@ class SearchResults extends React.Component {
 	loadTable(){
 		if(!this.state.searchResults){
             return <p>LOADING!</p>;
+        }
+        else if(this.state.searchResults[0] === {}){
+        	return <p>No results match that search criteria.</p>
         }   
         else{
          	return (
