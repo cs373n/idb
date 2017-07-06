@@ -1,4 +1,3 @@
-import { Well } from 'react-bootstrap';
 var Link = require('react-router-dom').Link;
 var React = require('react');
 
@@ -30,8 +29,8 @@ class Card extends React.Component {
 
 	render() {
 		const { modelInstance } = this.state;
-		var title = modelInstance.name ? modelInstance.name : modelInstance.title;
-		if (title == null && modelInstance.full_name) {
+		var title = modelInstance.name ? modelInstance.name : modelInstance.title; //Handle Series/Events and Characters
+		if (title == null && modelInstance.full_name) { //Handle Creators
 			title = modelInstance.full_name;
 		}
 		return (
