@@ -1,5 +1,6 @@
 var Link = require('react-router-dom').Link;
 var React = require('react');
+import { Button } from 'react-bootstrap';
 
 var cardStyle = {
 	fontSize: '24px'
@@ -7,10 +8,11 @@ var cardStyle = {
 
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 
-class Card extends React.Component {
+class SearchCard extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
+	      modelType: props.modelType,
 	      modelInstance: props.modelInstance,
 	      modelLink: props.modelLink
     	};
@@ -37,13 +39,12 @@ class Card extends React.Component {
 			<div>
 				<div className="text-center" style={cardStyle}>
 					{title}
-				</div>
-				<div>
 					<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
 						<img className="img-responsive center-block img-rounded" 
 							 src={this.styleImage()} 
 							 alt={title}/>
 					</Link>
+					<p>CONTEXT MOTHER FUCKER</p>
 				</div>
 			</div>
 		)
@@ -51,4 +52,4 @@ class Card extends React.Component {
 }
 
 
-module.exports = Card;
+module.exports = SearchCard;
