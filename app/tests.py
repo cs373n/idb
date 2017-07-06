@@ -106,7 +106,7 @@ class UnitTest(TestCase):
 
     def test_character_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/characters/1009146")
+        api_request = requests.get("http://75.101.247.182/api/characters/1009146")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -118,7 +118,7 @@ class UnitTest(TestCase):
 
     def test_series_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/series/7524")
+        api_request = requests.get("http://75.101.247.182/api/series/7524")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -130,7 +130,7 @@ class UnitTest(TestCase):
 
     def test_creator_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/creators/621")
+        api_request = requests.get("http://75.101.247.182/api/creators/621")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -142,7 +142,7 @@ class UnitTest(TestCase):
 
     def test_event_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/events/306")
+        api_request = requests.get("http://75.101.247.182/api/events/306")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -154,7 +154,7 @@ class UnitTest(TestCase):
 
     def test_comic_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/comics/428")
+        api_request = requests.get("http://75.101.247.182/api/comics/428")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 

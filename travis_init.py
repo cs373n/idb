@@ -27,11 +27,17 @@ def main():
 
 	    newEvent = Event(306, "Gene Colan Tribute (2008)", "This is a test description", "http://i.annihil.us/u/prod/marvel/i/mg/3/03/5109a0811486f.jpg", 23, 22, 11, 1)
 
+	    newComic = Comic(428, "Ant-Man (2003) #4", 4, "This is a test description", "12345", 0, 2.99, "http://i.annihil.us/u/prod/marvel/i/mg/4/20/4bc697c680890.jpg", 2, 0, 0)
+
+
 	    db.session.add(newCharacter)
-            db.session.add(newCreator)
+            db.session.add(newComic)
+	    db.session.add(newCreator)
  	    db.session.add(newSeries)
 	    db.session.add(newEvent)
+	    
 	    db.session.commit()
+
             print("\nDatabase erased, reinitialized and prepped for TravisCI Build\n")
 	
 	else:
