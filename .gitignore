@@ -8,3 +8,4 @@ paulcommit.sh
 deancommit.sh
 *.pyc
 broken_img_links.txt
+.coverage
