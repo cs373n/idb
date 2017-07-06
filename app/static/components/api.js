@@ -1,6 +1,7 @@
 var axios = require('axios');
 
-var baseURL = "http://marveldb.net/api/";
+// var baseURL = "http://marveldb.net/api/";
+var baseURL = "http://54.173.86.47/api/"
 
 module.exports = {
 
