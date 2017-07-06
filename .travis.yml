@@ -28,13 +28,13 @@ install:
     - pip install pylint
 
 before_script:
-    - uname -a
     - printenv | sort
     - psql -c 'create database marveldb;' -U postgres
     - psql -c "ALTER USER postgres WITH PASSWORD 'idb';" -U postgres
-    - python travis_init.py delete
-
+    
 script:
+    - python travis_init.py delete
+    - uname -a
     - date
     - make test
 

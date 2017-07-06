@@ -140,3 +140,31 @@ class Creator(db.Model):
         self.num_comics = num_comics
         self.num_series = num_series
         self.num_events = num_events
+
+
+class Comic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150))
+    img = db.Column(db.String(150))
+    issue_num = db.Column(db.Integer)
+#    isbn = db.Column(db.String(50))
+    pg_ct = db.Column(db.Integer)
+    desc = db.Column(db.String(1300)) # not found on marvel 
+    num_characters = db.Column(db.Integer)
+    num_creators = db.Column(db.Integer)
+    event = db.Column(db.String(150)) # usually 0, maybe 1 (haven't seen one yet)
+    series = db.Column(db.String(150)) # or should it be int? series id?
+
+    def __init__(self, id, title, img, issue_num, pg_ct, desc, num_characters, num_creators, event, series):
+        self.id = id
+        self.title = title
+        self.img = img
+        self.issue_num = issue_num
+        self.pg_ct = pg_ct
+        self.desc = desc
+        self.num_characters = num_characters
+        self.num_creators = num_creators
+        self.event = event
+        self.series = series
+
+

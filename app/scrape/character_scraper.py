@@ -109,7 +109,7 @@ def main():
 				 
 				elif characters_attribute_keys == 'events':
 				    #numEvents = str(characters_attribute['available'])
-				    uris = [idNum]
+				    uris = [characters['id']]
 				    for events in characters_attribute['items'] :
 				    	resource_path = str(events['resourceURI']).split('/')
 				    	uris.append(int(resource_path[-1]))
