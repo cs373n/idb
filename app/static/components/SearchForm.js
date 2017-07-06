@@ -3,7 +3,7 @@ var Link = require('react-router-dom').Link;
 import { FormGroup, FormControl } from 'react-bootstrap';
 import { browserHistory, withRouter } from 'react-router';
 
-class Search extends React.Component {
+class SearchForm extends React.Component {
 	constructor(props){
 		super();
 		this.state = {
@@ -44,4 +44,4 @@ class Search extends React.Component {
 	}
 }
 
-module.exports = withRouter(Search);
+module.exports = withRouter(SearchForm);
