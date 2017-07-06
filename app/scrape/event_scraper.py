@@ -103,7 +103,7 @@ def main():
 				    #if idNum == 0:
 			            #    continue
 
-				    uris = [identity]
+				    uris = [events['id']]
 				    assert uris[0] != 0
 				    for string in events_attribute['items'] :
 			 	        resource_path = str(string['resourceURI']).split('/')
