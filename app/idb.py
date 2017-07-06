@@ -43,7 +43,7 @@ db = SQLAlchemy(app)
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
-manager.create_api(Character, collection_name='characters',methods=['GET'], results_per_page=6)
+manager.create_api(Character, collection_name='characters', methods=['GET'], results_per_page=6)
 manager.create_api(Comic, collection_name='comics', methods=['GET'], results_per_page=6)
 manager.create_api(Creator, collection_name='creators', methods=['GET'], results_per_page=6)
 manager.create_api(Event, collection_name='events', methods=['GET'], results_per_page=6)
