@@ -36,7 +36,7 @@ class UnitTest(TestCase):
     def test_add_comic(self):
 
         newComic = Comic(9021090, "Test Comic", 4, "Test Desc", "12345678",
-                           88, 4.99, "http://www.utexas.edu/diploma.gif", 6, 7, 3)
+                         88, 4.99, "http://www.utexas.edu/diploma.gif", 6, 7, 3)
         db.session.add(newComic)
         db.session.commit()
         query = db.session.query(Comic).filter_by(id="9021090").first()
