@@ -7,7 +7,7 @@ from unittest import main, TestCase
 import json
 import requests
 from idb import db
-from models import Character, Event, Series, Creator
+from models import Character, Comic, Event, Series, Creator
 
 
 class UnitTest(TestCase):
@@ -31,6 +31,22 @@ class UnitTest(TestCase):
         self.assertEqual(query.num_comics, 289)
         self.assertEqual(query.num_events, 4)
         db.session.delete(newSeries)
+        db.session.commit()
+
+    def test_add_comic(self):
+
+        newComic = Comic(9021090, "Test Comic", 4, "Test Desc", "12345678",
+                           88, 4.99, "http://www.utexas.edu/diploma.gif", 6, 7, 3)
+        db.session.add(newComic)
+        db.session.commit()
+        query = db.session.query(Comic).filter_by(id="9021090").first()
+        self.assertEqual(query.id, 9021090)
+        self.assertEqual(query.title, "Test Comic")
+        self.assertEqual(query.img, "http://www.utexas.edu/diploma.gif")
+        self.assertEqual(query.num_creators, 6)
+        self.assertEqual(query.num_characters, 7)
+        self.assertEqual(query.num_events, 3)
+        db.session.delete(newComic)
         db.session.commit()
 
     def test_add_creator(self):
@@ -90,7 +106,7 @@ class UnitTest(TestCase):
 
     def test_character_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/character/1009146")
+        api_request = requests.get("http://marveldb.net/api/characters/1009146")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -114,7 +130,7 @@ class UnitTest(TestCase):
 
     def test_creator_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/creator/621")
+        api_request = requests.get("http://marveldb.net/api/creators/621")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -126,7 +142,7 @@ class UnitTest(TestCase):
 
     def test_event_get_request(self):
 
-        api_request = requests.get("http://marveldb.net/api/event/306")
+        api_request = requests.get("http://marveldb.net/api/events/306")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
