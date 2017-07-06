@@ -124,7 +124,7 @@ class Character(db.Model):
     events = db.relationship(
         'Event', secondary=character_event, backref=db.backref('characters', lazy='dynamic'))
     comics = db.relationship(
-        'Comic', secondary=comic_event, backref=db.backref('characters', lazy='dynamic'))
+        'Comic', secondary=character_comic, backref=db.backref('characters', lazy='dynamic'))
 
     def __init__(self, id, name, desc, img, num_comics, num_series, num_events):
         assert name != ""
