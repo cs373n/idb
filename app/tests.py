@@ -152,6 +152,19 @@ class UnitTest(TestCase):
         self.assertEqual(api_id, db_id)
         self.assertEqual(api_img, db_img)
 
+    def test_comic_get_request(self):
+
+        api_request = requests.get("http://marveldb.net/api/comics/428")
+        api_id = (json.loads(api_request.text))["id"]
+        api_img = (json.loads(api_request.text))["img"]
+
+        db_request = db.session.query(Comic).get(306)
+        db_id = db_request.id
+        db_img = db_request.img
+        self.assertEqual(api_id, db_id)
+        self.assertEqual(api_img, db_img)
+
+
 
 if __name__ == "__main__":
     main()
