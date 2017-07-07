@@ -1,5 +1,0 @@
-List of Pip requirements for scraping data
-
-requests
-datetime
-json
