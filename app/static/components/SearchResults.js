@@ -2,211 +2,115 @@ var React = require('react');
 var api = require('./api.js');
 var Table = require('./Table.js');
 var SearchCard = require('./SearchCard.js');
+var MultiSearch = require('./MultiSearch.js');
+var SingleSearch = require('./SingleSearch.js');
 import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
-
-var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
 
 class SearchResults extends React.Component {
 	constructor(props) {
+		console.log("SR: Constructor");
 		super();
 		this.state = {
 			searchString: null,
-			searchResults: null,
-			modelType: 'character', // CharactER, not CharactERS (╯°□°)╯︵ ┻━┻ 
-			activePage: 1,
-	      	numPages: 0
+			multiSearch: false
 		}
 
-
 		this.updateSearchResults = this.updateSearchResults.bind(this);
-		this.createSearchCards = this.createSearchCards.bind(this);
-		this.handleSelect = this.handleSelect.bind(this);
-		this.handleTabSelect = this.handleTabSelect.bind(this);
-		this.loadTable = this.loadTable.bind(this);
-		this.buildFilter = this.buildFilter.bind(this);
+		this.chooseSearch = this.chooseSearch.bind(this);
+		this.buildTitle = this.buildTitle.bind(this);
 	}
 
-	componentDidMount() {
-	    this.updateSearchResults(this.state.searchString, this.state.searchResults);
+	componentWillMount() {
+		console.log("SR: componentWillMount. searchString:" + this.props.match.params.searchString);
+	    this.updateSearchResults((this.props.match.params.searchString).split(" "));
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({searchString: this.props.match.params.searchString}, 
+		console.log("SR: componentWillReceiveProps. nextProps: " + nextProps);
+		this.setState({searchString: (nextProps.match.params.searchString).split(" ")}, 
 					  function() {
-					  	this.updateSearchResults(this.state.searchString, null);
+					  	this.updateSearchResults(this.state.searchString);
 					  });
 	}
 
-	updateSearchResults(searchString, searchResults) {
-		console.log(this.props.match.params.searchString);
-		this.setState({searchString: this.props.match.params.searchString, searchResults: searchResults}, function() {
-		var filter;
-		console.log(this.state.searchString);
-		const { modelType } = this.state;
-		if(modelType === 'character') {
-
-			filter = this.buildFilter();
-
-			api.getCharacters(this.state.activePage, filter, orderByAsc)
-		      .then(function (chars) {
-		        this.setState(function () {
-		          return {
-		            searchResults: chars.objects,
-		            numPages: chars.total_pages
-		          }
-		        });
-		      }.bind(this));
+	updateSearchResults(searchString) {
+		console.log("SR: updateSearchResults. searchString: " + searchString);
+		var multiSearch;
+		if(searchString.length <= 1){
+			multiSearch = false;
 		}
-		else if(modelType === 'event'){
-
-			filter = this.buildFilter();
-
-			api.getEvents(this.state.activePage, filter, {})
-		      .then(function (chars) {
-		        this.setState(function () {
-		          return {
-		            searchResults: chars.objects,
-		            numPages: chars.total_pages
-		          }
-		        });
-		      }.bind(this));
+		else{
+			multiSearch = true;
 		}
-		else if(modelType === 'series'){
 
-			filter = this.buildFilter();
-
-			api.getSeries(this.state.activePage, filter, {})
-		      .then(function (chars) {
-		        this.setState(function () {
-		          return {
-		            searchResults: chars.objects,
-		            numPages: chars.total_pages
-		          }
-		        });
-		      }.bind(this));
-		}
-		else if(modelType === 'creator'){
-
-			filter = this.buildFilter();
-
-			api.getCreators(this.state.activePage, filter, {})
-		      .then(function (chars) {
-		        this.setState(function () {
-		          return {
-		            searchResults: chars.objects,
-		            numPages: chars.total_pages
-		          }
-		        });
-		      }.bind(this));
-		}
-	});
+		this.setState({searchString: searchString, multiSearch: multiSearch});
 	}
 
-	buildFilter() {
-		const { modelType } = this.state;
+
+	buildTitle(){
+		console.log("SR: buildTitle");
 		const { searchString } = this.state;
-		if(modelType === 'character') {
-			return [{"or": [{"name": "name", "op": "like", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
-			//return [{'name': 'desc','op': 'any', 'val': searchString}];
+		var title = "'";
+		for(var i = 0; i < searchString.length; i++){
+			title += searchString[i];
+			if(i != searchString.length-1)
+				title += " ";
 		}
-		else if(modelType === 'event' || modelType === 'series'){
-			return [{"or": [{"name": "title", "op": "like", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "like", "val": "%" + searchString + "%"}]}];
-		}
-		else if(modelType === 'creator'){
-			return [{"name": "full_name", "op": "like", "val": "%" + searchString + "%"}];
-		}
+		title += "'";
+		return title;
 	}
 
-	handleSelect(eventKey){
-		this.setState({activePage: eventKey}, function () {
-			this.updateSearchResults(this.state.searchString, null);
-		});
-	}
-
-	handleTabSelect(eventKey){
-		var modelType;
-		if(eventKey === 1){
-			modelType = 'character';
+	chooseSearch(modelType) {
+		if(this.state.multiSearch) {
+			console.log("SR: chooseSearch(MultiSearch). modelType: " + modelType);
+			return (
+				<div>
+					<MultiSearch searchString = {this.state.searchString}
+								 modelType = {modelType}
+								 delimiter = "and" />
+					<MultiSearch searchString = {this.state.searchString}
+								 modelType = {modelType}
+								 delimiter = "or" />
+				</div>
+			);
 		}
-		else if(eventKey === 2){
-			modelType = 'event';
-		}
-		else if(eventKey === 3){
-			modelType = 'series';
-		}
-		else if(eventKey === 4){
-			modelType = 'creator';
-		}
-
-		this.setState({modelType: modelType,
-					   activePage: 1},
-					  function(){
-					  	this.updateSearchResults(this.state.searchString, null);
-					  });
-	}
-
-	createSearchCards(){
-		var cardsArray = [];
-		var { searchResults } = this.state;
-		var modelLink = "/" + this.state.modelType + "Instance";
-		for(var i = 0; i < searchResults.length; i++) {
-				cardsArray.push(<SearchCard modelLink={modelLink}
-								      		modelInstance={searchResults[i]} 
-								      		modelType={this.state.modelType}/>);
-		}
-		return cardsArray;
-	}
-
-	loadTable(){
-		if(!this.state.searchResults){
-            return <p>LOADING!</p>;
-        }
-        else if(this.state.searchResults[0] === {}){
-        	return <p>No results match that search criteria.</p>
-        }   
-        else{
-         	return (
-         		<div>
-	         		<Table cards={this.createSearchCards()}/>
-	          		<Pagination
-			       	prev
-			        next
-			        first
-			        last
-			        ellipsis
-			        boundaryLinks
-			        items={this.state.numPages}
-			        maxButtons={5}
-			        activePage={this.state.activePage}
-			        onSelect={this.handleSelect} />
-		    	</div>
-		    );
+		else {
+			console.log("SR: chooseSearch(SingleSearch). modelType: " + modelType);
+			return (
+				<div>
+					<SingleSearch searchString = {this.state.searchString}
+								  modelType = {modelType}
+					/>
+				</div>
+			);
 		}
 	}
 
 	render(){
-		
+		console.log("SR: render");	
 		return(
 			<div className="container">
-				<PageHeader className="text-left">SEARCH RESULTS FOR: "{this.state.searchString}"</PageHeader>
-				<Tabs animation bsStyle="pills" defaultActiveKey={1} onSelect={this.handleTabSelect}>
-					<Tab eventKey={1} title="CHARACTERS">
+				<PageHeader className="text-left">SEARCH RESULTS FOR: {this.buildTitle()}</PageHeader>
+				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect}>
+					<Tab unmountOnExit={true}eventKey={1} title="CHARACTERS">
+						{console.log("SR: Tab 1")}
 						<br/>
-						{this.loadTable()}
+						{this.chooseSearch("character")}
 					</Tab>
-					<Tab eventKey={2} title="EVENTS">
+					<Tab unmountOnExit={true} eventKey={2} title="EVENTS">
+						{console.log("SR: Tab 2")}
 						<br/>
-						{this.loadTable()}
+						{this.chooseSearch("event")}
 					</Tab>
-					<Tab eventKey={3} title="SERIES">
+					<Tab unmountOnExit={true} eventKey={3} title="SERIES">
+						{console.log("SR: Tab 3")}
 						<br/>
-						{this.loadTable()}
+						{this.chooseSearch("series")}
 					</Tab>	
-					<Tab eventKey={4} title="CREATORS">
+					<Tab unmountOnExit={true} eventKey={4} title="CREATORS">
+						{console.log("SR: Tab 4")}
 						<br/>
-						{this.loadTable()}
+						{this.chooseSearch("creator")}
 					</Tab>		
 				</Tabs>
 			</div>
