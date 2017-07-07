@@ -6,6 +6,10 @@ import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
 
 var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
 
+/*
+	Props: modelType, searchString
+*/
+
 class SingleSearch extends React.Component {
 	constructor(props) {
 		console.log("SS: Constructor entered");
@@ -34,7 +38,6 @@ class SingleSearch extends React.Component {
 			this.props = nextProps;
 			this.updateSearchResults(null);
 		}
-
 	}
 
 	updateSearchResults(searchResults) {
@@ -113,7 +116,6 @@ class SingleSearch extends React.Component {
 		if(modelType === 'character') {
 			return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
 							{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
-			//return [{'name': 'desc','op': 'any', 'val': searchString}];
 		}
 		else if(modelType === 'event' || modelType === 'series'){
 			return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
@@ -153,7 +155,7 @@ class SingleSearch extends React.Component {
         	return <p>No results match that search criteria.</p>
         }   
         else {
-        	console.log("loadTable else{}");
+        	console.log("SS: loadTable else{}");
          	return (
          		<div>
 	         		<Table cards={this.createSearchCards()}/>
