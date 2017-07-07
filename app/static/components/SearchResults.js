@@ -8,6 +8,7 @@ import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
 
 class SearchResults extends React.Component {
 	constructor(props) {
+		console.log("SR: Constructor");
 		super();
 		this.state = {
 			searchString: null,
@@ -20,6 +21,7 @@ class SearchResults extends React.Component {
 	}
 
 	componentWillMount() {
+		console.log("SR: componentWillMount");
 	    this.updateSearchResults((this.props.match.params.searchString).split(" "));
 	}
 
@@ -31,7 +33,7 @@ class SearchResults extends React.Component {
 	}
 
 	updateSearchResults(searchString) {
-		console.log("Search results search string: " +searchString);
+		console.log("SR: updateSearchResults");
 		var multiSearch;
 		if(searchString.length <= 1){
 			multiSearch = false;
@@ -45,6 +47,7 @@ class SearchResults extends React.Component {
 
 
 	buildTitle(){
+		console.log("SR: buildTitle");
 		const { searchString } = this.state;
 		var title = "'";
 		for(var i = 0; i < searchString.length; i++){
@@ -57,6 +60,7 @@ class SearchResults extends React.Component {
 	}
 
 	chooseSearch(modelType) {
+		console.log("SR: chooseSearch");
 		if(this.state.multiSearch) {
 			return (
 				<div>
@@ -80,24 +84,29 @@ class SearchResults extends React.Component {
 		}
 	}
 
-	render(){	
+	render(){
+		console.log("SR: render");	
 		return(
 			<div className="container">
 				<PageHeader className="text-left">SEARCH RESULTS FOR: {this.buildTitle()}</PageHeader>
 				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect}>
-					<Tab eventKey={1} title="CHARACTERS">
+					<Tab unmountOnExit={true}eventKey={1} title="CHARACTERS">
+						{console.log("SR: Tab 1")}
 						<br/>
 						{this.chooseSearch("character")}
 					</Tab>
-					<Tab eventKey={2} title="EVENTS">
+					<Tab unmountOnExit={true} eventKey={2} title="EVENTS">
+						{console.log("SR: Tab 2")}
 						<br/>
 						{this.chooseSearch("event")}
 					</Tab>
-					<Tab eventKey={3} title="SERIES">
+					<Tab unmountOnExit={true} eventKey={3} title="SERIES">
+						{console.log("SR: Tab 3")}
 						<br/>
 						{this.chooseSearch("series")}
 					</Tab>	
-					<Tab eventKey={4} title="CREATORS">
+					<Tab unmountOnExit={true} eventKey={4} title="CREATORS">
+						{console.log("SR: Tab 4")}
 						<br/>
 						{this.chooseSearch("creator")}
 					</Tab>		
