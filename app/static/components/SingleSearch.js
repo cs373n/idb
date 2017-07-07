@@ -8,6 +8,7 @@ var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
 
 class SingleSearch extends React.Component {
 	constructor(props) {
+		console.log("SS: Constructor entered");
 		super();
 		this.state = {
 			searchResults: null,
@@ -23,17 +24,21 @@ class SingleSearch extends React.Component {
 	}
 
 	componentWillMount() {
+		console.log("SS: Component will mount");
 	    this.updateSearchResults(null);
 	}
 
 	componentWillReceiveProps(nextProps){
+		console.log("SS: Component will receive props")
 		if(nextProps.modelType != this.props.modelType || (nextProps.searchString != this.props.searchString)) {
+			this.props = nextProps;
 			this.updateSearchResults(null);
 		}
 
 	}
 
 	updateSearchResults(searchResults) {
+		console.log("SS: updateSearchResults");
 		const { modelType } = this.props;
 		var filter;
 
@@ -102,6 +107,7 @@ class SingleSearch extends React.Component {
 	}
 
 	buildFilter() {
+		console.log("SS: build filter");
 		const { modelType } = this.props;
 		const { searchString } = this.props;
 		if(modelType === 'character') {
@@ -119,12 +125,14 @@ class SingleSearch extends React.Component {
 	}
 
 	handlePageSelect(eventKey){
+		console.log("SS: handlePageSelect");
 		this.setState({activePage: eventKey}, function () {
 			this.updateSearchResults(null);
 		});
 	}
 
 	createSearchCards(){
+		console.log("SS: createSearchCards");
 		var cardsArray = [];
 		var { searchResults } = this.state;
 		var modelLink = "/" + this.props.modelType + "Instance";
@@ -137,6 +145,7 @@ class SingleSearch extends React.Component {
 	}
 
 	loadTable(){
+		console.log("SS: loadTable");
 		if(!this.state.searchResults){
             return <p>LOADING!</p>;
         }
@@ -144,6 +153,7 @@ class SingleSearch extends React.Component {
         	return <p>No results match that search criteria.</p>
         }   
         else {
+        	console.log("loadTable else{}");
          	return (
          		<div>
 	         		<Table cards={this.createSearchCards()}/>
@@ -164,6 +174,7 @@ class SingleSearch extends React.Component {
 	}
 
 	render() {
+		console.log("SS: render");
 		return (
 			<div>
 				{this.loadTable()}
