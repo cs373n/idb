@@ -21,11 +21,12 @@ class SearchResults extends React.Component {
 	}
 
 	componentWillMount() {
-		console.log("SR: componentWillMount");
+		console.log("SR: componentWillMount. searchString:" + this.props.match.params.searchString);
 	    this.updateSearchResults((this.props.match.params.searchString).split(" "));
 	}
 
 	componentWillReceiveProps(nextProps){
+		console.log("SR: componentWillReceiveProps. nextProps: " + nextProps);
 		this.setState({searchString: (nextProps.match.params.searchString).split(" ")}, 
 					  function() {
 					  	this.updateSearchResults(this.state.searchString);
@@ -33,7 +34,7 @@ class SearchResults extends React.Component {
 	}
 
 	updateSearchResults(searchString) {
-		console.log("SR: updateSearchResults");
+		console.log("SR: updateSearchResults. searchString: " + searchString);
 		var multiSearch;
 		if(searchString.length <= 1){
 			multiSearch = false;
@@ -60,20 +61,21 @@ class SearchResults extends React.Component {
 	}
 
 	chooseSearch(modelType) {
-		console.log("SR: chooseSearch");
 		if(this.state.multiSearch) {
+			console.log("SR: chooseSearch(MultiSearch). modelType: " + modelType);
 			return (
 				<div>
 					<MultiSearch searchString = {this.state.searchString}
 								 modelType = {modelType}
-								 delimiter = " AND " />
+								 delimiter = "and" />
 					<MultiSearch searchString = {this.state.searchString}
 								 modelType = {modelType}
-								 delimiter = " OR " />
+								 delimiter = "or" />
 				</div>
 			);
 		}
 		else {
+			console.log("SR: chooseSearch(SingleSearch). modelType: " + modelType);
 			return (
 				<div>
 					<SingleSearch searchString = {this.state.searchString}
