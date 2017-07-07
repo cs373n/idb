@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 // var baseURL = "http://marveldb.net/api/";
-var baseURL = "http://54.173.86.47/api/"
+var baseURL = "http://54.175.35.2/api/"
 
 module.exports = {
 
@@ -14,7 +14,7 @@ module.exports = {
         // Endpoint is character... but returns many characters...
         // (╯°□°)╯︵ ┻━┻ 
 
-        var encodedURI = window.encodeURI(baseURL + "character");
+        var encodedURI = window.encodeURI(baseURL + "characters");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
@@ -41,7 +41,7 @@ module.exports = {
 
     getCreators: function(page, filter, orderBy) {
 
-        var encodedURI = window.encodeURI(baseURL + "creator");
+        var encodedURI = window.encodeURI(baseURL + "creators");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
@@ -66,7 +66,7 @@ module.exports = {
 
     getEvents: function(page, filter, orderBy) {
 
-        var encodedURI = window.encodeURI(baseURL + "event");
+        var encodedURI = window.encodeURI(baseURL + "events");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
@@ -119,7 +119,7 @@ module.exports = {
     // *******************************************************************
 
     getCharacter: function(id) {
-        var encodedURI = window.encodeURI(baseURL + "character/" + id);
+        var encodedURI = window.encodeURI(baseURL + "characters/" + id);
 
         return axios.get(encodedURI, {
                 headers: {
@@ -136,7 +136,7 @@ module.exports = {
     },
 
     getCreator: function(id) {
-        var encodedURI = window.encodeURI(baseURL + "creator/" + id);
+        var encodedURI = window.encodeURI(baseURL + "creators/" + id);
 
         return axios.get(encodedURI, {
                 headers: {
@@ -153,7 +153,7 @@ module.exports = {
     },
 
     getEvent: function(id) {
-        var encodedURI = window.encodeURI(baseURL + "event/" + id);
+        var encodedURI = window.encodeURI(baseURL + "events/" + id);
 
         return axios.get(encodedURI, {
                 headers: {

@@ -133,18 +133,25 @@ class MultiSearch extends React.Component{
 	
 		else if(modelType === 'event' || modelType === 'series'){
 			for(var i = 0; i < searchString.length; i++) {
-				filter += "{'name': 'title', 'op': 'ilike', 'val': '%'" + searchString[i] + "'%'}"
+				filter += '{"or":[';
+				filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"}, ' + 
+						  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
 				if(i != searchString.length-1) {
 					filter += ",";
 				}
-
-				/*return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
-								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];*/
 			}
+			filter += "]}]";
 		}
 
 		else if(modelType === 'creator'){
-			return [{"name": "full_name", "op": "ilike", "val": "%" + searchString + "%"}];
+			for(var i = 0; i < searchString.length; i++) {
+				//filter += '{"or":[';
+				filter += '{"name": "full_name", "op": "ilike", "val": "%' + searchString[i] + '%"} '	
+				if(i != searchString.length-1) {
+					filter += ",";
+				}
+			}
+			filter += "]}]";
 		}
 
 		console.log("builtFilter: " + filter);
