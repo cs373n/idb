@@ -1,16 +1,12 @@
-import requests
-import json
-import time
-import datetime
-import hashlib
+import requests, json, time, datetime, hashlib
 from models import db, Series, Event, Character, Creator
 
 
 class MarvelRequest():
 
     def __init__(self):
-        self.publicKey = "9f6871291df763f4dad8bf8f7b1c290e"
-        self.privateKey = "b22cea6ea538c71e8d3524cbf13f8da4eb3d6c02"
+        self.publicKey = ""
+        self.privateKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -42,7 +38,7 @@ def main():
 
 	index = 0
 
-	for offset in range(5480, 10000, 20):
+	for offset in range(0, 10000, 20):
 
 	    response = marvel.request("series", offset)  # No trailing slash allowed here
 	    print(response.status_code)

@@ -126,15 +126,14 @@ def series_comics():
 
 	# format into a list
 	for ch in temp:
-	    if ch != '[' and ch != ']':
+	    if ch != '[' and ch != ']' and ch != " ":
  	        hold += ch
 	    comics = hold.split(',')
-	    
 	# first item in list is series
 	if (len(comics) > 1):
             p = iter(comics)
 	    series = next(p)
-
+	    
 	    # retrieve series object
 	    series_object = Series.query.filter_by(id=series).first()
 	    if series_object == None:
@@ -143,8 +142,10 @@ def series_comics():
 	    # other items are associated comics
 	    for comic_id in p:
 	        comic_object = Comic.query.filter_by(id=comic_id).first()
+	        if comic_object == None:
+		    continue
 
-	        # append series_comic_ids into association table
+		# append series_comic_ids into association table
 	        comic_object.series.append(series_object)
                 db.session.commit()    
 	        index += 1
