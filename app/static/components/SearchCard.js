@@ -44,7 +44,7 @@ class SearchCard extends React.Component {
 							 src={this.styleImage()} 
 							 alt={title}/>
 					</Link>
-					<p>CONTEXT MOTHER FUCKER</p>
+					<p>CONTEXT...</p>
 				</div>
 			</div>
 		)
