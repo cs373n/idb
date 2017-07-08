@@ -5,8 +5,8 @@ from models import db, Comic
 class MarvelRequest():
 
     def __init__(self):
-        self.publicKey = "44691a16603549b92a9a551e3e53fa51"
-        self.privateKey = "2c1094c5e90d58bbb6623b2211e8cc0953877fd8"
+        self.publicKey = ""
+        self.privateKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -25,10 +25,10 @@ class MarvelRequest():
 
 def main():
 
-    fcharacters = open('comic_characters.txt', 'w')
-    fcreators = open('comic_creators.txt', 'w')
-    fevents = open('comic_events.txt', 'w')
-    fseries = open('comic_series.txt', 'w')
+    fcharacters = open('comic_characters.txt', 'a')
+    fcreators = open('comic_creators.txt', 'a')
+    fevents = open('comic_events.txt', 'a')
+    fseries = open('comic_series.txt', 'a')
 
     marvel = MarvelRequest()
 
@@ -39,7 +39,7 @@ def main():
 
     index = 0
 
-    for offset in range(0, 41000, 20):
+    for offset in range(38200, 41000, 20):
 
         response = marvel.request("comics", offset)  # No trailing slash allowed here
         print(response.status_code)
