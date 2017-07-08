@@ -17,14 +17,14 @@ class SingleSearch extends React.Component {
 		this.state = {
 			searchResults: null,
 			activePage: 1,
-	      	numPages: 0
+	      	numPages: 0,
 		}
 
 		this.updateSearchResults = this.updateSearchResults.bind(this);
 		this.createSearchCards = this.createSearchCards.bind(this);
 		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.loadTable = this.loadTable.bind(this);
-		this.buildFilterAndContextualize = this.buildFilterAndContextualize.bind(this);
+		this.buildFilter = this.buildFilter.bind(this);
 	}
 
 	componentWillMount() {
@@ -53,7 +53,7 @@ class SingleSearch extends React.Component {
 
 		if(modelType === 'character') {
 				
-				filter = this.buildFilterAndContextualize();
+				filter = this.buildFilter();
 
 				api.getCharacters(this.state.activePage, filter, {})
 			      .then(function (chars) {
@@ -67,7 +67,7 @@ class SingleSearch extends React.Component {
 			}
 			else if(modelType === 'event'){
 
-				filter = this.buildFilterAndContextualize();
+				filter = this.buildFilter();
 
 				api.getEvents(this.state.activePage, filter, {})
 			      .then(function (chars) {
@@ -81,7 +81,7 @@ class SingleSearch extends React.Component {
 			}
 			else if(modelType === 'series'){
 
-				filter = this.buildFilterAndContextualize();
+				filter = this.buildFilter();
 
 				api.getSeries(this.state.activePage, filter, {})
 			      .then(function (chars) {
@@ -95,7 +95,7 @@ class SingleSearch extends React.Component {
 			}
 			else if(modelType === 'creator'){
 
-				filter = this.buildFilterAndContextualize();
+				filter = this.buildFilter();
 
 				api.getCreators(this.state.activePage, filter, {})
 			      .then(function (chars) {
@@ -109,36 +109,17 @@ class SingleSearch extends React.Component {
 			}
 	}
 
-	buildFilterAndContextualize() {
+	buildFilter() {
 		console.log("SS: build filter");
 		const { modelType } = this.props;
 		var searchString = this.props.searchString[0];
-		/*
-		 If the field does not exist for a modelType, or if there is no context for that attribute, the value will be -1.
-		 If the field does have context, it will hold a string of the form "IN /ATTRIBUTE/: '...searchString...' "
-		 The nameContext field is synonymous with title and full_name
-		
-		var context = {
-			nameContext: null,
-			descContext: null,
-			num_charactersContext: null,
-			num_comicsContext: null, 
-		 	num_creatorsContext: null, 
-		 	num_eventsContext: null, 
-		 	num_seriesContext: null
-		};
-		*/
+
 		if(modelType === 'character') {
 			if(isNaN(searchString)){
-				//context.nameContext = modelType.name.search(/searchString/i);
-				//context.descContext = modelType.desc.search(/searchString/i);
 				return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
 								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
 			}
 			else{
-				//context.nameContext = modelType.name.search(/searchString/i);
-				//context.descContext = modelType.desc.search(/searchString/i);
-				//context.num_charactersContext = modelType.num_characters.search(/searchString/i);
 				return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
 								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"},
 								{"name": "id", "op": "==", "val": searchString}, 
@@ -207,7 +188,8 @@ class SingleSearch extends React.Component {
 				cardsArray.push(<SearchCard modelLink={modelLink}
 								      		modelInstance={searchResults[i]} 
 								      		modelType={this.props.modelType}
-								      		/*context={this.state.context}*//>);
+								      		searchType="single"
+								      		searchString={this.props.searchString}/>);
 		}
 		return cardsArray;
 	}
