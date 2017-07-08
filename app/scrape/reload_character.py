@@ -3,8 +3,8 @@ from models import db, Character
 
 class MarvelRequest():
     def __init__(self):
-        self.privateKey = "c0cca37e9e919d673f13d91eadaaa1c7c683c745"
-	self.publicKey = "8097970cb5bc96d3dd151e9f983b76c8"
+        self.privateKey = ""
+	self.publicKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
