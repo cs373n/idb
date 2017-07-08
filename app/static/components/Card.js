@@ -2,7 +2,7 @@ var Link = require('react-router-dom').Link;
 var React = require('react');
 
 var cardStyle = {
-	fontSize: '24px'
+	fontSize: '30px'
 
 };
 
