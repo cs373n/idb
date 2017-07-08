@@ -3,6 +3,7 @@ var React = require('react');
 
 var cardStyle = {
 	fontSize: '24px'
+
 };
 
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
@@ -34,7 +35,7 @@ class Card extends React.Component {
 			title = modelInstance.full_name;
 		}
 		return (
-			<div>
+			<div className="well" style={{backgroundColor: '#252525'}}>
 				<div className="text-center" style={cardStyle}>
 					{title}
 				</div>
