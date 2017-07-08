@@ -1,7 +1,6 @@
 var axios = require('axios');
 
-// var baseURL = "http://marveldb.net/api/";
-var baseURL = "http://54.175.35.2/api/"
+var baseURL = "http://marveldb.net/api/";
 
 module.exports = {
 
@@ -14,7 +13,7 @@ module.exports = {
         // Endpoint is character... but returns many characters...
         // (╯°□°)╯︵ ┻━┻ 
 
-        var encodedURI = window.encodeURI(baseURL + "characters");
+        var encodedURI = window.encodeURI(baseURL + "character");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
@@ -25,8 +24,7 @@ module.exports = {
                 params: {
                     'page': page,
                     //'q': JSON.stringify({"filters": filter}),
-                    //'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
-                    'q': {"order_by": orderBy, filters: filter}
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -41,7 +39,7 @@ module.exports = {
 
     getCreators: function(page, filter, orderBy) {
 
-        var encodedURI = window.encodeURI(baseURL + "creators");
+        var encodedURI = window.encodeURI(baseURL + "creator");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
@@ -66,7 +64,7 @@ module.exports = {
 
     getEvents: function(page, filter, orderBy) {
 
-        var encodedURI = window.encodeURI(baseURL + "events");
+        var encodedURI = window.encodeURI(baseURL + "event");
         console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
@@ -119,7 +117,7 @@ module.exports = {
     // *******************************************************************
 
     getCharacter: function(id) {
-        var encodedURI = window.encodeURI(baseURL + "characters/" + id);
+        var encodedURI = window.encodeURI(baseURL + "character/" + id);
 
         return axios.get(encodedURI, {
                 headers: {
@@ -136,7 +134,7 @@ module.exports = {
     },
 
     getCreator: function(id) {
-        var encodedURI = window.encodeURI(baseURL + "creators/" + id);
+        var encodedURI = window.encodeURI(baseURL + "creator/" + id);
 
         return axios.get(encodedURI, {
                 headers: {
@@ -153,7 +151,7 @@ module.exports = {
     },
 
     getEvent: function(id) {
-        var encodedURI = window.encodeURI(baseURL + "events/" + id);
+        var encodedURI = window.encodeURI(baseURL + "event/" + id);
 
         return axios.get(encodedURI, {
                 headers: {
