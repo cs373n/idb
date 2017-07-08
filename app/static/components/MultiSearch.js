@@ -119,34 +119,82 @@ class MultiSearch extends React.Component{
 		var filter = '[{"'+ delimiter + '":[';
 		if(modelType === "character") {
 			for(var i = 0; i < searchString.length; i++) {
-				filter += '{"or":[';
-				filter += '{"name": "name", "op": "ilike", "val": "%' + searchString[i] + '%"}, ' + 
-						  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
+				if(isNaN(searchString[i])){
+					filter += '{"or":[';
+					filter += '{"name": "name", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
+				}
+				else{
+					filter += '{"or":[';
+					filter += '{"name": "name", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"},' +
+							  '{"name": "num_comics", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_events", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_series", "op": "==", "val": "' + searchString[i] + '"}]}';
+				}
 				if(i != searchString.length-1) {
 					filter += ",";
 				}
 			}
 			filter += "]}]";
 		}
-			/*return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];*/
 	
-		else if(modelType === 'event' || modelType === 'series'){
+		else if(modelType === 'event'){
 			for(var i = 0; i < searchString.length; i++) {
-				filter += '{"or":[';
-				filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"}, ' + 
-						  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
+				if(isNaN(searchString[i])){
+					filter += '{"or":[';
+					filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
+				}
+				else{
+					filter += '{"or":[';
+					filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"},' +
+							  '{"name": "num_comics", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_characters", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_creators", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_series", "op": "==", "val": "' + searchString[i] + '"}]}';
+				}
 				if(i != searchString.length-1) {
 					filter += ",";
 				}
 			}
 			filter += "]}]";
 		}
-
+		else if(modelType === 'series'){
+			for(var i = 0; i < searchString.length; i++) {
+				if(isNaN(searchString[i])){
+					filter += '{"or":[';
+					filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
+				}
+				else{
+					filter += '{"or":[';
+					filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"},' +
+							  '{"name": "num_comics", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_events", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_creators", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_characters", "op": "==", "val": "' + searchString[i] + '"}]}';
+				}
+				if(i != searchString.length-1) {
+					filter += ",";
+				}
+			}
+			filter += "]}]";
+		}
 		else if(modelType === 'creator'){
 			for(var i = 0; i < searchString.length; i++) {
-				//filter += '{"or":[';
-				filter += '{"name": "full_name", "op": "ilike", "val": "%' + searchString[i] + '%"} '	
+				if(isNaN(searchString[i])){
+					filter += '{"name": "full_name", "op": "ilike", "val": "%' + searchString[i] + '%"}';
+				}
+				else{
+					filter += '{"or":[';
+					filter += '{"name": "full_name", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "num_comics", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_events", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_series", "op": "==", "val": "' + searchString[i] + '"}]}';
+				}
 				if(i != searchString.length-1) {
 					filter += ",";
 				}
@@ -231,7 +279,7 @@ class MultiSearch extends React.Component{
 		console.log("MS: render")
 		return(
 			<div>
-				<h1>{this.buildTitle()}</h1>
+				<PageHeader className="text-left">{this.buildTitle()}</PageHeader>
 				{this.loadTable()}
 	    	</div>
 	    );
