@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-// var baseURL = "http://marveldb.net/api/";
-var baseURL = "http://54.175.35.2/api/"
+var baseURL = "http://marveldb.net/api/";
+//var baseURL = "http://54.175.35.2/api/"
 
 module.exports = {
 
@@ -24,9 +24,7 @@ module.exports = {
 
                 params: {
                     'page': page,
-                    //'q': JSON.stringify({"filters": filter}),
-                    //'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
-                    'q': {"order_by": orderBy, filters: filter}
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
