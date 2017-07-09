@@ -5,8 +5,8 @@ from models import db, Comic
 class MarvelRequest():
 
     def __init__(self):
-        self.publicKey = "8097970cb5bc96d3dd151e9f983b76c8"
-        self.privateKey = "c0cca37e9e919d673f13d91eadaaa1c7c683c745"
+        self.publicKey = ""
+        self.privateKey = ""
         self.timeStamp = str(datetime.datetime.utcnow())
         self.baseurl = "http://gateway.marvel.com/v1/public/"
 
@@ -38,7 +38,7 @@ def main():
 
     index = 0
 
-    for offset in range(0, 10000, 20):
+    for offset in range(36080, 41000, 20):
 
         response = marvel.request("comics", offset)  # No trailing slash allowed here
         print(response.status_code)

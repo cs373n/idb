@@ -158,7 +158,7 @@ class UnitTest(TestCase):
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
-        db_request = db.session.query(Comic).get(306)
+        db_request = db.session.query(Comic).get(428)
         db_id = db_request.id
         db_img = db_request.img
         self.assertEqual(api_id, db_id)
