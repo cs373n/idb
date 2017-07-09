@@ -23,9 +23,7 @@ module.exports = {
 
                 params: {
                     'page': page,
-                    //'q': JSON.stringify({"filters": filter}),
-                    //'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
-                    'q': {"order_by": orderBy, filters: filter}
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {

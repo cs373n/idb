@@ -17,7 +17,7 @@ class SingleSearch extends React.Component {
 		this.state = {
 			searchResults: null,
 			activePage: 1,
-	      	numPages: 0
+	      	numPages: 0,
 		}
 
 		this.updateSearchResults = this.updateSearchResults.bind(this);
@@ -55,7 +55,7 @@ class SingleSearch extends React.Component {
 				
 				filter = this.buildFilter();
 
-				api.getCharacters(this.state.activePage, filter, orderByAsc)
+				api.getCharacters(this.state.activePage, filter, {})
 			      .then(function (chars) {
 			        this.setState(function () {
 			          return {
@@ -112,17 +112,63 @@ class SingleSearch extends React.Component {
 	buildFilter() {
 		console.log("SS: build filter");
 		const { modelType } = this.props;
-		const { searchString } = this.props;
+		var searchString = this.props.searchString[0];
+
 		if(modelType === 'character') {
-			return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
+			if(isNaN(searchString)){
+				return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
+			}
+			else{
+				return [{"or": [{"name": "name", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"},
+								{"name": "id", "op": "==", "val": searchString}, 
+								{"name": "num_comics", "op": "==", "val": searchString},
+								{"name": "num_events", "op": "==", "val": searchString}, 
+								{"name": "num_series", "op": "==", "val": searchString}]}];
+			}
 		}
-		else if(modelType === 'event' || modelType === 'series'){
-			return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
-							{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
+		else if(modelType === 'event'){
+			if(isNaN(searchString)){
+				return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
+			}
+			else{
+				return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"},
+								{"name": "id", "op": "==", "val": searchString}, 
+								{"name": "num_comics", "op": "==", "val": searchString},
+								{"name": "num_creators", "op": "==", "val": searchString}, 
+								{"name": "num_series", "op": "==", "val": searchString},
+								{"name": "num_characters", "op": "==", "val": searchString}]}];
+			}
+		}
+		else if(modelType === 'series'){
+			if(isNaN(searchString)){
+				return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
+			}
+			else{
+				return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"},
+								{"name": "id", "op": "==", "val": searchString}, 
+								{"name": "num_comics", "op": "==", "val": searchString},
+								{"name": "num_events", "op": "==", "val": searchString}, 
+								{"name": "num_creators", "op": "==", "val": searchString},
+								{"name": "num_characters", "op": "==", "val": searchString}]}];
+			}
 		}
 		else if(modelType === 'creator'){
-			return [{"name": "full_name", "op": "ilike", "val": "%" + searchString + "%"}];
+			if(isNaN(searchString)){
+				return [{"name": "full_name", "op": "ilike", "val": "%" + searchString + "%"}];
+			}
+			else{
+				return [{"or": [{"name": "full_name", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "id", "op": "==", "val": searchString},
+								{"name": "num_comics", "op": "==", "val": searchString}, 
+								{"name": "num_events", "op": "==", "val": searchString},
+								{"name": "num_series", "op": "==", "val": searchString}]}];
+			}
 		}
 	}
 
@@ -141,7 +187,8 @@ class SingleSearch extends React.Component {
 		for(var i = 0; i < searchResults.length; i++) {
 				cardsArray.push(<SearchCard modelLink={modelLink}
 								      		modelInstance={searchResults[i]} 
-								      		modelType={this.props.modelType}/>);
+								      		modelType={this.props.modelType}
+								      		searchString={this.props.searchString}/>);
 		}
 		return cardsArray;
 	}

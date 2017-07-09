@@ -67,10 +67,10 @@ class SearchResults extends React.Component {
 				<div>
 					<MultiSearch searchString = {this.state.searchString}
 								 modelType = {modelType}
-								 delimiter = "and" />
+								 delimiter = "or" />
 					<MultiSearch searchString = {this.state.searchString}
 								 modelType = {modelType}
-								 delimiter = "or" />
+								 delimiter = "and" />
 				</div>
 			);
 		}
