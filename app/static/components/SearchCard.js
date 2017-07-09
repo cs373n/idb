@@ -51,43 +51,46 @@ class SearchCard extends React.Component {
 	contextualizeSearch(){
 		var searchString = this.props.searchString;
 		const { modelInstance } = this.state;
-		var regEx = new RegExp(this.props.searchString[0], "i");
+		
 		var contextIndex = {};
 		var context = [];
 
-		Object.keys(modelInstance).map(function(key, index){
-			var modelField = modelInstance[key];
-			if(!Array.isArray(modelField) && modelField && modelField !== ""){
-				contextIndex[key] = modelField.toString().search(regEx) + 3;
-			}
-		});
+		for(var i = 0; i < searchString.length; i++){
+			var regEx = new RegExp(this.props.searchString[i], "i");
+			Object.keys(modelInstance).map(function(key, index){
+				var modelField = modelInstance[key];
+				if(!Array.isArray(modelField) && modelField && modelField !== ""){
+					contextIndex[key] = modelField.toString().search(regEx) + 3;
+				}
+			});
 
-		Object.keys(contextIndex).map(function(key, index){
-			var contextField = contextIndex[key];
-			var modelField = "..." + modelInstance[key].toString() + "...";	
-			if(contextField !== 2){
-				key = key.charAt(0).toUpperCase() + key.slice(1)
-				if(contextField === 3 && modelField.length-6 === searchString[0].length){
-					context.push(
-									<li>
-										{key + " : "}
+			Object.keys(contextIndex).map(function(key, index){
+				var contextField = contextIndex[key];
+				var modelField = "..." + modelInstance[key].toString() + "...";	
+				if(contextField !== 2){
+					key = key.charAt(0).toUpperCase() + key.slice(1)
+					if(contextField === 3 && modelField.length-6 === searchString[i].length){
+						context.push(
+										<li>
+											{key + " : "}
+											<mark style={highlightStyle}> 
+											{modelField.slice(contextField, contextField+searchString[i].length)}
+											</mark>
+										</li>
+									);
+					}
+					else{
+						context.push(<li>
+										{key + " : '..." + modelField.slice(contextField-3, contextField)} 
 										<mark style={highlightStyle}> 
-										{modelField.slice(contextField, contextField+searchString[0].length)}
+										{modelField.slice(contextField, contextField+searchString[i].length)}
 										</mark>
-									</li>
-								);
+										{modelField.slice(contextField+searchString[i].length, contextField+searchString[i].length+3) +"...'"}
+									</li>);
+					}
 				}
-				else{
-					context.push(<li>
-									{key + " : '..." + modelField.slice(contextField-3, contextField)} 
-									<mark style={highlightStyle}> 
-									{modelField.slice(contextField, contextField+searchString[0].length)}
-									</mark>
-									{modelField.slice(contextField+searchString[0].length, contextField+searchString[0].length+3) +"...'"}
-								</li>);
-				}
-			}
-		});
+			});
+		}
 		console.log(context);
 
 		return context;
@@ -111,7 +114,7 @@ class SearchCard extends React.Component {
 					</Link>
 				</div>
 				<div className="text-center">
-					<h3 style={{marginTop: '5px', marginBottom: '0px', paddingBottom: '0px'}}>Attributes Matched:</h3>
+					<h3 style={{marginTop: '5px', marginBottom: '0px', paddingBottom: '0px'}}>Search matched these attributes:</h3>
 					<ul className="list-unstyled" style={{fontSize: '20px'}}>
 						{this.contextualizeSearch()}
 					</ul>
