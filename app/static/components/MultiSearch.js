@@ -222,7 +222,8 @@ class MultiSearch extends React.Component{
 		for(var i = 0; i < searchResults.length; i++) {
 				cardsArray.push(<SearchCard modelLink={modelLink}
 								      		modelInstance={searchResults[i]} 
-								      		modelType={this.props.modelType}/>);
+								      		modelType={this.props.modelType}
+								      		searchString={this.props.searchString}/>);
 		}
 		return cardsArray;
 	}
