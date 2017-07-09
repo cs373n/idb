@@ -13,14 +13,15 @@ var fixMargin = {
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
 var descFilter = [{'name': 'desc','op': '!=', 'val': ''}];
-var orderByAsc = [{'field': 'full_name', 'direction': 'asc'}];
-var orderByDsc = [{'field': 'full_name', 'direction': 'desc'}];
+var orderByAsc = [{'field': 'title', 'direction': 'asc'}];
+var orderByDsc = [{'field': 'title', 'direction': 'desc'}];
 
-class Creators extends React.Component{
+class Comics extends React.Component{
+
 	constructor(props) {
 	    super();
 	    this.state = {
-	      creators: null,
+	      comics: null,
 	      activePage: 1,
 	      numPages: 0,
 	      hasPhoto: false,
@@ -29,21 +30,21 @@ class Creators extends React.Component{
     	};
 
     	this.handleSelect = this.handleSelect.bind(this); //pls work
-    	this.updateCreators = this.updateCreators.bind(this); //pls work
+    	this.updateComics = this.updateComics.bind(this); //pls work
     	this.applyFilter = this.applyFilter.bind(this);
     	this.loadTable = this.loadTable.bind(this);
   	}
 
 	componentWillMount() {
-	    this.updateCreators(this.state.creators)
+	    this.updateComics(this.state.comics);
 	}
 
-	updateCreators(creators) {
+	updateComics(comics) {
 		var filter;
 		var orderBy;
 		this.setState(function() {
 			return {
-				creators: creators
+				comics: null
 			}
 		});
 
@@ -61,13 +62,12 @@ class Creators extends React.Component{
 			orderBy = orderByDsc;
 		}
 
-
-		api.getCreators(this.state.activePage, filter, orderBy)
-	      .then(function (creators) {
+		api.getComics(this.state.activePage, filter, orderBy)
+	      .then(function (comics) {
 	        this.setState(function () {
 	          return {
-	            creators: creators.objects,
-	            numPages: creators.total_pages
+	            comics: comics.objects,
+	            numPages: comics.total_pages
 	          }
 	        });
 	      }.bind(this));
@@ -75,7 +75,7 @@ class Creators extends React.Component{
 
 	handleSelect(eventKey){
 		this.setState({activePage: eventKey}, function () {
-			this.updateCreators(null);
+			this.updateComics(null);
 		});
 	}
 
@@ -85,7 +85,7 @@ class Creators extends React.Component{
 	    		hasPhoto: true,
 	    		hasDesc: false
 	    	}, function() {
-	    		this.updateCreators(null);
+	    		this.updateComics(null);
 	    	});
 	    }
 	    else if(filterKey === 2){
@@ -93,7 +93,7 @@ class Creators extends React.Component{
 	    		hasPhoto: false,
 	    		hasDesc: true
 	    	}, function() {
-	    		this.updateCreators(null);
+	    		this.updateComics(null);
 	    	});
 	    }
 	}
@@ -103,14 +103,14 @@ class Creators extends React.Component{
 			this.setState({
 				sortAsc: true
 			}, function(){
-				this.updateCreators(null);
+				this.updateComics(null);
 			});
 		}
 		else if(sortKey === 2){
 	    	this.setState({
 	    		sortAsc: false
 	    	}, function() {
-	    		this.updateCreators(null);
+	    		this.updateComics(null);
 	    	});
 	    }
 		
@@ -118,16 +118,16 @@ class Creators extends React.Component{
 
 	createCards() {
 		var cardsArray = [];
-		const { creators } = this.state;
-		for(var i = 0; i < creators.length; i++) {
-				cardsArray.push(<Card modelLink="/creatorInstance" 
-								      modelInstance={creators[i]} />);
+		var { comics } = this.state;
+		for(var i = 0; i < comics.length; i++) {
+				cardsArray.push(<Card modelLink="/comicInstance" 
+								      modelInstance={comics[i]} />);
 		}
 		return cardsArray;
 	}
 
 	loadTable(){
-		if(!this.state.creators){
+		if(!this.state.comics){
             return <p>LOADING!</p>;
         }   
         else{
@@ -153,11 +153,11 @@ class Creators extends React.Component{
 	render(){
 		return(
 			<div className="container">
-				<PageHeader className="text-center" style={fixMargin}>CREATORS</PageHeader>
+				<PageHeader className="text-center" style={fixMargin}>COMICS</PageHeader>
 				<Grid>
 					<Row>
-						<Col md={4}/>
-						<Col md={4}>
+						<Col md={3}/>
+						<Col md={6}>
 							<ul className="list-inline list-unstyled">
 								<li>
 									<h3 className="text-center">FILTER BY:</h3>
@@ -165,8 +165,12 @@ class Creators extends React.Component{
 										<Button bsStyle="red" onClick={() => this.applyFilter(1)}>
 												Photo Available
 										</Button>
+										<Button bsStyle="red" onClick={() => this.applyFilter(2)}>
+												Description Available
+										</Button>
 									</ButtonToolbar>
 									{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
+									{this.state.hasDesc ? <p>Description Filter Applied</p> : <p/>}
 								</li>
 								<li className="pull-right">
 									<h3 className="text-center">SORT BY:</h3>
@@ -181,18 +185,15 @@ class Creators extends React.Component{
 								</li>
 							</ul>
 						</Col>
-						<Col md={4}/>
+						<Col md={3}/>
 					</Row>
 				</Grid>
 				<PageHeader/> {/*Makes line across screen*/}
-
-
 				
 				{this.loadTable()}
 			</div>
 		)
 	}
-
 }
 
-module.exports = Creators;
+module.exports = Comics;

@@ -12,13 +12,16 @@ var Characters = require('./Characters.js')
 var Creators = require('./Creators.js');
 var Events = require('./Events.js');
 var Series = require('./Series.js');
+var Comics = require('./Comics.js');
 
 // Instance Pages
 var CharacterInstance = require('./CharacterInstance.js');
 var CreatorInstance = require('./CreatorInstance.js');
 var EventInstance = require('./EventInstance.js');
 var SeriesInstance = require('./SeriesInstance.js');
+var ComicInstance = require('./ComicInstance.js')
 var SearchResults = require('./SearchResults.js');
+
 
 // Home Pages Cards
 var Card = require('./Card.js');
@@ -31,8 +34,6 @@ import { Button, Navbar } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
 bootstrapUtils.addStyle(Button,'red');
-bootstrapUtils.addStyle(Navbar, ['red']);
-
 
 class App extends React.Component {
 	render() {
@@ -43,21 +44,58 @@ class App extends React.Component {
 			        background-color: red;
 			        color: white;
 			    }
-			    .navbar-red{
+
+			    nav.navbar.navbar-inverse {
 			    	background-color: red;
-			    	color: white
+			    	position: fixed-top;
 			    }
+
+			    .navbar-inverse .navbar-brand {
+				    color: white;
+				    font-size: 30px;
+				}
+
+				.navbar-inverse .navbar-nav>li>a:hover{
+					color: black;
+				}
+
+			    .navbar-inverse .navbar-nav>li>a {
+				    color: #9d9d9d;
+				    color: white;
+				}
+
+				ul.nav.navbar-nav.navbar-right {
+					height: 35px;
+				}
+				
+				.form-control {
+					margin-top: 7px;
+				}
+
+				@media (min-width: 768px) {
+				  .navbar-collapse.collapse {
+				    display: flex !important;
+				   }
+				}
+
+				.well{
+			      background-color: #252525;
+			    }
+
 			    `}
 			    </style>
 				<Router history={history}>
 					<div>
 						<NavBar />
-						<div>
+						<div className="container">
 							<Switch>
 								<Route exact path='/' component={Home} />
 								
 								<Route path='/characters' component={Characters} />
 								<Route path='/characterInstance/:charID' component={CharacterInstance} />
+
+								<Route path='/comics' component={Comics} />
+								<Route path='/comicInstance/:comicID' component={ComicInstance} />
 
 								<Route path='/events' component={Events} />
 								<Route path='/eventInstance/:eventID' component={EventInstance} />
@@ -76,8 +114,8 @@ class App extends React.Component {
 									return <p>Page Not Found!</p>
 								}} />
 							</Switch>
-						<Footer/>
 						</div>
+						<Footer/>
 					</div>
 				</Router>
 			</div>

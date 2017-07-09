@@ -10,11 +10,7 @@ module.exports = {
 
     getCharacters: function(page, filter, orderBy) {
 
-        // Endpoint is character... but returns many characters...
-        // (╯°□°)╯︵ ┻━┻ 
-
         var encodedURI = window.encodeURI(baseURL + "characters");
-        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
                 headers: {
@@ -39,7 +35,6 @@ module.exports = {
     getCreators: function(page, filter, orderBy) {
 
         var encodedURI = window.encodeURI(baseURL + "creators");
-        console.log(JSON.stringify({"filters": filter}));
         return axios.get(encodedURI, {
 
                 headers: {
@@ -103,6 +98,31 @@ module.exports = {
             })
             .then(function(response) {
                 console.log("In getSeries: ");
+                console.log(response);
+
+                return response.data;
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getComics: function(page, filter, orderBy) {
+
+        var encodedURI = window.encodeURI(baseURL + "comics");
+        console.log(JSON.stringify({"filters": filter}));
+        return axios.get(encodedURI, {
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                params: {
+                    'page': page,
+                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                }
+            })
+            .then(function(response) {
+                console.log("In getComics: ");
                 console.log(response);
 
                 return response.data;
@@ -180,6 +200,23 @@ module.exports = {
             .then(function(response) {
                 console.log("In getOneSeries: ");
                 console.log(response.data);
+                return response.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getComic: function(id) {
+        var encodedURI = window.encodeURI(baseURL + "comics/" + id);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getComic: " + response.data);
                 return response.data;
 
             }).catch(function(error) {

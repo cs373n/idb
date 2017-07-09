@@ -1,12 +1,8 @@
 var React = require('react');
-import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
-
-var h2Font = {
-	fontSize: '20px',
-};
+import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class CharacterInstance extends React.Component {
 	constructor(props) {
@@ -73,45 +69,71 @@ class CharacterInstance extends React.Component {
 	render() {
 		const { character } = this.state;
 
-		if(!character) {
+		if(!character){
 			return <p>LOADING!</p>
 		}
-		else {
+		else{
+
+			var titleStyle = {
+				marginTop: '0px',
+				marginBottom: '10px',
+				padding: '0px'
+			}
 
 			return (
-				<div className="container">
-					<PageHeader className="text-left">{character.name}</PageHeader>
+				<div>
+					{/* STYLES */}
+					<style type="text/css">{`
+					    .h1, h1 {
+					        font-size: 40px;
+					        margin-top: 0px;
+					        margin-bottom: 5px;
+					    }
+
+					    .page-header {
+					    	margin-top: 0px;
+					    }
+				    `}
+				    </style>
+
 					<Grid>
+						<PageHeader className="text-left"
+									style={titleStyle}>
+								{	character.name}
+						</PageHeader>
 						<Row>
 							<Col md={3}>
 								<img className="img-rounded img-responsive" src={this.fixImage()} alt={character.name}/>
 							</Col>
 
-							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Description</PageHeader>
+							<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+								<PageHeader className="text-left">Description</PageHeader>
 								<p>{(character.desc == null || character.desc == "") ? "Description not available." : character.desc}</p>
-								<PageHeader style={h2Font}>Statistics</PageHeader>
+								<PageHeader className="text-left">Attributes</PageHeader>
 								<ul>
+									<li>Appears in {character.comics.length} Comics</li>
 									<li>Appears in {character.series.length} Series</li>
 									<li>Appears in {character.events.length} Events</li>
 								</ul>
 							</Col>
 						</Row>
 					</Grid>
-					
+
 					<br/>
 
-					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createSeriesCards()}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED EVENTS">
-	    					<br/>
-	    					<Table cards={this.createEventsCards()}/>
-	    				</Tab>	
-	 				 </Tabs>
-
+					<Tabs className="pull-left" bsStyle="pills" defaultActiveKey={1} justified>
+						<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+						<Tabs className="pull-left" bsStyle="pills" defaultActiveKey={1} justified>
+		    				<Tab eventKey={1} title="FEATURED SERIES">
+		    					<br/>
+		    					<Table cards={this.createSeriesCards()}/>
+		    				</Tab>
+		    				<Tab eventKey={2} title="FEATURED EVENTS">
+		    					<br/>
+		    					<Table cards={this.createEventsCards()}/>
+		    				</Tab>	
+	 				 	</Tabs>
+	 				</Tabs>
 				</div>
 			)
 		}

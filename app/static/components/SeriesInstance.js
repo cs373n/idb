@@ -1,8 +1,8 @@
 var React = require('react');
-import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 var h2Font = {
 	fontSize: '20px',
@@ -90,7 +90,7 @@ class SeriesInstance extends React.Component {
 							<Col className="text-left" md={9}>
 								<PageHeader style={h2Font}>Description</PageHeader>
 								<p>{(series.desc == null || series.desc == "") ? "Description not available." : series.desc}</p>
-								<PageHeader style={h2Font}>Statistics</PageHeader>
+								<PageHeader style={h2Font}>Attributes</PageHeader>
 								<ul>
 									<li>Contains {series.characters.length} characters</li>
 									<li>{series.creators.length} creators contributed to this series</li>

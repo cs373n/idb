@@ -59,7 +59,7 @@ class SearchCard extends React.Component {
 			var regEx = new RegExp(this.props.searchString[i], "i");
 			Object.keys(modelInstance).map(function(key, index){
 				var modelField = modelInstance[key];
-				if(!Array.isArray(modelField) && modelField && modelField !== ""){
+				if(!Array.isArray(modelField) && modelField && modelField !== "" && key != "img"){
 					contextIndex[key] = modelField.toString().search(regEx) + 3;
 				}
 			});
