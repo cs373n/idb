@@ -1,10 +1,10 @@
 var React = require('react');
-import { PageHeader, Pagination, Button, 
-		 ButtonGroup, ButtonToolbar,
-		 Grid, Row, Col } from 'react-bootstrap';
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
+import { PageHeader, Pagination, Button, 
+		 ButtonGroup, ButtonToolbar,
+		 Grid, Row, Col } from 'react-bootstrap';
 
 var fixMargin = {
 	margin: '0'
@@ -34,7 +34,7 @@ class Creators extends React.Component{
     	this.loadTable = this.loadTable.bind(this);
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateCreators(this.state.creators)
 	}
 
@@ -132,7 +132,7 @@ class Creators extends React.Component{
         }   
         else{
          	return (
-         		<div>
+         		<div className="text-center">
 	         		<Table cards={this.createCards()}/>
 	          		<Pagination
 			       	prev
@@ -160,7 +160,7 @@ class Creators extends React.Component{
 						<Col md={4}>
 							<ul className="list-inline list-unstyled">
 								<li>
-									<h3>FILTER BY:</h3>
+									<h3 className="text-center">FILTER BY:</h3>
 									<ButtonToolbar>
 										<Button bsStyle="red" onClick={() => this.applyFilter(1)}>
 												Photo Available
@@ -169,7 +169,7 @@ class Creators extends React.Component{
 									{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
 								</li>
 								<li className="pull-right">
-									<h3>SORT BY:</h3>
+									<h3 className="text-center">SORT BY:</h3>
 									<ButtonToolbar>
 										<Button bsStyle="red" onClick={() => this.applySort(1)}>
 												Ascending

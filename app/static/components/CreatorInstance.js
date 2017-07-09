@@ -1,8 +1,8 @@
 var React = require('react');
-import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 var h2Font = {
 	fontSize: '20px',
@@ -89,7 +89,7 @@ class CreatorInstance extends React.Component {
 							</Col>
 
 							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Statistics</PageHeader>
+								<PageHeader style={h2Font}>Attributes</PageHeader>
 								<ul>
 									<li>Contributed to {creator.series.length} Series</li>
 									<li>Contributed to {creator.events.length} Events</li>

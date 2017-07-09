@@ -1,10 +1,10 @@
 var React = require('react');
-import { PageHeader, Pagination, Button, 
-		 ButtonGroup, ButtonToolbar,
-		 Grid, Row, Col } from 'react-bootstrap';
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
+import { PageHeader, Pagination, Button, 
+		 ButtonGroup, ButtonToolbar,
+		 Grid, Row, Col } from 'react-bootstrap';
 
 var fixMargin = {
 	margin: '0'
@@ -35,7 +35,7 @@ class Events extends React.Component{
 
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateEvents(this.state.events)
 	}
 
@@ -133,7 +133,7 @@ class Events extends React.Component{
         }   
         else{
          	return (
-         		<div>
+         		<div className="text-center">
 	         		<Table cards={this.createCards()}/>
 	          		<Pagination
 			       	prev

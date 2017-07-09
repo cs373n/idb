@@ -1,17 +1,14 @@
 var React = require('react');
-import { PageHeader, Pagination, Button, 
-		 ButtonGroup, ButtonToolbar,
-		 Grid, Row, Col } from 'react-bootstrap';
-import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
+import { PageHeader, Pagination, Button, 
+		 ButtonGroup, ButtonToolbar,
+		 Grid, Row, Col } from 'react-bootstrap';
 
 var fixMargin = {
 	margin: '0'
 }
-
-bootstrapUtils.addStyle(Button,'red');
 
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
@@ -38,7 +35,7 @@ class Characters extends React.Component{
     	this.loadTable = this.loadTable.bind(this);
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateChars(this.state.characters);
 	}
 
@@ -135,7 +132,7 @@ class Characters extends React.Component{
         }   
         else{
          	return (
-         		<div>
+         		<div className="text-center">
 	         		<Table cards={this.createCards()}/>
 	          		<Pagination
 			       	prev
@@ -200,9 +197,5 @@ class Characters extends React.Component{
 		)
 	}
 }
-
-
-
-
 
 module.exports = Characters;
