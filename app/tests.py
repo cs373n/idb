@@ -199,7 +199,6 @@ class UnitTest(TestCase):
         self.assertEqual(api_id, db_id)
         self.assertEqual(api_img, db_img)
 
-    
 
 if __name__ == "__main__":
     main()
