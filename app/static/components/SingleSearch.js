@@ -188,7 +188,6 @@ class SingleSearch extends React.Component {
 				cardsArray.push(<SearchCard modelLink={modelLink}
 								      		modelInstance={searchResults[i]} 
 								      		modelType={this.props.modelType}
-								      		searchType="single"
 								      		searchString={this.props.searchString}/>);
 		}
 		return cardsArray;
