@@ -41,7 +41,7 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>React, Javascript, Flask, AWS, Apache, Scraping data using Python & Ajax</p>
 			                </li>
-			                <li>NO. OF COMMITS: 89</li>
+			                <li>NO. OF COMMITS: 109</li>
 			                <li>NO. OF ISSUES: 14</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
@@ -57,11 +57,11 @@ class About extends React.Component{
 			         He will be graduating in December 2018 with a B.S. in Computer Science.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>Setting up AWS EC2 instances. Installing Flask, PostgreSQL, SQLAlchemy, and Flask-Restless.  Configuring Restful API, populating database with scraped data </p>
+			                    <p>AWS, Flask, PostgreSQL, SQLAlchemy, Flask-Restless, Configuring Restful API, populating database with scraped data </p>
 			                </li>
-			                <li>NO. OF COMMITS: 36</li>
-			                <li>NO. OF ISSUES: 5</li>
-			                <li>NO. OF UNIT TESTS: 8</li>
+			                <li>NO. OF COMMITS: 77</li>
+			                <li>NO. OF ISSUES: 17</li>
+			                <li>NO. OF UNIT TESTS: 12</li>
 			            </ul>
 			        </div>
 
@@ -77,10 +77,10 @@ class About extends React.Component{
 			                    <p>Edmond Amataj is pursuing a B.S. in Computer science and will be graduating in the Fall of 2018. He hopes to land a career in the financial field upon graduating. His main interests consist of the stock market, basketball, and iOS development.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>Apiary documentation, back-end, database</p>
+			                    <p>Apiary, RestfulAPI, back-end, database</p>
 			                </li>
-			                <li>NO. OF COMMITS: 14</li>
-			                <li>NO. OF ISSUES: 2</li>
+			                <li>NO. OF COMMITS: 26</li>
+			                <li>NO. OF ISSUES: 8</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
 			        </div>
@@ -95,7 +95,7 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>Front End Development using React, HTML/CSS/Javascript, BootStrap</p>
 			                </li>
-			                <li>NO. OF COMMITS: 60</li>
+			                <li>NO. OF COMMITS: 100</li>
 			                <li>NO. OF ISSUES: 9</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
@@ -125,7 +125,7 @@ class About extends React.Component{
 			                    <li>APIARY API: <a href="http://docs.cs373n.apiary.io/#">http://docs.cs373n.apiary.io/#</a></li>
 			                    <li>GITHUB REPO: <a href="https://github.com/cs373n/idb">https://github.com/cs373n/idb</a></li>
 			                    <li>TRELLO: <a href="https://trello.com/b/tpLlxzNl/fantastic-four">https://trello.com/b/tpLlxzNl/fantastic-four</a></li>
-			                    <li>Travis CI: <a href="https://travis-ci.org/cs373n/">https://travis-ci.org/cs373n/</a></li>
+			                    <li>Travis CI: <a href="https://travis-ci.org/cs373n/idb">https://travis-ci.org/cs373n/</a></li>
 			                </ul>
 			            </div>
 			        </div>
