@@ -6,19 +6,6 @@ var titleStyle = {
 	fontSize: '30px'
 };
 
-var highlightStyle = {
-	padding: '0px', 
-	color: '#e8cc33', 
-	backgroundColor: '#252525'
-}
-
-var contextStyle = {
-	fontSize: '25px'
-}
-
-var wellStyle = {
-	backgroundColor: '#252525'
-}
 
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 
@@ -73,7 +60,7 @@ class SearchCard extends React.Component {
 						context.push(
 										<li>
 											{key + " : "}
-											<mark style={highlightStyle}> 
+											<mark> 
 											{modelField.slice(contextField, contextField+searchString[i].length)}
 											</mark>
 										</li>
@@ -82,7 +69,7 @@ class SearchCard extends React.Component {
 					else{
 						context.push(<li>
 										{key + " : '..." + modelField.slice(contextField-3, contextField)} 
-										<mark style={highlightStyle}> 
+										<mark> 
 										{modelField.slice(contextField, contextField+searchString[i].length)}
 										</mark>
 										{modelField.slice(contextField+searchString[i].length, contextField+searchString[i].length+3) +"...'"}
@@ -104,7 +91,7 @@ class SearchCard extends React.Component {
 		}
 
 		return (
-			<div className="well" style={wellStyle}>
+			<div className="well">
 				<div className="text-center" style={titleStyle}>
 					{title}
 					<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>

@@ -35,7 +35,7 @@ class Card extends React.Component {
 			title = modelInstance.full_name;
 		}
 		return (
-			<div className="well" style={{backgroundColor: '#252525'}}>
+			<div className="well">
 				<div className="text-center" style={cardStyle}>
 					{title}
 				</div>
