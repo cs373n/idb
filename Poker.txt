@@ -4,32 +4,32 @@ Planitpoker Phase #3 User Stories & Estimates:
 
 
 1) update technical doc with search process and comics model
-	- estimate: 8 hours
-	- actual: 5 hours
+	- estimate: 3 hours
+	- actual: 3 hours
 2) add comics connections to each instance page
-	- estimate: 13 hours
-	- actual: 12 hours
+	- estimate: 2 hours
+	- actual: 6 hours
 3) Add association tables for comics
-	- estimate: 30 minutes
-	- actual: 1 hour
+	- estimate: 2 hours
+	- actual: 4 hours
 4) Update apiary with comics
 	- estimate: 30 minutes
 	- actual: 1 hour
 5) implement the API for comics model
-	- estimate: 1 hour
-	- actual: 1 hour
+	- estimate: 30 minutes
+	- actual: 30 minutes
 6) Add comic page for the website
 	- estimate: 2 hours
-	- actual: 3 hours
+	- actual: 1 hours
 7) implement context highlighting for search results
 	- estimate: 5 hours
-	- actual: 4 hours 
+	- actual: 7 hours 
 8) implement functionality for multi-word search
-	- estimate: 3 hours
+	- estimate: 5 hours
 	- actual: 10 hours
 9) Implement functionality for single word searches
-	- estimate: 20 hours
-	- actual: 13 hours
+	- estimate: 5 hours
+	- actual: 5 hours
 10) Scrape comics from marvel API
-	- estimate: 2 hours
-	- actual: 1 hour
+	- estimate: 40 hours
+	- actual: 25 hours
