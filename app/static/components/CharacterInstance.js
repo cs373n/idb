@@ -12,7 +12,7 @@ class CharacterInstance extends React.Component {
     	};
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateCharacter(this.state.character);
 	}
 
@@ -39,28 +39,25 @@ class CharacterInstance extends React.Component {
 		const { character } = this.state;
 
 		if(character.img && character.img != "") {
-			return character.img.slice(0, -4) + "/portrait_incredible.jpg";
+			return character.img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	createSeriesCards() {
-		var cardsArray = [];
-		var assocSeries = this.state.character.series;
-		if(assocSeries) {
-			for(var i = 0; i < assocSeries.length; i++) {
-				cardsArray.push(<Card modelLink="/seriesInstance" modelInstance={assocSeries[i]}/>);
-			}
-		}
-		return cardsArray;
+	getDescendantProp(obj, desc) {
+    	var arr = desc.split(".");
+    	while(arr.length && (obj = obj[arr.shift()]));
+    	return obj;
 	}
 
-	createEventsCards() {
+	createCards(modelType) {
 		var cardsArray = [];
-		var assocEvents = this.state.character.events;
-		if(assocEvents) {
-			for(var i = 0; i < assocEvents.length; i++) {
-				cardsArray.push(<Card modelLink="/eventInstance" modelInstance={assocEvents[i]}/>);
+		var assoc = this.getDescendantProp(this.state,  modelType);
+		modelType = modelType.split(".")[1];
+		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
+		if(assoc) {
+			for(var i = 0; i < assoc.length; i++) {
+				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
 			}
 		}
 		return cardsArray;
@@ -73,7 +70,6 @@ class CharacterInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else{
-
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -96,48 +92,49 @@ class CharacterInstance extends React.Component {
 				    `}
 				    </style>
 
-					<Grid>
-						<PageHeader className="text-left"
-									style={titleStyle}>
-								{	character.name}
-						</PageHeader>
-						<Row>
-							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={character.name}/>
-							</Col>
+					<PageHeader className="text-left" style={titleStyle}>
+					{character.name} <small>Identification Number: {character.id}</small>
+					</PageHeader>
+					
+					<Row>
+						<Col md={3}>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={character.name}/>
+						</Col>
 
-							<Col className="text-left" md={9} style={{fontSize: '25px'}}>
-								<PageHeader className="text-left">Description</PageHeader>
-								<p>{(character.desc == null || character.desc == "") ? "Description not available." : character.desc}</p>
-								<PageHeader className="text-left">Attributes</PageHeader>
-								<ul>
-									<li>Appears in {character.comics.length} Comics</li>
-									<li>Appears in {character.series.length} Series</li>
-									<li>Appears in {character.events.length} Events</li>
-								</ul>
-							</Col>
-						</Row>
-					</Grid>
+						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+							<PageHeader>Description</PageHeader>
+							<p>{(character.desc == null || character.desc == "") ? "Description not available." : character.desc}</p>
+							
+							<PageHeader>Attributes</PageHeader>
+							<ul>
+								<li>Appears in {character.num_comics} Comics</li>
+								<li>Appears in {character.num_series} Series</li>
+								<li>Appears in {character.num_events} Events</li>
+							</ul>
+						</Col>
+					</Row>
 
 					<br/>
 
-					<Tabs className="pull-left" bsStyle="pills" defaultActiveKey={1} justified>
-						<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
-						<Tabs className="pull-left" bsStyle="pills" defaultActiveKey={1} justified>
-		    				<Tab eventKey={1} title="FEATURED SERIES">
-		    					<br/>
-		    					<Table cards={this.createSeriesCards()}/>
-		    				</Tab>
-		    				<Tab eventKey={2} title="FEATURED EVENTS">
-		    					<br/>
-		    					<Table cards={this.createEventsCards()}/>
-		    				</Tab>	
-	 				 	</Tabs>
-	 				</Tabs>
+					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				<Tab eventKey={1} title="FEATURED SERIES">
+	    					<br/>
+	    					<Table cards={this.createCards('character.series')}/>
+	    				</Tab>
+	    				<Tab eventKey={2} title="FEATURED EVENTS">
+	    					<br/>
+	    					<Table cards={this.createCards('character.events')}/>
+	    				</Tab>
+	    				<Tab eventKey={3} title="FEATURED COMICS">
+	    					<br/> 
+	    					<Table cards={this.createCards('character.comics')}/>
+	    				</Tab>	
+ 				 	</Tabs>
 				</div>
 			)
 		}
-
 	}
 }
 

@@ -4,10 +4,6 @@ var Card = require('./Card.js');
 var api = require('./api.js');
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
-var h2Font = {
-	fontSize: '20px',
-};
-
 class CreatorInstance extends React.Component {
 	constructor(props) {
 	    super();
@@ -16,7 +12,7 @@ class CreatorInstance extends React.Component {
     	};
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateCreator(this.state.creator);
 	}
 
@@ -31,6 +27,7 @@ class CreatorInstance extends React.Component {
 
 		api.getCreator(charID)
 	      .then(function (creator) {
+	      	console.log(creator)
 	        this.setState(function () {
 	          return {
 	            creator: creator
@@ -43,29 +40,26 @@ class CreatorInstance extends React.Component {
 		const { creator } = this.state;
 
 		if(creator.img && creator.img != "") {
-			return creator.img.slice(0, -4) + "/portrait_incredible.jpg";
+			return creator.img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	createSeriesCards() {
-		var cardsArray = [];
-		var assocSeries = this.state.creator.series;
-		if(assocSeries) {
-			for(var i = 0; i < assocSeries.length; i++) {
-				cardsArray.push(<Card modelLink="/seriesInstance" modelInstance={assocSeries[i]}/>);
-			}
-		}
-		return cardsArray;
+	getDescendantProp(obj, desc) {
+    	var arr = desc.split(".");
+    	while(arr.length && (obj = obj[arr.shift()]));
+    	return obj;
 	}
 
-	createEventCards() {
+	createCards(modelType) {
 		var cardsArray = [];
-		var assocEvents = this.state.creator.events;
-		if(assocEvents) {
-			for(var i = 0; i < assocEvents.length; i++) {
-				cardsArray.push(<Card modelLink="/eventInstance" modelInstance={assocEvents[i]}/>);
+		var assoc = this.getDescendantProp(this.state,  modelType);
+		modelType = modelType.split(".")[1];
+		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
+		if(assoc) {
+			for(var i = 0; i < assoc.length; i++) {
+				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
 			}
 		}
 		return cardsArray;
@@ -78,39 +72,65 @@ class CreatorInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else {
+			var titleStyle = {
+				marginTop: '0px',
+				marginBottom: '10px',
+				padding: '0px'
+			}
 
 			return (
-				<div className="container">
-					<PageHeader className="text-left">{creator.full_name}</PageHeader>
-					<Grid>
-						<Row>
-							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
-							</Col>
+				<div>
+					{/* STYLES */}
+					<style type="text/css">{`
+					    .h1, h1 {
+					        font-size: 40px;
+					        margin-top: 0px;
+					        margin-bottom: 5px;
+					    }
 
-							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Attributes</PageHeader>
-								<ul>
-									<li>Contributed to {creator.series.length} Series</li>
-									<li>Contributed to {creator.events.length} Events</li>
-									<li>Contributed to {creator.num_comics} Comics</li>
-								</ul>
-							</Col>
-						</Row>
-					</Grid>
+					    .page-header {
+					    	margin-top: 0px;
+					    }
+				    `}
+				    </style>
+					
+					<PageHeader className="text-left" style={titleStyle}>
+					{creator.full_name} <small>Identification Number: {creator.id}</small>
+					</PageHeader>
+
+					<Row>
+						<Col md={3}>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
+						</Col>
+
+						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+							<PageHeader>Attributes</PageHeader>
+							<ul>
+								<li>Contributed to {creator.num_events} Events</li>
+								<li>Contributed to {creator.num_series} Series</li>
+								<li>Contributed to {creator.num_comics} Comics</li>
+							</ul>
+						</Col>
+					</Row>
 					
 					<br/>
 
-					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="FEATURED SERIES">
+					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				<Tab eventKey={1} title="FEATURED EVENTS">
 	    					<br/>
-	    					<Table cards={this.createSeriesCards()}/>
+	    					<Table cards={this.createCards('creator.events')}/>
 	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED EVENTS">
+	    				<Tab eventKey={2} title="FEATURED SERIES">
 	    					<br/>
-	    					<Table cards={this.createEventCards()}/>
+	    					<Table cards={this.createCards('creator.series')}/>
+	    				</Tab>
+	    				<Tab eventKey={3} title="FEATURED COMICS">
+	    					<br/> 
+	    					<Table cards={this.createCards('creator.comics')}/>
 	    				</Tab>	
-	 				 </Tabs>
+ 				 	</Tabs>	
 
 				</div>
 			)

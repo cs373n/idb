@@ -4,7 +4,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 class Table extends React.Component{
 	render(){
 		return(
-			<Grid>
+			<div>
 				<Row className="show-grid">
 					<Col sm={4} md={4}>
 						{this.props.cards[0]}
@@ -16,7 +16,6 @@ class Table extends React.Component{
 						{this.props.cards[2]}
 					</Col>
 				</Row>
-				<br/>
 				<Row className="show-grid">
 					<Col sm={4} md={4}>
 						{this.props.cards[3]}
@@ -28,7 +27,7 @@ class Table extends React.Component{
 						{this.props.cards[5]}
 					</Col>
 				</Row>
-			</Grid>
+			</div>
 		)
 	}
 }

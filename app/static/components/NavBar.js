@@ -30,16 +30,16 @@ class NavBar extends React.Component {
 				        <NavItem eventKey={2} >CHARACTERS</NavItem>
 				    </LinkContainer>
 
-				    <LinkContainer to="/comics">
-				        <NavItem eventKey={3} >COMICS</NavItem>
-				    </LinkContainer>
-
 				    <LinkContainer to="/events">
-				        <NavItem eventKey={4} >EVENTS</NavItem>
+				        <NavItem eventKey={3} >EVENTS</NavItem>
 				    </LinkContainer>
 
 				    <LinkContainer to="/series">
-				        <NavItem eventKey={5} >SERIES</NavItem>
+				        <NavItem eventKey={4} >SERIES</NavItem>
+				    </LinkContainer>
+
+				    <LinkContainer to="/comics">
+				        <NavItem eventKey={5} >COMICS</NavItem>
 				    </LinkContainer>
 
 				    <LinkContainer to="/creators">

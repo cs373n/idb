@@ -4,10 +4,6 @@ var Card = require('./Card.js');
 var api = require('./api.js');
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
-var h2Font = {
-	fontSize: '20px',
-};
-
 class SeriesInstance extends React.Component {
 	constructor(props) {
 	    super();
@@ -16,7 +12,7 @@ class SeriesInstance extends React.Component {
     	};
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateSeries(this.state.series);
 	}
 
@@ -43,28 +39,25 @@ class SeriesInstance extends React.Component {
 		const { series } = this.state;
 
 		if(series.img && series.img != "") {
-			return series.img.slice(0, -4) + "/portrait_incredible.jpg";
+			return series.img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	createCharacterCards() {
-		var cardsArray = [];
-		var assocCharacters = this.state.series.characters; 
-		if(assocCharacters) {
-			for(var i = 0; i < assocCharacters.length; i++) {
-					cardsArray.push(<Card modelLink="/characterInstance" modelInstance={assocCharacters[i]}/>);
-			}
-		}
-		return cardsArray;
+	getDescendantProp(obj, desc) {
+    	var arr = desc.split(".");
+    	while(arr.length && (obj = obj[arr.shift()]));
+    	return obj;
 	}
 
-	createCreatorCards() {
+	createCards(modelType) {
 		var cardsArray = [];
-		var assocCreators = this.state.series.creators; 
-		if(assocCreators) {
-			for(var i = 0; i < assocCreators.length; i++) {
-					cardsArray.push(<Card modelLink="/creatorInstance" modelInstance={assocCreators[i]}/>);
+		var assoc = this.getDescendantProp(this.state,  modelType);
+		modelType = modelType.split(".")[1];
+		modelType = modelType.slice(0, modelType.length-1);
+		if(assoc) {
+			for(var i = 0; i < assoc.length; i++) {
+				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
 			}
 		}
 		return cardsArray;
@@ -77,39 +70,73 @@ class SeriesInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else {
+			var titleStyle = {
+				marginTop: '0px',
+				marginBottom: '10px',
+				padding: '0px'
+			}
 
 			return (
-				<div className="container">
-					<PageHeader className="text-left">{series.title}</PageHeader>
-					<Grid>
-						<Row>
-							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={series.title}/>
-							</Col>
+				<div>
+					{/* STYLES */}
+					<style type="text/css">{`
+					    .h1, h1 {
+					        font-size: 40px;
+					        margin-top: 0px;
+					        margin-bottom: 5px;
+					    }
 
-							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{(series.desc == null || series.desc == "") ? "Description not available." : series.desc}</p>
-								<PageHeader style={h2Font}>Attributes</PageHeader>
-								<ul>
-									<li>Contains {series.characters.length} characters</li>
-									<li>{series.creators.length} creators contributed to this series</li>
-								</ul>
-							</Col>
-						</Row>
-					</Grid>
+					    .page-header {
+					    	margin-top: 0px;
+					    }
+				    `}
+				    </style>
+					
+					<PageHeader className="text-left" style={titleStyle}>
+					{series.title} <small>Identification Number: {series.id}</small>
+					</PageHeader>
+
+					<Row>
+						<Col md={3}>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={series.title}/>
+						</Col>
+
+						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+							<PageHeader>Description</PageHeader>
+							<p>{(series.desc == null || series.desc == "") ? "Description not available." : series.desc}</p>
+							
+							<PageHeader>Attributes</PageHeader>
+							<ul>
+								<li>Contains {series.num_characters} documented characters</li>
+								<li>{series.num_events} events are progressed by this series</li>
+								<li>Contains {series.num_comics} comics</li>
+								<li>{series.num_creators} creators contributed to this series</li>
+								<li>Series lifespan: {series.start}-{series.end}</li>
+							</ul>
+						</Col>
+					</Row>
 					
 					<br/>
 
-					<Tabs bsStyle="tabs" defaultActiveKey={1}>
+					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
 	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
 	    					<br/>
-	    					<Table cards={this.createCharacterCards()}/>
+	    					<Table cards={this.createCards('series.characters')}/>
 	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED CREATORS">
+	    				<Tab eventKey={2} title="FEATURED EVENT">
 	    					<br/>
-	    					<Table cards={this.createCreatorCards()}/>
-	    				</Tab>	
+	    					<Table cards={this.createCards('series.event')}/>
+	    				</Tab>
+	    				<Tab eventKey={3} title="FEATURED COMICS">
+	    					<br/> 
+	    					<Table cards={this.createCards('series.comics')}/>
+	    				</Tab>
+	    				<Tab eventKey={4} title="FEATURED CREATORS">
+	    					<br/> 
+	    					<Table cards={this.createCards('series.creators')}/>
+	    				</Tab>
 	 				 </Tabs>
 
 				</div>

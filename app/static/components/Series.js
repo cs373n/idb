@@ -152,9 +152,8 @@ class Series extends React.Component{
 
 	render(){
 		return(
-			<div className="container">
+			<div>
 				<PageHeader className="text-center" style={fixMargin}>SERIES</PageHeader>
-				<Grid>
 					<Row>
 						<Col md={3}/>
 						<Col md={6}>
@@ -187,11 +186,7 @@ class Series extends React.Component{
 						</Col>
 						<Col md={3}/>
 					</Row>
-				</Grid>
 				<PageHeader/> {/*Makes line across screen*/}
-
-
-				
 				{this.loadTable()}
 			</div>
 		)

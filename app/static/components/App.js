@@ -99,6 +99,7 @@ class App extends React.Component {
 
 			    `}
 			    </style>
+			    
 				<Router history={history}>
 					<div>
 						<NavBar />

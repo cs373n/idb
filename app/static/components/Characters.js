@@ -152,9 +152,8 @@ class Characters extends React.Component{
 
 	render(){
 		return(
-			<div className="container">
+			<div>
 				<PageHeader className="text-center" style={fixMargin}>CHARACTERS</PageHeader>
-				<Grid>
 					<Row>
 						<Col md={3}/>
 						<Col md={6}>
@@ -187,7 +186,6 @@ class Characters extends React.Component{
 						</Col>
 						<Col md={3}/>
 					</Row>
-				</Grid>
 				<PageHeader/> {/*Makes line across screen*/}
 
 
