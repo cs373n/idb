@@ -1,6 +1,10 @@
 // Cool Class Diagram
 [Series|id:int; title:string; desc: string; start: int; end: int; img: string; num_creators: int; num_characters: int; num_comics: int; num_events: int]
-[Character|id:int; name:string; desc: string; img:string; num_comics: int; num_series: int; num_events: int]
-[Event|id:int; title:string; desc: string; img: string; num_creators: int; num_characters: int; num_comics: int; num_series: int]
-[Creator|id:int; full_name: string; img: string; num_comics: int; num_series: int; num_events: int]
-[Series]0..*-1..*[Character], [Series]1..*-1..*[Creator], [Character]0..*-1..*[Event], [Character]0..*-1..*[Series],[Series]1..*-1[Creator], [Series]0..*-1..*[Event], [Event]1..*-0..*[Creator]
+[Characters|id:int; name:string; desc: string; img:string; num_comics: int; num_series: int; num_events: int]
+[Events|id:int; title:string; desc: string; img: string; num_creators: int; num_characters: int; num_comics: int; num_series: int]
+[Creators|id:int; full_name: string; img: string; num_comics: int; num_series: int; num_events: int]
+[Comics|id:int; title: string; img: string; desc: string; num_characters: int; num_creators: int; num_events: int; issue_num: int; pg_ct: int; price: float; upc: string]
+[Series]0..*-1..*[Characters], [Series]1..*-1..*[Creators], [Characters]0..*-1..*[Events], [Characters]0..*-1..*[Series], [Characters]1..*-1..*[Comics], [Events]0..-1..*[Comics], [Creators]0..*-1..*[Comics]
+[Series]1..*-1[Creators], [Series]0..*-1..*[Events], [Events]1..*-0..*[Creators], [Series]1..-1..[Comics]
+
+

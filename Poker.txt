@@ -1,35 +1,35 @@
-Planitpoker Phase #2 User Stories & Estimates:
+Planitpoker Phase #3 User Stories & Estimates:
 	Edmond Amataj, Paul Davis, Dean Carpenter, Saket Singh
 
 
 
-1) Implement filter
+1) update technical doc with search process and comics model
 	- estimate: 8 hours
 	- actual: 5 hours
-2) Implementing sorting and pagination
+2) add comics connections to each instance page
 	- estimate: 13 hours
 	- actual: 12 hours
-3) Create Series homepage using React and Javascript
+3) Add association tables for comics
 	- estimate: 30 minutes
 	- actual: 1 hour
-4) Create Creators homepage using React and Javascript
+4) Update apiary with comics
 	- estimate: 30 minutes
 	- actual: 1 hour
-5) Create Events homepage using React and Javascript
+5) implement the API for comics model
 	- estimate: 1 hour
 	- actual: 1 hour
-6) Create Characters homepage using React and Javascript
+6) Add comic page for the website
 	- estimate: 2 hours
 	- actual: 3 hours
-7) Update Technical document with new technologies used for Phase 2
+7) implement context highlighting for search results
 	- estimate: 5 hours
 	- actual: 4 hours 
-8) Implement a RESTFul API using Flask and SQLAlchemy
+8) implement functionality for multi-word search
 	- estimate: 3 hours
 	- actual: 10 hours
-9) Install and Configure PostreSQL and SQLAlchemy on server
+9) Implement functionality for single word searches
 	- estimate: 20 hours
 	- actual: 13 hours
-10) Create a UML diagram that outlines the models of our website with relations labeled
+10) Scrape comics from marvel API
 	- estimate: 2 hours
 	- actual: 1 hour
