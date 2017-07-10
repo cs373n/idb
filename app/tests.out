@@ -1,22 +1,36 @@
+Sun Jul  9 23:04:29 UTC 2017
+
+The command "date" exited with 0.
+
+$ make test
+
+pylint  --generate-rcfile > app/pylintrc 
+
+No config file found, using default configuration
+
 pylint  app/idb.py --rcfile=app/pylintrc 
 
 ------------------------------------
 Your code has been rated at 10.00/10
+
 
 pylint  app/models.py --rcfile=app/pylintrc 
 
 ------------------------------------
 Your code has been rated at 10.00/10
 
+
 pylint  app/tests.py --rcfile=app/pylintrc
 
 ------------------------------------
 Your code has been rated at 10.00/10
 
+
 coverage  run --branch app/tests.py 
-..........
+
+............
 ----------------------------------------------------------------------
-Ran 10 tests in 33.306s
+Ran 12 tests in 0.839s
 
 OK
 
@@ -24,10 +38,11 @@ Name            Stmts   Miss Branch BrPart  Cover   Missing
 -----------------------------------------------------------
 app/idb.py         27      3      2      1    86%   54, 61, 66, 64->66
 app/models.py     120      0      0      0   100%
-app/tests.py      125      0      2      1    99%   169->exit
+app/tests.py      152      0      2      1    99%   203->exit
 -----------------------------------------------------------
-TOTAL             272      3      4      2    98%
-
+TOTAL             299      3      4      2    98%
 
 
 The command "make test" exited with 0.
+
+
