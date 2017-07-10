@@ -27,7 +27,7 @@ class Home extends React.Component{
 			<br/>
 			<br/>
 			<br/>
-			<div className="container float-right">
+			<div>
 			<Timeline
 			    dataSource={{
 			      sourceType: 'profile',
@@ -37,7 +37,7 @@ class Home extends React.Component{
 			      username: 'Marvel',
 			      height: '1200',
 			      width: '500',
-			      align: 'right'
+			      align: 'center'
 			    }}
 			    onLoad={() => console.log('Timeline is loaded!')}
 			/>
