@@ -102,7 +102,7 @@ class SeriesInstance extends React.Component {
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
-							<PageHeader>Description</PageHeader>
+							<PageHeader>Series Description</PageHeader>
 							<p>{(series.desc == null || series.desc == "") ? "Description not available." : series.desc}</p>
 							
 							<PageHeader>Attributes</PageHeader>
@@ -127,7 +127,7 @@ class SeriesInstance extends React.Component {
 	    				</Tab>
 	    				<Tab eventKey={2} title="FEATURED EVENT">
 	    					<br/>
-	    					<Table cards={this.createCards('series.event')}/>
+	    					<Table cards={this.createCards('series.events')}/>
 	    				</Tab>
 	    				<Tab eventKey={3} title="FEATURED COMICS">
 	    					<br/> 
