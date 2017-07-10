@@ -78,9 +78,22 @@ class App extends React.Component {
 				   }
 				}
 
+				.mark, mark{
+					background-color: black;
+				}
+
 				.well{
-			      background-color: #252525;
+			      background-color: black;
 			    }
+
+			    .well:hover{
+			    	background-color: #252525;
+			    }
+
+			    .well:hover mark{
+			    	background-color: #252525;
+			    }
+
 
 			    `}
 			    </style>
