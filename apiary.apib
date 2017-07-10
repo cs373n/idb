@@ -9,7 +9,7 @@ Marvel-World is a simple API allowing users to view characters, comics, series, 
 # Group Characters
 Character related resources from the Marvel-World API.
 
-## Character Collection [/character]
+## Character Collection [/charactersde]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
 ### Get All Characters [GET]
@@ -64,7 +64,7 @@ along with their unique ID's. The unique ID can be used to look up a certain cha
                ]
             }
 
-## Character [/character/{id}]
+## Character [/characters/{id}]
 Retrieves information on a certain character.
 + Parameters
     + id: 1 (required, number) - unique id for each character
@@ -91,7 +91,7 @@ Retrieves information on a certain character.
 # Group Creators
 Comic related resources of the Marvel-World API.
 
-## Creator Collection [/creator]
+## Creator Collection [/creators]
 A collection of all the comic books that are available. The list of comics contains a comic's title, image, and a unique ID. The unique ID can be used to look up a certain comic.
 
 ### Get All Creators [GET]
@@ -132,7 +132,7 @@ A collection of all the comic books that are available. The list of comics conta
             }
 
 
-## Creator [/creator/{id}]
+## Creator [/creators/{id}]
 Retrieves information for a specific comic book. 
 
 + Parameters 
@@ -296,10 +296,74 @@ Retrieves information for a specific comic series.
                 
 
 
+# Group Comics
+All comic related resources from the MarvelDB API.
+
+## Comic Collection [/comics]
+A collection of all the comics that are available. The list of comics contain a comic's title, image, and a unique ID that can be used to look up a certain comic.
+
+### Get All Comics [GET]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "num_results": "34186",
+                "objects": [
+                  {
+                    "characters": [5],
+                    "creators": [7],
+                    "desc": "It's an inside look at the Marvel Universe's most notorious newspaper, the Daily Bugle! Former super hero and current private investigator Jessica Jones has just been offered a new job: a position with the Bugle's new super-hero section, The Pulse! Jessica's first assignment: to uncover the true identity of a former Bugle reporter's super-powered murderer! How is millionaire industrialist Norman Osborn involved in the case? And how will Jessica's shocking discovery affect the entire Marvel Universe? Collecting THE PULSE #1-5.",
+                    "events": [],
+                    "id": "3",
+                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/90/4bc6b7134bd0b.jpg",
+                    "issue_num": "0",
+                    "num_characters": "5",
+                    "num_creators": "7",
+                    "num_events": "0",
+                    "pg_ct": "0",
+                    "price": "9.99",
+                    "series": [1],
+                    "title" : "Amazing Spider-Man Vol. III: Until the Stars Turn Cold (1999)"
+                    "upc": "5960611332-00111"
+                ]
+            }
+
+
+## Comic [/comics/{id}]
+Retrieves information for a specific comic. 
+
++ Parameters 
+    + id : 1 (number) - a unique identifier of the comic.
+
+### Retrive Certain Comic [GET]    
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "characters": [5],
+                "creators": [7],
+                "desc": "It's an inside look at the Marvel Universe's most notorious newspaper, the Daily Bugle! Former super hero and current private investigator Jessica Jones has just been offered a new job: a position with the Bugle's new super-hero section, The Pulse! Jessica's first assignment: to uncover the true identity of a former Bugle reporter's super-powered murderer! How is millionaire industrialist Norman Osborn involved in the case? And how will Jessica's shocking discovery affect the entire Marvel Universe? Collecting THE PULSE #1-5.",
+                "id": "3",
+                "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/90/4bc6b7134bd0b.jpg",
+                "issue_num": "0",
+                "num_characters": "5",
+                "num_creators": "7",
+                "num_events": "0",
+                "pg_ct": "0",
+                "price": "9.99",
+                "series": [1],
+                "title": "The Pulse Vol. 1: Thin Air (Trade Paperback)",
+                "upc": "5960611332-00111"
+            }
+
+
 # Group Events
 All event related resources from the Marvel-World API.
 
-## Event Collection [/event]
+## Event Collection [/events]
 A collection of all the events that are available. The list of events contains an event's title, image, and a unique ID. The unique ID can be used to look up a certain event.
 
 ### Get All Events [GET]
@@ -375,7 +439,7 @@ A collection of all the events that are available. The list of events contains a
                 }
             }
             
-## Event [/event/{id}]
+## Event [/events/{id}]
 Retrieves information for a specific event. 
 
 + Parameters 
