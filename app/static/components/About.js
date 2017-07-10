@@ -6,7 +6,6 @@ class About extends React.Component{
 		return(
 			<div>
 			<br/>
-			<div className="container">
 
 			    {/* Introduction Row */}
 			    <div className="row">
@@ -42,7 +41,7 @@ class About extends React.Component{
 			                    <p>React, Javascript, Flask, AWS, Apache, Scraping data using Python & Ajax</p>
 			                </li>
 			                <li>NO. OF COMMITS: 109</li>
-			                <li>NO. OF ISSUES: 14</li>
+			                <li>NO. OF ISSUES: 23</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
 			        </div>
@@ -57,9 +56,9 @@ class About extends React.Component{
 			         He will be graduating in December 2018 with a B.S. in Computer Science.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>AWS, Flask, PostgreSQL, SQLAlchemy, Flask-Restless, Configuring Restful API, populating database with scraped data </p>
+			                    <p>AWS, Flask, PostgreSQL, SQLAlchemy, Flask-Restless, Configuring RESTful API, populating database with scraped data </p>
 			                </li>
-			                <li>NO. OF COMMITS: 77</li>
+			                <li>NO. OF COMMITS: 78</li>
 			                <li>NO. OF ISSUES: 17</li>
 			                <li>NO. OF UNIT TESTS: 12</li>
 			            </ul>
@@ -77,7 +76,7 @@ class About extends React.Component{
 			                    <p>Edmond Amataj is pursuing a B.S. in Computer science and will be graduating in the Fall of 2018. He hopes to land a career in the financial field upon graduating. His main interests consist of the stock market, basketball, and iOS development.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>Apiary, RestfulAPI, back-end, database</p>
+			                    <p>Apiary, RESTful API, back-end, database</p>
 			                </li>
 			                <li>NO. OF COMMITS: 26</li>
 			                <li>NO. OF ISSUES: 8</li>
@@ -96,7 +95,7 @@ class About extends React.Component{
 			                    <p>Front End Development using React, HTML/CSS/Javascript, BootStrap</p>
 			                </li>
 			                <li>NO. OF COMMITS: 100</li>
-			                <li>NO. OF ISSUES: 9</li>
+			                <li>NO. OF ISSUES: 23</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
 			        </div>
@@ -106,58 +105,57 @@ class About extends React.Component{
 			    <div className="row">
 			        <div className="col-lg-12">
 			            <h2 className="page-header">General Statistics and Information</h2>
-			    </div>
-			    <br/>
-			    <ul className="nav nav-pills nav-justified" style={{'fontSize': '25px'}}>
-			        <li className="active"><a data-toggle="pill" href="#stats">STATS</a></li>
-			        <li><a data-toggle="pill" href="#data">DATA</a></li>
-			        <li><a data-toggle="pill" href="#tools">TOOLS</a></li>
-			    </ul>
+			    	</div>
+				    <br/>
+				    <ul className="nav nav-pills nav-justified" style={{'fontSize': '25px'}}>
+				        <li className="active"><a data-toggle="pill" href="#stats">STATS</a></li>
+				        <li><a data-toggle="pill" href="#data">DATA</a></li>
+				        <li><a data-toggle="pill" href="#tools">TOOLS</a></li>
+				    </ul>
 
-			    <div id="thumbnail" className="tab-content">
-			        <div id="stats" className="tab-pane fade in active">
-			            <div className="row">
-			                <br/>
-			                <ul style={{'fontSize': '22px'}}>
-			                    <li>TOTAL NO. OF COMMITS: 283</li>
-			                    <li>TOTAL NO. OF ISSUES: 38</li>
-			                    <li>TOTAL NO. OF UNIT TESTS: 8</li>
-			                    <li>APIARY API: <a href="http://docs.cs373n.apiary.io/#">http://docs.cs373n.apiary.io/#</a></li>
-			                    <li>GITHUB REPO: <a href="https://github.com/cs373n/idb">https://github.com/cs373n/idb</a></li>
-			                    <li>TRELLO: <a href="https://trello.com/b/tpLlxzNl/fantastic-four">https://trello.com/b/tpLlxzNl/fantastic-four</a></li>
-			                    <li>Travis CI: <a href="https://travis-ci.org/cs373n/idb">https://travis-ci.org/cs373n/</a></li>
-			                </ul>
-			            </div>
-			        </div>
-			        <div id="data" className="tab-pane fade">
-			            <div className="row">
-			                <br/>
-			                <ul style={{'fontSize': '22px'}}>
-			                    <li>DATA SOURCES: 
-			                        <ol>
-			                            <li><a href="https://developer.marvel.com/docs">https://developer.marvel.com/docs</a></li>
-			                            <li><a href="https://comicvine.gamespot.com/api/documentation">https://comicvine.gamespot.com/api/documentation</a></li> 
-			                        </ol>
-			                    </li>
-			                    <li>SCRAPING DESCRIPTION:
-			                    <p>The official Marvel API provides interactive API test calls in the client side browser.</p>
-			                    </li>
-			                </ul>
-			            </div>
-			        </div>
-			        <div id="tools" className="tab-pane fade">
-			                <div className="row">
-			                    <br/>
-			                    <ul style={{'fontSize': '22px'}}>
-			                        <li>TOOLS USED: AWS, Apache, Flask, Bootstrap, React, Slack, Trello, Planitpoker, Git, Postman</li>
-			                        <li>TOOL USE: Refer to our technical writeup</li>
-			                        <li>OPTIONAL TOOLS: Webpack, Babel, React-Bootstrap, Flask-Restless</li>
-			                    </ul>
-			                </div>
-			        </div>
-			    </div>
-			</div>
-			</div>
+				    <div id="thumbnail" className="tab-content">
+				        <div id="stats" className="tab-pane fade in active">
+				            <div className="row">
+				                <br/>
+				                <ul style={{'fontSize': '22px'}}>
+				                    <li>TOTAL NO. OF COMMITS: 421</li>
+				                    <li>TOTAL NO. OF ISSUES: 59</li>
+				                    <li>TOTAL NO. OF UNIT TESTS: 12</li>
+				                    <li><a href="http://docs.cs373n.apiary.io/#">APIARY API</a></li>
+				                    <li><a href="https://github.com/cs373n/idb">GITHUB REPO</a></li>
+				                    <li><a href="https://trello.com/b/tpLlxzNl/fantastic-four">TRELLO</a></li>
+				                    <li><a href="https://travis-ci.org/cs373n/idb">Travis CI</a></li>
+				                </ul>
+				            </div>
+				        </div>
+				        <div id="data" className="tab-pane fade">
+				            <div className="row">
+				                <br/>
+				                <ul style={{'fontSize': '22px'}}>
+				                    <li>DATA SOURCES: 
+				                        <ol>
+				                            <li><a href="https://developer.marvel.com/docs">https://developer.marvel.com/docs</a></li>
+				                            <li><a href="https://comicvine.gamespot.com/api/documentation">https://comicvine.gamespot.com/api/documentation</a></li> 
+				                        </ol>
+				                    </li>
+				                    <li>SCRAPING DESCRIPTION:
+				                    <p>The official Marvel API provides interactive API test calls in the client side browser.</p>
+				                    </li>
+				                </ul>
+				            </div>
+				        </div>
+				        <div id="tools" className="tab-pane fade">
+				                <div className="row">
+				                    <br/>
+				                    <ul style={{'fontSize': '22px'}}>
+				                        <li>TOOLS USED: AWS, Apache, Flask, Bootstrap, React, Slack, Trello, Planitpoker, Git, Postman</li>
+				                        <li>TOOL USE: Refer to our technical writeup</li>
+				                        <li>OPTIONAL TOOLS: Webpack, Babel, React-Bootstrap, Flask-Restless</li>
+				                    </ul>
+				                </div>
+				        </div>
+				    </div>
+				</div>
 			</div>			
 		)
 	}
