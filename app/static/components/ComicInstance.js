@@ -122,7 +122,7 @@ class ComicInstance extends React.Component {
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
-							<PageHeader>Description</PageHeader>
+							<PageHeader>Comic Description</PageHeader>
 							<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : this.parseDesc(he.decode(comic.desc))}</p>
 							
 							<PageHeader>Attributes</PageHeader>

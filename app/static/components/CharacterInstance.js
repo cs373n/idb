@@ -102,7 +102,7 @@ class CharacterInstance extends React.Component {
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
-							<PageHeader>Description</PageHeader>
+							<PageHeader>Character Description</PageHeader>
 							<p>{(character.desc == null || character.desc == "") ? "Description not available." : character.desc}</p>
 							
 							<PageHeader>Attributes</PageHeader>

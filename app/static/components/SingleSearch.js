@@ -107,6 +107,20 @@ class SingleSearch extends React.Component {
 			        });
 			      }.bind(this));
 			}
+			else if(modelType === 'comic'){
+
+				filter = this.buildFilter();
+
+				api.getComics(this.state.activePage, filter, {})
+			      .then(function (chars) {
+			        this.setState(function () {
+			          return {
+			            searchResults: chars.objects,
+			            numPages: chars.total_pages
+			          }
+			        });
+			      }.bind(this));
+			}
 	}
 
 	buildFilter() {
@@ -168,6 +182,24 @@ class SingleSearch extends React.Component {
 								{"name": "num_comics", "op": "==", "val": searchString}, 
 								{"name": "num_events", "op": "==", "val": searchString},
 								{"name": "num_series", "op": "==", "val": searchString}]}];
+			}
+		}
+		else if(modelType === 'comic'){
+			if(isNaN(searchString)){
+				return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"}]}];
+			}
+			else{
+				return [{"or": [{"name": "title", "op": "ilike", "val": "%" + searchString + "%"}, 
+								{"name": "desc", "op": "ilike", "val": "%" + searchString + "%"},
+								{"name": "id", "op": "==", "val": searchString},
+								{"name": "num_events", "op": "==", "val": searchString}, 
+								{"name": "num_creators", "op": "==", "val": searchString},
+								{"name": "num_characters", "op": "==", "val": searchString},
+								{"name": "pg_ct", "op": "==", "val": searchString},
+								{"name": "issue_num", "op": "==", "val": searchString},
+								{"name": "upc", "op": "==", "val": searchString},
+								{"name": "price", "op": "==", "val": searchString}]}];
 			}
 		}
 	}

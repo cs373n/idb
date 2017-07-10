@@ -108,6 +108,20 @@ class MultiSearch extends React.Component{
 			        });
 			      }.bind(this));
 			}
+			else if(modelType === 'comic'){
+
+				filter = this.buildFilter();
+
+				api.getComics(this.state.activePage, filter, {})
+			      .then(function (chars) {
+			        this.setState(function () {
+			          return {
+			            searchResults: chars.objects,
+			            numPages: chars.total_pages
+			          }
+			        });
+			      }.bind(this));
+			}
 	}
 
 	buildFilter() {
@@ -194,6 +208,31 @@ class MultiSearch extends React.Component{
 							  '{"name": "num_comics", "op": "==", "val": "' + searchString[i] + '"},' +
 							  '{"name": "num_events", "op": "==", "val": "' + searchString[i] + '"},' +
 							  '{"name": "num_series", "op": "==", "val": "' + searchString[i] + '"}]}';
+				}
+				if(i != searchString.length-1) {
+					filter += ",";
+				}
+			}
+			filter += "]}]";
+		}
+		else if(modelType === 'comic'){
+			for(var i = 0; i < searchString.length; i++) {
+				if(isNaN(searchString[i])){
+					filter += '{"or":[';
+					filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"}]}';
+				}
+				else{
+					filter += '{"or":[';
+					filter += '{"name": "title", "op": "ilike", "val": "%' + searchString[i] + '%"},' + 
+							  '{"name": "desc", "op": "ilike", "val": "%' + searchString[i] + '%"},' +
+							  '{"name": "num_events", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_creators", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "pg_ct", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "issue_num", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "upc", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "price", "op": "==", "val": "' + searchString[i] + '"},' +
+							  '{"name": "num_characters", "op": "==", "val": "' + searchString[i] + '"}]}';
 				}
 				if(i != searchString.length-1) {
 					filter += ",";
