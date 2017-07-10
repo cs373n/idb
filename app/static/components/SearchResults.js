@@ -92,7 +92,7 @@ class SearchResults extends React.Component {
 			<div className="container">
 				<PageHeader className="text-left">SEARCH RESULTS FOR: {this.buildTitle()}</PageHeader>
 				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect}>
-					<Tab unmountOnExit={true}eventKey={1} title="CHARACTERS">
+					<Tab unmountOnExit={true} eventKey={1} title="CHARACTERS">
 						{console.log("SR: Tab 1")}
 						<br/>
 						{this.chooseSearch("character")}
@@ -107,11 +107,16 @@ class SearchResults extends React.Component {
 						<br/>
 						{this.chooseSearch("series")}
 					</Tab>	
-					<Tab unmountOnExit={true} eventKey={4} title="CREATORS">
+					<Tab unmountOnExit={true} eventKey={4} title="COMICS">
+						{console.log("SR: Tab 5")}
+						<br/>
+						{this.chooseSearch("comic")}
+					</Tab>		
+					<Tab unmountOnExit={true} eventKey={5} title="CREATORS">
 						{console.log("SR: Tab 4")}
 						<br/>
 						{this.chooseSearch("creator")}
-					</Tab>		
+					</Tab>
 				</Tabs>
 			</div>
 		)
