@@ -5,10 +5,6 @@ var api = require('./api.js');
 var he = require('he');
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
-var h2Font = {
-	fontSize: '20px',
-};
-
 class ComicInstance extends React.Component {
 	constructor(props) {
 	    super();
@@ -17,7 +13,7 @@ class ComicInstance extends React.Component {
     	};
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateComic(this.state.comic);
 	}
 
@@ -44,28 +40,25 @@ class ComicInstance extends React.Component {
 		const { comic } = this.state;
 
 		if(comic.img && comic.img != "") {
-			return comic.img.slice(0, -4) + "/portrait_incredible.jpg";
+			return comic.img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	createSeriesCards() {
-		var cardsArray = [];
-		var assocSeries = this.state.comic.series;
-		if(assocSeries) {
-			for(var i = 0; i < assocSeries.length; i++) {
-				cardsArray.push(<Card modelLink="/seriesInstance" modelInstance={assocSeries[i]}/>);
-			}
-		}
-		return cardsArray;
+	getDescendantProp(obj, desc) {
+    	var arr = desc.split(".");
+    	while(arr.length && (obj = obj[arr.shift()]));
+    	return obj;
 	}
 
-	createEventsCards() {
+	createCards(modelType) {
 		var cardsArray = [];
-		var assocEvents = this.state.comic.events;
-		if(assocEvents) {
-			for(var i = 0; i < assocEvents.length; i++) {
-				cardsArray.push(<Card modelLink="/eventInstance" modelInstance={assocEvents[i]}/>);
+		var assoc = this.getDescendantProp(this.state,  modelType);
+		modelType = modelType.split(".")[1];
+		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
+		if(assoc) {
+			for(var i = 0; i < assoc.length; i++) {
+				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
 			}
 		}
 		return cardsArray;
@@ -97,39 +90,82 @@ class ComicInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else {
+			var titleStyle = {
+				marginTop: '0px',
+				marginBottom: '10px',
+				padding: '0px'
+			}
 
 			return (
-				<div className="container">
-					<PageHeader className="text-left">{comic.title}</PageHeader>
-					<Grid>
-						<Row>
-							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={comic.title}/>
-							</Col>
+				<div>
+					{/* STYLES */}
+					<style type="text/css">{`
+					    .h1, h1 {
+					        font-size: 40px;
+					        margin-top: 0px;
+					        margin-bottom: 5px;
+					    }
 
-							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : this.parseDesc(he.decode(comic.desc))}</p>
-								<PageHeader style={h2Font}>Attributes</PageHeader>
+					    .page-header {
+					    	margin-top: 0px;
+					    }
+				    `}
+				    </style>
+					
+					<PageHeader className="text-left" style={titleStyle}>
+					{comic.title} <small>Identification Number: {comic.id}</small>
+					</PageHeader>
+
+					<Row>
+						<Col md={3}>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={comic.title}/>
+						</Col>
+
+						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+							<PageHeader>Description</PageHeader>
+							<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : this.parseDesc(he.decode(comic.desc))}</p>
+							
+							<PageHeader>Attributes</PageHeader>
+							<Col md={6}>
 								<ul>
-									<li>Appears in the Series: {comic.series[0].title}</li>
-									<li>Appears in {comic.events.length} Events</li>
+									<li>Part of the series: {comic.series[0].title}</li>
+									<li>Progresses {comic.num_events} events</li>
+									<li>Contains {comic.num_characters} documented characters</li>
 								</ul>
 							</Col>
-						</Row>
-					</Grid>
+							<Col md={6}>
+								<ul>
+									<li>{comic.num_creators} creators contributed to this comic</li>
+									<li>Page Count: {comic.pg_ct}</li>
+									<li>UPC: {comic.upc}</li>
+									<li>Price: ${comic.price.toString().length === 3 ? comic.price + "0" : comic.price}</li>
+								</ul>
+							</Col>
+
+						</Col>
+					</Row>
 					
 					<br/>
 
-					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="FEATURED SERIES">
+					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
 	    					<br/>
-	    					<Table cards={this.createSeriesCards()}/>
+	    					<Table cards={this.createCards('comic.characters')}/>
 	    				</Tab>
 	    				<Tab eventKey={2} title="FEATURED EVENTS">
+	    					<br/> 
+	    					<Table cards={this.createCards('comic.events')}/>
+	    				</Tab>
+	    				<Tab eventKey={3} title="FEATURED SERIES">
 	    					<br/>
-	    					<Table cards={this.createEventsCards()}/>
-	    				</Tab>	
+	    					<Table cards={this.createCards('comic.series')}/>
+	    				</Tab>
+	    				<Tab eventKey={4} title="FEATURED CREATORS">
+	    					<br/> 
+	    					<Table cards={this.createCards('comic.creators')}/>
+	    				</Tab>
 	 				 </Tabs>
 
 				</div>
