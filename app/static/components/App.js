@@ -80,6 +80,8 @@ class App extends React.Component {
 
 				.mark, mark{
 					background-color: black;
+					padding: 0px;
+					color: #e8cc33;
 				}
 
 				.well{
