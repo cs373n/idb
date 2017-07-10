@@ -100,6 +100,7 @@ def series_characters():
 	    # retrieve series object
 	    series_object = Series.query.filter_by(id=series).first()
 	    if series_object == None:
+		db.session.rollback()
 		continue
 
 	    # other items are associated characters
@@ -343,6 +344,47 @@ def comic_characters():
     f1.close()
 
 
+def comic_series():
+    
+    index = 0
+    f1 = open('comic_series.txt', 'r')
+    print("1") 
+    # read each line from file
+    for line in f1:
+        temp = line.strip()
+	hold = ""
+
+	# format into a list
+	for ch in temp:
+	    if ch != '[' and ch != ']':
+ 	        hold += ch
+	    series = hold.split(',')
+    
+	# first item in list is comic
+	if (len(series) > 1):
+            p = iter(series)
+	    comic = next(p)
+	    
+	    # retrieve comic object
+	    comic_object = Comic.query.filter_by(id=comic).first()
+	    if comic_object == None:
+		continue
+	    
+	    # other items are associated series
+	    for series_id in p:
+	        series_object = Series.query.filter_by(id=series_id).first()
+		if series_object == None:
+	            continue
+
+		# append comic_series_ids into association table
+		comic_object.series.append(series_object)
+                db.session.commit()
+		index += 1
+	        print("associated comic to series" + str(index))
+    f1.close()
+
+
+
 def main():
 
     print("1 series_events()")
@@ -354,6 +396,7 @@ def main():
     print("7 comic_events()")
     print("8 comic_creators()")
     print("9 comic_characters()")
+    print("10 comic_series()")
 
     x = int(raw_input("\nEnter the number for the function you wish to process: "))
 
@@ -383,6 +426,8 @@ def main():
     
     elif x == 9:
         comic_characters()
+    elif x == 10:
+        comic_series()
     
     else:
         print("Wtf did you type?")
