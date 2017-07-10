@@ -104,9 +104,44 @@ class UnitTest(TestCase):
         db.session.delete(newEvent)
         db.session.commit()
 
+    def test_add_character_with_null_img(self):
+
+        newCharacter = Character(9021090, "Argent",
+                                 "She is a Character",
+                                 None, 0, 0, 0)
+        db.session.add(newCharacter)
+        db.session.commit()
+        query = db.session.query(Character).filter_by(id="9021090").first()
+        self.assertEqual(query.id, 9021090)
+        self.assertEqual(query.name, "Argent")
+        self.assertEqual(query.desc, "She is a Character")
+        self.assertEqual(query.img, None)
+        self.assertEqual(query.num_comics, 0)
+        self.assertEqual(query.num_series, 0)
+        self.assertEqual(query.num_events, 0)
+        db.session.delete(newCharacter)
+        db.session.commit()
+
+    def test_add_creator_with_null_img(self):
+
+        newCreator = Creator(9021090, "Alan Hopkins",
+                             None, 0, 0, 0)
+        db.session.add(newCreator)
+        db.session.commit()
+        query = db.session.query(Creator).filter_by(id="9021090").first()
+        self.assertEqual(query.id, 9021090)
+        self.assertEqual(query.full_name, "Alan Hopkins")
+        self.assertEqual(query.img, None)
+        self.assertEqual(query.num_comics, 0)
+        self.assertEqual(query.num_series, 0)
+        self.assertEqual(query.num_events, 0)
+        db.session.delete(newCreator)
+        db.session.commit()
+
+
     def test_character_get_request(self):
 
-        api_request = requests.get("http://75.101.247.182/api/characters/1009146")
+        api_request = requests.get("http://marveldb.net/api/characters/1009146")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -118,7 +153,7 @@ class UnitTest(TestCase):
 
     def test_series_get_request(self):
 
-        api_request = requests.get("http://75.101.247.182/api/series/7524")
+        api_request = requests.get("http://marveldb.net/api/series/7524")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -130,7 +165,7 @@ class UnitTest(TestCase):
 
     def test_creator_get_request(self):
 
-        api_request = requests.get("http://75.101.247.182/api/creators/621")
+        api_request = requests.get("http://marveldb.net/api/creators/621")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -142,7 +177,7 @@ class UnitTest(TestCase):
 
     def test_event_get_request(self):
 
-        api_request = requests.get("http://75.101.247.182/api/events/306")
+        api_request = requests.get("http://marveldb.net/api/events/306")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -154,7 +189,7 @@ class UnitTest(TestCase):
 
     def test_comic_get_request(self):
 
-        api_request = requests.get("http://75.101.247.182/api/comics/428")
+        api_request = requests.get("http://marveldb.net/api/comics/428")
         api_id = (json.loads(api_request.text))["id"]
         api_img = (json.loads(api_request.text))["img"]
 
@@ -163,7 +198,6 @@ class UnitTest(TestCase):
         db_img = db_request.img
         self.assertEqual(api_id, db_id)
         self.assertEqual(api_img, db_img)
-
 
 
 if __name__ == "__main__":
