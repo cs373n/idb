@@ -2,6 +2,7 @@ var React = require('react');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+var he = require('he');
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 var h2Font = {
@@ -70,6 +71,25 @@ class ComicInstance extends React.Component {
 		return cardsArray;
 	}
 
+	parseDesc(desc){
+		console.log(desc);
+		var regEx = new RegExp("(?=<)(.*?)>", "g");
+		var descArray = desc.match(regEx);
+		if(!descArray){
+			return desc;
+		}
+		else{
+			var newDesc = desc;
+			for(var i = 0; i < descArray.length; i++){
+				console.log(descArray[i]);
+				newDesc = newDesc.replace(descArray[i], " ");
+				console.log(desc);
+			}
+			console.log(newDesc);
+			return newDesc;
+		}
+	}
+
 	render() {
 		const { comic } = this.state;
 
@@ -89,7 +109,7 @@ class ComicInstance extends React.Component {
 
 							<Col className="text-left" md={9}>
 								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : comic.desc}</p>
+								<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : this.parseDesc(he.decode(comic.desc))}</p>
 								<PageHeader style={h2Font}>Attributes</PageHeader>
 								<ul>
 									<li>Appears in the Series: {comic.series[0].title}</li>
