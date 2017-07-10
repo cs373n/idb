@@ -14,7 +14,7 @@ class About extends React.Component{
 			            <ul>
 			                <li style={{'fontSize': '25px'}}>Site Description:
 			                    <p style={{'fontSize': '20px'}}> Marveldb.net is an immersion into the Marvel universe, allowing visitors to 
-			                        search for and view popular characters, comic books, events and series from the Marvel franchise.</p>
+			                        search for and view popular characters, events, comics, series, and creators from the Marvel franchise.</p>
 			                </li>
 			                <li style={{'fontSize': '25px'}}><a href="https://m.box.com/shared_item/https%3A%2F%2Futexas.box.com%2Fs%2Fxnmzrkxwr7u1bn33zjw6f8bt1e4q50wg">Technical Report</a></li>
 			            </ul>
