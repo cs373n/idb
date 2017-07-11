@@ -89,9 +89,13 @@ class SearchResults extends React.Component {
 	render(){
 		console.log("SR: render");	
 		return(
-			<div className="container">
-				<PageHeader className="text-left">SEARCH RESULTS FOR: {this.buildTitle()}</PageHeader>
-				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect}>
+			<div>
+				<PageHeader className="text-left" 
+							style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}>
+							SEARCH RESULTS FOR: {this.buildTitle()}
+				</PageHeader>
+
+				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect} justified>
 					<Tab unmountOnExit={true} eventKey={1} title="CHARACTERS">
 						{console.log("SR: Tab 1")}
 						<br/>

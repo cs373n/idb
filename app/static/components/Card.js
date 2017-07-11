@@ -35,18 +35,18 @@ class Card extends React.Component {
 			title = modelInstance.full_name;
 		}
 		return (
-			<div className="well">
-				<div className="text-center" style={cardStyle}>
-					{title}
-				</div>
-				<div>
-					<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
+			<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
+				<div className="well">
+					<div className="text-center" style={cardStyle}>
+						{title}
+					</div>
+					<div>
 						<img className="img-responsive center-block img-rounded" 
 							 src={this.styleImage()} 
 							 alt={title}/>
-					</Link>
+					</div>
 				</div>
-			</div>
+			</Link>
 		)
 	}
 }
