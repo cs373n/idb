@@ -91,22 +91,22 @@ class SearchCard extends React.Component {
 		}
 
 		return (
-			<div className="well">
-				<div className="text-center" style={titleStyle}>
-					{title}
-					<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
-						<img className="img-responsive center-block img-rounded" 
-							 src={this.styleImage()} 
-							 alt={title}/>
-					</Link>
+			<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>
+				<div className="well">
+					<div className="text-center" style={titleStyle}>
+						{title}
+							<img className="img-responsive center-block img-rounded" 
+								 src={this.styleImage()} 
+								 alt={title}/>
+					</div>
+					<div className="text-center">
+						<h3 style={{marginTop: '5px', marginBottom: '0px', paddingBottom: '0px'}}>Search matched these attributes:</h3>
+						<ul className="list-unstyled" style={{fontSize: '20px'}}>
+							{this.contextualizeSearch()}
+						</ul>
+					</div>
 				</div>
-				<div className="text-center">
-					<h3 style={{marginTop: '5px', marginBottom: '0px', paddingBottom: '0px'}}>Search matched these attributes:</h3>
-					<ul className="list-unstyled" style={{fontSize: '20px'}}>
-						{this.contextualizeSearch()}
-					</ul>
-				</div>
-			</div>
+			</Link>
 		)
 	}
 }

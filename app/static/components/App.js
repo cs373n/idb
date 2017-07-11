@@ -47,7 +47,8 @@ class App extends React.Component {
 
 			    nav.navbar.navbar-inverse {
 			    	background-color: red;
-			    	position: fixed-top;
+			    	border-radius: 0px;
+			    	border: 0px;
 			    }
 
 			    .navbar-inverse .navbar-brand {
@@ -66,16 +67,6 @@ class App extends React.Component {
 
 				ul.nav.navbar-nav.navbar-right {
 					height: 35px;
-				}
-				
-				.form-control {
-					margin-top: 7px;
-				}
-
-				@media (min-width: 768px) {
-				  .navbar-collapse.collapse {
-				    display: flex !important;
-				   }
 				}
 
 				.mark, mark{
@@ -96,6 +87,93 @@ class App extends React.Component {
 			    	background-color: #252525;
 			    }
 
+			    .a, a, a:hover{
+			    	color: white;
+			    }
+
+			    a:focus {
+				    outline-style: none;
+				}
+
+				.nav>li>a:focus, .nav>li>a:hover {
+				    background-color: red;
+				}
+
+				.nav-pills>li.active>a, 
+				.nav-pills>li.active>a:focus, 
+				.nav-pills>li.active>a:hover {
+				    color: white;
+				    background-color: red;
+				}
+
+				.form-control {
+					margin-top: 7px;
+				}
+				.xs-collapse {
+				  display: none;
+				  visibility: hidden;
+				}
+
+				@media (min-width: 768px) {
+				  .xs-toggle {
+				    display: none;
+				    visibility: hidden;
+				  }
+				  .xs-collapse {
+				    display: block;
+				    visibility: visible;
+				  }
+				}
+
+				@media (min-width: 768px) {
+				  .navbar-collapse.collapse {
+				    display: flex !important;
+				   }
+				}
+
+				@media (min-width: 768px){
+					.nav-pills>li>a {
+					    background-color: black;
+					    border-color: white;
+					    border-radius: 0px;
+					    border-bottom-right-radius: 20px;
+					    border-bottom-left-radius: 20px;
+					    border-bottom-style: solid;
+					    border-bottom-width: thin;
+					    border-left-style: solid;
+					    border-right-style: solid;
+					    border-right-width: thin;
+					    border-left-width: thin;
+					}
+				}
+
+				@media (max-width: 768px) and (min-width: 200px){
+					ul.nav.nav-pills.nav-justified {
+				    	margin-top: 0;
+				    	margin-bottom: 10px;
+				    	display: flex;
+				    	flex-wrap: wrap;
+				    	justify-content: center;
+				}
+				
+
+				@media (max-width: 768px) and (min-width: 200px){
+					.nav-pills>li>a {
+					    background-color: black;
+					    border-color: white;
+					    border-radius: 0px;
+					    border-bottom-right-radius: 20px;
+					    border-bottom-left-radius: 20px;
+					    border-bottom-style: solid;
+					    border-bottom-width: thin;
+					    border-left-style: solid;
+					    border-right-style: solid;
+					    border-right-width: thin;
+					    border-left-width: thin;
+					}
+				}
+
+				
 
 			    `}
 			    </style>

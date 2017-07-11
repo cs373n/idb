@@ -114,9 +114,7 @@ class CharacterInstance extends React.Component {
 						</Col>
 					</Row>
 
-					<br/>
-
-					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
 					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
 	    				<Tab eventKey={1} title="FEATURED SERIES">
