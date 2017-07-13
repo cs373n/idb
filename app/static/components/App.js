@@ -29,6 +29,8 @@ var Card = require('./Card.js');
 // Misc
 var Footer = require('./Footer.js');
 var About = require('./About.js');
+var Contribute = require('./Contribute');
+var AccessAccount = require('./AccessAccount');
 
 import { Button, Navbar } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
@@ -36,6 +38,13 @@ import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 bootstrapUtils.addStyle(Button,'red');
 
 class App extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			loggedIn: false,
+			userName: ""
+		}
+	}
 	render() {
 		return (
 			<div>
@@ -67,6 +76,10 @@ class App extends React.Component {
 
 				ul.nav.navbar-nav.navbar-right {
 					height: 35px;
+				}
+
+				ul.dropdown-menu{
+					background-color: red;
 				}
 
 				.mark, mark{
@@ -129,7 +142,7 @@ class App extends React.Component {
 				  .navbar-collapse.collapse {
 				    display: flex !important;
 				   }
-				}
+				}	
 
 				@media (min-width: 768px){
 					.nav-pills>li>a {
@@ -180,7 +193,7 @@ class App extends React.Component {
 			    
 				<Router history={history}>
 					<div>
-						<NavBar />
+						<NavBar loggedIn={this.state.loggedIn}/>
 						<div className="container">
 							<Switch>
 								<Route exact path='/' component={Home} />
@@ -203,6 +216,10 @@ class App extends React.Component {
 								<Route path='/about' component={About} />
 
 								<Route path='/searchResults/:searchString' component={SearchResults} />
+
+								<Route path='/accessAccount' component={AccessAccount} />
+
+								<Route path='/contribute' component={Contribute} />
 
 								<Route render={function() {
 									return <p>Page Not Found!</p>
