@@ -30,6 +30,7 @@ var Card = require('./Card.js');
 var Footer = require('./Footer.js');
 var About = require('./About.js');
 var Contribute = require('./Contribute');
+var ContributeAdd = require('./ContributeAdd.js')
 var AccessAccount = require('./AccessAccount');
 
 import { Button, Navbar } from 'react-bootstrap';
@@ -229,6 +230,7 @@ class App extends React.Component {
 								<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />
 
 								<Route path='/contribute' component={Contribute} />
+								<Route path='/contributeAdd/:model' component={ContributeAdd} />
 
 								<Route render={function() {
 									return <p>Page Not Found!</p>
