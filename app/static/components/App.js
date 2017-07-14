@@ -41,10 +41,18 @@ class App extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			loggedIn: false,
-			userName: ""
+			username: null
 		}
+
+		this.updateUsername = this.updateUsername.bind(this);
 	}
+
+	updateUsername(username) {
+		this.setState({username: username}, function(){
+			console.log(this.state.username);
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -190,10 +198,11 @@ class App extends React.Component {
 
 			    `}
 			    </style>
-			    
+
+
 				<Router history={history}>
 					<div>
-						<NavBar loggedIn={this.state.loggedIn}/>
+						<NavBar username={this.state.username}/>
 						<div className="container">
 							<Switch>
 								<Route exact path='/' component={Home} />
@@ -217,7 +226,7 @@ class App extends React.Component {
 
 								<Route path='/searchResults/:searchString' component={SearchResults} />
 
-								<Route path='/accessAccount' component={AccessAccount} />
+								<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />
 
 								<Route path='/contribute' component={Contribute} />
 
