@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-var baseURL = "http://marveldb.net/api/";
+var baseURL = "http://34.228.83.115/api/";
 
 module.exports = {
 
@@ -250,5 +250,30 @@ module.exports = {
             console.log(error);
         });
     },
+
+    // *******************************************************************
+    // Adding, Editing, Deleting models
+    // *******************************************************************
+
+    postModel: function(modelInfo) {
+        var encodedURI = window.encodeURI(baseURL + "characters");
+        var request = {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+                data: JSON.stringify(modelInfo)
+              }
+
+        console.log(request);
+
+        axios.post(encodedURI, request)
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+    }
 
 };
