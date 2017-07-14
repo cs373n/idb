@@ -8,8 +8,8 @@ import { Nav, Navbar, NavItem, FormGroup, FormControl, SplitButton, MenuItem } f
 class NavBar extends React.Component {
 	renderButton(){
 		return (
-			<SplitButton bsStyle="primary" title={this.props.loggedIn? this.props.userName : "Account"} key={1} id={'split-button-basic-${i}'}>
-				{this.props.loggedIn ? 
+			<SplitButton bsStyle="primary" title={this.props.username? this.props.username: "Account"} key={1} id={'split-button-basic-${i}'}>
+				{this.props.username ? 
 					<LinkContainer to="/contribute">
 						<MenuItem eventKey={1}>Contribute</MenuItem>
 					</LinkContainer>
