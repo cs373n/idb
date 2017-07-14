@@ -225,4 +225,30 @@ module.exports = {
             });
     },
 
+    // *******************************************************************
+    // Login/Signup Logic
+    // *******************************************************************
+
+    login: function(username, hashedPassword) {
+        var encodedURI = window.encodedURI(baseURL + "signUp");
+
+        return axios.get(encodedURI, {
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            params: {
+                'username': username,
+                'hashedPassword': hashedPassword
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+            return response.data;
+        }).catch(function(error) {
+            console.log(error);
+        });
+    },
+
 };
