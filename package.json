@@ -21,6 +21,7 @@
     "babel-preset-es2015": "^6.24.1",
     "bootstrap": "^3.3.7",
     "he": "^1.1.1",
+    "js-md5": "^0.4.2",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
