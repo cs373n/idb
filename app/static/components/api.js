@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-var baseURL = "http://marveldb.net/api/";
+var baseURL = "http://34.228.83.115/api/";
 
 module.exports = {
 
@@ -225,7 +225,6 @@ module.exports = {
             });
     },
 
-    /*
     postModel: function(modelInfo) {
         var encodedURI = window.encodeURI(baseURL + "characters");
         axios({
@@ -243,11 +242,9 @@ module.exports = {
 
               }
             }).then(function (response) {
-                console.log(response);
+              console.log(response);
               })
               .catch(function (error) {
                 console.log(error);
               });
-              */
-
 };

@@ -2,10 +2,36 @@ var React = require('react');
 var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var SearchForm = require('./SearchForm.js');
-import { Nav, Navbar, NavItem, FormGroup, FormControl } from 'react-bootstrap';
+import { Nav, Navbar, NavItem, FormGroup, FormControl, SplitButton, MenuItem } from 'react-bootstrap';
 
 
 class NavBar extends React.Component {
+	renderButton(){
+		return (
+			<SplitButton bsStyle="primary" title={this.props.username? this.props.username: "Account"} key={1} id={'split-button-basic-${i}'}>
+				{this.props.username ? 
+					<LinkContainer to="/contribute">
+						<MenuItem eventKey={1}>Contribute</MenuItem>
+					</LinkContainer>
+					:
+					<div>
+					<LinkContainer to="/accessAccount">
+						<MenuItem eventKey={1}>Contribute</MenuItem>
+					</LinkContainer>
+					<MenuItem divider />
+					<LinkContainer to="/accessAccount">
+						<MenuItem eventKey={2}>Log In</MenuItem>
+					</LinkContainer>
+					
+					<LinkContainer to="/accessAccount">
+						<MenuItem eventKey={3}>Sign Up</MenuItem>
+					</LinkContainer>
+					</div>
+				}
+			</SplitButton>
+		)
+	}
+
 	render() {
 		return (
 			<div>
@@ -48,7 +74,9 @@ class NavBar extends React.Component {
 
 				    <LinkContainer to="/about">
 				        <NavItem eventKey={7} >ABOUT</NavItem>
-				    </LinkContainer>    
+				    </LinkContainer>
+					
+					{this.renderButton()} 
 			      </Nav>
 
 				</Navbar.Collapse>

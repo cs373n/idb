@@ -29,13 +29,73 @@ var Card = require('./Card.js');
 // Misc
 var Footer = require('./Footer.js');
 var About = require('./About.js');
+var Contribute = require('./Contribute.js');
+var ContributeAdd = require('./ContributeAdd.js')
+var AccessAccount = require('./AccessAccount.js');
+var ContributeDelete = require('./ContributeDelete.js');
+var ContributeEdit = require('./ContributeEdit.js');
 
 import { Button, Navbar } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
 bootstrapUtils.addStyle(Button,'red');
 
+var modelTemplateArray = [];
+//Character object format
+modelTemplateArray.push({id: null, img: null, name: null, desc: null, 
+					 series: null,     events: null,     comics: null, 
+					 num_series: null, num_events: null, num_comics: null});
+
+//Event object format
+modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 series: null,     creators: null,     comics: null,     characters: null, 
+					 num_series: null, num_creators: null, num_comics: null, num_characters: null});
+
+//Series object format
+modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 events: null,     creators: null,     comics: null,     characters: null, 
+					 num_events: null, num_creators: null, num_comics: null, num_characters: null});
+
+//Comic object format
+modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 series: null,     creators: null,     events: null,     characters: null, 
+					 num_series: null, num_creators: null, num_events: null, num_characters: null});
+
+//Creator object format
+modelTemplateArray.push({id: null, img: null, full_name: null, 
+					 series: null,     events: null,     comics: null,    
+					 num_series: null, num_events: null, num_comics: null});
+
 class App extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			username: null
+		}
+
+		this.updateUsername = this.updateUsername.bind(this);
+	}
+
+	updateUsername(username) {
+		this.setState({username: username}, function(){
+			console.log(this.state.username);
+		});
+	}
+
+	getModelTemplate(modelType){
+		console.log("IN GET MODEL TYPE");
+		if(modelType === 'character')
+			return modelTemplateArray[0];
+		else if(modelType === 'event')
+			return modelTemplateArray[1];
+		else if(modelType === 'series')
+			return modelTemplateArray[2];
+		else if(modelType === 'comic')
+			return modelTemplateArray[3];
+		else if(modelType === 'creator')
+			return modelTemplateArray[4];
+	}
+
 	render() {
 		return (
 			<div>
@@ -67,6 +127,10 @@ class App extends React.Component {
 
 				ul.nav.navbar-nav.navbar-right {
 					height: 35px;
+				}
+
+				ul.dropdown-menu{
+					background-color: red;
 				}
 
 				.mark, mark{
@@ -129,7 +193,7 @@ class App extends React.Component {
 				  .navbar-collapse.collapse {
 				    display: flex !important;
 				   }
-				}
+				}	
 
 				@media (min-width: 768px){
 					.nav-pills>li>a {
@@ -177,10 +241,11 @@ class App extends React.Component {
 
 			    `}
 			    </style>
-			    
+
+
 				<Router history={history}>
 					<div>
-						<NavBar />
+						<NavBar username={this.state.username}/>
 						<div className="container">
 							<Switch>
 								<Route exact path='/' component={Home} />
@@ -203,6 +268,16 @@ class App extends React.Component {
 								<Route path='/about' component={About} />
 
 								<Route path='/searchResults/:searchString' component={SearchResults} />
+
+								<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />
+
+								<Route path='/contribute' component={Contribute} />
+								<Route path='/contributeAdd/:modelType' 
+									   render={routeProp => <ContributeAdd getModelTemplate={this.getModelTemplate} />} />
+								<Route path='/contributeDelete/:modelType' 
+									   render={routeProp => <ContributeDelete getModelTemplate={this.getModelTemplate} />} />
+								<Route path='/contributeEdit/:modelType' 
+									   render={routeProp => <ContributeEdit getModelTemplate={this.getModelTemplate} />} />
 
 								<Route render={function() {
 									return <p>Page Not Found!</p>
