@@ -72,8 +72,7 @@ class AccessAccount extends React.Component{
 						      <Col sm={10}>
 						        <FormControl type="text" 
 						        			 id="loginUsername"
-						        			 placeholder="Username" 
-						        			 
+						        			 placeholder="Username"
 						        			 onChange={this.handleChange} />
 						        <FormControl.Feedback />
 						      </Col>
