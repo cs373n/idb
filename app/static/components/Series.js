@@ -13,8 +13,8 @@ var fixMargin = {
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
 var descFilter = [{'name': 'desc','op': '!=', 'val': ''}];
-var orderByAsc = [{'field': 'title', 'direction': 'asc'}];
-var orderByDsc = [{'field': 'title', 'direction': 'desc'}];
+var orderByAsc = "title";
+var orderByDsc = "-title";
 
 class Series extends React.Component{
 	constructor(props) {
@@ -65,8 +65,8 @@ class Series extends React.Component{
 	      .then(function (series) {
 	        this.setState(function () {
 	          return {
-	            series: series.objects,
-	            numPages: series.total_pages
+	            series: series.data,
+	            numPages: Math.ceil(series.meta.total / 6)
 	          }
 	        });
 	      }.bind(this));

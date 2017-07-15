@@ -25,9 +25,9 @@ class SearchCard extends React.Component {
     }
 
     styleImage(){
-    	const { modelInstance } = this.state;
-		if(modelInstance.img && modelInstance.img != "") {
-			return modelInstance.img.slice(0, -4) + "/standard_xlarge.jpg";
+    	const { attributes } = this.state.modelInstance;
+		if(attributes.img && attributes.img != "") {
+			return attributes.img.slice(0, -4) + "/standard_xlarge.jpg";
 		}
 
 		else {
@@ -38,22 +38,26 @@ class SearchCard extends React.Component {
 	contextualizeSearch(){
 		var searchString = this.props.searchString;
 		const { modelInstance } = this.state;
-		
-		var contextIndex = {};
-		var context = [];
+		const { attributes } = this.state.modelInstance;
+		attributes['id'] = modelInstance['id'];
+ 		
+		var contextIndex = {}; //Gives name: '' or title: '' etc....
+		var context = [];	//actual list elements to be rendered
 
 		for(var i = 0; i < searchString.length; i++){
 			var regEx = new RegExp(this.props.searchString[i], "i");
-			Object.keys(modelInstance).map(function(key, index){
-				var modelField = modelInstance[key];
-				if(!Array.isArray(modelField) && modelField && modelField !== "" && key != "img"){
+
+			//Building contextIndex
+			Object.keys(attributes).map(function(key, index){
+				var modelField = attributes[key];
+				if(modelField && modelField !== "" && key != "img"){
 					contextIndex[key] = modelField.toString().search(regEx) + 3;
 				}
 			});
 
 			Object.keys(contextIndex).map(function(key, index){
 				var contextField = contextIndex[key];
-				var modelField = "..." + modelInstance[key].toString() + "...";	
+				var modelField = "..." + attributes[key].toString() + "...";	
 				if(contextField !== 2){
 					key = key.charAt(0).toUpperCase() + key.slice(1)
 					if(contextField === 3 && modelField.length-6 === searchString[i].length){
@@ -84,10 +88,10 @@ class SearchCard extends React.Component {
 	}
 
 	render() {
-		const { modelInstance } = this.state;
-		var title = modelInstance.name ? modelInstance.name : modelInstance.title; //Handle Series/Events and Characters
-		if (title == null && modelInstance.full_name) { //Handle Creators
-			title = modelInstance.full_name;
+		const { attributes } = this.state.modelInstance;
+		var title = attributes.name ? attributes.name : attributes.title; //Handle Series/Events and Characters
+		if (title == null && attributes.full_name) { //Handle Creators
+			title = attributes.full_name;
 		}
 
 		return (

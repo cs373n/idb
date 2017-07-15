@@ -13,8 +13,8 @@ var fixMargin = {
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
 var descFilter = [{'name': 'desc','op': '!=', 'val': ''}];
-var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
-var orderByDsc = [{'field': 'name', 'direction': 'desc'}];
+var orderByAsc = "name";
+var orderByDsc = "-name";
 
 class Characters extends React.Component{
 
@@ -66,8 +66,8 @@ class Characters extends React.Component{
 	      .then(function (chars) {
 	        this.setState(function () {
 	          return {
-	            characters: chars.objects,
-	            numPages: chars.total_pages
+	            characters: chars.data,
+	            numPages: Math.ceil(chars.meta.total / 6)
 	          }
 	        });
 	      }.bind(this));

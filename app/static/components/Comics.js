@@ -13,8 +13,8 @@ var fixMargin = {
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
 var descFilter = [{'name': 'desc','op': '!=', 'val': ''}];
-var orderByAsc = [{'field': 'title', 'direction': 'asc'}];
-var orderByDsc = [{'field': 'title', 'direction': 'desc'}];
+var orderByAsc = "title";
+var orderByDsc = "-title";
 
 class Comics extends React.Component{
 
@@ -66,8 +66,8 @@ class Comics extends React.Component{
 	      .then(function (comics) {
 	        this.setState(function () {
 	          return {
-	            comics: comics.objects,
-	            numPages: comics.total_pages
+	            comics: comics.data,
+	            numPages: Math.ceil(comics.meta.total / 6)
 	          }
 	        });
 	      }.bind(this));
