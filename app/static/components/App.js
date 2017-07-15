@@ -29,14 +29,42 @@ var Card = require('./Card.js');
 // Misc
 var Footer = require('./Footer.js');
 var About = require('./About.js');
-var Contribute = require('./Contribute');
+var Contribute = require('./Contribute.js');
 var ContributeAdd = require('./ContributeAdd.js')
-var AccessAccount = require('./AccessAccount');
+var AccessAccount = require('./AccessAccount.js');
+var ContributeDelete = require('./ContributeDelete.js');
+var ContributeEdit = require('./ContributeEdit.js');
 
 import { Button, Navbar } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
 bootstrapUtils.addStyle(Button,'red');
+
+var modelTemplateArray = [];
+//Character object format
+modelTemplateArray.push({id: null, img: null, name: null, desc: null, 
+					 series: null,     events: null,     comics: null, 
+					 num_series: null, num_events: null, num_comics: null});
+
+//Event object format
+modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 series: null,     creators: null,     comics: null,     characters: null, 
+					 num_series: null, num_creators: null, num_comics: null, num_characters: null});
+
+//Series object format
+modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 events: null,     creators: null,     comics: null,     characters: null, 
+					 num_events: null, num_creators: null, num_comics: null, num_characters: null});
+
+//Comic object format
+modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 series: null,     creators: null,     events: null,     characters: null, 
+					 num_series: null, num_creators: null, num_events: null, num_characters: null});
+
+//Creator object format
+modelTemplateArray.push({id: null, img: null, full_name: null, 
+					 series: null,     events: null,     comics: null,    
+					 num_series: null, num_events: null, num_comics: null});
 
 class App extends React.Component {
 	constructor(props){
@@ -52,6 +80,20 @@ class App extends React.Component {
 		this.setState({username: username}, function(){
 			console.log(this.state.username);
 		});
+	}
+
+	getModelTemplate(modelType){
+		console.log("IN GET MODEL TYPE");
+		if(modelType === 'character')
+			return modelTemplateArray[0];
+		else if(modelType === 'event')
+			return modelTemplateArray[1];
+		else if(modelType === 'series')
+			return modelTemplateArray[2];
+		else if(modelType === 'comic')
+			return modelTemplateArray[3];
+		else if(modelType === 'creator')
+			return modelTemplateArray[4];
 	}
 
 	render() {
@@ -230,7 +272,12 @@ class App extends React.Component {
 								<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />
 
 								<Route path='/contribute' component={Contribute} />
-								<Route path='/contributeAdd/:model' component={ContributeAdd} />
+								<Route path='/contributeAdd/:modelType' 
+									   render={routeProp => <ContributeAdd getModelTemplate={this.getModelTemplate} />} />
+								<Route path='/contributeDelete/:modelType' 
+									   render={routeProp => <ContributeDelete getModelTemplate={this.getModelTemplate} />} />
+								<Route path='/contributeEdit/:modelType' 
+									   render={routeProp => <ContributeEdit getModelTemplate={this.getModelTemplate} />} />
 
 								<Route render={function() {
 									return <p>Page Not Found!</p>
