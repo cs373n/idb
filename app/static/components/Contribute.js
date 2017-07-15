@@ -15,7 +15,7 @@ class Contribute extends React.Component{
 	render(){
 		return(
 			<div>
-			<PageHeader className="text-center" style={fixMargin}>CHARACTERS</PageHeader>
+			<PageHeader className="text-center" style={fixMargin}>CONTRIBUTE</PageHeader>
 			<br/>
 			<Row className="show-grid">
 				<Col md={4}>
