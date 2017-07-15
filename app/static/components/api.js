@@ -225,4 +225,29 @@ module.exports = {
             });
     },
 
+    /*
+    postModel: function(modelInfo) {
+        var encodedURI = window.encodeURI(baseURL + "characters");
+        axios({
+              method: 'post',
+              url: encodedURI,
+              data: {
+                name: 'paul',
+                desc: "hes aight",
+                img: "test.jpg",
+                num_comics: 0, 
+                num_series: 0, 
+                num_events: 0,
+                events: [ {id: 29}, {id: 32} ]
+
+
+              }
+            }).then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+              */
+
 };
