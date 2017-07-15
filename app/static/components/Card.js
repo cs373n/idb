@@ -18,9 +18,9 @@ class Card extends React.Component {
     }
 
     styleImage(){
-    	const { modelInstance } = this.state;
-		if(modelInstance.img && modelInstance.img != "") {
-			return modelInstance.img.slice(0, -4) + "/standard_xlarge.jpg";
+    	const { attributes } = this.state.modelInstance;
+		if(attributes.img && attributes.img != "") {
+			return attributes.img.slice(0, -4) + "/standard_xlarge.jpg";
 		}
 
 		else {
@@ -29,10 +29,10 @@ class Card extends React.Component {
 	}
 
 	render() {
-		const { modelInstance } = this.state;
-		var title = modelInstance.name ? modelInstance.name : modelInstance.title; //Handle Series/Events and Characters
-		if (title == null && modelInstance.full_name) { //Handle Creators
-			title = modelInstance.full_name;
+		const { attributes } = this.state.modelInstance;
+		var title = attributes.name ? attributes.name : attributes.title; //Handle Series/Events and Characters
+		if (title == null && attributes.full_name) { //Handle Creators
+			title = attributes.full_name;
 		}
 		return (
 			<Link to={this.state.modelLink + "/" + this.state.modelInstance.id}>

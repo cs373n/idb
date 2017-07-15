@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-var baseURL = "http://marveldb.net/api/";
+var baseURL = "http://52.207.193.92/api/";
 
 module.exports = {
 
@@ -14,12 +14,15 @@ module.exports = {
         return axios.get(encodedURI, {
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 },
 
                 params: {
-                    'page': page,
-                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                    'page[number]': page,
+                    'filter[objects]': JSON.stringify(filter),
+                    'sort': orderBy 
+                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -38,12 +41,15 @@ module.exports = {
         return axios.get(encodedURI, {
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 },
 
                 params: {
-                    'page': page,
-                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                    'page[number]': page,
+                    'filter[objects]': JSON.stringify(filter),
+                    'sort': orderBy 
+                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -63,12 +69,15 @@ module.exports = {
         return axios.get(encodedURI, {
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 },
 
                 params: {
-                    'page': page,
-                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                    'page[number]': page,
+                    'filter[objects]': JSON.stringify(filter),
+                    'sort': orderBy 
+                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -88,12 +97,15 @@ module.exports = {
         return axios.get(encodedURI, {
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 },
 
                 params: {
-                    'page': page,
-                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                    'page[number]': page,
+                    'filter[objects]': JSON.stringify(filter),
+                    'sort': orderBy 
+                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -113,12 +125,15 @@ module.exports = {
         return axios.get(encodedURI, {
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 },
 
                 params: {
-                    'page': page,
-                    'q': JSON.stringify({"order_by": orderBy, 'filters': filter})
+                    'page[number]': page,
+                    'filter[objects]': JSON.stringify(filter),
+                    'sort': orderBy 
+                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -140,12 +155,14 @@ module.exports = {
 
         return axios.get(encodedURI, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 }
             })
             .then(function(response) {
-                console.log("In getCharacter: " + response.data);
-                return response.data;
+                console.log("In getCharacter: ");
+                console.log(response);
+                return response.data.data;
 
             }).catch(function(error) {
                 console.log(error);
@@ -157,12 +174,13 @@ module.exports = {
 
         return axios.get(encodedURI, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 }
             })
             .then(function(response) {
                 console.log("In getCreator: " + response.data);
-                return response.data;
+                return response.data.data;
 
             }).catch(function(error) {
                 console.log(error);
@@ -174,12 +192,13 @@ module.exports = {
 
         return axios.get(encodedURI, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 }
             })
             .then(function(response) {
                 console.log("In getEvent: " + response.data);
-                return response.data;
+                return response.data.data;
 
             }).catch(function(error) {
                 console.log(error);
@@ -194,13 +213,14 @@ module.exports = {
 
         return axios.get(encodedURI, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 }
             })
             .then(function(response) {
                 console.log("In getOneSeries: ");
                 console.log(response.data);
-                return response.data;
+                return response.data.data;
 
             }).catch(function(error) {
                 console.log(error);
@@ -212,19 +232,57 @@ module.exports = {
 
         return axios.get(encodedURI, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
                 }
             })
             .then(function(response) {
                 console.log("In getComic: " + response.data);
                 console.log(response);
-                return response.data;
+                return response.data.data;
 
             }).catch(function(error) {
                 console.log(error);
             });
     },
 
+    getModel: function(id, modelType) {
+        var encodedURI = window.encodeURI(baseURL + modelType + "s/" + id);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getCharacter: ");
+                console.log(response);
+                return response.data.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
+    getModelConnections: function(instanceURL, modelType) {
+        var encodedURI = window.encodeURI(instanceURL + "/" + modelType);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getModelConnections: ");
+                console.log(response);
+                return response.data.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
     /*
     postModel: function(modelInfo) {
         var encodedURI = window.encodeURI(baseURL + "characters");
