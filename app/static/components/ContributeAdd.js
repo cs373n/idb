@@ -52,14 +52,27 @@ class ContributeAdd extends React.Component{
 		    if (!formNames.hasOwnProperty(key)) 
 		    	continue;
 
+		    var placeholder = "";
+		    if(key === 'name' || key === 'title' || key === 'full_name' || key === 'desc'){
+		    	placeholder = key.charAt(0).toUpperCase() + key.slice(1);
+		    	if(key === 'desc'){
+		    		placeholder = "Description";
+		    	}
+		    }
+		    else{
+		    	placeholder = "Enter the " + key + " you would like this " + this.state.modelType + " to be connected to. " +
+		    				  "Please use the form 'id1,id2,id3,...' with the id's corresponding to certain " + key;
+		    }
+
 		    formsToRender.push(<FormGroup>
 							      <Col componentClass={ControlLabel} sm={2}>
 							        {key.charAt(0).toUpperCase() + key.slice(1)}
 							      </Col>
 							      <Col sm={10}>
 							        <FormControl type="text"
+							        			 componentClass="textarea"
 							        			 id={key}
-							        			 placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+							        			 placeholder={placeholder}
 							        			 onChange={this.handleChange} />
 							      </Col>
 							    </FormGroup>);
@@ -76,22 +89,39 @@ class ContributeAdd extends React.Component{
 		this.setState({submitButtonDisabled: true})
 	}
 
-	//Set newModelInfo in here...this may be tricky.
+	//All newModelInfo fields stored as strings
 	handleChange(e) {
-		if(e.target.id === 'name' || e.target.id === 'desc'){
-  			this.setState({[e.target.id]: e.target.value});
+  		this.setState({newModelInfo: {[e.target.id]: e.target.value}});
+  	}
+  	/*
+  	//format newModelInfo to prepare it for POSTing
+  	formatNewModelInfo(){
+  		const {newModelInfo} = this.state;
+
+  		for(var key in newModelInfo){
+  			// skip loop cycle if the property is from prototype
+  			if (!formNames.hasOwnProperty(key)) 
+		    	continue;
+
+		    if(key != 'name' ||
+		       key != 'desc' ||
+		       key != 'title' ||
+		       key != 'full_name' ||){
+		    	var connectionArray = (newModelInfo[key].split(","));
+		    	for(var i = 0; i < connectionArray.length; i++){
+		    		connectionArray[i] = connectionArray[i].
+		    	}
+		    }
+
+
   		}
   	}
-
-  	//build request in here. 
+	*/
   	submitModel() {
-  		var modelInfo = {
-  			name: "Dean",
-  			desc: "hey"
-  		}
+  		
   		api.postModel(modelInfo);
   	}
-
+	
 	render(){
 		return(
 			<div>
