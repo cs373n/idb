@@ -225,6 +225,25 @@ module.exports = {
             });
     },
 
+    getModel: function(id, modelType) {
+        var encodedURI = window.encodeURI(baseURL + modelType + "s/" + id);
+        console.log(encodedURI);
+
+        return axios.get(encodedURI, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function(response) {
+                console.log("In getModel: " + response.data);
+                console.log(response);
+                return response.data;
+
+            }).catch(function(error) {
+                console.log(error);
+            });
+    },
+
     // *******************************************************************
     // Login/Signup Logic
     // *******************************************************************
@@ -261,7 +280,7 @@ module.exports = {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                
+
                 data: JSON.stringify(modelInfo)
               }
 
