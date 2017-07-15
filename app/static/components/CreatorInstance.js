@@ -53,8 +53,12 @@ class CreatorInstance extends React.Component {
 			if(assocArray) {
 				var modelTypeLink;
 				for(var i = 0; i < assocArray.length; i++) {
-					if(modelType != 'series')
+					if(modelType != 'series'){
 						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					}
 					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
 				}
 			}
