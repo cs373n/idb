@@ -53,13 +53,15 @@ modelTemplateArray.push({id: null, img: null, title: null, desc: null,
 
 //Series object format
 modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 start: null, end: null,
 					 events: null,     creators: null,     comics: null,     characters: null, 
 					 num_events: null, num_creators: null, num_comics: null, num_characters: null});
 
 //Comic object format
 modelTemplateArray.push({id: null, img: null, title: null, desc: null, 
+					 issue_num: null, pg_ct: null, price: null, upc: null,
 					 series: null,     creators: null,     events: null,     characters: null, 
-					 num_series: null, num_creators: null, num_events: null, num_characters: null});
+					 num_creators: null, num_events: null, num_characters: null});
 
 //Creator object format
 modelTemplateArray.push({id: null, img: null, full_name: null, 
