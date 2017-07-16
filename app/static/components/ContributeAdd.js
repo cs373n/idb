@@ -1,8 +1,10 @@
 var React = require('react');
 var api = require('./api.js');
+var Link = require('react-router-dom').Link;
 //var ReCAPTCHA = require("react-google-recaptcha").default;
 import { browserHistory, withRouter } from 'react-router';
-import {Form, FormGroup, FormControl, ControlLabel, Button, Col, Row} from 'react-bootstrap';
+import {Form, FormGroup, FormControl, ControlLabel, 
+		Button, Col, Row} from 'react-bootstrap';
 
 /* PROPS: modelType (string), getModelTemplate (function) */
 
@@ -16,6 +18,7 @@ class ContributeAdd extends React.Component{
 			modelType: modelType,
 			formInput: {},
 			infoToPost: {},
+			response: null,
 			submitButtonDisabled: false	
 		}
 		this.onChange = this.onChange.bind(this);
@@ -117,17 +120,25 @@ class ContributeAdd extends React.Component{
   			if (!formInput.hasOwnProperty(key)) 
 		    	continue;
 
-		    if(key != 'name' &&
-		       key != 'desc' &&
-		       key != 'title' &&
-		       key != 'full_name'){
+		    if(key === 'series' ||
+		       key === 'comics' 	||
+		       key === 'characters' ||
+		       key === 'creators' ||
+		       key === 'events'){
 		    	var connectionArray = (formInput[key].split(","));
 		    	var data = [];
 		    	for(var i = 0; i < connectionArray.length; i++){
 		    		data[i] = {id: connectionArray[i], type: key};
 		    	}
-		    	this.state.infoToPost.attributes['num_' + key] = connectionArray.length;
-		    	this.state.infoToPost.relationships[key] = {data: data};
+
+		    	if(key === 'series' && modelType === 'comics'){
+		    		this.state.infoToPost.relationships[key] = {data: data};
+		    	}
+		    	else{
+		    		this.state.infoToPost.attributes['num_' + key] = connectionArray.length;
+		    		this.state.infoToPost.relationships[key] = {data: data};
+		    	}
+		    	
 		    }
 		    else{
 		    	this.state.infoToPost.attributes[key] = this.state.formInput[key];
@@ -139,33 +150,62 @@ class ContributeAdd extends React.Component{
   		this.buildInfoToPost();
   		console.log(this.state.infoToPost);
   		console.log(this.state.formInput);
-  		api.postModel(this.state.modelType, this.state.infoToPost);
+  		//api.postModel(this.state.modelType, this.state.infoToPost)
+  		api.postModel2(this.state.modelType, this.state.infoToPost)
+  		.then(function(response){
+  			if(response.status >= 200 && response.status < 300){
+  				var stateResponse = [];
+  				stateResponse.push(
+  					<h1>Your {this.state.modelType} was successfully created!
+  						You can view your {this.state.modelType} 
+  						<Link to={"/" + this.state.modelType + "Instance/" + response.data.data.id}>
+  							HERE
+  						</Link>
+  					</h1>
+  				);
+  				this.setState({response: stateResponse});
+  			}
+  			else{
+  				var stateResponse = [];
+  				stateResponse.push(
+  					<h1>Ooops, something was wrong with your input. Double check your input
+  					and try again</h1>);
+  				this.setState({response: stateResponse});
+  			}
+  		}.bind(this));
   	}
 	
 	render(){
-		return(
-			<div>
-				<Row>
-					<Col md={3}/>
-					<Col md={6}>
-						<Form horizontal>
-							{formsToRender}
+		if(this.state.response){
+			return (<div>
+						{this.state.response}
+					</div>);
+		}
+		else{
+			return(
+				<div>
+					<Row>
+						<Col md={3}/>
+						<Col md={6}>
+							<Form horizontal>
+								{formsToRender}
 
-							<FormGroup>
-								<Col smOffset={2} sm={10}>
-									<Button disabled={this.state.submitButtonDisabled}
-											/*type="submit"*/
-											onClick={() => this.submitModel()}>
-									Submit {this.state.modelType}
-									</Button>
-								</Col>
-							</FormGroup>
-						</Form>
-					</Col>
-					<Col md={3}/>
-				</Row>
-			</div>
-		)
+								<FormGroup>
+									<Col smOffset={2} sm={10}>
+										<Button disabled={this.state.submitButtonDisabled}
+												/*type="submit"*/
+												onClick={() => this.submitModel()}>
+										Submit {this.state.modelType}
+										</Button>
+									</Col>
+								</FormGroup>
+							</Form>
+						</Col>
+						<Col md={3}/>
+					</Row>
+				</div>
+			)
+		}
 	}
 }
 
