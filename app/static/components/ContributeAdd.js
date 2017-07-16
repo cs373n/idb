@@ -99,8 +99,18 @@ class ContributeAdd extends React.Component{
   	}
   	
   	//format formInput to prepare it for POSTing
-  	formatFormInput(){
+  	buildInfoToPost(){
   		const {formInput} = this.state;
+  		var modelType = this.state.modelType;
+
+  		//Make modelType plural
+  		if(modelType != 'series'){
+  			modelType += "s";
+  		}
+
+  		this.state.infoToPost['type'] = modelType;
+  		this.state.infoToPost['attributes'] = {};
+  		this.state.infoToPost['relationships'] = {};
 
   		for(var key in formInput){
   			// skip loop cycle if the property is from prototype
@@ -112,19 +122,23 @@ class ContributeAdd extends React.Component{
 		       key != 'title' &&
 		       key != 'full_name'){
 		    	var connectionArray = (formInput[key].split(","));
-		    	this.state.infoToPost['num_' + key] = connectionArray.length;
-		    	this.state.formInput[key] = connectionArray;
+		    	var data = [];
+		    	for(var i = 0; i < connectionArray.length; i++){
+		    		data[i] = {id: connectionArray[i], type: key};
+		    	}
+		    	this.state.infoToPost.attributes['num_' + key] = connectionArray.length;
+		    	this.state.infoToPost.relationships[key] = {data: data};
 		    }
 		    else{
-		    	this.state.infoToPost[key] = this.state.formInput[key];
+		    	this.state.infoToPost.attributes[key] = this.state.formInput[key];
 		    }
   		}
   	}
 	
   	submitModel() {
-  		this.formatFormInput();
-  		//console.log(this.state.infoToPost);
-  		//console.log(this.state.formInput);
+  		this.buildInfoToPost();
+  		console.log(this.state.infoToPost);
+  		console.log(this.state.formInput);
   		api.postModel(this.state.modelType, this.state.infoToPost);
   	}
 	

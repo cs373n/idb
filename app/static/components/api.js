@@ -306,22 +306,19 @@ module.exports = {
               });*/
 
     postModel: function(modelType, infoToPost) {
-        var encodedURI = window.encodeURI(baseURL + "characters/20");
+        if(modelType != 'series'){
+            modelType += "s";
+        }
+        var encodedURI = window.encodeURI(baseURL + modelType);
         axios({
-              method: 'patch',
+              method: 'post',
               url: encodedURI,
               headers: {
                     'Accept': 'application/vnd.api+json',
                     'Content-Type': 'application/vnd.api+json'
                 },
               data: {
-                data: {
-                    type: "characters",
-                    id: '20',
-                    attributes: {
-                        name: "craig"
-                    }
-                }
+                data: infoToPost
               }
             }).then(function (response) {
                 console.log(response);
