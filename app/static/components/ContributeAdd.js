@@ -6,13 +6,16 @@ import {Form, FormGroup, FormControl, ControlLabel, Button, Col, Row} from 'reac
 
 /* PROPS: modelType (string), getModelTemplate (function) */
 
+var formsToRender = [];
+
 class ContributeAdd extends React.Component{
 	constructor(props){
 		super(props);
 		var modelType = (props.location.pathname.split("/"))[2];
 		this.state = {
 			modelType: modelType,
-			newModelInfo: {},
+			formInput: {},
+			infoToPost: {},
 			submitButtonDisabled: false	
 		}
 		this.onChange = this.onChange.bind(this);
@@ -23,9 +26,12 @@ class ContributeAdd extends React.Component{
 		this.buildForms = this.buildForms.bind(this);
 	}
 
+	componentWillMount(){
+		formsToRender = this.buildForms();
+	}
+
 	//Loop through ModelTemplate keys, get only the fields people need to enter information into
 	getFormNames(modelTemplate){
-		console.log("IN GET FORM NAMES");
 		var formNames = {};
 		for (var key in modelTemplate) {
 		    // skip loop cycle if the property is from prototype
@@ -35,6 +41,7 @@ class ContributeAdd extends React.Component{
 		    if(key != 'img' && key != 'id' && (key.slice(0, 3) != 'num')){
 		    	formNames[key] = null;
 		    }
+		    
 		}
 		console.log(formNames);
 		return formNames;
@@ -42,9 +49,6 @@ class ContributeAdd extends React.Component{
 
 	//Build forms for a the specific modelType
 	buildForms(){
-		console.log("IN BUILD FORMS");
-		console.log(this.state.modelType);
-		console.log(this.props.getModelTemplate(this.state.modelType));
 		var formsToRender = [];
 		var formNames = this.getFormNames(this.props.getModelTemplate(this.state.modelType));
 		for (var key in formNames) {
@@ -89,37 +93,39 @@ class ContributeAdd extends React.Component{
 		this.setState({submitButtonDisabled: true})
 	}
 
-	//All newModelInfo fields stored as strings
+	//All formInput fields stored as strings
 	handleChange(e) {
-  		this.setState({newModelInfo: {[e.target.id]: e.target.value}});
+  		this.state.formInput[e.target.id] = e.target.value;
   	}
-  	/*
-  	//format newModelInfo to prepare it for POSTing
-  	formatNewModelInfo(){
-  		const {newModelInfo} = this.state;
+  	
+  	//format formInput to prepare it for POSTing
+  	formatFormInput(){
+  		const {formInput} = this.state;
 
-  		for(var key in newModelInfo){
+  		for(var key in formInput){
   			// skip loop cycle if the property is from prototype
-  			if (!formNames.hasOwnProperty(key)) 
+  			if (!formInput.hasOwnProperty(key)) 
 		    	continue;
 
-		    if(key != 'name' ||
-		       key != 'desc' ||
-		       key != 'title' ||
-		       key != 'full_name' ||){
-		    	var connectionArray = (newModelInfo[key].split(","));
-		    	for(var i = 0; i < connectionArray.length; i++){
-		    		connectionArray[i] = connectionArray[i].
-		    	}
+		    if(key != 'name' &&
+		       key != 'desc' &&
+		       key != 'title' &&
+		       key != 'full_name'){
+		    	var connectionArray = (formInput[key].split(","));
+		    	this.state.infoToPost['num_' + key] = connectionArray.length;
+		    	this.state.formInput[key] = connectionArray;
 		    }
-
-
+		    else{
+		    	this.state.infoToPost[key] = this.state.formInput[key];
+		    }
   		}
   	}
-	*/
+	
   	submitModel() {
-  		
-  		api.postModel(modelInfo);
+  		this.formatFormInput();
+  		//console.log(this.state.infoToPost);
+  		//console.log(this.state.formInput);
+  		api.postModel(this.state.modelType, this.state.infoToPost);
   	}
 	
 	render(){
@@ -129,11 +135,12 @@ class ContributeAdd extends React.Component{
 					<Col md={3}/>
 					<Col md={6}>
 						<Form horizontal>
-							{this.buildForms()}
+							{formsToRender}
 
 							<FormGroup>
 								<Col smOffset={2} sm={10}>
 									<Button disabled={this.state.submitButtonDisabled}
+											/*type="submit"*/
 											onClick={() => this.submitModel()}>
 									Submit {this.state.modelType}
 									</Button>

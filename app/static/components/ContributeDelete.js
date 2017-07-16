@@ -37,11 +37,7 @@ class ContributeAdd extends React.Component{
 
   	//delete request in here. 
   	submitModel() {
-  		var modelInfo = {
-  			name: "Dean",
-  			desc: "hey"
-  		}
-  		api.postModel(modelInfo);
+  		api.deleteModel(this.state.modelType, this.state.id);
   	}
 
 	render(){

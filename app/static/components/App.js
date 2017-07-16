@@ -31,7 +31,7 @@ var Footer = require('./Footer.js');
 var About = require('./About.js');
 var Contribute = require('./Contribute.js');
 var ContributeAdd = require('./ContributeAdd.js')
-var AccessAccount = require('./AccessAccount.js');
+//var AccessAccount = require('./AccessAccount.js');
 var ContributeDelete = require('./ContributeDelete.js');
 var ContributeEdit = require('./ContributeEdit.js');
 
@@ -67,6 +67,7 @@ modelTemplateArray.push({id: null, img: null, full_name: null,
 					 num_series: null, num_events: null, num_comics: null});
 
 class App extends React.Component {
+	/*
 	constructor(props){
 		super(props);
 		this.state = {
@@ -80,7 +81,7 @@ class App extends React.Component {
 		this.setState({username: username}, function(){
 			console.log(this.state.username);
 		});
-	}
+	}*/
 
 	getModelTemplate(modelType){
 		console.log("IN GET MODEL TYPE");
@@ -245,7 +246,7 @@ class App extends React.Component {
 
 				<Router history={history}>
 					<div>
-						<NavBar username={this.state.username}/>
+						<NavBar /*username={this.state.username}*//>
 						<div className="container">
 							<Switch>
 								<Route exact path='/' component={Home} />
@@ -269,7 +270,7 @@ class App extends React.Component {
 
 								<Route path='/searchResults/:searchString' component={SearchResults} />
 
-								<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />
+								{/*<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />*/}
 
 								<Route path='/contribute' component={Contribute} />
 								<Route path='/contributeAdd/:modelType' 

@@ -6,6 +6,7 @@ import { Nav, Navbar, NavItem, FormGroup, FormControl, SplitButton, MenuItem } f
 
 
 class NavBar extends React.Component {
+	/*
 	renderButton(){
 		return (
 			<SplitButton bsStyle="primary" title={this.props.username? this.props.username: "Account"} key={1} id={'split-button-basic-${i}'}>
@@ -30,7 +31,7 @@ class NavBar extends React.Component {
 				}
 			</SplitButton>
 		)
-	}
+	}*/
 
 	render() {
 		return (
@@ -75,8 +76,13 @@ class NavBar extends React.Component {
 				    <LinkContainer to="/about">
 				        <NavItem eventKey={7} >ABOUT</NavItem>
 				    </LinkContainer>
+
+				    <LinkContainer to="/contribute">
+				        <NavItem eventKey={8} >CONTRIBUTE</NavItem>
+				    </LinkContainer>
+
 					
-					{this.renderButton()} 
+					{/*this.renderButton()*/} 
 			      </Nav>
 
 				</Navbar.Collapse>
