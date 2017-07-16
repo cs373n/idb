@@ -8,7 +8,6 @@ Marvel-World is a simple API allowing users to view characters, comics, series, 
 
 # Group Characters
 Character related resources from the Marvel-World API.
-
 ## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
@@ -16,7 +15,86 @@ along with their unique ID's. The unique ID can be used to look up a certain cha
 + Response 200 (application/json)
 
             { 
-                "num_results": "1485",
+                "data": [
+		   {
+			"attributes": {
+				"desc": "AIM is a terrorist organization bent on destroying the world.",
+				"img": "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg",
+				"name": "A.I.M.",
+				"num_comics": "33",
+				"num_events": "0",
+	                        "num_series": "23",
+ 			},
+			"id": "1009144",
+			"links": {
+			   "self": "http://marveldb.net/api/characters/1009144"
+			},
+			"relationships": {
+				"comics": {
+				 	"data": [],
+					"links": {
+						"related": "/api/characters/1009144/comics",
+						"self": "/api/characters/1009144/relationships/comics"
+					}
+				},
+				"events": {
+					"data": [],
+					"links": {
+						"related": "/api/characters/1009144/events",
+						"self": "/api/characters/1009144/relationships/events"
+					}
+				},
+				"series": {
+					"data": [],
+					"links": {
+						"related": "/api/characters/1009144/series",
+						"self": "/api/characters/1009144/relationships/series"
+					}
+				}
+			},
+			"type": "characters"
+		},
+		{
+			 "attributes": {
+                                "desc": "AIM is a terrorist organization bent on destroying the world.",
+                                "img": "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg",
+                                "name": "A.I.M.",
+                                "num_comics": "33",
+                                "num_events": "0",
+                                "num_series": "23",
+                        },
+                        "id": "1009144",
+                        "links": {
+                           "self": "http://marveldb.net/api/characters/1009144"
+                        },
+                        "relationships": {
+                                "comics": {
+                                        "data": [],
+                                        "links": {
+                                                "related": "/api/characters/1009144/comics",
+                                                "self": "/api/characters/1009144/relationships/comics"
+                                        }
+                                },
+                                "events": {
+                                        "data": [],
+                                        "links": {
+                                                "related": "/api/characters/1009144/events",
+                                                "self": "/api/characters/1009144/relationships/events"
+                                        }
+                                },
+                                "series": {
+                                        "data": [],
+                                        "links": {
+                                                "related": "/api/characters/1009144/series",
+                                                "self": "/api/characters/1009144/relationships/series"
+                                        }
+                                }
+                        },
+                        "type": "characters"
+			
+
+
+
                 "objects": [
                     {
                         "desc": "AIM is a terrorist organization bent on destroying the world."
