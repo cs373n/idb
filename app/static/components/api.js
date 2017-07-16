@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 var baseURL = "http://52.207.193.92/api/";
-
+//var baseURL = "http://52.91.216.113/api/";
 module.exports = {
 
     // ************************************************************************
@@ -247,7 +247,10 @@ module.exports = {
     },
 
     getModel: function(id, modelType) {
-        var encodedURI = window.encodeURI(baseURL + modelType + "s/" + id);
+        if(modelType != 'series'){
+            modelType += 's';
+        }
+        var encodedURI = window.encodeURI(baseURL + modelType + "/" + id);
 
         return axios.get(encodedURI, {
                 headers: {
@@ -256,7 +259,7 @@ module.exports = {
                 }
             })
             .then(function(response) {
-                console.log("In getCharacter: ");
+                console.log("In getModel of " + modelType + ":");
                 console.log(response);
                 return response.data.data;
 
@@ -283,34 +286,14 @@ module.exports = {
                 console.log(error);
             });
     },
-    /*
-    postModel: function(modelInfo) {
-        var encodedURI = window.encodeURI(baseURL + "characters");
-        axios({
-              method: 'post',
-              url: encodedURI,
-              data: {
-                name: 'paul',
-                desc: "hes aight",
-                img: "test.jpg",
-                num_comics: 0, 
-                num_series: 0, 
-                num_events: 0,
-                events: [ {id: 29}, {id: 32} ]
-              }
-            }).then(function (response) {
-                console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });*/
 
     postModel: function(modelType, infoToPost) {
         if(modelType != 'series'){
             modelType += "s";
         }
         var encodedURI = window.encodeURI(baseURL + modelType);
-        axios({
+
+        return axios({
               method: 'post',
               url: encodedURI,
               headers: {
@@ -322,18 +305,37 @@ module.exports = {
               }
             }).then(function (response) {
                 console.log(response);
+                return response;
               })
               .catch(function (error) {
+                return error;
                 console.log(error);
               });
+    },
 
-    /*postModel: function(modelType, infoToPost, formInput) {
-        var requestURL;
-        if(modelType != 'series')
+    postModel2: function(modelType, infoToPost){
+        if(modelType != 'series'){
             modelType += "s";
+        }
+        var encodedURI = window.encodeURI(baseURL + "eval/" + modelType);
 
-        var encodedURI = window.encodeURI(baseURL + modelType);
-        axios({
+        return axios({
+            method: 'get',
+            url: encodedURI,
+            headers: {
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
+            },
+            params: {
+                functions: JSON.stringify([{'name': 'max', 'field': 'id'}])
+            }
+        }).then(function(response){
+            console.log("POSTMODEL2:");
+            console.log(response);
+            console.log(infoToPost);
+            infoToPost['id'] = response.data.data[0] + 1;
+            var encodedURI = window.encodeURI(baseURL + modelType);
+            return axios({
               method: 'post',
               url: encodedURI,
               headers: {
@@ -341,60 +343,20 @@ module.exports = {
                     'Content-Type': 'application/vnd.api+json'
                 },
               data: {
-                data: {
-                    type: modelType,
-                    attributes: infoToPost
-                }
+                data: infoToPost
               }
             }).then(function (response) {
                 console.log(response);
-                return axios({
-                    method: 'post',
-                    url: response.data.data.links.self + "/relationships/events",
-                    headers: {
-                        'Accept': 'application/vnd.api+json',
-                        'Content-Type': 'application/vnd.api+json'
-                    },
-                    data:{
-                        data: [
-                            {
-                                type: 'events',
-                                id: 116
-                            },
-
-                            {
-                                type: 'events',
-                                id: 314
-                            }
-                        ]
-                    }   
-
-                }).then(function(response){console.log(response)}).catch(function(error){console.log(error)});
-              }).catch(function (error) {
+                return response;
+              })
+              .catch(function (error) {
+                return error;
                 console.log(error);
               });
-              */
-        /*
-        return axios.post(encodedURI, {
-                headers: {
-                    'Accept': 'application/vnd.api+json',
-                    'Content-Type': 'application/vnd.api+json'
-                },
-
-                data: {
-                    type: modelType,
-                    attributes: JSON.stringify(infoToPost)
-                }
-            })
-            .then(function(response) {
-                console.log("In getModelConnections: ");
-                console.log(response);
-                return response.data.data;
-
-            }).catch(function(error) {
-                console.log(error);
-            });*/
+        })
     },
+
+
 
     deleteModel: function(modelType, id) {
         if(modelType != 'series'){

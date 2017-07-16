@@ -11,7 +11,7 @@ class Footer extends React.Component{
 						<a href="https://developer.marvel.com/" target="_blank">Marvel API</a>
 					</Row>
 					<Row>
-						Data provided by Marvel. © 2014 Marvel
+						Data provided by Marvel. © 2014 Marvel    |    Site Last Updated July 2017
 					</Row>
 				</Grid>
 			</footer>	
