@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-var baseURL = "http://52.207.193.92/api/";
-//var baseURL = "http://52.91.216.113/api/";
+//var baseURL = "http://52.207.193.92/api/";
+var baseURL = "http://52.91.216.113/api/";
 module.exports = {
 
     // ************************************************************************
@@ -246,6 +246,11 @@ module.exports = {
             });
     },
 
+    /*
+        CAREFUL when refactoring this. Returns the ENTIRE JSON response.
+        You will need to change states in the landing and instance pages.
+        Make sure those are recieving response.data.data
+    */
     getModel: function(id, modelType) {
         if(modelType != 'series'){
             modelType += 's';
@@ -261,10 +266,11 @@ module.exports = {
             .then(function(response) {
                 console.log("In getModel of " + modelType + ":");
                 console.log(response);
-                return response.data.data;
+                return response;
 
             }).catch(function(error) {
                 console.log(error);
+                return error;
             });
     },
 
@@ -287,33 +293,7 @@ module.exports = {
             });
     },
 
-    postModel: function(modelType, infoToPost) {
-        if(modelType != 'series'){
-            modelType += "s";
-        }
-        var encodedURI = window.encodeURI(baseURL + modelType);
-
-        return axios({
-              method: 'post',
-              url: encodedURI,
-              headers: {
-                    'Accept': 'application/vnd.api+json',
-                    'Content-Type': 'application/vnd.api+json'
-                },
-              data: {
-                data: infoToPost
-              }
-            }).then(function (response) {
-                console.log(response);
-                return response;
-              })
-              .catch(function (error) {
-                return error;
-                console.log(error);
-              });
-    },
-
-    postModel2: function(modelType, infoToPost){
+    postModel: function(modelType, infoToPost){
         if(modelType != 'series'){
             modelType += "s";
         }
@@ -330,7 +310,7 @@ module.exports = {
                 functions: JSON.stringify([{'name': 'max', 'field': 'id'}])
             }
         }).then(function(response){
-            console.log("POSTMODEL2:");
+            console.log("POSTMODEL:");
             console.log(response);
             console.log(infoToPost);
             infoToPost['id'] = response.data.data[0] + 1;
@@ -356,14 +336,39 @@ module.exports = {
         })
     },
 
-
+    patchModel: function(modelType, id, infoToPatch) {
+        if(modelType != 'series'){
+            modelType += "s";
+        }
+        var encodedURI = window.encodeURI(baseURL + modelType + "/" + id);
+        return axios({
+              method: 'patch',
+              url: encodedURI,
+              headers: {
+                    'Accept': 'application/vnd.api+json',
+                    'Content-Type': 'application/vnd.api+json'
+                },
+              data:{
+                data: infoToPatch
+              }
+              }
+            ).then(function (response) {
+                console.log(response);
+                return response;
+                
+              })
+              .catch(function (error) {
+                console.log(error);
+                return error;
+              });     
+    },
 
     deleteModel: function(modelType, id) {
         if(modelType != 'series'){
             modelType += "s";
         }
         var encodedURI = window.encodeURI(baseURL + modelType + "/" + id);
-        axios({
+        return axios({
               method: 'delete',
               url: encodedURI,
               headers: {
@@ -373,11 +378,12 @@ module.exports = {
               }
             ).then(function (response) {
                 console.log(response);
+                return response;
               })
               .catch(function (error) {
                 console.log(error);
-              });
-              
+                return error;
+              });     
     }
 
 };

@@ -1,12 +1,15 @@
 var React = require('react');
 var api = require('./api.js');
 var Link = require('react-router-dom').Link;
-//var ReCAPTCHA = require("react-google-recaptcha").default;
+var ReCAPTCHA = require("react-google-recaptcha").default;
 import { browserHistory, withRouter } from 'react-router';
 import {Form, FormGroup, FormControl, ControlLabel, 
-		Button, Col, Row} from 'react-bootstrap';
+		Button, Col, Row, PageHeader} from 'react-bootstrap';
 
 /* PROPS: modelType (string), getModelTemplate (function) */
+//Some refactorings to do: dont need formInput and formNames, make a formInfo in the state.
+//Try to make the global forms to render not a thing. Why not state?
+//Same in EDIT.
 
 var formsToRender = [];
 
@@ -19,14 +22,15 @@ class ContributeAdd extends React.Component{
 			formInput: {},
 			infoToPost: {},
 			response: null,
-			submitButtonDisabled: false	
+			submitButtonDisabled: true	
 		}
 		this.onChange = this.onChange.bind(this);
 		this.onExpired = this.onExpired.bind(this);
-		this.submitModel = this.submitModel.bind(this);
+		this.postModel = this.postModel.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.getFormNames = this.getFormNames.bind(this);
 		this.buildForms = this.buildForms.bind(this);
+		this.backToEdit = this.backToEdit.bind(this);
 	}
 
 	componentWillMount(){
@@ -53,6 +57,7 @@ class ContributeAdd extends React.Component{
 	//Build forms for a the specific modelType
 	buildForms(){
 		var formsToRender = [];
+		console.log(formsToRender);
 		var formNames = this.getFormNames(this.props.getModelTemplate(this.state.modelType));
 		for (var key in formNames) {
 		    // skip loop cycle if the property is from prototype
@@ -60,16 +65,23 @@ class ContributeAdd extends React.Component{
 		    	continue;
 
 		    var placeholder = "";
-		    if(key === 'name' || key === 'title' || key === 'full_name' || key === 'desc'){
+		    if(key != 'comics' && key != 'series' && key != 'characters' && key != 'events' && key != 'creators'){
 		    	placeholder = key.charAt(0).toUpperCase() + key.slice(1);
 		    	if(key === 'desc'){
 		    		placeholder = "Description";
 		    	}
+		    	else if(key === 'start' || key === 'end'){
+		    		placeholder += " Year";
+		    	}
 		    }
 		    else{
 		    	placeholder = "Enter the " + key + " you would like this " + this.state.modelType + " to be connected to. " +
-		    				  "Please use the form 'id1,id2,id3,...' with the id's corresponding to certain " + key;
+		    				  "Please use the form 'id, id, id...' with the id's corresponding to certain " + key;
 		    }
+
+		    //formInput should have all formNames default.
+		    //Dont actually need formInput, need formInfo. Two objects not needed
+		    this.state.formInput[key] = "";
 
 		    formsToRender.push(<FormGroup>
 							      <Col componentClass={ControlLabel} sm={2}>
@@ -78,8 +90,8 @@ class ContributeAdd extends React.Component{
 							      <Col sm={10}>
 							        <FormControl type="text"
 							        			 componentClass="textarea"
-							        			 id={key}
 							        			 placeholder={placeholder}
+							        			 id={key}
 							        			 onChange={this.handleChange} />
 							      </Col>
 							    </FormGroup>);
@@ -100,6 +112,10 @@ class ContributeAdd extends React.Component{
 	handleChange(e) {
   		this.state.formInput[e.target.id] = e.target.value;
   	}
+
+  	backToEdit(){
+  		this.setState({response: null, submitButtonDisabled: true});
+  	}
   	
   	//format formInput to prepare it for POSTing
   	buildInfoToPost(){
@@ -116,7 +132,7 @@ class ContributeAdd extends React.Component{
   		this.state.infoToPost['relationships'] = {};
 
   		for(var key in formInput){
-  			// skip loop cycle if the property is from prototype
+  			// skip loop cycle if the property is from prototype or field is ""
   			if (!formInput.hasOwnProperty(key)) 
 		    	continue;
 
@@ -125,51 +141,77 @@ class ContributeAdd extends React.Component{
 		       key === 'characters' ||
 		       key === 'creators' ||
 		       key === 'events'){
-		    	var connectionArray = (formInput[key].split(","));
+		    	var connectionSet = new Set(formInput[key].split(", "));
 		    	var data = [];
-		    	for(var i = 0; i < connectionArray.length; i++){
-		    		data[i] = {id: connectionArray[i], type: key};
+		    	for(let id of connectionSet){
+		    		data.push({id: id, type: key});
 		    	}
 
+		    	//Comics does not have a num_series attribute, always 1
 		    	if(key === 'series' && modelType === 'comics'){
-		    		this.state.infoToPost.relationships[key] = {data: data};
+		    		if(connectionSet.has(""))
+		    			delete this.state.infoToPost.relationships[key];
+		    		else
+		    			this.state.infoToPost.relationships[key] = {data: data};
 		    	}
 		    	else{
-		    		this.state.infoToPost.attributes['num_' + key] = connectionArray.length;
-		    		this.state.infoToPost.relationships[key] = {data: data};
+		    		if(connectionSet.has("")){
+		    			this.state.infoToPost.attributes['num_' + key] = 0;
+		    			delete this.state.infoToPost.relationships[key];
+		    		}
+		    		else{
+		    			this.state.infoToPost.attributes['num_' + key] = connectionSet.size;
+		    			this.state.infoToPost.relationships[key] = {data: data};
+		    		}
 		    	}
-		    	
 		    }
 		    else{
-		    	this.state.infoToPost.attributes[key] = this.state.formInput[key];
+		    	if(this.state.formInput[key] != "")
+		    		this.state.infoToPost.attributes[key] = this.state.formInput[key];
+		    	else if(key === 'price')
+		    		this.state.infoToPost.attributes[key] = 0;
+		    	else
+		    		this.state.infoToPost.attributes[key] = null;
+
 		    }
   		}
   	}
 	
-  	submitModel() {
+  	postModel() {
   		this.buildInfoToPost();
   		console.log(this.state.infoToPost);
   		console.log(this.state.formInput);
   		//api.postModel(this.state.modelType, this.state.infoToPost)
-  		api.postModel2(this.state.modelType, this.state.infoToPost)
+  		api.postModel(this.state.modelType, this.state.infoToPost)
   		.then(function(response){
   			if(response.status >= 200 && response.status < 300){
   				var stateResponse = [];
   				stateResponse.push(
-  					<h1>Your {this.state.modelType} was successfully created!
-  						You can view your {this.state.modelType} 
+  					<PageHeader className="text-center">Your {this.state.modelType.toUpperCase()} was successfully created!
+  						<br/>
+  						<br/>
   						<Link to={"/" + this.state.modelType + "Instance/" + response.data.data.id}>
-  							HERE
+  							CLICK HERE TO VIEW
   						</Link>
-  					</h1>
+  					</PageHeader>
   				);
   				this.setState({response: stateResponse});
   			}
   			else{
   				var stateResponse = [];
   				stateResponse.push(
-  					<h1>Ooops, something was wrong with your input. Double check your input
-  					and try again</h1>);
+  					<div>
+  					<PageHeader className="text-center">Ooops, something was wrong with your input. 
+  					<br/>
+  					<br/>
+  					Double check your input
+  					and try again.
+  					<br/>
+  					<br/>
+  					<Button className="center-block" bsStyle="red" onClick={() => this.backToEdit()}> TRY AGAIN </Button>
+  					</PageHeader>
+  					
+  					</div>);
   				this.setState({response: stateResponse});
   			}
   		}.bind(this));
@@ -185,23 +227,31 @@ class ContributeAdd extends React.Component{
 			return(
 				<div>
 					<Row>
-						<Col md={3}/>
-						<Col md={6}>
+						<Col md={2}/>
+						<Col md={8}>
+							<PageHeader className="text-center">ADD {this.state.modelType.toUpperCase()}</PageHeader>
 							<Form horizontal>
 								{formsToRender}
-
+								
 								<FormGroup>
+
 									<Col smOffset={2} sm={10}>
+									<ReCAPTCHA
+ 				    sitekey="6LcdHykUAAAAAChYDSaQB5WY23YqpwI5mKQndCph"
+ 				    onChange={this.onChange}
+ 				    onExpired={this.onExpired}
+ 				/>
+ 				<br/>
 										<Button disabled={this.state.submitButtonDisabled}
-												/*type="submit"*/
-												onClick={() => this.submitModel()}>
-										Submit {this.state.modelType}
+												bsStyle="red"
+												onClick={() => this.postModel()}>
+										Submit {this.state.modelType.toUpperCase()}
 										</Button>
 									</Col>
 								</FormGroup>
 							</Form>
 						</Col>
-						<Col md={3}/>
+						<Col md={2}/>
 					</Row>
 				</div>
 			)

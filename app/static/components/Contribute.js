@@ -23,18 +23,21 @@ class Contribute extends React.Component{
 						<div className="text-center" style={cardStyle}>
 							CHARACTER
 							<div>
-								<Button onClick={() => this.props.history.push("contributeAdd/character")}>
+								<Button bsStyle="red" onClick={() => this.props.history.push("contributeAdd/character")}>
 						        	ADD
 						        </Button>
+						        <br/>
 						    <Link to="/contributeEdit/character">
-								<Button>
+								<Button bsStyle="red">
 						        	EDIT
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeDelete/character">
-								<Button>
+								<Button bsStyle="red">
 						        	DELETE
 						        </Button>
+						        <br/>
 						    </Link>
 						    </div>
 						</div>
@@ -46,19 +49,22 @@ class Contribute extends React.Component{
 							EVENT
 							<div>
 							<Link to="/contributeAdd/event">
-								<Button>
+								<Button bsStyle="red">
 						        	ADD
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeEdit/event">
-								<Button>
+								<Button bsStyle="red">
 						        	EDIT
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeDelete/event">
-								<Button>
+								<Button bsStyle="red">
 						        	Delete
 						        </Button>
+						        <br/>
 						    </Link>
 						    </div>
 						</div>
@@ -70,19 +76,22 @@ class Contribute extends React.Component{
 							SERIES
 							<div>
 							<Link to="/contributeAdd/series">
-								<Button>
+								<Button bsStyle="red">
 						        	ADD
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeEdit/series">
-								<Button>
+								<Button bsStyle="red">
 						        	EDIT
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeDelete/series">
-								<Button>
+								<Button bsStyle="red">
 						        	DELETE
 						        </Button>
+						        <br/>
 						    </Link>
 						    </div>
 						</div>
@@ -90,49 +99,55 @@ class Contribute extends React.Component{
 				</Col>
 			</Row>
 			<Row>
-				<Col md={6}>
+				<Col md={4}>
 					<div className="well">
 						<div className="text-center" style={cardStyle}>
 							COMIC
 							<div>
 							<Link to="/contributeAdd/comic">
-								<Button>
+								<Button bsStyle="red">
 						        	ADD
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeEdit/comic">
-								<Button>
+								<Button bsStyle="red">
 						        	EDIT
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeDelete/comic">
-								<Button>
+								<Button bsStyle="red">
 						        	DELETE
 						        </Button>
+						        <br/>
 						    </Link>
 						    </div>
 						</div>
 					</div>
 				</Col>
-				<Col md={6}>
+				<Col md={4}>
 					<div className="well">
 						<div className="text-center" style={cardStyle}>
 							CREATOR
 							<div>
 							<Link to="/contributeAdd/creator">
-								<Button>
+								<Button bsStyle="red">
 						        	ADD
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeEdit/creator">
-								<Button>
+								<Button bsStyle="red">
 						        	EDIT
 						        </Button>
+						        <br/>
 						    </Link>
 						    <Link to="/contributeDelete/creator">
-								<Button>
+								<Button bsStyle="red">
 						        	DELETE
 						        </Button>
+						        <br/>
 						    </Link>
 						    </div>
 						</div>

@@ -106,6 +106,8 @@ class App extends React.Component {
 			    .btn-red {
 			        background-color: red;
 			        color: white;
+			        font-size: 15px;
+			        font-weight: 20px;
 			    }
 
 			    nav.navbar.navbar-inverse {
