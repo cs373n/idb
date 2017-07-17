@@ -1,9 +1,27 @@
 FORMAT: 1A
 HOST: http://marveldb.net/api
 
+
 # Marvel-World API
 
-Marvel-World is a simple API allowing users to view characters, comics, series, and events of the Marvel-World database.  
+Marvel-World is a simple API allowing users to view characters, comics, series, creators, and events of the Marvel-World database.
+
+*IMPORTANT NOTE ABOUT OUR API: we ugraded to the new flask_restless, and as a result our API must accept headers or it won't work. 
+In order to do use our API, you must follow these steps:
+
+1. Install an application called PostMan. There is a chrome extension for it as well.
+2. Once you fire PostMan up, enter http://marveldb.net/api on request URL, and one of our models as well, ex: http://marveldb.net/api/characters
+3. Click on Headers, type "Accept" into the key, and "application/vnd.api+json" for the value. 
+4. Hit Send and you're good to go.
+
+
+** Another important note about our API: for the GET all instances of a model requests, there are separated into different pages. You must
+scroll all the way down on the body of the request, copy the link to the next page, and paste it in the request URL. You can enter whatever
+page you want. This is evident in our Apiary. 
+For example, when you scroll down on GET All Characters in this Apiary, you should see "links" in the JSON, it shows links
+for the current page (first), the last page, and the next page. If you want to go to the next page for GET All Characters request, copy the entire
+link "http://marveldb.net/api/characters?page[number]=2&page[size]=6" and paste it into the request URL on PostMan and hit send. This is the same
+for all models.
 
 
 # Group Characters
@@ -11,6 +29,7 @@ Character related resources from the Marvel-World API.
 ## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
+
 ### Get All Characters [GET]
 + Response 200 (application/json)
 
