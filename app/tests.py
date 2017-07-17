@@ -4,11 +4,11 @@
 # pylint: disable = relative-import
 
 from unittest import main, TestCase
-import json
+import json, simplejson
 import requests
 from idb import db
 from models import Character, Comic, Event, Series, Creator
-#edit
+
 
 class UnitTest(TestCase):
 
@@ -204,6 +204,37 @@ class UnitTest(TestCase):
         db_img = db_request.img
         self.assertEqual(api_id, db_id)
         self.assertEqual(api_img, db_img)
+
+
+    def test_character_POST_request(self):
+
+
+    	data = {"data": {"attributes": {"desc": "testing", "img": "test bruh", "name": "test man", "num_comics": 7, "num_events": 7, "num_series": 7},
+	"id": "3000000", "links": {"self": "http://52.91.216.189/api/characters/3000000"},
+	"relationships": {"comics": {"data": [], "links": {"related": "/api/characters/3000000/comics", "self": "/api/characters/3000000/relationships/comics"}},
+	"events": {"data": [], "links": {"related": "/api/characters/3000000/events", "self": "/api/characters/3000000/relationships/events"}},
+	"series": {"data": [], "links": {"related": "/api/characters/3000000/series", "self": "/api/characters/3000000/relationships/series"}}},
+	"type": "characters" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/characters"}, "meta": {}}
+
+ 	headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+ 	postreq = requests.post("http://52.91.216.189/api/characters", simplejson.dumps(data),  headers=headers)
+ 
+  	self.assertEqual(201, postreq.status_code) 
+
+
+ #    def test_character_POST_request(self):
+ #    	
+ #
+
+    def test_character_DELETE_request(self):
+    	
+	headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+	deletereq = requests.delete("http://52.91.216.189/api/characters/3000000", headers=headers)
+	print ("delete")
+	print (deletereq.status_code)
+	
+
+
 
 
 if __name__ == "__main__":
