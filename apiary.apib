@@ -1,9 +1,18 @@
 FORMAT: 1A
 HOST: http://marveldb.net/api
 
+
 # Marvel-World API
 
-Marvel-World is a simple API allowing users to view characters, comics, series, and events of the Marvel-World database.  
+Marvel-World is a simple API allowing users to view characters, comics, series, creators, and events of the Marvel-World database.
+
+*IMPORTANT NOTE ABOUT OUR API: we ugraded to the new flask_restless, and as a result our API must accept headers or it won't work. 
+In order to do use our API, you must follow these steps:
+
+1. Install an application called PostMan. There is a chrome extension for it as well.
+2. Once you fire PostMan up, enter http://marveldb.net/api on request URL, and one of our models as well, ex: http://marveldb.net/api/characters
+3. Click on Headers, type "Accept" into the key, and "application/vnd.api+json" for the value. 
+4. Hit Send and you're good to go.
 
 
 # Group Characters
@@ -11,6 +20,7 @@ Character related resources from the Marvel-World API.
 ## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
+
 ### Get All Characters [GET]
 + Response 200 (application/json)
 
