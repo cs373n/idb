@@ -37,32 +37,33 @@ class CreatorInstance extends React.Component {
 	}
 
 	fixImage() {
-		const { creator } = this.state;
+		const { img } = this.state.creator.attributes;
 
-		if(creator.img && creator.img != "") {
-			return creator.img.slice(0, -4) + "/portrait_uncanny.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	getDescendantProp(obj, desc) {
-    	var arr = desc.split(".");
-    	while(arr.length && (obj = obj[arr.shift()]));
-    	return obj;
-	}
-
 	createCards(modelType) {
 		var cardsArray = [];
-		var assoc = this.getDescendantProp(this.state,  modelType);
-		modelType = modelType.split(".")[1];
-		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
-		if(assoc) {
-			for(var i = 0; i < assoc.length; i++) {
-				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
+		api.getModelConnections(this.state.creator.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					}
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
 			}
-		}
-		return cardsArray;
+	    }.bind(this));
+	    return cardsArray;
 	}
 
 	render() {
@@ -72,6 +73,7 @@ class CreatorInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else {
+			const {attributes} = this.state.creator;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -95,20 +97,20 @@ class CreatorInstance extends React.Component {
 				    </style>
 					
 					<PageHeader className="text-left" style={titleStyle}>
-					{creator.full_name} <small>Identification Number: {creator.id}</small>
+					{attributes.full_name} <small>Identification Number: {creator.id}</small>
 					</PageHeader>
 
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.full_name}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Creator Attributes</PageHeader>
 							<ul>
-								<li>Contributed to {creator.num_events} Events</li>
-								<li>Contributed to {creator.num_series} Series</li>
-								<li>Contributed to {creator.num_comics} Comics</li>
+								<li>Contributed to {attributes.num_events} Events</li>
+								<li>Contributed to {attributes.num_series} Series</li>
+								<li>Contributed to {attributes.num_comics} Comics</li>
 							</ul>
 						</Col>
 					</Row>
@@ -117,18 +119,18 @@ class CreatorInstance extends React.Component {
 
 					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
 	    				<Tab eventKey={1} title="FEATURED EVENTS">
 	    					<br/>
-	    					<Table cards={this.createCards('creator.events')}/>
+	    					<Table cards={this.createCards('events')}/>
 	    				</Tab>
 	    				<Tab eventKey={2} title="FEATURED SERIES">
 	    					<br/>
-	    					<Table cards={this.createCards('creator.series')}/>
+	    					<Table cards={this.createCards('series')}/>
 	    				</Tab>
 	    				<Tab eventKey={3} title="FEATURED COMICS">
 	    					<br/> 
-	    					<Table cards={this.createCards('creator.comics')}/>
+	    					<Table cards={this.createCards('comics')}/>
 	    				</Tab>	
  				 	</Tabs>	
 

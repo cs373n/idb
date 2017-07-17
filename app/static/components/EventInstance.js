@@ -36,31 +36,32 @@ class EventInstance extends React.Component {
 	}
 
 	fixImage() {
-		const { event } = this.state;
+		const { img } = this.state.event.attributes;
 
-		if(event.img && event.img != "") {
-			return event.img.slice(0, -4) + "/portrait_uncanny.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	getDescendantProp(obj, desc) {
-    	var arr = desc.split(".");
-    	while(arr.length && (obj = obj[arr.shift()]));
-    	return obj;
-	}
-
 	createCards(modelType) {
 		var cardsArray = [];
-		var assoc = this.getDescendantProp(this.state,  modelType);
-		modelType = modelType.split(".")[1];
-		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
-		if(assoc) {
-			for(var i = 0; i < assoc.length; i++) {
-				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
+		api.getModelConnections(this.state.event.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					}
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
 			}
-		}
-		return cardsArray;
+	    }.bind(this));
+	    return cardsArray;
 	}
 
 
@@ -71,6 +72,7 @@ class EventInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else {
+			const {attributes} = this.state.event;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -93,25 +95,25 @@ class EventInstance extends React.Component {
 				    `}
 				    </style>
 					<PageHeader className="text-left" style={titleStyle}>
-					{event.title} <small>Identification Number: {event.id}</small>
+					{attributes.title} <small>Identification Number: {event.id}</small>
 					</PageHeader>
 					
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={event.name}/>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.name}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Event Description</PageHeader>
-							<p>{event.desc ? event.desc : "Description not available."}</p>
+							<p>{attributes.desc ? attributes.desc : "Description not available."}</p>
 							
 							<PageHeader>Attributes</PageHeader>
 							<ul>
-								<li>Contains {event.num_characters} characters</li>
+								<li>Contains {attributes.num_characters} characters</li>
 								<li>
-									This event plays out over {event.num_series} series and {event.num_comics} comics
+									This attributes plays out over {attributes.num_series} series and {attributes.num_comics} comics
 								</li>
-								<li>{event.num_creators} creators contributed to this event</li>
+								<li>{attributes.num_creators} creators contributed to this event</li>
 							</ul>
 						</Col>
 					</Row>
@@ -120,22 +122,22 @@ class EventInstance extends React.Component {
 
 					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
 	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
 	    					<br/>
-	    					<Table cards={this.createCards('event.characters')}/>
+	    					<Table cards={this.createCards('characters')}/>
 	    				</Tab>
 	    				<Tab eventKey={2} title="FEATURED SERIES">
 	    					<br/>
-	    					<Table cards={this.createCards('event.series')}/>
+	    					<Table cards={this.createCards('series')}/>
 	    				</Tab>
 	    				<Tab eventKey={3} title="FEATURED COMICS">
 	    					<br/> 
-	    					<Table cards={this.createCards('event.comics')}/>
+	    					<Table cards={this.createCards('comics')}/>
 	    				</Tab>
 	    				<Tab eventKey={4} title="FEATURED CREATORS">
 	    					<br/> 
-	    					<Table cards={this.createCards('event.creators')}/>
+	    					<Table cards={this.createCards('creators')}/>
 	    				</Tab>
 	 				 </Tabs>
 

@@ -37,31 +37,32 @@ class ComicInstance extends React.Component {
 	}
 
 	fixImage() {
-		const { comic } = this.state;
+		const { img } = this.state.comic.attributes;
 
-		if(comic.img && comic.img != "") {
-			return comic.img.slice(0, -4) + "/portrait_uncanny.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	getDescendantProp(obj, desc) {
-    	var arr = desc.split(".");
-    	while(arr.length && (obj = obj[arr.shift()]));
-    	return obj;
-	}
-
 	createCards(modelType) {
 		var cardsArray = [];
-		var assoc = this.getDescendantProp(this.state,  modelType);
-		modelType = modelType.split(".")[1];
-		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
-		if(assoc) {
-			for(var i = 0; i < assoc.length; i++) {
-				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
+		api.getModelConnections(this.state.comic.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					} 
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
 			}
-		}
-		return cardsArray;
+	    }.bind(this));
+	    return cardsArray;
 	}
 
 	parseDesc(desc){
@@ -90,6 +91,7 @@ class ComicInstance extends React.Component {
 			return <p>LOADING!</p>
 		}
 		else {
+			const {attributes} = this.state.comic;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -113,32 +115,31 @@ class ComicInstance extends React.Component {
 				    </style>
 					
 					<PageHeader className="text-left" style={titleStyle}>
-					{comic.title} <small>Identification Number: {comic.id}</small>
+					{attributes.title} <small>Identification Number: {comic.id}</small>
 					</PageHeader>
 
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={comic.title}/>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.title}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Comic Description</PageHeader>
-							<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : this.parseDesc(he.decode(comic.desc))}</p>
+							<p>{(attributes.desc == null || attributes.desc == "") ? "Description not available." : this.parseDesc(he.decode(attributes.desc))}</p>
 							
 							<PageHeader>Attributes</PageHeader>
 							<Col md={6}>
 								<ul>
-									<li>Part of the series: {comic.series[0].title}</li>
-									<li>Progresses {comic.num_events} events</li>
-									<li>Contains {comic.num_characters} documented characters</li>
+									<li>Progresses {attributes.num_events} events</li>
+									<li>Contains {attributes.num_characters} documented characters</li>
 								</ul>
 							</Col>
 							<Col md={6}>
 								<ul>
-									<li>{comic.num_creators} creators contributed to this comic</li>
-									<li>Page Count: {comic.pg_ct}</li>
-									<li>UPC: {comic.upc}</li>
-									<li>Price: ${comic.price.toString().length === 3 ? comic.price + "0" : comic.price}</li>
+									<li>{attributes.num_creators} creators contributed to this comic</li>
+									<li>Page Count: {attributes.pg_ct}</li>
+									<li>UPC: {attributes.upc}</li>
+									<li>Price: ${attributes.price.toString().length === 3 ? attributes.price + "0" : attributes.price}</li>
 								</ul>
 							</Col>
 
@@ -149,22 +150,22 @@ class ComicInstance extends React.Component {
 
 					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
 	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
 	    					<br/>
-	    					<Table cards={this.createCards('comic.characters')}/>
+	    					<Table cards={this.createCards('characters')}/>
 	    				</Tab>
 	    				<Tab eventKey={2} title="FEATURED EVENTS">
 	    					<br/> 
-	    					<Table cards={this.createCards('comic.events')}/>
+	    					<Table cards={this.createCards('events')}/>
 	    				</Tab>
 	    				<Tab eventKey={3} title="FEATURED SERIES">
 	    					<br/>
-	    					<Table cards={this.createCards('comic.series')}/>
+	    					<Table cards={this.createCards('series')}/>
 	    				</Tab>
 	    				<Tab eventKey={4} title="FEATURED CREATORS">
 	    					<br/> 
-	    					<Table cards={this.createCards('comic.creators')}/>
+	    					<Table cards={this.createCards('creators')}/>
 	    				</Tab>
 	 				 </Tabs>
 
