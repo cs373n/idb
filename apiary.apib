@@ -15,6 +15,15 @@ In order to do use our API, you must follow these steps:
 4. Hit Send and you're good to go.
 
 
+** Another important note about our API: for the GET all instances of a model requests, there are separated into different pages. You must
+scroll all the way down on the body of the request, copy the link to the next page, and paste it in the request URL. You can enter whatever
+page you want. This is evident in our Apiary. 
+For example, when you scroll down on GET All Characters in this Apiary, you should see "links" in the JSON, it shows links
+for the current page (first), the last page, and the next page. If you want to go to the next page for GET All Characters request, copy the entire
+link "http://marveldb.net/api/characters?page[number]=2&page[size]=6" and paste it into the request URL on PostMan and hit send. This is the same
+for all models.
+
+
 # Group Characters
 Character related resources from the Marvel-World API.
 ## Character Collection [/characters]
