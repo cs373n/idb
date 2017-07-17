@@ -345,52 +345,75 @@ A collection of all the series that are available in the Marvel-World database. 
 
     + Body
     
-            {
-                "num_results": "9433",
-                "objects": [
-                  {
-                    "characters": [
-                        {
-                            "desc": "",
-                            "id": "1009318",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/80/52696ba1353e7.jpg",
-                            "name": "Ghost Rider (Johnny Blaze)",
-                            "num_comics": "235",
-                            "num_events": "6",
-                            "num_series": "64"
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "Tim Bradstreet",
+                        "end": "1999",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/c/00/4bc670e9a43ab.jpg",
+                        "num_characters": "0",
+                        "num_comics": "1",
+                        "num_events": "0",
+                        "num_creators": "0",
+                        "start": "1999",
+                        "title": "Best of Spider-Man Vol. I (1999)"
+                    },
+                    "id": "4",
+                    "links": {
+                       "self": "http://marveldb.net/api/series/4"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/4/characters",
+                                "self": "/api/series/4/relationships/characters"
+                            }
                         },
-                        {
-                            "desc": "Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.",
-                            "id": "1009610",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg",
-                            "name": "Spider-Man",
-                            "num_comics": "2973",
-                            "num_events": "32",
-                            "num_series": "638"
+                        "comics": {
+                            "data": [
+                                {
+                                    "id": "939",
+                                    "type": "comics"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/4/comics",
+                                "self": "/api/series/4/relationships/comics"
+                            }
+                        },
+                        "creators": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/4/creators",
+                                "self": "/api/series/4/relationship/creators"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/4/events",
+                                "self": "/api/series/4/relationships/events"
+                            }
                         }
-                    ],
-                    "creators": [
-                        {
-                            "full_name": "Axel Alonso",
-                            "id": "4014",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc4782a5a42e.jpg",
-                            "num_comics": "480",
-                            "num_events": "9",
-                            "num_series": "152"
-                        }
-                    ],
-                    "desc": "",
-                    "end": "1999",
-                    "events": [],
-                    "id": "3",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/4ba92cccf096a.jpg",
-                    "num_characters": "0",
-                    "num_comics": "1",
-                    "num_creators": "0",
-                    "num_events": "0",
-                    "start": "1999",
-                    "title" : "Amazing Spider-Man Vol. III: Until the Stars Turn Cold (1999)"
-                ]
+                    },
+                    "type": "series"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "first": "http://marveldb.net/api/series?page[number]=1&page[size]=6",
+                    "last": "http://marveldb.net/api/series?page[number]=157&page[size]=6",
+                    "next": "http://marveldb.net/api/series?page[number]=2&page[size]=6",
+                    "prev": null,
+                    "self": "/api/series"
+                },
+                "meta": {
+                    "total": 9467
+                }
             }
                   
                   
@@ -405,68 +428,103 @@ Retrieves information for a specific comic series.
 
     + Body 
     
-            {
-            
-                    "characters": [
-                        {
-                        "desc": "",
-                        "id": "1009191",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/8/a0/523ca6f2b11e4.jpg",
-                        "name": "Blade",
-                        "num_comics": "39",
-                        "num_events": "2",
-                        "num_series": "19"
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "Award-winning writer Neil Gaiman teams with artist Andy Kubert to re-imagine the Marvel Universe in the year 1602! It's Spider-Man, the X-Men, Nick Fury, Doctor Strange, Daredevil and more as you'd never think to imagine them in an utterly unique and thrilling tale of high adventure!",
+                        "end": "1994",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/a/20/57e448f5d8a2f.jpg",
+                        "num_characters": "1",
+                        "num_comics": "3",
+                        "num_creators": "5",
+                        "num_events": "0",
+                        "start": "1993",
+                        "title": "2099 Unlimited (1993-1994)"
+                    },
+                    "id": "20018",
+                    "links": {
+                       "self": "http://marveldb.net/api/series/20018"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [
+                                {
+                                    "id": "1014873",
+                                    "type": "characters"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/20018/characters",
+                                "self": "/api/series/20018/relationships/characters"
+                            }
                         },
-                        {
-                        "desc": "",
-                        "id": "1009281",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg",
-                        "name": "Doctor Doom",
-                        "num_comics": "238",
-                        "num_events": "9",
-                        "num_series": "128"
-                        }
-                    ],
-                    "creators": [
-                        {
-                        "full_name": "Howard Chaykin",
-                        "id": "808",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/40/4bc5e29c24ccf.jpg",
-                        "num_comics": "154",
-                        "num_events": "4",
-                        "num_series": "74"
+                        "comics": {
+                            "data": [
+                                {
+                                    "id": "53427",
+                                    "type": "comics"
+                                },
+                                {
+                                    "id": "53426",
+                                    "type": "comics"
+                                },
+                                { 
+                                    "id": "53425",
+                                    "type": "comics"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/20018/comics",
+                                "self": "/api/series/20018/relationships/comics"
+                            }
                         },
-                        {
-                        "full_name": "Edgar Delgado",
-                        "id": "430",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc4782a5a42e.jpg",
-                        "num_comics": "293",
-                        "num_events": "11",
-                        "num_series": "99"
+                        "creators": {
+                            "data": [
+                                {
+                                    "id": "3780",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "376",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "3796",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "1281",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "3648",
+                                    "type": "creators"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/20018/creators",
+                                "self": "/api/series/20018/relationship/creators"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/20018/events",
+                                "self": "/api/series/20018/relationships/events"
+                            }
                         }
-                    ],
-                    "desc": "",
-                    "end": "1999",
-                    "events": [
-                        {
-                        "desc": "After a horrific tragedy raises questions on whether or not super heroes should register with the government, longtime Avengers teammates Captain America and Iron Man end up on opposite sides of the argument! Writer Mark Millar and artist Steve McNiven split the Marvel Universe in two as friend fights friend in one of the most celebrated and successful events of all-time!",
-                        "id": "238",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/2/d0/51cb5356c2063.jpg",
-                        "num_characters": "89",
-                        "num_comics": "140",
-                        "num_creators": "140",
-                        "num_series": "62",
-                        "title": "Civil War"
-                        }
-                    ],
-                    "id": "5",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc670e50bd91.jpg",
-                    "num_characters": "3",
-                    "num_comics": "1",
-                    "num_creators": "15",
-                    "num_events": "0",
-                    "start": "1999",
-                    "title": "Black Window Vol. I (1999)"
+                    },
+                    "type": "series"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "self": "/api/series"
+                },
+                "meta": {}
             }
                 
 
