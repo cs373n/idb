@@ -182,9 +182,9 @@ class UnitTest(TestCase):
     def test_event_get_request(self):
 
 	headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
-        api_request = requests.get("http://52.91.216.189/api/events/306")
-        api_id = (json.loads(api_request.text))["id"]
-        api_img = (json.loads(api_request.text))["img"]
+        api_request = requests.get("http://52.91.216.189/api/events/306", headers=headers)
+        api_id = (int)((json.loads(api_request.text))['data']["id"])
+        api_img = (json.loads(api_request.text))['data']['attributes']["img"]
 
         db_request = db.session.query(Event).get(306)
         db_id = db_request.id
@@ -193,10 +193,11 @@ class UnitTest(TestCase):
         self.assertEqual(api_img, db_img)
 
     def test_comic_get_request(self):
-
-        api_request = requests.get("http://52.91.216.189/api/comics/428")
-        api_id = (json.loads(api_request.text))["id"]
-        api_img = (json.loads(api_request.text))["img"]
+	
+	headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+        api_request = requests.get("http://52.91.216.189/api/comics/428", headers=headers)
+        api_id = (int) ((json.loads(api_request.text))['data']["id"])
+        api_img = (json.loads(api_request.text))['data']['attributes']["img"]
 
         db_request = db.session.query(Comic).get(428)
         db_id = db_request.id
