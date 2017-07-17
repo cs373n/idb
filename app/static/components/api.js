@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-var baseURL = "http://34.228.70.19/api/";
+var baseURL = "http://52.91.216.189/api/";
 module.exports = {
 
     // ************************************************************************
