@@ -208,6 +208,7 @@ class UnitTest(TestCase):
 
     def test_character_POST_request(self):
 
+
 #	with app.app_context():
 		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
 	 
