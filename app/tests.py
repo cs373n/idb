@@ -6,17 +6,17 @@
 from unittest import main, TestCase
 import json, simplejson
 import requests
-from idb import db
-from models import Character, Comic, Event, Series, Creator
+from idb import app
+from models import db, Character, Comic, Event, Series, Creator
 
 
 class UnitTest(TestCase):
 
     def test_add_series(self):
 
-        newSeries = Series(9021090, "Testing 123", "This is a test Series",
-                           2015, 2018, "http://www.whitehouse.gov/logo.jpg", 1,
-                           8, 289, 4)
+        newSeries = Series(id=9021090, title="Testing 123", desc="This is a test Series",
+                           start=2015, end=2018, img="http://www.whitehouse.gov/logo.jpg", num_creators=1,
+                           num_characters=8, num_comics=289, num_events=4)
         db.session.add(newSeries)
         db.session.commit()
         query = db.session.query(Series).filter_by(id="9021090").first()
@@ -35,8 +35,8 @@ class UnitTest(TestCase):
 
     def test_add_comic(self):
 
-        newComic = Comic(9021090, "Test Comic", 4, "Test Desc", "12345678",
-                         88, 4.99, "http://www.utexas.edu/diploma.gif", 6, 7, 3)
+        newComic = Comic(id=9021090, title="Test Comic", issue_num=4, desc="Test Desc", upc="12345678",
+                         pg_ct=88, price=4.99, img="http://www.utexas.edu/diploma.gif", num_creators=6, num_characters=7, num_events=3)
         db.session.add(newComic)
         db.session.commit()
         query = db.session.query(Comic).filter_by(id="9021090").first()
@@ -51,8 +51,8 @@ class UnitTest(TestCase):
 
     def test_add_creator(self):
 
-        newCreator = Creator(9021090, "Fake Creator",
-                             "http://www.whitehouse.gov/obama.jpg", 1, 8, 44)
+        newCreator = Creator(id=9021090, full_name="Fake Creator",
+                             img="http://www.whitehouse.gov/obama.jpg", num_comics=1, num_series=8, num_events=44)
         db.session.add(newCreator)
         db.session.commit()
         query = db.session.query(Creator).filter_by(id="9021090").first()
@@ -67,10 +67,10 @@ class UnitTest(TestCase):
 
     def test_add_character(self):
 
-        newCharacter = Character(9021090, "Manchurian Candidate",
-                                 "This guy is some Character",
-                                 "http://www.kremlin.org/trump.png",
-				                             1001, 88, 0)
+        newCharacter = Character(id=9021090, name="Manchurian Candidate",
+                                 desc="This guy is some Character",
+                                 img="http://www.kremlin.org/trump.png",
+				                             num_comics=1001, num_series=88, num_events=0)
         db.session.add(newCharacter)
         db.session.commit()
         query = db.session.query(Character).filter_by(id="9021090").first()
@@ -86,10 +86,10 @@ class UnitTest(TestCase):
 
     def test_add_event(self):
 
-        newEvent = Event(9021090, "The Big Short",
-	                        "Wall Street trips and falls",
-                         "http://www.boa.com/freemoney.jpg", 987654,
-				                     1000, 787, 1)
+        newEvent = Event(id=9021090, title="The Big Short",
+	                        desc="Wall Street trips and falls",
+                         img="http://www.boa.com/freemoney.jpg", num_creators=987654,
+				                     num_characters=1000, num_comics=787, num_series=1)
         db.session.add(newEvent)
         db.session.commit()
         query = db.session.query(Event).filter_by(id="9021090").first()
@@ -106,9 +106,9 @@ class UnitTest(TestCase):
 
     def test_add_character_with_null_img(self):
 
-        newCharacter = Character(9021090, "Argent",
-                                 "She is a Character",
-                                 None, 0, 0, 0)
+        newCharacter = Character(id=9021090, name="Argent",
+                                 desc="She is a Character",
+                                 img=None, num_comics=0, num_series=0, num_events=0)
         db.session.add(newCharacter)
         db.session.commit()
         query = db.session.query(Character).filter_by(id="9021090").first()
@@ -124,8 +124,8 @@ class UnitTest(TestCase):
 
     def test_add_creator_with_null_img(self):
 
-        newCreator = Creator(9021090, "Alan Hopkins",
-                             None, 0, 0, 0)
+        newCreator = Creator(id=9021090, full_name="Alan Hopkins",
+                             img=None, num_comics=0, num_series=0, num_events=0)
         db.session.add(newCreator)
         db.session.commit()
         query = db.session.query(Creator).filter_by(id="9021090").first()
@@ -208,8 +208,8 @@ class UnitTest(TestCase):
 
     def test_character_POST_request(self):
 
-#
-#	with app.app_context():
+
+	with app.app_context():
 		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
 	 
 		data = {"data": {"attributes": {"desc": "testing", "img": "test bruh", "name": "test man", "num_comics": 7, "num_events": 7, "num_series": 7},
@@ -231,6 +231,35 @@ class UnitTest(TestCase):
 		deletereq = requests.delete("http://52.91.216.189/api/characters/3000000", headers=headers)
 		
 		self.assertEqual(204, deletereq.status_code)
+
+
+    def test_comic_HTTP_requests(self):
+
+#
+#	with app.app_context():
+		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+	 
+		data = {"data": {"attributes": {"desc": "testing", "img": "test bruh", "name": "test man", "num_comics": 7, "num_events": 7, "num_series": 7},
+		"id": "3000000", "links": {"self": "http://52.91.216.189/api/comics/3000000"},
+		"relationships": {"comics": {"data": [], "links": {"related": "/api/comics/3000000/comics", "self": "/api/comics/3000000/relationships/comics"}},
+		"events": {"data": [], "links": {"related": "/api/comics/3000000/events", "self": "/api/comics/3000000/relationships/events"}},
+		"series": {"data": [], "links": {"related": "/api/comics/3000000/series", "self": "/api/comics/3000000/relationships/series"}}},
+		"type": "comics" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/comics"}, "meta": {}}
+
+		postreq = requests.post("http://52.91.216.189/api/comics", simplejson.dumps(data),  headers=headers)
+
+		self.assertEqual(201, postreq.status_code) 
+		
+		data = {"type": "comics", "id":"3000000", "attributes": {"id": "3000000", "name": "bubba", "desc" : "gump", "img" : "shellfish company", "num_comics": "7", "num_series": "7", "num_events": "7"}}
+
+		patchreq = requests.patch("http://52.91.216.189/api/comics/3000000", simplejson.dumps({"data": data}), headers=headers)
+		self.assertEqual(204, patchreq.status_code)
+
+		deletereq = requests.delete("http://52.91.216.189/api/comics/3000000", headers=headers)
+		
+		self.assertEqual(204, deletereq.status_code)
+
+
 
 
 
