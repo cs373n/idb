@@ -130,7 +130,8 @@ class Series extends React.Component{
 	loadTable(){
 		if(!this.state.series){
             return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='375' width='375' />
+	            			<ReactLoading type="bars" height='650' width='375'
+	            						  delay='5' color='red' />
             	   </div>
         }   
         else{

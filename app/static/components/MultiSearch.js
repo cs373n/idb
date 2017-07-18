@@ -2,6 +2,7 @@ var React = require('react');
 var api = require('./api.js');
 var Table = require('./Table.js');
 var SearchCard = require('./SearchCard.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
 
 /*
@@ -268,7 +269,10 @@ class MultiSearch extends React.Component{
 	loadTable(){
 		console.log("MS: loadTable");
 		if(!this.state.searchResults){
-            return <p>LOADING!</p>;
+            return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='650' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
         }
         else if(this.state.searchResults[0] === {}){
         	return <p>No results match that search criteria.</p>
@@ -276,7 +280,7 @@ class MultiSearch extends React.Component{
         else {
         	console.log("MS: loadTable else{}");
          	return (
-         		<div>
+         		<div className="text-center">
 	         		<Table cards={this.createSearchCards()}/>
 	          		<Pagination
 			       	prev

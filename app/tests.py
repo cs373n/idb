@@ -342,6 +342,33 @@ class UnitTest(TestCase):
 		self.assertEqual(204, deletereq.status_code)
 
 
+    def test_series_HTTP_requests(self):
+
+
+	with app.app_context():
+		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+	 	
+		data = {"data": {"attributes": {"desc": "testing series", "end": 2017, "img": "spidey series pic", "num_characters": 3, "num_comics": 50, "num_creators": 1, "num_events": 7, "start": 2017, "title": "spidey test man passes the POST test for series"},
+		"id": "3000004", "links": {"self": "http://marveldb.net/api/series/3000004"},
+		"relationships": {"characters": {"data": [], "links": {"related": "/api/series/3000004/characters", "self": "/api/series/3000000/relationships/characters"}},
+		"comics": {"data": [], "links": {"related": "/api/series/3000004/comics", "self": "/api/series/3000004/relationships/comics"}},
+		"creators": {"data": [], "links": {"related": "/api/series/3000004/creators", "self": "/api/series/3000004/relationships/creators"}},
+		"events": {"data": [], "links": {"related": "/api/series/3000004/events", "self": "/api/series/3000004/relationships/events"}}},
+		"type": "series" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/series"}, "meta": {}}
+
+		postreq = requests.post("http://marveldb.net/api/series", simplejson.dumps(data),  headers=headers)
+		self.assertEqual(201, postreq.status_code) 
+		
+		data = {"type": "series", "id":"3000004", "attributes": {"id": "3000004", "desc": "world war 3 vol. 4", "img" : "hulk pic", "num_characters": "81", "num_comics": "4", "num_creators": "52", "num_events": "4"}}
+
+		patchreq = requests.patch("http://marveldb.net/api/series/3000004", simplejson.dumps({"data": data}), headers=headers)
+		self.assertEqual(204, patchreq.status_code)
+
+		deletereq = requests.delete("http://marveldb.net/api/series/3000004", headers=headers)
+		self.assertEqual(204, deletereq.status_code)
+
+
+
 
 
 if __name__ == "__main__":

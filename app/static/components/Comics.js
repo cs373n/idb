@@ -131,7 +131,8 @@ class Comics extends React.Component{
 		if(!this.state.comics) {
 
             return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='375' width='375' />
+	            			<ReactLoading type="bars" height='650' width='375'
+	            						  delay='5' color='red' />
             	   </div>
         }   
         else{
