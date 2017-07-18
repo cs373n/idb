@@ -2,6 +2,7 @@ var React = require('react');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class CharacterInstance extends React.Component {
@@ -90,9 +91,11 @@ class CharacterInstance extends React.Component {
 
 	render() {
 		const { character } = this.state;
-
+			
 		if(!character || this.state.tabNum != 0){
-			return <p>LOADING!</p>
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='375' width='375' />
+            	   </div>
 		}
 		else{
 			const {attributes} = this.state.character;

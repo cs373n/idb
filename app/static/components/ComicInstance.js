@@ -3,6 +3,7 @@ var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
 var he = require('he');
+import ReactLoading from 'react-loading';
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class ComicInstance extends React.Component {
@@ -115,7 +116,9 @@ class ComicInstance extends React.Component {
 		const { comic } = this.state;
 
 		if(!comic || this.state.tabNum != 0) {
-			return <p>LOADING!</p>
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='375' width='375' />
+            	   </div>
 		}
 		else {
 			const {attributes} = this.state.comic;
