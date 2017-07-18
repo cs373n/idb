@@ -2,6 +2,7 @@ var React = require('react');
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Pagination, Button, 
 		 ButtonGroup, ButtonToolbar,
 		 Grid, Row, Col } from 'react-bootstrap';
@@ -13,8 +14,8 @@ var fixMargin = {
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
 var descFilter = [{'name': 'desc','op': '!=', 'val': ''}];
-var orderByAsc = [{'field': 'full_name', 'direction': 'asc'}];
-var orderByDsc = [{'field': 'full_name', 'direction': 'desc'}];
+var orderByAsc = "full_name";
+var orderByDsc = "-full_name";
 
 class Creators extends React.Component{
 	constructor(props) {
@@ -66,8 +67,8 @@ class Creators extends React.Component{
 	      .then(function (creators) {
 	        this.setState(function () {
 	          return {
-	            creators: creators.objects,
-	            numPages: creators.total_pages
+	            creators: creators.data,
+	            numPages: Math.ceil(creators.meta.total / 6)
 	          }
 	        });
 	      }.bind(this));
@@ -128,7 +129,10 @@ class Creators extends React.Component{
 
 	loadTable(){
 		if(!this.state.creators){
-            return <p>LOADING!</p>;
+            return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='650' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
         }   
         else{
          	return (

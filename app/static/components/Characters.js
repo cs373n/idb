@@ -2,6 +2,7 @@ var React = require('react');
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Pagination, Button, 
 		 ButtonGroup, ButtonToolbar,
 		 Grid, Row, Col } from 'react-bootstrap';
@@ -13,8 +14,8 @@ var fixMargin = {
 var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
 var photoFilter = [{'name': 'img','op': 'does_not_equal', 'val': imgNotFound}];
 var descFilter = [{'name': 'desc','op': '!=', 'val': ''}];
-var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
-var orderByDsc = [{'field': 'name', 'direction': 'desc'}];
+var orderByAsc = "name";
+var orderByDsc = "-name";
 
 class Characters extends React.Component{
 
@@ -66,8 +67,8 @@ class Characters extends React.Component{
 	      .then(function (chars) {
 	        this.setState(function () {
 	          return {
-	            characters: chars.objects,
-	            numPages: chars.total_pages
+	            characters: chars.data,
+	            numPages: Math.ceil(chars.meta.total / 6)
 	          }
 	        });
 	      }.bind(this));
@@ -128,7 +129,10 @@ class Characters extends React.Component{
 
 	loadTable(){
 		if(!this.state.characters){
-            return <p>LOADING!</p>;
+            return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='650' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
         }   
         else{
          	return (

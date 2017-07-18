@@ -2,14 +2,21 @@ var React = require('react');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class CreatorInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      creator: null
+	      creator: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateCreator = this.updateCreator.bind(this);
   	}
 
 	componentWillMount() {
@@ -17,7 +24,7 @@ class CreatorInstance extends React.Component {
 	}
 
 	updateCreator(creator) {
-		var charID = this.props.match.params.creatorID;
+		var creatorID = this.props.match.params.creatorID;
 
 		this.setState(function() {
 			return {
@@ -25,53 +32,77 @@ class CreatorInstance extends React.Component {
 			}
 		});
 
-		api.getCreator(charID)
+		api.getCreator(creatorID)
 	      .then(function (creator) {
-	      	console.log(creator)
-	        this.setState(function () {
-	          return {
-	            creator: creator
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.creator = creator;
+	        	this.createCards('events')
+	        	.then(function(response){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));
 	}
 
 	fixImage() {
-		const { creator } = this.state;
+		const { img } = this.state.creator.attributes;
 
-		if(creator.img && creator.img != "") {
-			return creator.img.slice(0, -4) + "/portrait_uncanny.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	getDescendantProp(obj, desc) {
-    	var arr = desc.split(".");
-    	while(arr.length && (obj = obj[arr.shift()]));
-    	return obj;
-	}
-
 	createCards(modelType) {
 		var cardsArray = [];
-		var assoc = this.getDescendantProp(this.state,  modelType);
-		modelType = modelType.split(".")[1];
-		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
-		if(assoc) {
-			for(var i = 0; i < assoc.length; i++) {
-				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
+		return api.getModelConnections(this.state.creator.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					}
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
+				this.makeTab(cardsArray, modelType);
 			}
-		}
-		return cardsArray;
+	    }.bind(this));
 	}
+
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
+		}
+	}
+
 
 	render() {
 		const { creator } = this.state;
 
-		if(!creator) {
-			return <p>LOADING!</p>
+		if(!creator || this.state.tabNum != 0) {
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='900' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
 		}
 		else {
+			const {attributes} = this.state.creator;
+			const {relationships} = this.state.creator;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -95,41 +126,30 @@ class CreatorInstance extends React.Component {
 				    </style>
 					
 					<PageHeader className="text-left" style={titleStyle}>
-					{creator.full_name} <small>Identification Number: {creator.id}</small>
+					{attributes.full_name} <small>Identification Number: {creator.id}</small>
 					</PageHeader>
 
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.full_name}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Creator Attributes</PageHeader>
 							<ul>
-								<li>Contributed to {creator.num_events} Events</li>
-								<li>Contributed to {creator.num_series} Series</li>
-								<li>Contributed to {creator.num_comics} Comics</li>
+								<li>Contributed to {relationships.events.data.length} Events</li>
+								<li>Contributed to {relationships.series.data.length} Series</li>
+								<li>Contributed to {relationships.comics.data.length} Comics</li>
 							</ul>
 						</Col>
 					</Row>
 					
 					<br/>
 
-					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
 					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
-	    				<Tab eventKey={1} title="FEATURED EVENTS">
-	    					<br/>
-	    					<Table cards={this.createCards('creator.events')}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('creator.series')}/>
-	    				</Tab>
-	    				<Tab eventKey={3} title="FEATURED COMICS">
-	    					<br/> 
-	    					<Table cards={this.createCards('creator.comics')}/>
-	    				</Tab>	
+	    				{this.state.tabsToRender}
  				 	</Tabs>	
 
 				</div>

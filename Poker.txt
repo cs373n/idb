@@ -3,33 +3,33 @@ Planitpoker Phase #3 User Stories & Estimates:
 
 
 
-1) update technical doc with search process and comics model
-	- estimate: 3 hours
-	- actual: 3 hours
-2) add comics connections to each instance page
-	- estimate: 2 hours
-	- actual: 6 hours
-3) Add association tables for comics
-	- estimate: 2 hours
-	- actual: 4 hours
-4) Update apiary with comics
-	- estimate: 30 minutes
-	- actual: 1 hour
-5) implement the API for comics model
-	- estimate: 30 minutes
-	- actual: 30 minutes
-6) Add comic page for the website
+1) Make the input forms send off the actual DELETE requests
 	- estimate: 2 hours
 	- actual: 1 hours
-7) implement context highlighting for search results
-	- estimate: 5 hours
-	- actual: 7 hours 
-8) implement functionality for multi-word search
-	- estimate: 5 hours
-	- actual: 10 hours
-9) Implement functionality for single word searches
+2) Make the input forms send off the actual PATCH requests
+	- estimate: 20 hours
+	- actual: 20 hours
+3) Make the input forms send off the actual POST requests
+	- estimate: 20 hours
+	- actual: 20 hours
+4) Create contribution page that allows users to contribute to the website
+	- estimate: 3 hours
+	- actual: 1 hour
+5) Add contribution link in the navigation bar
+	- estimate: 30 minutes
+	- actual: 30 minutes
+6) Add input forms for PATCH requests
+	- estimate: 13 hours
+	- actual: 3 hours
+7) Add input forms for DELETE requests
+	- estimate: 1 hour
+	- actual: 30 minutes 
+8) Add input forms for POST requests
 	- estimate: 5 hours
 	- actual: 5 hours
-10) Scrape comics from marvel API
-	- estimate: 40 hours
-	- actual: 25 hours
+9) Make model instance pills look clickable
+	- estimate: 1 hours
+	- actual: 5 hours
+10) Implement CAPTCHA on the website that authenticates a user is not a bot
+	- estimate: 3 hours
+	- actual: 3 hours

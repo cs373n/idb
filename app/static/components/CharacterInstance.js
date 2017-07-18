@@ -2,14 +2,21 @@ var React = require('react');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class CharacterInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      character: null
+	      character: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateCharacter = this.updateCharacter.bind(this);
   	}
 
 	componentWillMount() {
@@ -27,49 +34,73 @@ class CharacterInstance extends React.Component {
 
 		api.getCharacter(charID)
 	      .then(function (char) {
-	        this.setState(function () {
-	          return {
-	            character: char
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.character = char;
+	        	this.createCards('events')
+	        	.then(function(response){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));
 	}
 
 	fixImage() {
-		const { character } = this.state;
+		const { img } = this.state.character.attributes;
 
-		if(character.img && character.img != "") {
-			return character.img.slice(0, -4) + "/portrait_uncanny.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	getDescendantProp(obj, desc) {
-    	var arr = desc.split(".");
-    	while(arr.length && (obj = obj[arr.shift()]));
-    	return obj;
-	}
-
 	createCards(modelType) {
 		var cardsArray = [];
-		var assoc = this.getDescendantProp(this.state,  modelType);
-		modelType = modelType.split(".")[1];
-		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
-		if(assoc) {
-			for(var i = 0; i < assoc.length; i++) {
-				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
+		return api.getModelConnections(this.state.character.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					} 
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
+				this.makeTab(cardsArray, modelType);
 			}
+	    }.bind(this));
+	}
+
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
 		}
-		return cardsArray;
 	}
 
 	render() {
 		const { character } = this.state;
-
-		if(!character){
-			return <p>LOADING!</p>
+			
+		if(!character || this.state.tabNum != 0){
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='900' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
 		}
 		else{
+			const {attributes} = this.state.character;
+			const {relationships} = this.state.character;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -93,23 +124,23 @@ class CharacterInstance extends React.Component {
 				    </style>
 
 					<PageHeader className="text-left" style={titleStyle}>
-					{character.name} <small>Identification Number: {character.id}</small>
+					{attributes.name} <small>Identification Number: {character.id}</small>
 					</PageHeader>
 					
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={character.name}/>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.name}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Character Description</PageHeader>
-							<p>{(character.desc == null || character.desc == "") ? "Description not available." : character.desc}</p>
+							<p>{(attributes.desc == null || attributes.desc == "") ? "Description not available." : attributes.desc}</p>
 							
 							<PageHeader>Attributes</PageHeader>
 							<ul>
-								<li>Appears in {character.num_comics} Comics</li>
-								<li>Appears in {character.num_series} Series</li>
-								<li>Appears in {character.num_events} Events</li>
+								<li>Appears in {relationships.events.data.length} Events</li>
+								<li>Appears in {relationships.series.data.length} Series</li>
+								<li>Appears in {relationships.comics.data.length} Comics</li>
 							</ul>
 						</Col>
 					</Row>
@@ -117,19 +148,8 @@ class CharacterInstance extends React.Component {
 					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
 					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
-	    				<Tab eventKey={1} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('character.series')}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED EVENTS">
-	    					<br/>
-	    					<Table cards={this.createCards('character.events')}/>
-	    				</Tab>
-	    				<Tab eventKey={3} title="FEATURED COMICS">
-	    					<br/> 
-	    					<Table cards={this.createCards('character.comics')}/>
-	    				</Tab>	
- 				 	</Tabs>
+						{this.state.tabsToRender}
+					</Tabs>
 				</div>
 			)
 		}

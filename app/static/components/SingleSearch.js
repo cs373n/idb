@@ -2,9 +2,8 @@ var React = require('react');
 var api = require('./api.js');
 var Table = require('./Table.js');
 var SearchCard = require('./SearchCard.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
-
-var orderByAsc = [{'field': 'name', 'direction': 'asc'}];
 
 /*
 	Props: modelType, searchString
@@ -55,12 +54,12 @@ class SingleSearch extends React.Component {
 				
 				filter = this.buildFilter();
 
-				api.getCharacters(this.state.activePage, filter, {})
+				api.getCharacters(this.state.activePage, filter, "")
 			      .then(function (chars) {
 			        this.setState(function () {
 			          return {
-			            searchResults: chars.objects,
-			            numPages: chars.total_pages
+			            searchResults: chars.data,
+			            numPages: Math.ceil(chars.meta.total / 6)
 			          }
 			        });
 			      }.bind(this));
@@ -69,12 +68,12 @@ class SingleSearch extends React.Component {
 
 				filter = this.buildFilter();
 
-				api.getEvents(this.state.activePage, filter, {})
-			      .then(function (chars) {
+				api.getEvents(this.state.activePage, filter, "")
+			      .then(function (events) {
 			        this.setState(function () {
 			          return {
-			            searchResults: chars.objects,
-			            numPages: chars.total_pages
+			            searchResults: events.data,
+			            numPages: Math.ceil(events.meta.total / 6)
 			          }
 			        });
 			      }.bind(this));
@@ -83,12 +82,12 @@ class SingleSearch extends React.Component {
 
 				filter = this.buildFilter();
 
-				api.getSeries(this.state.activePage, filter, {})
-			      .then(function (chars) {
+				api.getSeries(this.state.activePage, filter, "")
+			      .then(function (series) {
 			        this.setState(function () {
 			          return {
-			            searchResults: chars.objects,
-			            numPages: chars.total_pages
+			            searchResults: series.data,
+			            numPages: Math.ceil(series.meta.total / 6)
 			          }
 			        });
 			      }.bind(this));
@@ -97,12 +96,12 @@ class SingleSearch extends React.Component {
 
 				filter = this.buildFilter();
 
-				api.getCreators(this.state.activePage, filter, {})
-			      .then(function (chars) {
+				api.getCreators(this.state.activePage, filter, "")
+			      .then(function (creators) {
 			        this.setState(function () {
 			          return {
-			            searchResults: chars.objects,
-			            numPages: chars.total_pages
+			            searchResults: creators.data,
+			            numPages: Math.ceil(creators.meta.total / 6)
 			          }
 			        });
 			      }.bind(this));
@@ -111,12 +110,12 @@ class SingleSearch extends React.Component {
 
 				filter = this.buildFilter();
 
-				api.getComics(this.state.activePage, filter, {})
-			      .then(function (chars) {
+				api.getComics(this.state.activePage, filter, "")
+			      .then(function (comics) {
 			        this.setState(function () {
 			          return {
-			            searchResults: chars.objects,
-			            numPages: chars.total_pages
+			            searchResults: comics.data,
+			            numPages: Math.ceil(comics.meta.total / 6)
 			          }
 			        });
 			      }.bind(this));
@@ -228,7 +227,10 @@ class SingleSearch extends React.Component {
 	loadTable(){
 		console.log("SS: loadTable");
 		if(!this.state.searchResults){
-            return <p>LOADING!</p>;
+            return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='650' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
         }
         else if(this.state.searchResults[0] === {}){
         	return <p>No results match that search criteria.</p>
@@ -236,7 +238,7 @@ class SingleSearch extends React.Component {
         else {
         	console.log("SS: loadTable else{}");
          	return (
-         		<div>
+         		<div className="text-center">
 	         		<Table cards={this.createSearchCards()}/>
 	          		<Pagination
 			       	prev

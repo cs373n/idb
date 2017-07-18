@@ -92,23 +92,6 @@ class Series(db.Model):
     events = db.relationship(
         'Event', secondary=event_series, backref=db.backref('series', lazy='dynamic'))
 
-    def __init__(self, id, title, desc, start, end, img, num_creators,
-                 num_characters, num_comics, num_events):
-        assert title != ""
-        assert img != ""
-        assert start > 0
-        assert end > 0
-
-        self.id = id
-        self.title = title
-        self.desc = desc
-        self.start = start
-        self.end = end
-        self.img = img
-        self.num_creators = num_creators
-        self.num_characters = num_characters
-        self.num_comics = num_comics
-        self.num_events = num_events
 
 
 # Models a Character object
@@ -126,18 +109,6 @@ class Character(db.Model):
     comics = db.relationship(
         'Comic', secondary=character_comic, backref=db.backref('characters', lazy='dynamic'))
 
-    def __init__(self, id, name, desc, img, num_comics, num_series, num_events):
-        assert name != ""
-
-        self.id = id
-        self.name = name
-        self.desc = desc
-        self.img = img
-        self.num_comics = num_comics
-        self.num_series = num_series
-        self.num_events = num_events
-
-
 # Models an Event object
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -154,17 +125,6 @@ class Event(db.Model):
     comics = db.relationship(
         'Comic', secondary=comic_event, backref=db.backref('events', lazy='dynamic'))
 
-    def __init__(self, id, title, desc, img, num_creators, num_characters, num_comics, num_series):
-
-        self.id = id
-        self.title = title
-        self.desc = desc
-        self.img = img
-        self.num_creators = num_creators
-        self.num_characters = num_characters
-        self.num_comics = num_comics
-        self.num_series = num_series
-
 
 # Models a Creator object
 class Creator(db.Model):
@@ -178,14 +138,6 @@ class Creator(db.Model):
     comics = db.relationship(
         'Comic', secondary=comic_creator, backref=db.backref('creators', lazy='dynamic'))
 
-    def __init__(self, id, full_name, img, num_comics, num_series, num_events):
-
-        self.id = id
-        self.full_name = full_name
-        self.img = img
-        self.num_comics = num_comics
-        self.num_series = num_series
-        self.num_events = num_events
 
 
 # Models a Comic object
@@ -201,18 +153,3 @@ class Comic(db.Model):
     num_creators = db.Column(db.Integer)
     num_characters = db.Column(db.Integer)
     num_events = db.Column(db.Integer)
-
-
-    def __init__(self, id, title, issue_num, desc, upc, pg_ct, price, img,
-                 num_creators, num_characters, num_events):
-        self.id = id
-        self.title = title
-        self.issue_num = issue_num
-        self.desc = desc
-        self.upc = upc
-        self.pg_ct = pg_ct
-        self.price = price
-        self.img = img
-        self.num_creators = num_creators
-        self.num_characters = num_characters
-        self.num_events = num_events

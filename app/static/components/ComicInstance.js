@@ -3,14 +3,21 @@ var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
 var he = require('he');
+import ReactLoading from 'react-loading';
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class ComicInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      comic: null
+	      comic: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateComic = this.updateComic.bind(this);
   	}
 
 	componentWillMount() {
@@ -28,40 +35,62 @@ class ComicInstance extends React.Component {
 
 		api.getComic(comicID)
 	      .then(function (comic) {
-	        this.setState(function () {
-	          return {
-	            comic: comic
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.comic = comic;
+	        	this.createCards('characters')
+	        	.then(function(){
+	        		this.createCards('events')
+	        		.then(function(){
+	        			this.createCards('series')
+	        			.then(function(){
+	        				this.createCards('creators')
+	        				.then(function(){
+	        					this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));    		        	
+	        }.bind(this));
 	}
 
 	fixImage() {
-		const { comic } = this.state;
+		const { img } = this.state.comic.attributes;
 
-		if(comic.img && comic.img != "") {
-			return comic.img.slice(0, -4) + "/portrait_uncanny.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
 	}
 
-	getDescendantProp(obj, desc) {
-    	var arr = desc.split(".");
-    	while(arr.length && (obj = obj[arr.shift()]));
-    	return obj;
-	}
-
 	createCards(modelType) {
 		var cardsArray = [];
-		var assoc = this.getDescendantProp(this.state,  modelType);
-		modelType = modelType.split(".")[1];
-		modelType = modelType.slice(0, modelType === 'series' ? modelType.length : modelType.length-1);
-		if(assoc) {
-			for(var i = 0; i < assoc.length; i++) {
-				cardsArray.push(<Card modelLink={"/" + modelType + "Instance"} modelInstance={assoc[i]}/>);
+		return api.getModelConnections(this.state.comic.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					} 
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
+				this.makeTab(cardsArray, modelType);
 			}
+	    }.bind(this));
+	}
+
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
 		}
-		return cardsArray;
 	}
 
 	parseDesc(desc){
@@ -86,10 +115,15 @@ class ComicInstance extends React.Component {
 	render() {
 		const { comic } = this.state;
 
-		if(!comic) {
-			return <p>LOADING!</p>
+		if(!comic || this.state.tabNum != 0) {
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='900' width='375'
+	            						  delay='5' color='red' />
+            	   </div>
 		}
 		else {
+			const {attributes} = this.state.comic;
+			const {relationships} = this.state.comic;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -113,32 +147,31 @@ class ComicInstance extends React.Component {
 				    </style>
 					
 					<PageHeader className="text-left" style={titleStyle}>
-					{comic.title} <small>Identification Number: {comic.id}</small>
+					{attributes.title} <small>Identification Number: {comic.id}</small>
 					</PageHeader>
 
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={comic.title}/>
+							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.title}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Comic Description</PageHeader>
-							<p>{(comic.desc == null || comic.desc == "") ? "Description not available." : this.parseDesc(he.decode(comic.desc))}</p>
+							<p>{(attributes.desc == null || attributes.desc == "") ? "Description not available." : this.parseDesc(he.decode(attributes.desc))}</p>
 							
 							<PageHeader>Attributes</PageHeader>
 							<Col md={6}>
 								<ul>
-									<li>Part of the series: {comic.series[0].title}</li>
-									<li>Progresses {comic.num_events} events</li>
-									<li>Contains {comic.num_characters} documented characters</li>
+									<li>Contains {relationships.characters.data.length} documented characters</li>
+									<li>Progresses {relationships.events.data.length} events</li>
 								</ul>
 							</Col>
 							<Col md={6}>
 								<ul>
-									<li>{comic.num_creators} creators contributed to this comic</li>
-									<li>Page Count: {comic.pg_ct}</li>
-									<li>UPC: {comic.upc}</li>
-									<li>Price: ${comic.price.toString().length === 3 ? comic.price + "0" : comic.price}</li>
+									<li>{relationships.creators.data.length} creators contributed to this comic</li>
+									<li>Page Count: {attributes.pg_ct}</li>
+									<li>UPC: {attributes.upc}</li>
+									<li>Price: ${attributes.price.toString().length === 3 ? attributes.price + "0" : attributes.price}</li>
 								</ul>
 							</Col>
 
@@ -147,25 +180,10 @@ class ComicInstance extends React.Component {
 					
 					<br/>
 
-					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
 					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
-	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
-	    					<br/>
-	    					<Table cards={this.createCards('comic.characters')}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED EVENTS">
-	    					<br/> 
-	    					<Table cards={this.createCards('comic.events')}/>
-	    				</Tab>
-	    				<Tab eventKey={3} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('comic.series')}/>
-	    				</Tab>
-	    				<Tab eventKey={4} title="FEATURED CREATORS">
-	    					<br/> 
-	    					<Table cards={this.createCards('comic.creators')}/>
-	    				</Tab>
+	    				{this.state.tabsToRender}
 	 				 </Tabs>
 
 				</div>
