@@ -10,9 +10,13 @@ class CharacterInstance extends React.Component {
 	    super();
 	    this.state = {
 	      character: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
 
     	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateCharacter = this.updateCharacter.bind(this);
   	}
 
 	componentWillMount() {
@@ -30,12 +34,18 @@ class CharacterInstance extends React.Component {
 
 		api.getCharacter(charID)
 	      .then(function (char) {
-	        this.setState(function () {
-	          return {
-	            character: char
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.character = char;
+	        	this.createCards('events')
+	        	.then(function(response){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));
 	}
 
 	fixImage() {
@@ -49,7 +59,7 @@ class CharacterInstance extends React.Component {
 
 	createCards(modelType) {
 		var cardsArray = [];
-		api.getModelConnections(this.state.character.links.self, modelType)	    
+		return api.getModelConnections(this.state.character.links.self, modelType)	    
 		.then(function (assocArray) {
 			if(assocArray) {
 				var modelTypeLink;
@@ -62,22 +72,34 @@ class CharacterInstance extends React.Component {
 					} 
 					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
 				}
+				this.makeTab(cardsArray, modelType);
 			}
 	    }.bind(this));
-	    return cardsArray;
+	}
+
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
+		}
 	}
 
 	render() {
-		console.log(this.state.character);
 		const { character } = this.state;
-
-		if(!character){
+			
+		if(!character || this.state.tabNum != 0){
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
 	            			<ReactLoading type="bars" height='375' width='375' />
             	   </div>
 		}
 		else{
 			const {attributes} = this.state.character;
+			const {relationships} = this.state.character;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -115,29 +137,18 @@ class CharacterInstance extends React.Component {
 							
 							<PageHeader>Attributes</PageHeader>
 							<ul>
-								<li>Appears in {attributes.num_comics} Comics</li>
-								<li>Appears in {attributes.num_series} Series</li>
-								<li>Appears in {attributes.num_events} Events</li>
+								<li>Appears in {relationships.events.data.length} Events</li>
+								<li>Appears in {relationships.series.data.length} Series</li>
+								<li>Appears in {relationships.comics.data.length} Comics</li>
 							</ul>
 						</Col>
 					</Row>
 
 					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
-	    				<Tab unmountOnExit={true} eventKey={1} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('series')}/>
-	    				</Tab>
-	    				<Tab unmountOnExit={true} eventKey={2} title="FEATURED EVENTS">
-	    					<br/>
-	    					<Table cards={this.createCards('events')}/>
-	    				</Tab>
-	    				<Tab unmountOnExit={true} eventKey={3} title="FEATURED COMICS">
-	    					<br/> 
-	    					<Table cards={this.createCards('comics')}/>
-	    				</Tab>	
- 				 	</Tabs>
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+						{this.state.tabsToRender}
+					</Tabs>
 				</div>
 			)
 		}

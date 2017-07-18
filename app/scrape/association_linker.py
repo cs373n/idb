@@ -192,10 +192,10 @@ def character_events():
     f1.close()
 
 
-def events_creators():
+def creator_events():
     
     index = 0
-    f1 = open('events_creators.txt', 'r')
+    f1 = open('creator_events.txt', 'r')
     print("1") 
     # read each line from file
     for line in f1:
@@ -206,27 +206,27 @@ def events_creators():
 	for ch in temp:
 	    if ch != '[' and ch != ']':
  	        hold += ch
-	    creators = hold.split(',')
+	    events = hold.split(',')
     
-	# first item in list is event
-	if (len(creators) > 1):
-            p = iter(creators)
-	    event = next(p)
+	# first item in list is creator
+	if (len(events) > 1):
+            p = iter(events)
+	    creator = next(p)
 	    
-	    # retrieve event object
-	    event_object = Event.query.filter_by(id=event).first()
-	    if event_object == None:
+	    # retrieve creator object
+	    creator_object = Creator.query.filter_by(id=creator).first()
+	    if creator_object == None:
 		continue
 	    
-	    # other items are associated creators
-	    for creator_id in p:
-	        creator_object = Creator.query.filter_by(id=creator_id).first()
+	    # other items are associated events
+	    for event_id in p:
+	        event_object = Event.query.filter_by(id=event_id).first()
 
-		# append event_creator_ids into association table
+		# append creator_event_ids into association table
 		creator_object.events.append(event_object)
                 db.session.commit()
 		index += 1
-	        print("associated event to creators" + str(index))
+	        print("associated creator to events" + str(index))
     f1.close()
 
 
@@ -392,7 +392,7 @@ def main():
     print("3 series_characters()")
     print("4 series_comics()")
     print("5 character_events()")
-    print("6 events_creators()")
+    print("6 creator_events()")
     print("7 comic_events()")
     print("8 comic_creators()")
     print("9 comic_characters()")
@@ -416,7 +416,7 @@ def main():
         character_events()
     
     elif x == 6:
-        events_creators()
+        creator_events()
     
     elif x == 7:
         comic_events()

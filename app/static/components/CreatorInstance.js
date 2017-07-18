@@ -9,8 +9,14 @@ class CreatorInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      creator: null
+	      creator: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateCreator = this.updateCreator.bind(this);
   	}
 
 	componentWillMount() {
@@ -18,7 +24,7 @@ class CreatorInstance extends React.Component {
 	}
 
 	updateCreator(creator) {
-		var charID = this.props.match.params.creatorID;
+		var creatorID = this.props.match.params.creatorID;
 
 		this.setState(function() {
 			return {
@@ -26,15 +32,20 @@ class CreatorInstance extends React.Component {
 			}
 		});
 
-		api.getCreator(charID)
+		api.getCreator(creatorID)
 	      .then(function (creator) {
-	      	console.log(creator)
-	        this.setState(function () {
-	          return {
-	            creator: creator
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.creator = creator;
+	        	this.createCards('events')
+	        	.then(function(response){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));
 	}
 
 	fixImage() {
@@ -49,7 +60,7 @@ class CreatorInstance extends React.Component {
 
 	createCards(modelType) {
 		var cardsArray = [];
-		api.getModelConnections(this.state.creator.links.self, modelType)	    
+		return api.getModelConnections(this.state.creator.links.self, modelType)	    
 		.then(function (assocArray) {
 			if(assocArray) {
 				var modelTypeLink;
@@ -62,21 +73,35 @@ class CreatorInstance extends React.Component {
 					}
 					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
 				}
+				this.makeTab(cardsArray, modelType);
 			}
 	    }.bind(this));
-	    return cardsArray;
 	}
+
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
+		}
+	}
+
 
 	render() {
 		const { creator } = this.state;
 
-		if(!creator) {
+		if(!creator || this.state.tabNum != 0) {
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
 	            			<ReactLoading type="bars" height='375' width='375' />
             	   </div>
 		}
 		else {
 			const {attributes} = this.state.creator;
+			const {relationships} = this.state.creator;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -111,30 +136,19 @@ class CreatorInstance extends React.Component {
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
 							<PageHeader>Creator Attributes</PageHeader>
 							<ul>
-								<li>Contributed to {attributes.num_events} Events</li>
-								<li>Contributed to {attributes.num_series} Series</li>
-								<li>Contributed to {attributes.num_comics} Comics</li>
+								<li>Contributed to {relationships.events.data.length} Events</li>
+								<li>Contributed to {relationships.series.data.length} Series</li>
+								<li>Contributed to {relationships.comics.data.length} Comics</li>
 							</ul>
 						</Col>
 					</Row>
 					
 					<br/>
 
-					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
-	    				<Tab eventKey={1} title="FEATURED EVENTS">
-	    					<br/>
-	    					<Table cards={this.createCards('events')}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('series')}/>
-	    				</Tab>
-	    				<Tab eventKey={3} title="FEATURED COMICS">
-	    					<br/> 
-	    					<Table cards={this.createCards('comics')}/>
-	    				</Tab>	
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				{this.state.tabsToRender}
  				 	</Tabs>	
 
 				</div>

@@ -19,35 +19,44 @@ database.  The manager decalaration includes the models, types of API requests, 
 of results returned per page
 """
 
+import flask
+import flask_sqlalchemy
+import flask_restless
 
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask.exthook import ExtDeprecationWarning
-from models import Character, Comic, Creator, Event, Series
+from models import db, Character, Comic, Creator, Event, Series
 
-# latest stable version of flask-restless uses deprecated import syntax
-import warnings
-warnings.simplefilter('ignore', ExtDeprecationWarning)
-import flask.ext.restless
+
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.schema import ForeignKey
+from flask import request
 
 
 app = Flask(__name__)
 
+app.config['DEBUG'] = False
+
 CORS(app, headers=['Content-Type'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:idb@localhost/marveldb'
 app.config['SQLALCHEMY_POOL_SIZE'] = 100
 
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
+db.init_app(app)
 
-manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
-manager.create_api(Character, collection_name='characters', methods=['GET'], results_per_page=6)
-manager.create_api(Comic, collection_name='comics', methods=['GET'], results_per_page=6)
-manager.create_api(Creator, collection_name='creators', methods=['GET'], results_per_page=6)
-manager.create_api(Event, collection_name='events', methods=['GET'], results_per_page=6)
-manager.create_api(Series, collection_name='series', methods=['GET'], results_per_page=6)
+manager = flask_restless.APIManager(app, flask_sqlalchemy_db=db)
+manager.create_api(Character,  collection_name='characters', allow_functions=True, allow_client_generated_ids=True, allow_to_many_replacement=True, allow_delete_from_to_many_relationships=True, methods=['GET', 'POST', 'DELETE', 'PATCH'], page_size=6)
+
+manager.create_api(Comic,  collection_name='comics', allow_functions=True ,allow_client_generated_ids=True, allow_to_many_replacement=True, allow_delete_from_to_many_relationships=True, methods=['GET', 'POST', 'DELETE', 'PATCH'], page_size=6)
+
+manager.create_api(Creator, collection_name='creators', allow_functions=True, allow_client_generated_ids=True, allow_to_many_replacement=True, allow_delete_from_to_many_relationships=True, methods=['GET', 'POST', 'DELETE', 'PATCH'], page_size=6)
+
+manager.create_api(Event, collection_name='events', allow_functions=True, allow_client_generated_ids=True,  allow_to_many_replacement=True, allow_delete_from_to_many_relationships=True, methods=['GET', 'POST', 'DELETE', 'PATCH'], page_size=6)
+
+manager.create_api(Series, collection_name='series', allow_functions=True, allow_client_generated_ids=True, allow_to_many_replacement=True, allow_delete_from_to_many_relationships=True, methods=['GET', 'POST', 'DELETE', 'PATCH'], page_size=6)
 
 @app.route('/<path:path>')
 def index(path):

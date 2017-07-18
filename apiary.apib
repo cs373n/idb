@@ -1,68 +1,133 @@
 FORMAT: 1A
 HOST: http://marveldb.net/api
 
+
 # Marvel-World API
 
-Marvel-World is a simple API allowing users to view characters, comics, series, and events of the Marvel-World database.  
+Marvel-World is a simple API allowing users to view characters, comics, series, creators, and events of the Marvel-World database.
+
+*IMPORTANT NOTE ABOUT OUR API: we ugraded to the new flask_restless, and as a result our API must accept headers or it won't work. 
+In order to do use our API, you must follow these steps:
+
+1. Install an application called PostMan. There is a chrome extension for it as well.
+2. Once you fire PostMan up, enter http://marveldb.net/api on request URL, and one of our models as well, ex: http://marveldb.net/api/characters
+3. Click on Headers, type "Accept" into the key, and "application/vnd.api+json" for the value. 
+4. Hit Send and you're good to go.
+
+
+** Another important note about our API: for the GET all instances of a model requests, there are separated into different pages. You must
+scroll all the way down on the body of the request, copy the link to the next page, and paste it in the request URL. You can enter whatever
+page you want. This is evident in our Apiary. 
+For example, when you scroll down on GET All Characters in this Apiary, you should see "links" in the JSON, it shows links
+for the current page (first), the last page, and the next page. If you want to go to the next page for GET All Characters request, copy the entire
+link "http://marveldb.net/api/characters?page[number]=2&page[size]=6" and paste it into the request URL on PostMan and hit send. This is the same
+for all models.
 
 
 # Group Characters
 Character related resources from the Marvel-World API.
-
 ## Character Collection [/characters]
 A list of all the characters available. This list contains the characters names,
 along with their unique ID's. The unique ID can be used to look up a certain character.
+
 ### Get All Characters [GET]
 + Response 200 (application/json)
 
             { 
-                "num_results": "1485",
-                "objects": [
-                    {
-                        "desc": "AIM is a terrorist organization bent on destroying the world."
-                        "events": [ ],
-                        "id": "1009144",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg"
-                        "name": "A.I.M.",
-                        "num_comics": "33",
-                        "num_events": "0",
-                        "num_series": "23",
-                        "series" : [{ }]
-                    },
-                    {
-                        "desc": "Formerly known as Emil Blonsky, a spy of Soviet Yugoslavian origin working for the KGB, the Abomination gained his powers after receiving a dose of gamma radiation similar to that which transformed Bruce Banner into the incredible Hulk."
-                        "events": [
-                            {
-                                "desc": "When the Chaos King embarks on a campaign to wipe out all of existence, Hercules gathers the God Squad to stand in his way! Writers Greg Pak and Fred Van Lente join artist Khoi Pham to pit Herc and his rag tag teamâ€”including Thor, the Silver Surfer and Amadeus Choâ€”against an all-powerful evil as dead heroes and villains rise around them!",
-                                "id": "296",
-                                "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/5109a003a9112.jpg",
-                                "num_characters": "45",
-                                "num_comics": "21",
-                                "num_creators": "32",
-                                "num_series" : "11",
-                                "title": "Chaos War"
+                "data": [
+        		   {
+        			"attributes": {
+        				"desc": "AIM is a terrorist organization bent on destroying the world.",
+        				"img": "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg",
+        				"name": "A.I.M.",
+        				"num_comics": "33",
+        				"num_events": "0",
+        	            "num_series": "23",
+         			},
+        			"id": "1009144",
+        			"links": {
+        			   "self": "http://marveldb.net/api/characters/1009144"
+        			},
+        			"relationships": {
+        				"comics": {
+        				 	"data": [],
+        					"links": {
+        						"related": "/api/characters/1009144/comics",
+        						"self": "/api/characters/1009144/relationships/comics"
+        					}
+        				},
+        				"events": {
+        					"data": [],
+        					"links": {
+        						"related": "/api/characters/1009144/events",
+        						"self": "/api/characters/1009144/relationships/events"
+        					}
+        				},
+        				"series": {
+        					"data": [],
+        					"links": {
+        						"related": "/api/characters/1009144/series",
+        						"self": "/api/characters/1009144/relationships/series"
+        					}
+        				}
+        			},
+        			"type": "characters"
+        		},
+            		{
+            			 "attributes": {
+                            "desc": "",
+                            "img": "",
+                            "name": "Abomination (Ultimate)",
+                            "num_comics": "3",
+                            "num_events": "0",
+                            "num_series": "3",
+                        },
+                            "id": "1016823",
+                            "links": {
+                            "self": "http://marveldb.net/api/characters/1016823"
                             },
-                            {
-                                "desc": "When the Mad Titan, Thanos, acquires the all-powerful Infinity Gauntlet and erases half the universe, the survivors must attempt to topple an omnipotent opponent! Led by the resurrected Adam Warlock and aided by primal cosmic forces, Earthâ€™s protectors enter cosmic warfare in a six-issue event written by Jim Starlin and featuring the art of George Perez and Ron Lim!",
-                                "id": "253",
-                                "img": "http://i.annihil.us/u/prod/marvel/i/mg/5/00/51ca150f0a044.jpg",
-                                "num_characters": "37",
-                                "num_comics": "25",
-                                "num_creators": "52",
-                                "num_series": "6",
-                                "title": "Infinity Gauntlet"
-                            }
-                        ],
-                        "id": "1009146",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg",
-                        "name": "Abomination (Emil Blonsky)",
-                        "num_comics": "44",
-                        "num_events": "2",
-                        "num_series": "25",
-                        "series": [{ }]
+                            "relationships": {
+                                "comics": {
+                                    "data": [3],
+                                    "links": {
+                                    "related": "/api/characters/1016823/comics",
+                                    "self": "/api/characters/1016823/relationships/comics"
+                                    }
+                               },
+                               "events": {
+                                    "data": [0],
+                                    "links": {
+                                    "related": "/api/characters/1016823/events",
+                                    "self": "/api/characters/1016823/relationships/events"
+                                    }
+                                },
+                                "series": {
+                                    "data": [],
+                                    "links": {
+                                    "related": "/api/characters/1016823/series",
+                                    "self": "/api/characters/1016823/relationships/series"
+                                    }
+                                }
+                            },
+                            "type": "characters"
+                        }
+                    ],
+                    "jsonapi": {
+                        "version": "1.0"
+                    },
+                    "links": {
+                        "first": "http://marveldb.net/api/characters?page[number]=1&page[size]=6",
+                        "last": "http://marveldb.net/api/characters?page[number]=255&page[size]=6",
+                        "next": "http://marveldb.net/api/characters?page[number]=2&page[size]=6",
+                        "prev": null,
+                        "self": "/api/characters"
+                    },
+                    "meta": {
+                        "total": 1526
                     }
-               ]
-            }
+                }
+			
+
 
 ## Character [/characters/{id}]
 Retrieves information on a certain character.
@@ -76,16 +141,79 @@ Retrieves information on a certain character.
     + Body
     
               {
-                "desc": "Formerly known as Emil Blonsky, a spy of Soviet Yugoslavian origin working for the KGB, the Abomination gained his powers after receiving a dose of gamma radiation similar to that which transformed Bruce Banner into the incredible Hulk.",
-                "events": [ { } ],
-                "id": "1009146",
-                "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce18691cbf04.jpg",
-                "name": "Abomination (Emil Blonsky)",
-                "num_comics": "44",
-                "num_events": "2",
-                "num_series": "25",
-                series: [ { } ]
-              }
+                    "data": {
+                        "attributes": {
+                            "desc": "",
+                            "img": null,
+                            "name": "Abomination (Ultimate)",
+                            "num_comics": "3",
+                            "num_events": "0",
+                            "num_series": "3"
+                        },
+                        "id": "1016823",
+                        "links": {
+                            "self": "http://marverldb.net/api/characters/1016823"
+                        },
+                        "relationships": {
+                            "comics": {
+                                "data": [
+                                    {
+                                        "id": "1186",
+                                        "type": "comics"
+                                    },
+                                    {
+                                        "id": "1151",
+                                        "type": "comics"
+                                    },
+                                    {
+                                        "id": "15717",
+                                        "type": comics"
+                                    }
+                                ],
+                                "links": {
+                                    "related": "/api/characters/1016823/comics",
+                                    "self": "/api/characters/101682/relationship/comics"
+                                }
+                            },
+                            "events": {
+                                "data": [],
+                                "links": {
+                                    "related": "/api/characters/1016823/events",
+                                    "self": "/api/characters/1016823/relationships/events"
+                                }
+                            },
+                            "series": {
+                                "data": [
+                                    {
+                                        "id": "474",
+                                        "type": "series"
+                                    },
+                                    {
+                                        "id": "210",
+                                        "type": "series"
+                                    },
+                                    {
+                                        "id": "243",
+                                        "type": "series"
+                                    }
+                                ],
+                                "links": {
+                                    "related": "/api/characters/1016823/series",
+                                    "self": "/api/characters/1016823/relationships/series"
+                                }
+                            }
+                        },
+                        "type": "characters"
+
+                    },
+                    "jsonapi": {
+                        "version": "1.0"
+                    },
+                    "links": {
+                        "self": "/api/characters"
+                    },
+                    "meta": {}
+                }
 
 
 # Group Creators
@@ -99,36 +227,68 @@ A collection of all the comic books that are available. The list of comics conta
 
     + Body
     
-            {
-                "num_results": "6114",
-                "objects": [
-                  {
-                    "events": [ ],
-                    "full_name": "Tim Bradstreet",
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "full_name": "Tim Bradstreet",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/6/20/52602f21f29ec.jpg",
+                        "num_comics": "99",
+                        "num_events": "0",
+                        "num_series": "35",
+                    },
                     "id": "1",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
-                    "num_comics": "99",
-                    "num_events": "0",
-                    "num_series": "35",
-                    "series": [
+                    "links": {
+                       "self": "http://marveldb.net/api/creators/1"
+                    },
+                    "relationships": {
+                        "comics": {
+                            "data": [99],
+                            "links": {
+                                "related": "/api/creators/1/comics",
+                                "self": "/api/creators/1/relationships/comics"
+                            }
+                        },
+                        "events": {
+                            "data": [
                                 {
-                                }
-                              ]
-                  },
-                  { 
-                    "events": [ ],
-                    "full_name": "Garth Ennis",
-                    "id": "2",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
-                    "num_comics": "99",
-                    "num_events": "0",
-                    "num_series": "24",
-                    "series": [
+                                    "id": "2",
+                                    "type": "events"
+                                },
                                 {
+                                    "id": "3",
+                                    "type": "events"
                                 }
-                              ]
-                   }
-                ]
+                            ],
+                            "links": {
+                                "related": "/api/creators/1/events",
+                                "self": "/api/creators/1/relationships/events"
+                            }
+                        },
+                        "series": {
+                            "data": [99],
+                            "links": {
+                                "related": "/api/creators/1/series",
+                                "self": "/api/creators/1/relationships/series"
+                            }
+                        }
+                    },
+                    "type": "creators"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "first": "http://marveldb.net/api/creators?page[number]=1&page[size]=6",
+                    "last": "http://marveldb.net/api/creators?page[number]=1020&page[size]=6",
+                    "next": "http://marveldb.net/api/creators?page[number]=2&page[size]=6",
+                    "prev": null,
+                    "self": "/api/creators"
+                },
+                "meta": {
+                    "total": 6115
+                }
             }
 
 
@@ -145,17 +305,51 @@ Retrieves information for a specific comic book.
     + Body 
     
             {
-                   {
-                    "events": [],
-                    "full_name": "Garth Ennis",
+                "data": {
+                    "attributes": {
+                        "full_name": "Garth Ennis",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
+                        "num_comics": "99",
+                        "num_events": "0",
+                        "num_series": "24"
+                    },
                     "id": "2",
-                    "img": ""http://i.annihil.us/u/prod/marvel/i/mg/e/f0/4bc6ad5b4bd54.jpg",
-                    "num_comics": "99",
-                    "num_events": "0",
-                    "num_series": "24",
-                    "series": [ { } ]
-                   }
-            }
+                    "links": {
+                        "self": "http://marverldb.net/api/creators/2"
+                    },
+                    "relationships": {
+                        "comics": {
+                            "data": [99],
+                            "links": {
+                                "related": "/api/creators/2/comics",
+                                "self": "/api/creators/2/relationship/comics"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/creators/2/events",
+                                "self": "/api/creators/2/relationships/events"
+                            }
+                        },
+                        "series": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/creators/2/series",
+                                    "self": "/api/creators/2/relationships/series"
+                                }
+                            }
+                        },
+                        "type": "creators"
+                    },
+                    "jsonapi": {
+                        "version": "1.0"
+                    },
+                    "links": {
+                        "self": "/api/creators"
+                    },
+                    "meta": {}
+                }
 
 
 # Group Series
@@ -170,52 +364,75 @@ A collection of all the series that are available in the Marvel-World database. 
 
     + Body
     
-            {
-                "num_results": "9433",
-                "objects": [
-                  {
-                    "characters": [
-                        {
-                            "desc": "",
-                            "id": "1009318",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/80/52696ba1353e7.jpg",
-                            "name": "Ghost Rider (Johnny Blaze)",
-                            "num_comics": "235",
-                            "num_events": "6",
-                            "num_series": "64"
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "Tim Bradstreet",
+                        "end": "1999",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/c/00/4bc670e9a43ab.jpg",
+                        "num_characters": "0",
+                        "num_comics": "1",
+                        "num_events": "0",
+                        "num_creators": "0",
+                        "start": "1999",
+                        "title": "Best of Spider-Man Vol. I (1999)"
+                    },
+                    "id": "4",
+                    "links": {
+                       "self": "http://marveldb.net/api/series/4"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/4/characters",
+                                "self": "/api/series/4/relationships/characters"
+                            }
                         },
-                        {
-                            "desc": "Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.",
-                            "id": "1009610",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg",
-                            "name": "Spider-Man",
-                            "num_comics": "2973",
-                            "num_events": "32",
-                            "num_series": "638"
+                        "comics": {
+                            "data": [
+                                {
+                                    "id": "939",
+                                    "type": "comics"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/4/comics",
+                                "self": "/api/series/4/relationships/comics"
+                            }
+                        },
+                        "creators": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/4/creators",
+                                "self": "/api/series/4/relationship/creators"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/4/events",
+                                "self": "/api/series/4/relationships/events"
+                            }
                         }
-                    ],
-                    "creators": [
-                        {
-                            "full_name": "Axel Alonso",
-                            "id": "4014",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc4782a5a42e.jpg",
-                            "num_comics": "480",
-                            "num_events": "9",
-                            "num_series": "152"
-                        }
-                    ],
-                    "desc": "",
-                    "end": "1999",
-                    "events": [],
-                    "id": "3",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/20/4ba92cccf096a.jpg",
-                    "num_characters": "0",
-                    "num_comics": "1",
-                    "num_creators": "0",
-                    "num_events": "0",
-                    "start": "1999",
-                    "title" : "Amazing Spider-Man Vol. III: Until the Stars Turn Cold (1999)"
-                ]
+                    },
+                    "type": "series"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "first": "http://marveldb.net/api/series?page[number]=1&page[size]=6",
+                    "last": "http://marveldb.net/api/series?page[number]=157&page[size]=6",
+                    "next": "http://marveldb.net/api/series?page[number]=2&page[size]=6",
+                    "prev": null,
+                    "self": "/api/series"
+                },
+                "meta": {
+                    "total": 9467
+                }
             }
                   
                   
@@ -230,68 +447,103 @@ Retrieves information for a specific comic series.
 
     + Body 
     
-            {
-            
-                    "characters": [
-                        {
-                        "desc": "",
-                        "id": "1009191",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/8/a0/523ca6f2b11e4.jpg",
-                        "name": "Blade",
-                        "num_comics": "39",
-                        "num_events": "2",
-                        "num_series": "19"
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "Award-winning writer Neil Gaiman teams with artist Andy Kubert to re-imagine the Marvel Universe in the year 1602! It's Spider-Man, the X-Men, Nick Fury, Doctor Strange, Daredevil and more as you'd never think to imagine them in an utterly unique and thrilling tale of high adventure!",
+                        "end": "1994",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/a/20/57e448f5d8a2f.jpg",
+                        "num_characters": "1",
+                        "num_comics": "3",
+                        "num_creators": "5",
+                        "num_events": "0",
+                        "start": "1993",
+                        "title": "2099 Unlimited (1993-1994)"
+                    },
+                    "id": "20018",
+                    "links": {
+                       "self": "http://marveldb.net/api/series/20018"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [
+                                {
+                                    "id": "1014873",
+                                    "type": "characters"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/20018/characters",
+                                "self": "/api/series/20018/relationships/characters"
+                            }
                         },
-                        {
-                        "desc": "",
-                        "id": "1009281",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg",
-                        "name": "Doctor Doom",
-                        "num_comics": "238",
-                        "num_events": "9",
-                        "num_series": "128"
-                        }
-                    ],
-                    "creators": [
-                        {
-                        "full_name": "Howard Chaykin",
-                        "id": "808",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/f/40/4bc5e29c24ccf.jpg",
-                        "num_comics": "154",
-                        "num_events": "4",
-                        "num_series": "74"
+                        "comics": {
+                            "data": [
+                                {
+                                    "id": "53427",
+                                    "type": "comics"
+                                },
+                                {
+                                    "id": "53426",
+                                    "type": "comics"
+                                },
+                                { 
+                                    "id": "53425",
+                                    "type": "comics"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/20018/comics",
+                                "self": "/api/series/20018/relationships/comics"
+                            }
                         },
-                        {
-                        "full_name": "Edgar Delgado",
-                        "id": "430",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc4782a5a42e.jpg",
-                        "num_comics": "293",
-                        "num_events": "11",
-                        "num_series": "99"
+                        "creators": {
+                            "data": [
+                                {
+                                    "id": "3780",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "376",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "3796",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "1281",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "3648",
+                                    "type": "creators"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/series/20018/creators",
+                                "self": "/api/series/20018/relationship/creators"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/series/20018/events",
+                                "self": "/api/series/20018/relationships/events"
+                            }
                         }
-                    ],
-                    "desc": "",
-                    "end": "1999",
-                    "events": [
-                        {
-                        "desc": "After a horrific tragedy raises questions on whether or not super heroes should register with the government, longtime Avengers teammates Captain America and Iron Man end up on opposite sides of the argument! Writer Mark Millar and artist Steve McNiven split the Marvel Universe in two as friend fights friend in one of the most celebrated and successful events of all-time!",
-                        "id": "238",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/2/d0/51cb5356c2063.jpg",
-                        "num_characters": "89",
-                        "num_comics": "140",
-                        "num_creators": "140",
-                        "num_series": "62",
-                        "title": "Civil War"
-                        }
-                    ],
-                    "id": "5",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/10/4bc670e50bd91.jpg",
-                    "num_characters": "3",
-                    "num_comics": "1",
-                    "num_creators": "15",
-                    "num_events": "0",
-                    "start": "1999",
-                    "title": "Black Window Vol. I (1999)"
+                    },
+                    "type": "series"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "self": "/api/series"
+                },
+                "meta": {}
             }
                 
 
@@ -308,26 +560,126 @@ A collection of all the comics that are available. The list of comics contain a 
 
     + Body
     
-            {
-                "num_results": "34186",
-                "objects": [
-                  {
-                    "characters": [5],
-                    "creators": [7],
-                    "desc": "It's an inside look at the Marvel Universe's most notorious newspaper, the Daily Bugle! Former super hero and current private investigator Jessica Jones has just been offered a new job: a position with the Bugle's new super-hero section, The Pulse! Jessica's first assignment: to uncover the true identity of a former Bugle reporter's super-powered murderer! How is millionaire industrialist Norman Osborn involved in the case? And how will Jessica's shocking discovery affect the entire Marvel Universe? Collecting THE PULSE #1-5.",
-                    "events": [],
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "It's an inside look at the Marvel Universe's most notorious newspaper, the Daily Bugle! Former super hero and current private investigator Jessica Jones has just been offered a new job: a position with the Bugle's new super-hero section, The Pulse! Jessica's first assignment: to uncover the true identity of a former Bugle reporter's super-powered murderer! How is millionaire industrialist Norman Osborn involved in the case? And how will Jessica's shocking discovery affect the entire Marvel Universe? Collecting THE PULSE #1-5.",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/90/4bc6b7134bd0b.jpg",
+                        "issue_num": "0",
+                        "num_characters": "5",
+                        "num_creators": "7",
+                        "num_events": "0",
+                        "pg_ct": "0",
+                        "price": "9.99",
+                        "title": "The Pulse Vol. 1: Thin Air (Trade Paperback)",
+                        "upc": "5960611332-00111"
+                    },
                     "id": "3",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/90/4bc6b7134bd0b.jpg",
-                    "issue_num": "0",
-                    "num_characters": "5",
-                    "num_creators": "7",
-                    "num_events": "0",
-                    "pg_ct": "0",
-                    "price": "9.99",
-                    "series": [1],
-                    "title" : "Amazing Spider-Man Vol. III: Until the Stars Turn Cold (1999)"
-                    "upc": "5960611332-00111"
-                ]
+                    "links": {
+                       "self": "http://marveldb.net/api/comics/3"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [
+                                {
+                                    "id": "1010782",
+                                    "type": "characters"
+                                },
+                                {
+                                    "id": "1009372",
+                                    "type": "characters"
+                                },
+                                {
+                                    "id": "1009378",
+                                    "type": "characters"
+                                },
+                                {
+                                    "id": "1009215",
+                                    "type": "characters"
+                                },
+                                {
+                                    "id": "1009610",
+                                    "type": "characters"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/comics/3/characters",
+                                "self": "/api/comics/3/relationships/characters"
+                            }
+                        },
+                        "creators": {
+                            "data": [
+                                {
+                                    "id": "87",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "24",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "8522",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "243",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "362",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "652",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "361",
+                                    "type": "creators"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/comics/3/creators",
+                                "self": "/api/comics/3/relationship/creators"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/comics/3/events",
+                                "self": "/api/comics/3/relationships/events"
+                            }
+                        },
+                        "series": {
+                            "data": [
+                                {
+                                    "id": "1192",
+                                    "type": "series"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/comics/3/series",
+                                "self": "/api/comics/3/relationships/series"
+                            }
+                        }
+                    },
+                    "type": "comics"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "first": "http://marveldb.net/api/comics?page[number]=1&page[size]=6",
+                    "last": "http://marveldb.net/api/comics?page[number]=5698&page[size]=6",
+                    "next": "http://marveldb.net/api/comics?page[number]=2&page[size]=6",
+                    "prev": null,
+                    "self": "/api/comics"
+                },
+                "meta": {
+                    "total": 34187
+                }
             }
 
 
@@ -342,21 +694,92 @@ Retrieves information for a specific comic.
 
     + Body
     
-            {
-                "characters": [5],
-                "creators": [7],
-                "desc": "It's an inside look at the Marvel Universe's most notorious newspaper, the Daily Bugle! Former super hero and current private investigator Jessica Jones has just been offered a new job: a position with the Bugle's new super-hero section, The Pulse! Jessica's first assignment: to uncover the true identity of a former Bugle reporter's super-powered murderer! How is millionaire industrialist Norman Osborn involved in the case? And how will Jessica's shocking discovery affect the entire Marvel Universe? Collecting THE PULSE #1-5.",
-                "id": "3",
-                "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/90/4bc6b7134bd0b.jpg",
-                "issue_num": "0",
-                "num_characters": "5",
-                "num_creators": "7",
-                "num_events": "0",
-                "pg_ct": "0",
-                "price": "9.99",
-                "series": [1],
-                "title": "The Pulse Vol. 1: Thin Air (Trade Paperback)",
-                "upc": "5960611332-00111"
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "PART 1 (OF 1)\GUEST-STARRING THE FANTASTIC FOUR, DOCTOR STRANGE, THE BLACK CAT AND THE ANGEL! Ben Grimm's all-night poker games have become legendary among the super hero set, and for the first time Spider-Man has been asked to join the table! But when the Kingpin unexpectedly deals himself in, the stakes are raised! Can the wall-crawler come out on top in this celebrity poker showdown?",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/5/30/57e567f68579f.jpg",
+                        "issue_num": "21",
+                        "num_characters": "1",
+                        "num_creators": "4",
+                        "num_events": "0",
+                        "pg_ct": "0",
+                        "price": "2.25",
+                        "title": "Spectacular Spider-Man (2003) #21",
+                        "upc": "5960605427-02111"
+                    },
+                    "id": "5",
+                    "links": {
+                       "self": "http://marveldb.net/api/comics/5"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [
+                                {
+                                    "id": "1009610",
+                                    "type": "characters"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/comics/5/characters",
+                                "self": "/api/comics/5/relationships/characters"
+                            }
+                        },
+                        "creators": {
+                            "data": [
+                                {
+                                    "id": "355",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "605",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "55",
+                                    "type": "creators"
+                                },
+                                {
+                                    "id": "361",
+                                    "type": "creators"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/comics/5/creators",
+                                "self": "/api/comics/5/relationship/creators"
+                            }
+                        },
+                        "events": {
+                            "data": [],
+                            "links": {
+                                "related": "/api/comics/5/events",
+                                "self": "/api/comics/5/relationships/events"
+                            }
+                        },
+                        "series": {
+                            "data": [
+                                {
+                                    "id": "556",
+                                    "type": "series"
+                                }
+                            ],
+                            "links": {
+                                "related": "/api/comics/5/series",
+                                "self": "/api/comics/5/relationships/series"
+                            }
+                        }
+                    },
+                    "type": "comics"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "self": "/api/comics"
+                },
+                "meta": {}
             }
 
 
@@ -372,70 +795,67 @@ A collection of all the events that are available. The list of events contains a
 
     + Body
     
-            {
-                "num_results": "75",
-                "objects": [
-                  {
-                    "characters": [ 
-                            {
-                            "desc": "Adam Warlock is an artificially created human who was born in a cocoon at a scientific complex called The Beehive.",
-                            "id": "1010354",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/a/f0/5202887448860.jpg",
-                            "name": "Adam Warlock",
-                            "num_comics": "126",
-                            "num_events": "10",
-                            "num_series": "54"
-                            },
-                            {
-                            "desc": "",
-                            "id": "1010370",
-                            "img": "http://i.annihil.us/u/prod/marvel/i/mg/1/60/52695277ee088.jpg",
-                            "name": "Alpha Flight",
-                            "num_comics": "187",
-                            "num_events": "5",
-                            "num_series": "29"
-                            }
-                        ],
-                    "creators": [
-                            {
-                            "full_name": "Stein",
-                            id: "2632",
-                            img: "",
-                            num_comics: "7",
-                            num_events: "2",
-                            num_series: "5"
-                            },
-                            {
-                            full_name: "Paul Becton",
-                            id: "1935",
-                            img: "http://i.annihil.us/u/prod/marvel/i/mg/f/20/4bb6abafe8516.jpg",
-                            num_comics: "179",
-                            num_events: "6",
-                            num_series: "39"
-                            }
-                        ],
-                    "desc": "The Magus, the purged, evil side of Adam Warlock believed to have been dead, has returned in order to collect the Infinity Gems and recreate the Infinity Gauntlet itself. He sent evil doppelgangers of Marvel's superheroes to attack and usurp the originals. Thanos, exiled since his defeat during the Infinity Gauntlet event, learned of the Magus' plans and set out to aid Adam Warlock and the heroes in defending the universe.",
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "The Magus, the purged, evil side of Adam Warlock believed to have been dead, has returned in order to collect the Infinity Gems and recreate the Infinity Gauntlet itself. He sent evil doppelgangers of Marvel's superheroes to attack and usurp the originals. Thanos, exiled since his defeat during the Infinity Gauntlet event, learned of the Magus' plans and set out to aid Adam Warlock and the heroes in defending the universe.",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/51ca14b3dce00.jpg",
+                        "num_characters": "57",
+                        "num_comics": "40",
+                        "num_creators": "106",
+                        "num_series": "13",
+                        "title": "Infinity War",
+                    },
                     "id": "29",
-                    "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/51ca14b3dce00.jpg",
-                    "num_characters": "57",
-                    "num_comics": "40",
-                    "num_creators": "106",
-                    "num_series": "13",
-                    "series": [
-                        {
-                            "desc": "",
-                            "end": "2099",
-                            "id": "15616",
-                            "img": "",
-                            "num_characters": "0",
-                            "num_comics": "0",
-                            "num_creators": "0",
-                            "num_events": "0",
-                            "start": "2011",
-                            "title": "Alpha Flight (2011 - Present)"
+                    "links": {
+                       "self": "http://marveldb.net/api/events/29"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [57],
+                            "links": {
+                                "related": "/api/events/29/characters",
+                                "self": "/api/events/29/relationships/characters"
+                            }
+                        },
+                        "comics": {
+                            "data": [40],
+                            "links": {
+                                "related": "/api/events/29/comics",
+                                "self": "/api/events/29/relationship/comics"
+                            }
+                        },
+                        "creators": {
+                            "data": [106],
+                            "links": {
+                                "related": "/api/events/29/creators",
+                                "self": "/api/events/29/relationship/creators"
+                            }
+                        },
+                        "series": {
+                            "data": [13],
+                            "links": {
+                                "related": "/api/events/29/series",
+                                "self": "/api/events/29/relationships/series"
+                            }
                         }
-                    ],
-                    "title": "Infinity War"
+                    },
+                    "type": "events"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "first": "http://marveldb.net/api/events?page[number]=1&page[size]=6",
+                    "last": "http://marveldb.net/api/events?page[number]=18&page[size]=6",
+                    "next": "http://marveldb.net/api/events?page[number]=2&page[size]=6",
+                    "prev": null,
+                    "self": "/api/events"
+                },
+                "meta": {
+                    "total": 106
                 }
             }
             
@@ -450,48 +870,60 @@ Retrieves information for a specific event.
 
     + Body
     
-            {
-                "characters": [
-                    {
-                        "desc": "",
-                        "id": "1009159",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/8/03/526165ed93180.jpg",
-                        "name": "Archangel",
-                        "num_comics": "549",
-                        "num_events": "18",
-                        "num_series": "141"
-                    }
-                ],
-                "creators": [
-                    {
-                        "full_name": "Mark Bagley",
-                        "id": "87",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/9/b0/4bc5d2f67f706.jpg",
-                        "num_comics": "613",
-                        "num_events": "13",
-                        "num_series": "201"
-                    }
-                ],
-                "desc": "The terrorist organization A.I.M. seek to resurrect the powerful reality-altering mutant named Proteus, and it's up to the various X-teams and the New Warriors to stop them.",
-                "id": "32",
-                "img": "http://i.annihil.us/u/prod/marvel/i/mg/d/60/51c9e88b7fbd9.jpg",
-                "num_characters": "37",
-                "num_comics": "4",
-                "num_creators": "35",
-                "num_series": "4",
-                "series": [
-                    {
-                        "desc": "The X-Men of tomorrow get their start! Professor X recruits a second class of young students who end forging their own legacy in this fondly remembered series that combined mutant adventure with coming of age drama.",
-                        "end": "2004",
-                        "id": "563",
-                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/a/10/5131014676185.jpg",
-                        "num_characters": "14",
-                        "num_comics": "13",
-                        "num_creators": "22",
-                        "num_events": "0",
-                        "start": "2003",
-                        "title": "New Mutants (2003 - 2004)"
+            { 
+                "data": [
+                   {
+                    "attributes": {
+                        "desc": "The Magus, the purged, evil side of Adam Warlock believed to have been dead, has returned in order to collect the Infinity Gems and recreate the Infinity Gauntlet itself. He sent evil doppelgangers of Marvel's superheroes to attack and usurp the originals. Thanos, exiled since his defeat during the Infinity Gauntlet event, learned of the Magus' plans and set out to aid Adam Warlock and the heroes in defending the universe.",
+                        "img": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/51ca14b3dce00.jpg",
+                        "num_characters": "57",
+                        "num_comics": "40",
+                        "num_creators": "106",
+                        "num_series": "13",
+                        "title": "Infinity War",
                     },
-                ],
-                "title": "Kings of Pain"
+                    "id": "29",
+                    "links": {
+                       "self": "http://marveldb.net/api/events/29"
+                    },
+                    "relationships": {
+                        "characters": {
+                            "data": [57],
+                            "links": {
+                                "related": "/api/events/29/characters",
+                                "self": "/api/events/29/relationships/characters"
+                            }
+                        },
+                        "comics": {
+                            "data": [40],
+                            "links": {
+                                "related": "/api/events/29/comics",
+                                "self": "/api/events/29/relationship/comics"
+                            }
+                        },
+                        "creators": {
+                            "data": [106],
+                            "links": {
+                                "related": "/api/events/29/creators",
+                                "self": "/api/events/29/relationship/creators"
+                            }
+                        },
+                        "series": {
+                            "data": [13],
+                            "links": {
+                                "related": "/api/events/29/series",
+                                "self": "/api/events/29/relationships/series"
+                            }
+                        }
+                    },
+                    "type": "events"
+                    }
+                ],  
+                "jsonapi": {
+                    "version": "1.0"
+                },
+                "links": {
+                    "self": "/api/events"
+                },
+                "meta": {}
             }

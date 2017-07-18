@@ -10,8 +10,14 @@ class ComicInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      comic: null
+	      comic: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateComic = this.updateComic.bind(this);
   	}
 
 	componentWillMount() {
@@ -29,12 +35,21 @@ class ComicInstance extends React.Component {
 
 		api.getComic(comicID)
 	      .then(function (comic) {
-	        this.setState(function () {
-	          return {
-	            comic: comic
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.comic = comic;
+	        	this.createCards('characters')
+	        	.then(function(){
+	        		this.createCards('events')
+	        		.then(function(){
+	        			this.createCards('series')
+	        			.then(function(){
+	        				this.createCards('creators')
+	        				.then(function(){
+	        					this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));    		        	
+	        }.bind(this));
 	}
 
 	fixImage() {
@@ -48,7 +63,7 @@ class ComicInstance extends React.Component {
 
 	createCards(modelType) {
 		var cardsArray = [];
-		api.getModelConnections(this.state.comic.links.self, modelType)	    
+		return api.getModelConnections(this.state.comic.links.self, modelType)	    
 		.then(function (assocArray) {
 			if(assocArray) {
 				var modelTypeLink;
@@ -61,9 +76,21 @@ class ComicInstance extends React.Component {
 					} 
 					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
 				}
+				this.makeTab(cardsArray, modelType);
 			}
 	    }.bind(this));
-	    return cardsArray;
+	}
+
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
+		}
 	}
 
 	parseDesc(desc){
@@ -88,13 +115,14 @@ class ComicInstance extends React.Component {
 	render() {
 		const { comic } = this.state;
 
-		if(!comic) {
+		if(!comic || this.state.tabNum != 0) {
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
 	            			<ReactLoading type="bars" height='375' width='375' />
             	   </div>
 		}
 		else {
 			const {attributes} = this.state.comic;
+			const {relationships} = this.state.comic;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -133,13 +161,13 @@ class ComicInstance extends React.Component {
 							<PageHeader>Attributes</PageHeader>
 							<Col md={6}>
 								<ul>
-									<li>Progresses {attributes.num_events} events</li>
-									<li>Contains {attributes.num_characters} documented characters</li>
+									<li>Contains {relationships.characters.data.length} documented characters</li>
+									<li>Progresses {relationships.events.data.length} events</li>
 								</ul>
 							</Col>
 							<Col md={6}>
 								<ul>
-									<li>{attributes.num_creators} creators contributed to this comic</li>
+									<li>{relationships.creators.data.length} creators contributed to this comic</li>
 									<li>Page Count: {attributes.pg_ct}</li>
 									<li>UPC: {attributes.upc}</li>
 									<li>Price: ${attributes.price.toString().length === 3 ? attributes.price + "0" : attributes.price}</li>
@@ -151,25 +179,10 @@ class ComicInstance extends React.Component {
 					
 					<br/>
 
-					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
-	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
-	    					<br/>
-	    					<Table cards={this.createCards('characters')}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED EVENTS">
-	    					<br/> 
-	    					<Table cards={this.createCards('events')}/>
-	    				</Tab>
-	    				<Tab eventKey={3} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('series')}/>
-	    				</Tab>
-	    				<Tab eventKey={4} title="FEATURED CREATORS">
-	    					<br/> 
-	    					<Table cards={this.createCards('creators')}/>
-	    				</Tab>
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				{this.state.tabsToRender}
 	 				 </Tabs>
 
 				</div>
