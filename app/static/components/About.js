@@ -40,8 +40,8 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>React, Javascript, Flask, AWS, Apache, Scraping data using Python & Ajax</p>
 			                </li>
-			                <li>NO. OF COMMITS: 109</li>
-			                <li>NO. OF ISSUES: 23</li>
+			                <li>NO. OF COMMITS: 117</li>
+			                <li>NO. OF ISSUES: 42</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
 			        </div>
@@ -58,9 +58,9 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>AWS, Flask, PostgreSQL, SQLAlchemy, Flask-Restless, Configuring RESTful API, populating database with scraped data </p>
 			                </li>
-			                <li>NO. OF COMMITS: 78</li>
-			                <li>NO. OF ISSUES: 17</li>
-			                <li>NO. OF UNIT TESTS: 12</li>
+			                <li>NO. OF COMMITS: 96</li>
+			                <li>NO. OF ISSUES: 35</li>
+			                <li>NO. OF UNIT TESTS: 15</li>
 			            </ul>
 			        </div>
 
@@ -78,9 +78,9 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>Apiary, RESTful API, back-end, database</p>
 			                </li>
-			                <li>NO. OF COMMITS: 26</li>
-			                <li>NO. OF ISSUES: 8</li>
-			                <li>NO. OF UNIT TESTS: 0</li>
+			                <li>NO. OF COMMITS: 48</li>
+			                <li>NO. OF ISSUES: 27</li>
+			                <li>NO. OF UNIT TESTS: 15</li>
 			            </ul>
 			        </div>
 			        
@@ -94,8 +94,8 @@ class About extends React.Component{
 			                <li>RESPONSIBILITIES:
 			                    <p>Front End Development using React, HTML/CSS/Javascript, BootStrap</p>
 			                </li>
-			                <li>NO. OF COMMITS: 100</li>
-			                <li>NO. OF ISSUES: 23</li>
+			                <li>NO. OF COMMITS: 130</li>
+			                <li>NO. OF ISSUES: 45</li>
 			                <li>NO. OF UNIT TESTS: 0</li>
 			            </ul>
 			        </div>
@@ -118,9 +118,9 @@ class About extends React.Component{
 				            <div className="row">
 				                <br/>
 				                <ul style={{'fontSize': '22px'}}>
-				                    <li>TOTAL NO. OF COMMITS: 421</li>
-				                    <li>TOTAL NO. OF ISSUES: 59</li>
-				                    <li>TOTAL NO. OF UNIT TESTS: 12</li>
+				                    <li>TOTAL NO. OF COMMITS: 515</li>
+				                    <li>TOTAL NO. OF ISSUES: 83</li>
+				                    <li>TOTAL NO. OF UNIT TESTS: 15</li>
 				                    <li><a href="http://docs.cs373n.apiary.io/#">APIARY API</a></li>
 				                    <li><a href="https://github.com/cs373n/idb">GITHUB REPO</a></li>
 				                    <li><a href="https://trello.com/b/tpLlxzNl/fantastic-four">TRELLO</a></li>
