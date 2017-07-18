@@ -263,25 +263,65 @@ class UnitTest(TestCase):
 	with app.app_context():
 		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
 	 
-		data = {"data": {"attributes": {"desc": "testing", "img": "test bruh", "name": "test man", "num_comics": 7, "num_events": 7, "num_series": 7},
-		"id": "3000000", "links": {"self": "http://52.91.216.189/api/comics/3000000"},
-		"relationships": {"comics": {"data": [], "links": {"related": "/api/comics/3000000/comics", "self": "/api/comics/3000000/relationships/comics"}},
-		"events": {"data": [], "links": {"related": "/api/comics/3000000/events", "self": "/api/comics/3000000/relationships/events"}},
-		"series": {"data": [], "links": {"related": "/api/comics/3000000/series", "self": "/api/comics/3000000/relationships/series"}}},
+		data = {"data": {"attributes": {"desc": "testing", "img": "spidey pic", "issue_num": 313, "num_characters": 22, "num_creators": 2, "num_events": 7, "pg_ct": 32, "price": 200.0, "title": "spidey test man passes the POST test", "upc": "54321"},
+		"id": "3000001", "links": {"self": "http://52.91.216.189/api/comics/3000001"},
+		"relationships": {"characters": {"data": [], "links": {"related": "/api/comics/3000001/characters", "self": "/api/comics/3000000/relationships/characters"}},
+		"creators": {"data": [], "links": {"related": "/api/comics/3000001/creators", "self": "/api/comics/3000001/relationships/creators"}},
+		"events": {"data": [], "links": {"related": "/api/comics/3000001/events", "self": "/api/comics/3000001/relationships/events"}},
+		"series": {"data": [], "links": {"related": "/api/comics/3000001/series", "self": "/api/comics/3000001/relationships/series"}}},
 		"type": "comics" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/comics"}, "meta": {}}
 
+	
 		postreq = requests.post("http://52.91.216.189/api/comics", simplejson.dumps(data),  headers=headers)
+		print ("post comic:")
+		print (postreq.status_code)
 
 		self.assertEqual(201, postreq.status_code) 
 		
-		data = {"type": "comics", "id":"3000000", "attributes": {"id": "3000000", "name": "bubba", "desc" : "gump", "img" : "shellfish company", "num_comics": "7", "num_series": "7", "num_events": "7"}}
+		data = {"type": "comics", "id":"3000001", "attributes": {"id": "3000001", "issue_num": "31", "desc" : "gump", "img" : "shellfish company", "num_characters": "7", "num_creators": "7", "num_events": "7"}}
 
-		patchreq = requests.patch("http://52.91.216.189/api/comics/3000000", simplejson.dumps({"data": data}), headers=headers)
+		patchreq = requests.patch("http://52.91.216.189/api/comics/3000001", simplejson.dumps({"data": data}), headers=headers)
+		print ("patch comic:")
+		print (patchreq.status_code)
 		self.assertEqual(204, patchreq.status_code)
 
-		deletereq = requests.delete("http://52.91.216.189/api/comics/3000000", headers=headers)
-		
+		deletereq = requests.delete("http://52.91.216.189/api/comics/3000001", headers=headers)
+		print ("delete comic:")
+		print (deletereq.status_code)
 		self.assertEqual(204, deletereq.status_code)
+
+
+    def test_creator_HTTP_requests(self):
+
+
+	with app.app_context():
+		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+	 
+		data = {"data": {"attributes": {"full_name": "new creator", "img": "hulk pic", "issue_num": 21, "num_comics": 5, "num_events": 1, "num_series": 2},
+		"id": "3000002", "links": {"self": "http://52.91.216.189/api/creators/3000002"},
+		"relationships": {"comics": {"data": [], "links": {"related": "/api/creators/3000002/characters", "self": "/api/creators/3000002/relationships/comics"}},
+		"events": {"data": [], "links": {"related": "/api/creators/3000002/events", "self": "/api/creators/3000002/relationships/events"}},
+		"series": {"data": [], "links": {"related": "/api/creators/3000002/series", "self": "/api/creators/3000002/relationships/series"}}},
+		"type": "creators" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/creators"}, "meta": {}}
+
+		postreq = requests.post("http://52.91.216.189/api/comics", simplejson.dumps(data),  headers=headers)
+		print ("post creator:")
+		print (postreq.status_code)
+
+		self.assertEqual(201, postreq.status_code) 
+		
+		data = {"type": "comics", "id":"3000002", "attributes": {"id": "3000002", "full_name": "31", "desc" : "gump", "img" : "shellfish company", "num_characters": "7", "num_creators": "7", "num_events": "7"}}
+
+		patchreq = requests.patch("http://52.91.216.189/api/comics/3000001", simplejson.dumps({"data": data}), headers=headers)
+		print ("patch comic:")
+		print (patchreq.status_code)
+		self.assertEqual(204, patchreq.status_code)
+
+		deletereq = requests.delete("http://52.91.216.189/api/comics/3000001", headers=headers)
+		print ("delete comic:")
+		print (deletereq.status_code)
+		self.assertEqual(204, deletereq.status_code)
+
 
 
 
