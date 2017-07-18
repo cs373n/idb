@@ -13,8 +13,8 @@ def main():
     try:
         if sys.argv[1] == 'delete':
             
-	    from app.scrape.models import db
-	    from app.models import Character, Comic, Creator, Event, Series
+	    from app.idb import app
+	    from app.models import db, Character, Comic, Creator, Event, Series
 
 	    db.drop_all()
 	    db.create_all()
