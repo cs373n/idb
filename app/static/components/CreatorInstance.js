@@ -2,6 +2,7 @@ var React = require('react');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class CreatorInstance extends React.Component {
@@ -70,7 +71,9 @@ class CreatorInstance extends React.Component {
 		const { creator } = this.state;
 
 		if(!creator) {
-			return <p>LOADING!</p>
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='375' width='375' />
+            	   </div>
 		}
 		else {
 			const {attributes} = this.state.creator;

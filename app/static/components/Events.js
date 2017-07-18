@@ -2,6 +2,7 @@ var React = require('react');
 var api = require('./api.js');
 var Table = require('./Table.js');
 var Card = require('./Card.js');
+import ReactLoading from 'react-loading';
 import { PageHeader, Pagination, Button, 
 		 ButtonGroup, ButtonToolbar,
 		 Grid, Row, Col } from 'react-bootstrap';
@@ -129,7 +130,9 @@ class Events extends React.Component{
 
 	loadTable(){
 		if(!this.state.events){
-            return <p>LOADING!</p>;
+            return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='375' width='375' />
+            	   </div>
         }   
         else{
          	return (
