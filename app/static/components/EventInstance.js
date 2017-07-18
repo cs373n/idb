@@ -8,8 +8,14 @@ class EventInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      event: null
+	      event: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateEvent = this.updateEvent.bind(this);
   	}
 
 	componentWillMount() {
@@ -27,12 +33,21 @@ class EventInstance extends React.Component {
 
 		api.getEvent(eventID)
 	      .then(function (event) {
-	        this.setState(function () {
-	          return {
-	            event: event
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.event = event;
+	        	this.createCards('characters')
+	        	.then(function(){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.createCards('creators')
+	        				.then(function(){
+	        					this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));    		        	
+	        }.bind(this));
 	}
 
 	fixImage() {
@@ -46,7 +61,7 @@ class EventInstance extends React.Component {
 
 	createCards(modelType) {
 		var cardsArray = [];
-		api.getModelConnections(this.state.event.links.self, modelType)	    
+		return api.getModelConnections(this.state.event.links.self, modelType)	    
 		.then(function (assocArray) {
 			if(assocArray) {
 				var modelTypeLink;
@@ -59,20 +74,32 @@ class EventInstance extends React.Component {
 					}
 					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
 				}
+				this.makeTab(cardsArray, modelType);
 			}
 	    }.bind(this));
-	    return cardsArray;
 	}
 
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
+		}
+	}
 
 	render() {
 		const { event } = this.state;
 
-		if(!event) {
+		if(!event || this.state.tabNum != 0) {
 			return <p>LOADING!</p>
 		}
 		else {
 			const {attributes} = this.state.event;
+			const {relationships} = this.state.event;
 			var titleStyle = {
 				marginTop: '0px',
 				marginBottom: '10px',
@@ -109,37 +136,22 @@ class EventInstance extends React.Component {
 							
 							<PageHeader>Attributes</PageHeader>
 							<ul>
-								<li>Contains {attributes.num_characters} characters</li>
+								<li>Contains {relationships.characters.data.length} characters</li>
 								<li>
-									This attributes plays out over {attributes.num_series} series and {attributes.num_comics} comics
+									This attributes plays out over {relationships.series.data.length} series and {relationships.comics.data.length} comics
 								</li>
-								<li>{attributes.num_creators} creators contributed to this event</li>
+								<li>{relationships.creators.data.length} creators contributed to this event</li>
 							</ul>
 						</Col>
 					</Row>
 					
 					<br/>
 
-					<PageHeader style={{marginBottom: '0px', width: '100%'}}/>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
 
-					<Tabs bsStyle="pills" defaultActiveKey={0} justified>
-	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
-	    					<br/>
-	    					<Table cards={this.createCards('characters')}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createCards('series')}/>
-	    				</Tab>
-	    				<Tab eventKey={3} title="FEATURED COMICS">
-	    					<br/> 
-	    					<Table cards={this.createCards('comics')}/>
-	    				</Tab>
-	    				<Tab eventKey={4} title="FEATURED CREATORS">
-	    					<br/> 
-	    					<Table cards={this.createCards('creators')}/>
-	    				</Tab>
-	 				 </Tabs>
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				{this.state.tabsToRender}	
+	 				</Tabs>
 
 				</div>
 			)
