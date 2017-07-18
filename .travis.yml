@@ -23,7 +23,6 @@ before_install:
     - pip install simplejson
 
 install:
-    - pip install autopep8
     - pip install coverage
     - pip install pylint
 
