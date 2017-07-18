@@ -160,21 +160,21 @@ class UnitTest(TestCase):
 		db.session.commit()
 
 
-    def test_character_get_request(self):
-	
-	with app.app_context():
-	
-		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
-		api_request = requests.get("http://marveldb.net/api/characters/500", headers=headers)	
-		
-		api_id = (int)((json.loads(api_request.text))['data']["id"])
-		api_img = (json.loads(api_request.text))['data']['attributes']["img"]
-
-		db_request = db.session.query(Character).get(500)
-		db_id = db_request.id
-		db_img = db_request.img
-		self.assertEqual(api_id, db_id)
-		self.assertEqual(api_img, db_img)
+#    def test_character_get_request(self):
+#	
+#	with app.app_context():
+#	
+#		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+#		api_request = requests.get("http://marveldb.net/api/characters/500", headers=headers)	
+#		
+#		api_id = (int)((json.loads(api_request.text))['data']["id"])
+#		api_img = (json.loads(api_request.text))['data']['attributes']["img"]
+#
+#		db_request = db.session.query(Character).get(500)
+#		db_id = db_request.id
+#		db_img = db_request.img
+#		self.assertEqual(api_id, db_id)
+#		self.assertEqual(api_img, db_img)
 
     def test_series_get_request(self):
 	
