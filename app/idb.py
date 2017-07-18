@@ -1,9 +1,12 @@
+# pylint: disable = bad-whitespace
 # pylint: disable = invalid-name
 # pylint: disable = import-error
+# pylint: disable = line-too-long
 # pylint: disable = missing-docstring
 # pylint: disable = no-member
 # pylint: disable = no-name-in-module
 # pylint: disable = relative-import
+# pylint: disable = unused-import
 # pylint: disable = ungrouped-imports
 # pylint: disable = unused-argument
 # pylint: disable = wrong-import-order
@@ -29,9 +32,8 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db, Character, Comic, Creator, Event, Series
 
 
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.schema import ForeignKey
-from flask import request
+#from sqlalchemy.schema import ForeignKey
+#from flask import request
 
 
 app = Flask(__name__)
