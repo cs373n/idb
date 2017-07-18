@@ -20,7 +20,7 @@ before_install:
     - pip install flask-cors
     - pip install requests
     - pip install DateTime
-
+    - pip install simplejson
 
 install:
     - pip install autopep8
