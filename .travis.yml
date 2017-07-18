@@ -16,7 +16,7 @@ before_install:
     - pip install Flask
     - pip install Flask-SQLAlchemy
     - pip install psycopg2
-    - pip install Flask-Restless
+    - pip install Flask_Restless-1.0.0b1-py2.py3-none-any.whl
     - pip install flask-cors
     - pip install requests
     - pip install DateTime
