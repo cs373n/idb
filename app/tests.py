@@ -237,32 +237,32 @@ class UnitTest(TestCase):
 		self.assertEqual(api_img, db_img)
 
 
-    def test_character_POST_request(self):
-
-
-	with app.app_context():
-		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
-	 
-		data = {"data": {"attributes": {"desc": "testing", "img": "test bruh", "name": "test man", "num_comics": 7, "num_events": 7, "num_series": 7},
-		"id": "3000000", "links": {"self": "http://marveldb.net/api/characters/3000000"},
-		"relationships": {"comics": {"data": [], "links": {"related": "/api/characters/3000000/comics", "self": "/api/characters/3000000/relationships/comics"}},
-		"events": {"data": [], "links": {"related": "/api/characters/3000000/events", "self": "/api/characters/3000000/relationships/events"}},
-		"series": {"data": [], "links": {"related": "/api/characters/3000000/series", "self": "/api/characters/3000000/relationships/series"}}},
-		"type": "characters" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/characters"}, "meta": {}}
-
-		postreq = requests.post("http://marveldb.net/api/characters", simplejson.dumps(data),  headers=headers)
-
-		self.assertEqual(201, postreq.status_code) 
-		
-		data = {"type": "characters", "id":"3000000", "attributes": {"id": "3000000", "name": "bubba", "desc" : "gump", "img" : "shellfish company", "num_comics": "7", "num_series": "7", "num_events": "7"}}
-
-		patchreq = requests.patch("http://marveldb.net/api/characters/3000000", simplejson.dumps({"data": data}), headers=headers)
-		self.assertEqual(204, patchreq.status_code)
-
-		deletereq = requests.delete("http://marveldb.net/api/characters/3000000", headers=headers)
-		
-		self.assertEqual(204, deletereq.status_code)
-
+#    def test_character_POST_request(self):
+#
+#
+#	with app.app_context():
+#		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+#	 
+#		data = {"data": {"attributes": {"desc": "testing", "img": "test bruh", "name": "test man", "num_comics": 7, "num_events": 7, "num_series": 7},
+#		"id": "3000000", "links": {"self": "http://marveldb.net/api/characters/3000000"},
+#		"relationships": {"comics": {"data": [], "links": {"related": "/api/characters/3000000/comics", "self": "/api/characters/3000000/relationships/comics"}},
+#		"events": {"data": [], "links": {"related": "/api/characters/3000000/events", "self": "/api/characters/3000000/relationships/events"}},
+#		"series": {"data": [], "links": {"related": "/api/characters/3000000/series", "self": "/api/characters/3000000/relationships/series"}}},
+#		"type": "characters" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/characters"}, "meta": {}}
+#
+#		postreq = requests.post("http://marveldb.net/api/characters", simplejson.dumps(data),  headers=headers)
+#
+#		self.assertEqual(201, postreq.status_code) 
+#		
+#		data = {"type": "characters", "id":"3000000", "attributes": {"id": "3000000", "name": "bubba", "desc" : "gump", "img" : "shellfish company", "num_comics": "7", "num_series": "7", "num_events": "7"}}
+#
+#		patchreq = requests.patch("http://marveldb.net/api/characters/3000000", simplejson.dumps({"data": data}), headers=headers)
+#		self.assertEqual(204, patchreq.status_code)
+#
+#		deletereq = requests.delete("http://marveldb.net/api/characters/3000000", headers=headers)
+#		
+#		self.assertEqual(204, deletereq.status_code)
+#
 
     def test_comic_HTTP_requests(self):
 
