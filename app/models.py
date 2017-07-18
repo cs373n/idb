@@ -153,5 +153,3 @@ class Comic(db.Model):
     num_creators = db.Column(db.Integer)
     num_characters = db.Column(db.Integer)
     num_events = db.Column(db.Integer)
-
-

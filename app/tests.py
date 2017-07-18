@@ -1,7 +1,14 @@
+# pylint: disable = bad-whitespace
 # pylint: disable = invalid-name
+# pylint: disable = mixed-indentation
 # pylint: disable = missing-docstring
 # pylint: disable = no-member
 # pylint: disable = relative-import
+# pylint: disable = line-too-long
+# pylint: disable = trailing-whitespace
+# pylint: disable = multiple-imports
+# pylint: disable = bad-continuation
+# pylint: disable = trailing-newlines
 
 from unittest import main, TestCase
 import json, simplejson
@@ -312,4 +319,3 @@ class UnitTest(TestCase):
 
 if __name__ == "__main__":
     main()
-
