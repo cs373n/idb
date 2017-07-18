@@ -316,6 +316,33 @@ class UnitTest(TestCase):
 		self.assertEqual(204, deletereq.status_code)
 
 
+    def test_events_HTTP_requests(self):
+
+
+	with app.app_context():
+		headers = {"Content-Type": "application/vnd.api+json", "Accept": "application/vnd.api+json"}
+	 	
+		data = {"data": {"attributes": {"desc": "new event bro", "img": "world war 3 pic", "num_characters": 4, "num_comics": 5, "num_creators": 1, "num_series": 2, "title": "world war 3"},
+		"id": "3000003", "links": {"self": "http://marveldb.net/api/events/3000003"},
+		"relationships": {"characters": {"data": [], "links": {"related": "/api/events/3000003/characters", "self": "/api/events/3000003/relationships/characters"}},
+		"comics": {"data": [], "links": {"related": "/api/events/3000003/comics", "self": "/api/events/3000003/relationships/comics"}},
+		"creators": {"data": [], "links": {"related": "/api/events/3000003/creators", "self": "/api/events/3000003/relationships/creators"}},
+		"series": {"data": [], "links": {"related": "/api/events/3000003/series", "self": "/api/events/3000003/relationships/series"}}},
+		"type": "events" }, "jsonapi": {"version": "1.0"}, "links": {"self": "/api/events"}, "meta": {}}
+
+		postreq = requests.post("http://marveldb.net/api/events", simplejson.dumps(data),  headers=headers)
+		self.assertEqual(201, postreq.status_code) 
+		
+		data = {"type": "events", "id":"3000003", "attributes": {"id": "3000003", "desc": "world war 3", "img" : "north korea", "num_characters": "88888", "num_comics": "334", "num_creators": "52", "num_series": "7"}}
+
+		patchreq = requests.patch("http://marveldb.net/api/events/3000003", simplejson.dumps({"data": data}), headers=headers)
+		self.assertEqual(204, patchreq.status_code)
+
+		deletereq = requests.delete("http://marveldb.net/api/events/3000003", headers=headers)
+		self.assertEqual(204, deletereq.status_code)
+
+
+
 
 if __name__ == "__main__":
     main()
