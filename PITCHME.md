@@ -23,9 +23,9 @@
 +++
 
 ## Upgrading to the new flask restless
-### Made HTTP requests (besides GET) easier
-### API isn't as easily accessible to the outside world
-### JSON responses are cleaner
+###### Made HTTP requests (besides GET) easier
+###### API isn't as easily accessible to the outside world
+###### JSON responses are cleaner
 
 ---
 
@@ -33,9 +33,8 @@
 
 +++
 
-### flask restless and the magic of the API manager
-### Postgres SQL, associating models together
-### 
+##### flask restless and the magic of the API manager
+##### Postgres SQL, associating models together
 
 ---
 
@@ -43,9 +42,9 @@
 
 +++
 
-### Unscraped entries
-### Missing descriptions and images
-### Associations are limited
+##### Unscraped entries
+##### Missing descriptions and images
+##### Associations are limited
 
 ---
 
