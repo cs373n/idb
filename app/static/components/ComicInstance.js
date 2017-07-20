@@ -94,7 +94,6 @@ class ComicInstance extends React.Component {
 	}
 
 	parseDesc(desc){
-		console.log(desc);
 		var regEx = new RegExp("(?=<)(.*?)>", "g");
 		var descArray = desc.match(regEx);
 		if(!descArray){
@@ -103,11 +102,8 @@ class ComicInstance extends React.Component {
 		else{
 			var newDesc = desc;
 			for(var i = 0; i < descArray.length; i++){
-				console.log(descArray[i]);
 				newDesc = newDesc.replace(descArray[i], " ");
-				console.log(desc);
 			}
-			console.log(newDesc);
 			return newDesc;
 		}
 	}
@@ -117,8 +113,8 @@ class ComicInstance extends React.Component {
 
 		if(!comic || this.state.tabNum != 0) {
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='900' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='900px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
 		}
 		else {

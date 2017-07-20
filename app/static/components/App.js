@@ -31,7 +31,6 @@ var Footer = require('./Footer.js');
 var About = require('./About.js');
 var Contribute = require('./Contribute.js');
 var ContributeAdd = require('./ContributeAdd.js')
-//var AccessAccount = require('./AccessAccount.js');
 var ContributeDelete = require('./ContributeDelete.js');
 var ContributeEdit = require('./ContributeEdit.js');
 
@@ -69,24 +68,8 @@ modelTemplateArray.push({id: null, img: null, full_name: null,
 					 num_series: null, num_events: null, num_comics: null});
 
 class App extends React.Component {
-	/*
-	constructor(props){
-		super(props);
-		this.state = {
-			username: null
-		}
-
-		this.updateUsername = this.updateUsername.bind(this);
-	}
-
-	updateUsername(username) {
-		this.setState({username: username}, function(){
-			console.log(this.state.username);
-		});
-	}*/
 
 	getModelTemplate(modelType){
-		console.log("IN GET MODEL TYPE");
 		if(modelType === 'character')
 			return modelTemplateArray[0];
 		else if(modelType === 'event')
@@ -273,8 +256,6 @@ class App extends React.Component {
 								<Route path='/about' component={About} />
 
 								<Route path='/searchResults/:searchString' component={SearchResults} />
-
-								{/*<Route path='/accessAccount' render={routeProp => <AccessAccount updateUsername={this.updateUsername}/>} />*/}
 
 								<Route path='/contribute' component={Contribute} />
 								<Route path='/contributeAdd/:modelType' 

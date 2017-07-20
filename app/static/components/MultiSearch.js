@@ -3,11 +3,16 @@ var api = require('./api.js');
 var Table = require('./Table.js');
 var SearchCard = require('./SearchCard.js');
 import ReactLoading from 'react-loading';
-import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
+import { PageHeader, Pagination, Tabs, Tab, Row, Col,
+		 FormControl, Button } from 'react-bootstrap';
 
 /*
 	Props: modelType, searchString, delimiter
 */
+
+var fixMargin = {
+	margin: '0'
+}
 
 class MultiSearch extends React.Component{
 	constructor(props) {
@@ -24,15 +29,15 @@ class MultiSearch extends React.Component{
 		this.loadTable = this.loadTable.bind(this);
 		this.buildFilter = this.buildFilter.bind(this);
 		this.buildTitle = this.buildTitle.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.jumpToPage = this.jumpToPage.bind(this);
 	}
 
 	componentWillMount() {
-		console.log("MS: Component will mount");
 	    this.updateSearchResults(null);
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log("MS: Component will receive props")
 		if(nextProps.modelType != this.props.modelType || (nextProps.searchString != this.props.searchString)) {
 			this.props = nextProps;
 			this.updateSearchResults(null);
@@ -41,7 +46,6 @@ class MultiSearch extends React.Component{
 	}
 
 	updateSearchResults(searchResults) {
-		console.log("MS: updateSearchResults");
 		const { modelType } = this.props;
 		var filter;
 
@@ -124,7 +128,6 @@ class MultiSearch extends React.Component{
 	}
 
 	buildFilter() {
-		console.log("MS: build filter");
 		const { modelType } = this.props;
 		const { searchString } = this.props;
 		const { delimiter } = this.props;
@@ -240,20 +243,27 @@ class MultiSearch extends React.Component{
 			filter += "]}]";
 		}
 
-		console.log("builtFilter: " + filter);
 		return JSON.parse(filter);
 
 	}
 
 	handlePageSelect(eventKey){
-		console.log("MS: handlePageSelect");
 		this.setState({activePage: eventKey}, function () {
 			this.updateSearchResults(null);
 		});
 	}
 
+	handleChange(e){
+		this.state.activePage = Number(e.target.value);
+	}
+
+	jumpToPage(){
+		this.setState({}, function(){
+			this.updateSearchResults(null);
+		});
+	}
+
 	createSearchCards(){
-		console.log("MS: createSearchCards");
 		var cardsArray = [];
 		var { searchResults } = this.state;
 		var modelLink = "/" + this.props.modelType + "Instance";
@@ -267,39 +277,56 @@ class MultiSearch extends React.Component{
 	}
 
 	loadTable(){
-		console.log("MS: loadTable");
 		if(!this.state.searchResults){
             return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='650' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='650px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
         }
         else if(this.state.searchResults[0] === {}){
         	return <p>No results match that search criteria.</p>
         }   
         else {
-        	console.log("MS: loadTable else{}");
          	return (
          		<div className="text-center">
 	         		<Table cards={this.createSearchCards()}/>
-	          		<Pagination
-			       	prev
-			        next
-			        first
-			        last
-			        ellipsis
-			        boundaryLinks
-			        items={this.state.numPages}
-			        maxButtons={5}
-			        activePage={this.state.activePage}
-			        onSelect={this.handlePageSelect} />
-		    	</div>
+	          		<Row>
+	         		<Col xs={0} sm={2} md={2}/>
+	         		 <Col xs={12} sm={8} md={8}>
+		          		<Pagination
+				       	prev
+				        next
+				        ellipsis
+				        boundaryLinks
+				        style={{marginBottom: '0px'}}
+				        items={this.state.numPages}
+				        maxButtons={5}
+				        activePage={this.state.activePage}
+				        onSelect={this.handleSelect} />
+			        
+			       
+							<h3 className="text-center" style={fixMargin}>JUMP TO PAGE #:</h3>
+							<Col sm={5} md={5}/>
+							<Col sm={2} md={2}>
+								<FormControl type="text"
+										 className="center-block"
+										 id="activePage"
+										 onChange={this.handleChange} />
+								<p/>
+								<Button bsStyle="red" onClick={() => this.jumpToPage()}>
+										JUMP
+								</Button>
+							<h3/>
+							</Col>
+							<Col sm={5} md={5}/>
+					</Col>
+					<Col xs={0} sm={2} md={2}/>
+					</Row>		    	</div>
 		    );
 		}
 	}
 
 	buildTitle(){
-		console.log("MS: buildTitle");
 		const { searchString } = this.props;
 		if(searchString) {
 			var title = "'";
@@ -318,10 +345,11 @@ class MultiSearch extends React.Component{
 	}
 
 	render(){
-		console.log("MS: render")
 		return(
 			<div>
-				<PageHeader className="text-left">{this.buildTitle()}</PageHeader>
+				<PageHeader className="text-left">
+					{this.buildTitle()} 
+				</PageHeader>
 				{this.loadTable()}
 	    	</div>
 	    );

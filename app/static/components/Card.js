@@ -6,7 +6,7 @@ var cardStyle = {
 
 };
 
-var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
 
 class Card extends React.Component {
 	constructor(props) {
@@ -19,13 +19,13 @@ class Card extends React.Component {
 
     styleImage(){
     	const { attributes } = this.state.modelInstance;
-		if(attributes.img && attributes.img != "") {
-			return attributes.img.slice(0, -4) + "/standard_xlarge.jpg";
+		if(attributes.img && attributes.img != "" && attributes.img.charAt(4) === ":") {
+			return attributes.img.slice(0, -4) + "/portrait_incredible.jpg";
 		}
-
-		else {
-			return imgNotFound;
+		else if(attributes.img && attributes.img.charAt(4) === "s"){
+			return attributes.img;
 		}
+		return imgNotFound;
 	}
 
 	render() {
@@ -41,7 +41,8 @@ class Card extends React.Component {
 						{title}
 					</div>
 					<div>
-						<img className="img-responsive center-block img-rounded" 
+						<img className="img-responsive center-block img-rounded"
+							 style={{height: '324px', width: '216px'}} 
 							 src={this.styleImage()} 
 							 alt={title}/>
 					</div>

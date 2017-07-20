@@ -107,8 +107,6 @@ class ContributeEdit extends React.Component{
 							      </Col>
 							    </FormGroup>);
 		}
-		console.log("DONE IN BUILD FORMS");
-		console.log(this.state.formInput);
 		return formsToRender;
 	}
 
@@ -170,8 +168,6 @@ class ContributeEdit extends React.Component{
 		    		this.state.infoToPatch.attributes[key] = null;
 		    }
   		}
-  		console.log("DONE FORMATING INFO TO POST");
-  		console.log(this.state.infoToPatch);
   	}
 
 	// Executed when captcha succeeds
@@ -206,12 +202,10 @@ class ContributeEdit extends React.Component{
   	getModelToEdit(){
 		api.getModel(this.state.id, this.state.modelType)
 		   .then(function(response){
-		   		console.log(response);
 		   		if(response.status >= 200 && response.status < 300){
 		   			this.setState({modelInstance: response.data.data, loaded: 1})
 		   		}
 		   		else{
-		   			console.log("Penis");
 		   			var stateResponse = [];
 		   			stateResponse.push(
   					<div>
@@ -233,12 +227,7 @@ class ContributeEdit extends React.Component{
 
   	//Submit a patch request on the edited model info. 
   	patchModel() {
-  		console.log("PATCHING:");
   		this.buildinfoToPatch();
-  		console.log(this.state.formInput);
-  		console.log(this.state.infoToPatch);
-  		console.log(this.state.modelInstance);
-  		console.log("CALLING PATCH NOW:");
   		api.patchModel(this.state.modelType, this.state.id, this.state.infoToPatch)
   		.then(function(response){
   			if(response.status >= 200 && response.status < 300){
@@ -275,7 +264,6 @@ class ContributeEdit extends React.Component{
   	}
 
 	render(){
-		console.log("rendering...");
 		if(!this.state.modelInstance)
 		{
 			return(
