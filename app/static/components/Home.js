@@ -42,7 +42,8 @@ class Home extends React.Component{
 			      username: 'Marvel',
 			      height: '1200',
 			      width: '900',
-			      align: 'center'
+			      align: 'center',
+			      theme: 'dark'
 			    }}
 			    onLoad={() => console.log('Timeline is loaded!')}
 			/>

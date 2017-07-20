@@ -1,6 +1,7 @@
 var axios = require('axios');
 
-var baseURL = "http://marveldb.net/api/";
+//var baseURL = "http://marveldb.net/api/";
+var baseURL = "http://107.21.57.54/api/"; //URL for server with comicvine images
 module.exports = {
 
     // ************************************************************************
@@ -21,11 +22,9 @@ module.exports = {
                     'page[number]': page,
                     'filter[objects]': JSON.stringify(filter),
                     'sort': orderBy 
-                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
-                console.log("In getCharacters: ");
                 console.log(response);
 
                 return response.data;
@@ -48,7 +47,6 @@ module.exports = {
                     'page[number]': page,
                     'filter[objects]': JSON.stringify(filter),
                     'sort': orderBy 
-                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -76,7 +74,6 @@ module.exports = {
                     'page[number]': page,
                     'filter[objects]': JSON.stringify(filter),
                     'sort': orderBy 
-                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -104,7 +101,6 @@ module.exports = {
                     'page[number]': page,
                     'filter[objects]': JSON.stringify(filter),
                     'sort': orderBy 
-                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {
@@ -132,7 +128,6 @@ module.exports = {
                     'page[number]': page,
                     'filter[objects]': JSON.stringify(filter),
                     'sort': orderBy 
-                    //'filter[objects]': JSON.stringify({"order_by": orderBy, 'filters': filter})
                 }
             })
             .then(function(response) {

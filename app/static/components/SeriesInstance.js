@@ -54,11 +54,10 @@ class SeriesInstance extends React.Component {
 
 	fixImage() {
 		const { img } = this.state.series.attributes;
-
 		if(img && img != "") {
 			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
+		return "http://i.imgur.com/2ll12Pa.jpg";
 	}
 
 	createCards(modelType) {
@@ -72,7 +71,6 @@ class SeriesInstance extends React.Component {
 						modelTypeLink = modelType.slice(0, modelType.length-1); 
 					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
 				}
-				console.log(cardsArray);
 				this.makeTab(cardsArray, modelType);
 			}
 	    }.bind(this));
@@ -95,8 +93,8 @@ class SeriesInstance extends React.Component {
 
 		if(!series || this.state.tabNum != 0) {
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='900' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='900px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
 
 		}
@@ -131,7 +129,7 @@ class SeriesInstance extends React.Component {
 
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.title}/>
+							<img className="img-rounded img-responsive" style={{height: '400px', width: '300px'}} src={this.fixImage()} alt={attributes.title}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>

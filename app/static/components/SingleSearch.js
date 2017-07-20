@@ -3,15 +3,19 @@ var api = require('./api.js');
 var Table = require('./Table.js');
 var SearchCard = require('./SearchCard.js');
 import ReactLoading from 'react-loading';
-import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
+import { PageHeader, Pagination, Tabs, Tab, Row, Col,
+		 FormControl, Button } from 'react-bootstrap';
 
 /*
 	Props: modelType, searchString
 */
 
+var fixMargin = {
+	margin: '0'
+}
+
 class SingleSearch extends React.Component {
 	constructor(props) {
-		console.log("SS: Constructor entered");
 		super();
 		this.state = {
 			searchResults: null,
@@ -24,15 +28,15 @@ class SingleSearch extends React.Component {
 		this.handlePageSelect = this.handlePageSelect.bind(this);
 		this.loadTable = this.loadTable.bind(this);
 		this.buildFilter = this.buildFilter.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.jumpToPage = this.jumpToPage.bind(this);
 	}
 
 	componentWillMount() {
-		console.log("SS: Component will mount");
 	    this.updateSearchResults(null);
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log("SS: Component will receive props")
 		if(nextProps.modelType != this.props.modelType || (nextProps.searchString != this.props.searchString)) {
 			this.props = nextProps;
 			this.updateSearchResults(null);
@@ -40,7 +44,6 @@ class SingleSearch extends React.Component {
 	}
 
 	updateSearchResults(searchResults) {
-		console.log("SS: updateSearchResults");
 		const { modelType } = this.props;
 		var filter;
 
@@ -123,7 +126,6 @@ class SingleSearch extends React.Component {
 	}
 
 	buildFilter() {
-		console.log("SS: build filter");
 		const { modelType } = this.props;
 		var searchString = this.props.searchString[0];
 
@@ -204,14 +206,22 @@ class SingleSearch extends React.Component {
 	}
 
 	handlePageSelect(eventKey){
-		console.log("SS: handlePageSelect");
 		this.setState({activePage: eventKey}, function () {
 			this.updateSearchResults(null);
 		});
 	}
 
+	handleChange(e){
+		this.state.activePage = Number(e.target.value);
+	}
+
+	jumpToPage(){
+		this.setState({}, function(){
+			this.updateSearchResults(null);
+		});
+	}
+
 	createSearchCards(){
-		console.log("SS: createSearchCards");
 		var cardsArray = [];
 		var { searchResults } = this.state;
 		var modelLink = "/" + this.props.modelType + "Instance";
@@ -225,39 +235,57 @@ class SingleSearch extends React.Component {
 	}
 
 	loadTable(){
-		console.log("SS: loadTable");
 		if(!this.state.searchResults){
             return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='650' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='650px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
         }
         else if(this.state.searchResults[0] === {}){
         	return <p>No results match that search criteria.</p>
         }   
         else {
-        	console.log("SS: loadTable else{}");
          	return (
          		<div className="text-center">
 	         		<Table cards={this.createSearchCards()}/>
-	          		<Pagination
-			       	prev
-			        next
-			        first
-			        last
-			        ellipsis
-			        boundaryLinks
-			        items={this.state.numPages}
-			        maxButtons={5}
-			        activePage={this.state.activePage}
-			        onSelect={this.handlePageSelect} />
+	          		<Row>
+	         		<Col xs={0} sm={2} md={2}/>
+	         		 <Col xs={12} sm={8} md={8}>
+		          		<Pagination
+				       	prev
+				        next
+				        ellipsis
+				        boundaryLinks
+				        style={{marginBottom: '0px'}}
+				        items={this.state.numPages}
+				        maxButtons={5}
+				        activePage={this.state.activePage}
+				        onSelect={this.handleSelect} />
+			        
+			       
+							<h3 className="text-center" style={fixMargin}>JUMP TO PAGE #:</h3>
+							<Col sm={5} md={5}/>
+							<Col sm={2} md={2}>
+								<FormControl type="text"
+										 className="center-block"
+										 id="activePage"
+										 onChange={this.handleChange} />
+								<p/>
+								<Button bsStyle="red" onClick={() => this.jumpToPage()}>
+										JUMP
+								</Button>
+							<h3/>
+							</Col>
+							<Col sm={5} md={5}/>
+					</Col>
+					<Col xs={0} sm={2} md={2}/>
+					</Row>
 		    	</div>
 		    );
 		}
 	}
 
 	render() {
-		console.log("SS: render");
 		return (
 			<div>
 				{this.loadTable()}

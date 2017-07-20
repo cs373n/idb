@@ -7,11 +7,12 @@ var titleStyle = {
 };
 
 
-var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg";
+var imgNotFound = "http://i.imgur.com/2ll12Pa.jpg";
 
 /*
 	PROPS: searchString, searchType
 */
+
 class SearchCard extends React.Component {
 	constructor(props) {
 	    super();
@@ -26,13 +27,13 @@ class SearchCard extends React.Component {
 
     styleImage(){
     	const { attributes } = this.state.modelInstance;
-		if(attributes.img && attributes.img != "") {
-			return attributes.img.slice(0, -4) + "/standard_xlarge.jpg";
+		if(attributes.img && attributes.img != "" && attributes.img.charAt(4) === ":") {
+			return attributes.img.slice(0, -4) + "/portrait_incredible.jpg";
 		}
-
-		else {
-			return imgNotFound;
+		else if(attributes.img && attributes.img.charAt(4) === "s"){
+			return attributes.img;
 		}
+		return imgNotFound;
 	}
 
 	contextualizeSearch(){
@@ -82,8 +83,6 @@ class SearchCard extends React.Component {
 				}
 			});
 		}
-		console.log(context);
-
 		return context;
 	}
 
@@ -99,7 +98,8 @@ class SearchCard extends React.Component {
 				<div className="well">
 					<div className="text-center" style={titleStyle}>
 						{title}
-							<img className="img-responsive center-block img-rounded" 
+							<img className="img-responsive center-block img-rounded"
+								 style={{height: '324px', width: '216px'}} 
 								 src={this.styleImage()} 
 								 alt={title}/>
 					</div>

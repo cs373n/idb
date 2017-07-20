@@ -57,7 +57,7 @@ class EventInstance extends React.Component {
 		if(img && img != "") {
 			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
+		return "http://i.imgur.com/2ll12Pa.jpg";
 	}
 
 	createCards(modelType) {
@@ -97,8 +97,8 @@ class EventInstance extends React.Component {
 
 		if(!event || this.state.tabNum != 0) {
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='900' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='900px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
 		}
 		else {
@@ -131,7 +131,7 @@ class EventInstance extends React.Component {
 					
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.name}/>
+							<img className="img-rounded img-responsive" style={{height: '400px', width: '300px'}} src={this.fixImage()} alt={attributes.name}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
