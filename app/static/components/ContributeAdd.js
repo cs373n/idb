@@ -50,14 +50,12 @@ class ContributeAdd extends React.Component{
 		    }
 		    
 		}
-		console.log(formNames);
 		return formNames;
 	}
 
 	//Build forms for a the specific modelType
 	buildForms(){
 		var formsToRender = [];
-		console.log(formsToRender);
 		var formNames = this.getFormNames(this.props.getModelTemplate(this.state.modelType));
 		for (var key in formNames) {
 		    // skip loop cycle if the property is from prototype
@@ -179,8 +177,6 @@ class ContributeAdd extends React.Component{
 	
   	postModel() {
   		this.buildInfoToPost();
-  		console.log(this.state.infoToPost);
-  		console.log(this.state.formInput);
   		//api.postModel(this.state.modelType, this.state.infoToPost)
   		api.postModel(this.state.modelType, this.state.infoToPost)
   		.then(function(response){

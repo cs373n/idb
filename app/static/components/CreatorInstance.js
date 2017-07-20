@@ -96,8 +96,8 @@ class CreatorInstance extends React.Component {
 
 		if(!creator || this.state.tabNum != 0) {
 			return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='900' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='900px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
 		}
 		else {

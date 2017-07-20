@@ -5,7 +5,7 @@ var Card = require('./Card.js');
 import ReactLoading from 'react-loading';
 import { PageHeader, Pagination, Button, 
 		 ButtonGroup, ButtonToolbar,
-		 Grid, Row, Col } from 'react-bootstrap';
+		 Grid, Row, Col, FormGroup, FormControl, Form } from 'react-bootstrap';
 
 var fixMargin = {
 	margin: '0'
@@ -33,6 +33,9 @@ class Series extends React.Component{
     	this.updateSeries = this.updateSeries.bind(this); //pls work
     	this.applyFilter = this.applyFilter.bind(this);
     	this.loadTable = this.loadTable.bind(this);
+    	this.handleChange = this.handleChange.bind(this);
+    	this.jumpToPage = this.jumpToPage.bind(this);
+    	this.cancelFilter = this.cancelFilter.bind(this);
   	}
 
 	componentWillMount() {
@@ -127,28 +130,65 @@ class Series extends React.Component{
 		return cardsArray;
 	}
 
+	handleChange(e){
+		this.state.activePage = Number(e.target.value);
+	}
+
+	jumpToPage(){
+		this.setState({}, function(){
+			this.updateSeries(null);
+		});
+	}
+
+	cancelFilter(){
+		this.setState({hasDesc: false, hasPhoto: false}, function(){
+			this.updateSeries(null);
+		})
+	}
+
 	loadTable(){
 		if(!this.state.series){
             return <div style={{display: 'flex', justifyContent: 'center'}}>
-	            			<ReactLoading type="bars" height='650' width='375'
-	            						  delay='5' color='red' />
+	            			<ReactLoading type="bars" height='650px' width='375px'
+	            						  delay={5} color='red' />
             	   </div>
         }   
         else{
          	return (
          		<div className="text-center">
 	         		<Table cards={this.createCards()}/>
-	          		<Pagination
-			       	prev
-			        next
-			        first
-			        last
-			        ellipsis
-			        boundaryLinks
-			        items={this.state.numPages}
-			        maxButtons={5}
-			        activePage={this.state.activePage}
-			        onSelect={this.handleSelect} />
+	         		<Row>
+	         		<Col xs={0} sm={2} md={2}/>
+	         		 <Col xs={12} sm={8} md={8}>
+		          		<Pagination
+				       	prev
+				        next
+				        ellipsis
+				        boundaryLinks
+				        style={{marginBottom: '0px'}}
+				        items={this.state.numPages}
+				        maxButtons={5}
+				        activePage={this.state.activePage}
+				        onSelect={this.handleSelect} />
+			        
+			       
+							<h3 className="text-center" style={fixMargin}>JUMP TO PAGE #:</h3>
+							<Col sm={5} md={5}/>
+							<Col sm={2} md={2}>
+								<FormControl type="text"
+										 className="center-block"
+										 id="activePage"
+										 onChange={this.handleChange} />
+								<p/>
+								<Button bsStyle="red" onClick={() => this.jumpToPage()}>
+										JUMP
+								</Button>
+							<h3/>
+							</Col>
+							<Col sm={5} md={5}/>
+					</Col>
+					<Col xs={0} sm={2} md={2}/>
+					</Row>
 		    	</div>
 		    );
 		}
@@ -159,38 +199,52 @@ class Series extends React.Component{
 			<div>
 				<PageHeader className="text-center" style={fixMargin}>SERIES</PageHeader>
 					<Row>
-						<Col md={3}/>
-						<Col md={6}>
-							<ul className="list-inline list-unstyled">
-								<li>
+						<Col sm={2} md={2}/>
+						<Col sm={4} md={4}>
+							<ul className="list-unstyled">
+								<li className="text-center">
 									<h3 className="text-center">FILTER BY:</h3>
-									<ButtonToolbar>
+
 										<Button bsStyle="red" onClick={() => this.applyFilter(1)}>
 												Photo Available
 										</Button>
+										{" "}
 										<Button bsStyle="red" onClick={() => this.applyFilter(2)}>
 												Description Available
 										</Button>
-									</ButtonToolbar>
-									{this.state.hasPhoto ? <p>Photo Filter Applied</p> : <p/>}
-									{this.state.hasDesc ? <p>Description Filter Applied</p> : <p/>}
-								</li>
-								<li className="pull-right">
-									<h3 className="text-center">SORT BY:</h3>
-									<ButtonToolbar>
-										<Button bsStyle="red" onClick={() => this.applySort(1)}>
-												Ascending
-										</Button>
-										<Button bsStyle="red" onClick={() => this.applySort(2)}>
-												Descending
-										</Button>
-									</ButtonToolbar>
+									{this.state.hasPhoto ? <div>
+										<p>Photo Filter Applied</p>
+										<Button bsStyle="red" onClick={() => this.cancelFilter()}>
+											Deactivate Filter
+										</Button></div> : <p/>}
+									{this.state.hasDesc ? <div>
+										<p>Description Filter Applied</p>
+										<Button bsStyle="red" onClick={() => this.cancelFilter()}>
+											Deactivate Filter
+										</Button></div> : <p/>}
+									
 								</li>
 							</ul>
 						</Col>
-						<Col md={3}/>
+						
+						<Col sm={4} md={4}>
+							<ul className="list-unstyled">
+								<li className="text-center">
+									<h3 className="text-center">SORT BY:</h3>
+										<Button bsStyle="red" onClick={() => this.applySort(1)}>
+												Ascending
+										</Button>
+										{" "}
+										<Button bsStyle="red" onClick={() => this.applySort(2)}>
+												Descending
+										</Button>
+										{this.state.sortAsc ? <p>Sorting by Ascending Name</p> : <p>Sorting by Descending Name</p> }
+								</li>
+							</ul>
+						</Col>
+						<Col sm={2} md={4}/>
 					</Row>
-				<PageHeader/> {/*Makes line across screen*/}
+				<PageHeader style={{marginTop: '0px'}}/> {/*Makes line across screen*/}
 				{this.loadTable()}
 			</div>
 		)

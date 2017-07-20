@@ -44,7 +44,6 @@ class ContributeAdd extends React.Component{
   	deleteModel() {
   		api.deleteModel(this.state.modelType, this.state.id)
   		.then(function(response){
-		   		console.log(response);
 		   		if(response.status >= 200 && response.status < 300){
 		   			var stateResponse = [];
 		   			stateResponse.push(
@@ -52,7 +51,6 @@ class ContributeAdd extends React.Component{
   					this.setState({response: stateResponse});
 		   		}
 		   		else{
-		   			console.log("Penis");
 		   			var stateResponse = [];
 		   			stateResponse.push(<div>
   					<PageHeader className="text-center">Ooops, something was wrong with your input. 
