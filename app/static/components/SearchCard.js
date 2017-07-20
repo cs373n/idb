@@ -7,11 +7,12 @@ var titleStyle = {
 };
 
 
-var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+var imgNotFound = "http://i.imgur.com/2ll12Pa.jpg";
 
 /*
 	PROPS: searchString, searchType
 */
+
 class SearchCard extends React.Component {
 	constructor(props) {
 	    super();

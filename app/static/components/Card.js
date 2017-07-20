@@ -6,7 +6,7 @@ var cardStyle = {
 
 };
 
-var imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+var imgNotFound = "http://i.imgur.com/2ll12Pa.jpg";
 
 class Card extends React.Component {
 	constructor(props) {

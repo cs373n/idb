@@ -58,7 +58,7 @@ class ComicInstance extends React.Component {
 		if(img && img != "") {
 			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg";
+		return "http://i.imgur.com/2ll12Pa.jpg";
 	}
 
 	createCards(modelType) {
@@ -148,7 +148,7 @@ class ComicInstance extends React.Component {
 
 					<Row>
 						<Col md={3}>
-							<img className="img-rounded img-responsive" src={this.fixImage()} alt={attributes.title}/>
+							<img className="img-rounded img-responsive" style={{height: '400px', width: '300px'}} src={this.fixImage()} alt={attributes.title}/>
 						</Col>
 
 						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
