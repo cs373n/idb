@@ -106,12 +106,14 @@ def series_characters():
 	    # other items are associated characters
 	    for character_id in p:
 	        character_object = Character.query.filter_by(id=character_id).first()
-
-	        # append series_character_ids into association table
-	        character_object.series.append(series_object)
-                db.session.commit()    
-	        index += 1
-	        print("associated series to characters" + str(index))
+		if character_object == None:
+			continue
+		else:
+			# append series_character_ids into association table
+	        	character_object.series.append(series_object)
+                	db.session.commit()    
+	        	index += 1
+	        	print("associated series to characters" + str(index))
     f1.close()
 
 
@@ -335,12 +337,14 @@ def comic_characters():
 	    # other items are associated characters
 	    for character_id in p:
 	        character_object = Character.query.filter_by(id=character_id).first()
-
-		# append comic_character_ids into association table
-		comic_object.characters.append(character_object)
-                db.session.commit()
-		index += 1
-	        print("associated comic to characters" + str(index))
+		if character_object == None:
+			continue
+		else:
+			# append comic_character_ids into association table
+			comic_object.characters.append(character_object)
+                	db.session.commit()
+			index += 1
+	        	print("associated comic to characters" + str(index))
     f1.close()
 
 
