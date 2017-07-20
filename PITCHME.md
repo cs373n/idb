@@ -4,7 +4,7 @@
 ---
 
 ## The Website
-#### <a href="http://marveldb.net">Marveldb.net</a>
+#### <a href="http://marveldb.net/about">Marveldb.net</a>
 
 ---
 
