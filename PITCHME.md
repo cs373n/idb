@@ -35,7 +35,7 @@
 
 +++
 
-### 
+### The new flask restless takes a while to access our data in the API
 
 ---
 
@@ -47,11 +47,23 @@
 
 +++
 
-![characters](https://github.com/dontforce/idb/blob/master/characters.PNG)
+![characters](http://i.imgur.com/DoajTVG.png)
 
 +++
-##### Postgres SQL, associating models together
 
+##### Postgres SQL, associating models together
+'''
+# many-to-many relationship tables
+character_series = db.Table('character_series',
+                            db.Column(
+                                'character_id', db.Integer, ForeignKey('character.id')),
+                            db.Column(
+                                'series_id', db.Integer, ForeignKey('series.id'))
+                           )
+
+characters = db.relationship(
+        'Character', secondary=character_series, backref=db.backref('series', lazy='dynamic'))
+'''
 ---
 
 ## What can we do better?
