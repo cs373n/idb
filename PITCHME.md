@@ -1,5 +1,5 @@
 ## MARVELDB.net
-##### <span style="font-family:Helvetica Neue; font-weight:bold">A <span style="color="red"">Marvel</span> database.</span>
+##### <span style="font-family:Helvetica Neue; font-weight:bold">A <span style="color=red">Marvel</span> database.</span>
 
 ---
 
@@ -48,13 +48,10 @@
 
 ## Switching to the new Flask-Restless 1.0.0B1
 <br>
-#### Adheres to jsonapi.org specifications
-<br>
-#### Eliminated need to use pre/post processors for patching
-<br>
-#### Required a large amount of front-end refactoring
-<br>
-#### Required adjusting Unit Tests 
+    #### Adheres to jsonapi.org specifications
+    #### Eliminated need to use pre/post processors for patching
+    #### Required a large amount of front-end refactoring
+    #### Required adjusting Unit Tests 
 
 ---
 
