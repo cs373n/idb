@@ -41,6 +41,12 @@
 +++
 
 ##### flask restless and the magic of the API manager
+
++++
+
+![characters](https://github.com/dontforce/idb/blob/master/characters.PNG)
+
++++
 ##### Postgres SQL, associating models together
 
 ---
