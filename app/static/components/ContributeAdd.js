@@ -233,7 +233,7 @@ class ContributeAdd extends React.Component{
 
 									<Col smOffset={2} sm={10}>
 									<ReCAPTCHA
- 				    sitekey="6LcdHykUAAAAAChYDSaQB5WY23YqpwI5mKQndCph"
+ 				    sitekey= "6LdgbikUAAAAALt-i50b8TbvB8D9WiIIS0Osp5rU"
  				    onChange={this.onChange}
  				    onExpired={this.onExpired}
  				/>
