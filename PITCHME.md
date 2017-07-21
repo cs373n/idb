@@ -18,7 +18,7 @@
 +++
 
 ## Our database is fully loaded
-![PGAdmin](https://github.com/dontforce/idb/blob/master/pgadmin4.jpg)
+![PGAdmin](http://i.imgur.com/GBVCClT.jpg)
 
 +++
 
