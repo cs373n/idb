@@ -10,7 +10,7 @@
 
 ## What did we do well?
 #### Separate front end and back end
-#### Full react; only one HTML file
+#### Full react--only one HTML file
 #### Used our API to get data
 
 +++
@@ -60,9 +60,9 @@
 +++
 
 #### Unscraped entries
-
+<br>
 #### Missing descriptions and images
-
+<br>
 #### Associations are limited
 
 ---
@@ -71,7 +71,7 @@
 
 +++
 
-##### flask-restless and the magic of the API manager
+##### Flask-restless and the magic of the API manager
 <br>
 
     manager.create_api(Character, collection_name='characters', 
@@ -84,7 +84,7 @@
 
 +++
 
-##### Postgres SQL, associating models together
+##### Associating models together using Postgres
 <br>
 
     character_series = db.Table('character_series',
