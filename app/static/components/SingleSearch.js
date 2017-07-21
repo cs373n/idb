@@ -260,7 +260,7 @@ class SingleSearch extends React.Component {
 				        items={this.state.numPages}
 				        maxButtons={5}
 				        activePage={this.state.activePage}
-				        onSelect={this.handleSelect} />
+				        onSelect={this.handlePageSelect} />
 			        
 			       
 							<h3 className="text-center" style={fixMargin}>JUMP TO PAGE #:</h3>
