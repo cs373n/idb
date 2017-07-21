@@ -48,10 +48,10 @@
 
 ## Switching to the new Flask-Restless 1.0.0B1
 <br>
-#### Adheres to jsonapi.org specifications
-#### Eliminated need to use pre/post processors for patching
-#### Required a large amount of front-end refactoring
-#### Required adjusting Unit Tests 
+#### * Adheres to jsonapi.org specifications
+#### * Eliminated need to use pre/post processors for patching
+#### * Required a large amount of front-end refactoring
+#### * Required adjusting Unit Tests 
 
 ---
 
@@ -59,11 +59,11 @@
 
 +++
 
-#### Unscraped entries
+#### * Unscraped entries
 
-#### Missing descriptions and images
+#### * Missing descriptions and images
 
-#### Associations are limited
+#### * Associations are limited
 
 ---
 
@@ -71,7 +71,10 @@
 
 +++
 
-##### flask restless and the magic of the API manager
+##### flask-restless and the magic of the API manager
+
+    manager.create_api(Character, collection_name='characters', 
+            methods=['GET'], results_per_page=6)
 
 +++
 ### New flask restless JSON response
@@ -82,14 +85,15 @@
 ##### Postgres SQL, associating models together
 
     character_series = db.Table('character_series',
-                            db.Column(
-                                'character_id', db.Integer, ForeignKey('character.id')),
-                            db.Column(
-                                'series_id', db.Integer, ForeignKey('series.id'))
-                           )
+                 db.Column(
+                      'character_id', db.Integer, ForeignKey('character.id')),
+                 db.Column(
+                      'series_id', db.Integer, ForeignKey('series.id'))
+                 )
 
     characters = db.relationship(
-        'Character', secondary=character_series, backref=db.backref('series', lazy='dynamic'))
+        'Character', secondary=character_series, 
+               backref=db.backref('series', lazy='dynamic'))
 
 ---
 
