@@ -18,7 +18,7 @@
 +++
 
 ## Our database is fully loaded
-![PGAdmin](https://github.com/dontforce/idb/capture%20(1).jpg)
+![PGAdmin](ttps://github.com/dontforce/idb/pgadmin4.jpg)
 
 +++
 
@@ -26,6 +26,13 @@
 ##### Made HTTP requests (besides GET) easier
 ##### API isn't as easily accessible to the outside world
 ##### JSON responses are cleaner
+
+---
+
+## What puzzles us?
+
++++
+
 
 ---
 
@@ -45,13 +52,3 @@
 ##### Unscraped entries
 ##### Missing descriptions and images
 ##### Associations are limited
-
----
-
-## What puzzles us?
-
-+++
-
-
-
----
