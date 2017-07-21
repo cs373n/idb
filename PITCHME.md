@@ -6,10 +6,34 @@
 ## The Website
 #### <a href="http://marveldb.net/about">Marveldb.net</a>
 
++++
+
+## What did we do well?
+#### Separate front end and back end
+#### Full react; only one HTML file
+#### Used our API to get data
+
++++
+
+## What can we do better?
+
+#### More attributes for our models
+
++++
+
+## What did we learn?
+
+#### Dynamically loading with React
+
++++
+
+## What puzzles us?
+
+#### React router history
+
 ---
 
-## Backend Boys
-#### 
+## Backend Boyz
 
 ---
 
@@ -19,23 +43,30 @@
 
 ## Our database is fully loaded
 ![PGAdmin](http://i.imgur.com/GBVCClT.jpg)
-#### Scraping Marvel/ComicVine APIs
-#### Large volume of data scraped/associated
+
 +++
 
-## Upgrading to Flask-Restless 1.0.0B1
+## Switching to the new Flask-Restless 1.0.0B1
+<br>
 #### Adheres to jsonapi.org specifications
+<br>
 #### Eliminated need to use pre/post processors for patching
+<br>
 #### Required a large amount of front-end refactoring
+<br>
 #### Required adjusting Unit Tests 
 
 ---
 
-## What puzzles us?
+## What can we do better?
 
 +++
 
-### The new flask restless takes a while to access our data in the API
+#### Unscraped entries
+<br>
+#### Missing descriptions and images
+<br>
+#### Associations are limited
 
 ---
 
@@ -65,10 +96,9 @@ characters = db.relationship(
 '''
 ---
 
-## What can we do better?
+## What puzzles us?
 
 +++
 
-#### Unscraped entries
-#### Missing descriptions and images
-#### Associations are limited
+### The new flask restless takes a while to access our data in the API
+
