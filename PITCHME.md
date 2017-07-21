@@ -5,7 +5,7 @@
 
 ## The Website
 #### <a href="http://marveldb.net">Marveldb.net</a>
-![Marvel](http://suspekproductions.com/wp-content/uploads/2014/06/marvel2-672x372.jpg)
+![Marvel](http://toanmagazine.com/wp-content/uploads/2015/06/santa-cruz-marvel-screaming-hand-collection-01-960x540-860x280.jpg)
 +++
 
 ## What did we do well?
@@ -104,5 +104,5 @@
 
 +++
 
-### The new flask restless takes a while to access our data in the API
+### The new flask restless has slow responses for large data sets
 
