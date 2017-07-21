@@ -53,7 +53,6 @@
 
 ##### Postgres SQL, associating models together
 '''
-# many-to-many relationship tables
 character_series = db.Table('character_series',
                             db.Column(
                                 'character_id', db.Integer, ForeignKey('character.id')),
