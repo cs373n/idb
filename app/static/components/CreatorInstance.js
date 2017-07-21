@@ -1,27 +1,30 @@
 var React = require('react');
-import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
-
-var h2Font = {
-	fontSize: '20px',
-};
+import ReactLoading from 'react-loading';
+import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class CreatorInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      creator: null
+	      creator: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateCreator = this.updateCreator.bind(this);
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateCreator(this.state.creator);
 	}
 
 	updateCreator(creator) {
-		var charID = this.props.match.params.creatorID;
+		var creatorID = this.props.match.params.creatorID;
 
 		this.setState(function() {
 			return {
@@ -29,88 +32,125 @@ class CreatorInstance extends React.Component {
 			}
 		});
 
-		api.getCreator(charID)
+		api.getCreator(creatorID)
 	      .then(function (creator) {
-	        this.setState(function () {
-	          return {
-	            creator: creator
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.creator = creator;
+	        	this.createCards('events')
+	        	.then(function(response){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));
 	}
 
 	fixImage() {
-		const { creator } = this.state;
+		const { img } = this.state.creator.attributes;
 
-		if(creator.img && creator.img != "") {
-			return creator.img.slice(0, -4) + "/portrait_incredible.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
 
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+		return "http://i.imgur.com/2ll12Pa.jpg";
 	}
 
-	createSeriesCards() {
+	createCards(modelType) {
 		var cardsArray = [];
-		var assocSeries = this.state.creator.series;
-		if(assocSeries) {
-			for(var i = 0; i < assocSeries.length; i++) {
-				cardsArray.push(<Card modelLink="/seriesInstance" modelInstance={assocSeries[i]}/>);
+		return api.getModelConnections(this.state.creator.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					}
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
+				this.makeTab(cardsArray, modelType);
 			}
-		}
-		return cardsArray;
+	    }.bind(this));
 	}
 
-	createEventCards() {
-		var cardsArray = [];
-		var assocEvents = this.state.creator.events;
-		if(assocEvents) {
-			for(var i = 0; i < assocEvents.length; i++) {
-				cardsArray.push(<Card modelLink="/eventInstance" modelInstance={assocEvents[i]}/>);
-			}
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
 		}
-		return cardsArray;
 	}
+
 
 	render() {
 		const { creator } = this.state;
 
-		if(!creator) {
-			return <p>LOADING!</p>
+		if(!creator || this.state.tabNum != 0) {
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='900px' width='375px'
+	            						  delay={5} color='red' />
+            	   </div>
 		}
 		else {
+			const {attributes} = this.state.creator;
+			const {relationships} = this.state.creator;
+			var titleStyle = {
+				marginTop: '0px',
+				marginBottom: '10px',
+				padding: '0px'
+			}
 
 			return (
-				<div className="container">
-					<PageHeader className="text-left">{creator.full_name}</PageHeader>
-					<Grid>
-						<Row>
-							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={creator.full_name}/>
-							</Col>
+				<div>
+					{/* STYLES */}
+					<style type="text/css">{`
+					    .h1, h1 {
+					        font-size: 40px;
+					        margin-top: 0px;
+					        margin-bottom: 5px;
+					    }
 
-							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Statistics</PageHeader>
-								<ul>
-									<li>Contributed to {creator.series.length} Series</li>
-									<li>Contributed to {creator.events.length} Events</li>
-									<li>Contributed to {creator.num_comics} Comics</li>
-								</ul>
-							</Col>
-						</Row>
-					</Grid>
+					    .page-header {
+					    	margin-top: 0px;
+					    }
+				    `}
+				    </style>
+					
+					<PageHeader className="text-left" style={titleStyle}>
+					{attributes.full_name} <small>Identification Number: {creator.id}</small>
+					</PageHeader>
+
+					<Row>
+						<Col md={3}>
+							<img className="img-rounded img-responsive" style={{height: '400px', width: '300px'}} src={this.fixImage()} alt={attributes.full_name}/>
+						</Col>
+
+						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+							<PageHeader>Creator Attributes</PageHeader>
+							<ul>
+								<li>Contributed to {relationships.events.data.length} Events</li>
+								<li>Contributed to {relationships.series.data.length} Series</li>
+								<li>Contributed to {relationships.comics.data.length} Comics</li>
+							</ul>
+						</Col>
+					</Row>
 					
 					<br/>
 
-					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createSeriesCards()}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED EVENTS">
-	    					<br/>
-	    					<Table cards={this.createEventCards()}/>
-	    				</Tab>	
-	 				 </Tabs>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
+
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				{this.state.tabsToRender}
+ 				 	</Tabs>	
 
 				</div>
 			)

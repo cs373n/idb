@@ -1,22 +1,25 @@
 var React = require('react');
-import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 var Table = require('./Table.js');
 var Card = require('./Card.js');
 var api = require('./api.js');
-
-var h2Font = {
-	fontSize: '20px'
-};
+import ReactLoading from 'react-loading';
+import { PageHeader, Row, Col, Grid, Tab, Tabs } from 'react-bootstrap';
 
 class EventInstance extends React.Component {
 	constructor(props) {
 	    super();
 	    this.state = {
-	      event: null
+	      event: null,
+	      tabNum: 1,
+	      tabsToRender: []
     	};
+
+    	this.createCards = this.createCards.bind(this);
+    	this.makeTab = this.makeTab.bind(this);
+    	this.updateEvent = this.updateEvent.bind(this);
   	}
 
-	componentDidMount() {
+	componentWillMount() {
 	    this.updateEvent(this.state.event);
 	}
 
@@ -31,86 +34,128 @@ class EventInstance extends React.Component {
 
 		api.getEvent(eventID)
 	      .then(function (event) {
-	        this.setState(function () {
-	          return {
-	            event: event
-	          }
-	        });
-	      }.bind(this));
+	        	this.state.event = event;
+	        	this.createCards('characters')
+	        	.then(function(){
+	        		this.createCards('series')
+	        		.then(function(){
+	        			this.createCards('comics')
+	        			.then(function(){
+	        				this.createCards('creators')
+	        				.then(function(){
+	        					this.setState({tabNum: 0});
+	        				}.bind(this));
+	        			}.bind(this));
+	        		}.bind(this));
+	        	}.bind(this));    		        	
+	        }.bind(this));
 	}
 
 	fixImage() {
-		const { event } = this.state;
+		const { img } = this.state.event.attributes;
 
-		if(event.img && event.img != "") {
-			return event.img.slice(0, -4) + "/portrait_incredible.jpg";
+		if(img && img != "") {
+			return img.slice(0, -4) + "/portrait_uncanny.jpg";
 		}
-		return "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_incredible.jpg";
+		return "http://i.imgur.com/2ll12Pa.jpg";
 	}
 
-	createCharacterCards() {
+	createCards(modelType) {
 		var cardsArray = [];
-		var assocCharacters = this.state.event.characters;
-		if(assocCharacters) {
-			for(var i = 0; i < assocCharacters.length; i++) {
-				cardsArray.push(<Card modelLink="/characterInstance" modelInstance={assocCharacters[i]}/>);
+		return api.getModelConnections(this.state.event.links.self, modelType)	    
+		.then(function (assocArray) {
+			if(assocArray) {
+				var modelTypeLink;
+				for(var i = 0; i < assocArray.length; i++) {
+					if(modelType != 'series'){
+						modelTypeLink = modelType.slice(0, modelType.length-1); 
+					}
+					else{
+						modelTypeLink = modelType;
+					}
+					cardsArray.push(<Card modelLink={"/" + modelTypeLink + "Instance"} modelInstance={assocArray[i]}/>);
+				}
+				this.makeTab(cardsArray, modelType);
 			}
-		}
-		return cardsArray;
+	    }.bind(this));
 	}
 
-	createSeriesCards() {
-		var cardsArray = [];
-		var assocSeries = this.state.event.series;
-		if(assocSeries) {
-			for(var i = 0; i < assocSeries.length; i++) {
-				cardsArray.push(<Card modelLink="/seriesInstance" modelInstance={assocSeries[i]}/>);
-			}
+	makeTab(cards, modelType){
+		if(cards.length != 0){
+			this.state.tabsToRender.push(
+					<Tab unmountOnExit={true} eventKey={this.state.tabNum} title={"FEATURED " + modelType.toUpperCase()}>
+						<br/>
+						<Table cards={cards}/>
+					</Tab>
+			);
+			this.state.tabNum += 1;
 		}
-		return cardsArray;
 	}
 
 	render() {
 		const { event } = this.state;
 
-		if(!event) {
-			return <p>LOADING!</p>
+		if(!event || this.state.tabNum != 0) {
+			return <div style={{display: 'flex', justifyContent: 'center'}}>
+	            			<ReactLoading type="bars" height='900px' width='375px'
+	            						  delay={5} color='red' />
+            	   </div>
 		}
 		else {
+			const {attributes} = this.state.event;
+			const {relationships} = this.state.event;
+			var titleStyle = {
+				marginTop: '0px',
+				marginBottom: '10px',
+				padding: '0px'
+			}
 
 			return (
-				<div className="container">
-					<PageHeader className="text-left">{event.title}</PageHeader>
-					<Grid>
-						<Row>
-							<Col md={3}>
-								<img className="img-rounded img-responsive" src={this.fixImage()} alt={event.name}/>
-							</Col>
+				<div>
+					{/* STYLES */}
+					<style type="text/css">{`
+					    .h1, h1 {
+					        font-size: 40px;
+					        margin-top: 0px;
+					        margin-bottom: 5px;
+					    }
 
-							<Col className="text-left" md={9}>
-								<PageHeader style={h2Font}>Description</PageHeader>
-								<p>{event.desc ? event.desc : "Description not available."}</p>
-								<PageHeader style={h2Font}>Statistics</PageHeader>
-								<ul>
-									<li>Contains {event.characters.length} characters</li>
-									<li>{event.series.length} series in this event</li>
-								</ul>
-							</Col>
-						</Row>
-					</Grid>
+					    .page-header {
+					    	margin-top: 0px;
+					    }
+				    `}
+				    </style>
+					<PageHeader className="text-left" style={titleStyle}>
+					{attributes.title} <small>Identification Number: {event.id}</small>
+					</PageHeader>
+					
+					<Row>
+						<Col md={3}>
+							<img className="img-rounded img-responsive" style={{height: '400px', width: '300px'}} src={this.fixImage()} alt={attributes.name}/>
+						</Col>
+
+						<Col className="text-left" md={9} style={{fontSize: '25px'}}>
+							<PageHeader>Event Description</PageHeader>
+							<p>{attributes.desc ? attributes.desc : "Description not available."}</p>
+							
+							<PageHeader>Attributes</PageHeader>
+							<ul>
+								<li>Contains {relationships.characters.data.length} characters</li>
+								<li>
+									This attributes plays out over {relationships.series.data.length} series and {relationships.comics.data.length} comics
+								</li>
+								<li>{relationships.creators.data.length} creators contributed to this event</li>
+							</ul>
+						</Col>
+					</Row>
 					
 					<br/>
 
-					<Tabs bsStyle="tabs" defaultActiveKey={1}>
-	    				<Tab eventKey={1} title="FEATURED CHARACTERS">
-	    					<br/>
-	    					<Table cards={this.createCharacterCards()}/>
-	    				</Tab>
-	    				<Tab eventKey={2} title="FEATURED SERIES">
-	    					<br/>
-	    					<Table cards={this.createSeriesCards()}/>
-	    				</Tab>	
-	 				 </Tabs>
+					<PageHeader style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}/>
+
+					<Tabs bsStyle="pills" defaultActiveKey={1} justified>
+	    				{this.state.tabsToRender}	
+	 				</Tabs>
 
 				</div>
 			)

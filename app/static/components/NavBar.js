@@ -2,11 +2,11 @@ var React = require('react');
 var NavLink = require('react-router-dom').NavLink;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var SearchForm = require('./SearchForm.js');
-import { Nav, Navbar, NavItem, FormGroup, FormControl } from 'react-bootstrap';
-//import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+import { Nav, Navbar, NavItem} from 'react-bootstrap';
 
 
 class NavBar extends React.Component {
+
 	render() {
 		return (
 			<div>
@@ -17,31 +17,46 @@ class NavBar extends React.Component {
 			     	</LinkContainer>
 			      <Navbar.Toggle />
 			    </Navbar.Header>
+			    <Nav pullRight>
+			      	<SearchForm />
+			    </Nav>
 			    <Navbar.Collapse>
-			      <Nav>
+			      <Nav >
+
 			      	<LinkContainer exact={true} to="/">
 				        <NavItem eventKey={1} >HOME</NavItem>
 				    </LinkContainer>
+
 				    <LinkContainer to="/characters">
 				        <NavItem eventKey={2} >CHARACTERS</NavItem>
 				    </LinkContainer>
+
 				    <LinkContainer to="/events">
-				        <NavItem eventKey={4} >EVENTS</NavItem>
+				        <NavItem eventKey={3} >EVENTS</NavItem>
 				    </LinkContainer>
+
 				    <LinkContainer to="/series">
-				        <NavItem eventKey={5} >SERIES</NavItem>
+				        <NavItem eventKey={4} >SERIES</NavItem>
 				    </LinkContainer>
+
+				    <LinkContainer to="/comics">
+				        <NavItem eventKey={5} >COMICS</NavItem>
+				    </LinkContainer>
+
 				    <LinkContainer to="/creators">
-				        <NavItem eventKey={3} >CREATORS</NavItem>
-				    </LinkContainer>			    
+				        <NavItem eventKey={6} >CREATORS</NavItem>
+				    </LinkContainer>	
+
 				    <LinkContainer to="/about">
-				        <NavItem eventKey={6} >ABOUT</NavItem>
-				    </LinkContainer>    
+				        <NavItem eventKey={7} >ABOUT</NavItem>
+				    </LinkContainer>
+
+				    <LinkContainer to="/contribute">
+				        <NavItem eventKey={8} >CONTRIBUTE</NavItem>
+				    </LinkContainer>
+
 			      </Nav>
 
-			      <Nav pullRight>
-			      	<SearchForm />
-			      </Nav>
 				</Navbar.Collapse>
 			</Navbar>
 			</div>

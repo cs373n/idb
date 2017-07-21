@@ -8,7 +8,6 @@ import { PageHeader, Pagination, Tabs, Tab } from 'react-bootstrap';
 
 class SearchResults extends React.Component {
 	constructor(props) {
-		console.log("SR: Constructor");
 		super();
 		this.state = {
 			searchString: null,
@@ -21,12 +20,10 @@ class SearchResults extends React.Component {
 	}
 
 	componentWillMount() {
-		console.log("SR: componentWillMount. searchString:" + this.props.match.params.searchString);
 	    this.updateSearchResults((this.props.match.params.searchString).split(" "));
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log("SR: componentWillReceiveProps. nextProps: " + nextProps);
 		this.setState({searchString: (nextProps.match.params.searchString).split(" ")}, 
 					  function() {
 					  	this.updateSearchResults(this.state.searchString);
@@ -34,7 +31,6 @@ class SearchResults extends React.Component {
 	}
 
 	updateSearchResults(searchString) {
-		console.log("SR: updateSearchResults. searchString: " + searchString);
 		var multiSearch;
 		if(searchString.length <= 1){
 			multiSearch = false;
@@ -48,7 +44,6 @@ class SearchResults extends React.Component {
 
 
 	buildTitle(){
-		console.log("SR: buildTitle");
 		const { searchString } = this.state;
 		var title = "'";
 		for(var i = 0; i < searchString.length; i++){
@@ -62,20 +57,18 @@ class SearchResults extends React.Component {
 
 	chooseSearch(modelType) {
 		if(this.state.multiSearch) {
-			console.log("SR: chooseSearch(MultiSearch). modelType: " + modelType);
 			return (
 				<div>
 					<MultiSearch searchString = {this.state.searchString}
 								 modelType = {modelType}
-								 delimiter = "and" />
+								 delimiter = "or" />
 					<MultiSearch searchString = {this.state.searchString}
 								 modelType = {modelType}
-								 delimiter = "or" />
+								 delimiter = "and" />
 				</div>
 			);
 		}
 		else {
-			console.log("SR: chooseSearch(SingleSearch). modelType: " + modelType);
 			return (
 				<div>
 					<SingleSearch searchString = {this.state.searchString}
@@ -87,31 +80,37 @@ class SearchResults extends React.Component {
 	}
 
 	render(){
-		console.log("SR: render");	
 		return(
-			<div className="container">
-				<PageHeader className="text-left">SEARCH RESULTS FOR: {this.buildTitle()}</PageHeader>
-				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect}>
-					<Tab unmountOnExit={true}eventKey={1} title="CHARACTERS">
-						{console.log("SR: Tab 1")}
+			<div>
+				<PageHeader className="text-left" 
+							style={{marginBottom: '0px', width: '100%', borderBottom: '2px solid white'}}>
+							SEARCH RESULTS FOR: {this.buildTitle()}
+							{this.state.multiSearch ? 
+							 <div className="pull-right"><small>Scroll down for more search combinations</small></div> : <div/>}
+							
+				</PageHeader>
+
+				<Tabs animation bsStyle="pills" onSelect={this.handleTabSelect} justified>
+					<Tab unmountOnExit={true} eventKey={1} title="CHARACTERS">
 						<br/>
 						{this.chooseSearch("character")}
 					</Tab>
 					<Tab unmountOnExit={true} eventKey={2} title="EVENTS">
-						{console.log("SR: Tab 2")}
 						<br/>
 						{this.chooseSearch("event")}
 					</Tab>
 					<Tab unmountOnExit={true} eventKey={3} title="SERIES">
-						{console.log("SR: Tab 3")}
 						<br/>
 						{this.chooseSearch("series")}
 					</Tab>	
-					<Tab unmountOnExit={true} eventKey={4} title="CREATORS">
-						{console.log("SR: Tab 4")}
+					<Tab unmountOnExit={true} eventKey={4} title="COMICS">
+						<br/>
+						{this.chooseSearch("comic")}
+					</Tab>		
+					<Tab unmountOnExit={true} eventKey={5} title="CREATORS">
 						<br/>
 						{this.chooseSearch("creator")}
-					</Tab>		
+					</Tab>
 				</Tabs>
 			</div>
 		)

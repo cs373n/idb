@@ -1,7 +1,24 @@
+The command "uname -a" exited with 0.
+
+0.02s$ date
+
+Tue Jul 18 01:44:22 UTC 2017
+
+
+
+The command "date" exited with 0.
+
+21.82s$ make test
+
+pylint  --generate-rcfile > app/pylintrc 
+
+
 pylint  app/idb.py --rcfile=app/pylintrc 
+
 
 ------------------------------------
 Your code has been rated at 10.00/10
+
 
 pylint  app/models.py --rcfile=app/pylintrc 
 
@@ -14,20 +31,27 @@ pylint  app/tests.py --rcfile=app/pylintrc
 Your code has been rated at 10.00/10
 
 coverage  run --branch app/tests.py 
-..........
+
+...............
+
 ----------------------------------------------------------------------
-Ran 10 tests in 33.306s
+Ran 15 tests in 1.160s
+
 
 OK
 
 Name            Stmts   Miss Branch BrPart  Cover   Missing
+
 -----------------------------------------------------------
-app/idb.py         27      3      2      1    86%   54, 61, 66, 64->66
-app/models.py     120      0      0      0   100%
-app/tests.py      125      0      2      1    99%   169->exit
+
+app/idb.py         27      3      2      1    86%   65, 72, 77, 75->77
+
+app/models.py      68      0      0      0   100%
+
+app/tests.py      202      0      2      1    99%   374->exit
+
 -----------------------------------------------------------
-TOTAL             272      3      4      2    98%
+
+TOTAL             297      3      4      2    98%
 
 
-
-The command "make test" exited with 0.

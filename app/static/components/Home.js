@@ -1,11 +1,16 @@
 var React = require('react');
 import { Timeline } from 'react-twitter-widgets';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, PageHeader } from 'react-bootstrap';
 
 class Home extends React.Component{
 	render(){
 		return(
 			<div>
+			<PageHeader className="text-center" >
+				WELCOME TO <br/>
+				THE <br/>
+				MARVEL DATABASE 
+			</PageHeader>
 			<Carousel>
 			    <Carousel.Item>
 			      <img className="center-block" width={900} height={500} alt="900x500" src="http://wallpapercave.com/wp/aZDhA0n.jpg"/>
@@ -27,7 +32,7 @@ class Home extends React.Component{
 			<br/>
 			<br/>
 			<br/>
-			<div className="container float-right">
+			<div style={{display: 'flex', justifyContent: 'center'}}>
 			<Timeline
 			    dataSource={{
 			      sourceType: 'profile',
@@ -36,8 +41,9 @@ class Home extends React.Component{
 			    options={{
 			      username: 'Marvel',
 			      height: '1200',
-			      width: '500',
-			      align: 'right'
+			      width: '900',
+			      align: 'center',
+			      theme: 'dark'
 			    }}
 			    onLoad={() => console.log('Timeline is loaded!')}
 			/>
