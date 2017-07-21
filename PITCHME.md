@@ -19,13 +19,15 @@
 
 ## Our database is fully loaded
 ![PGAdmin](http://i.imgur.com/GBVCClT.jpg)
-
+#### Scraping Marvel/ComicVine APIs
+#### Large volume of data scraped/associated
 +++
 
-## Upgrading to the new flask restless
-##### Made HTTP requests (besides GET) easier
-##### API isn't as easily accessible to the outside world
-##### JSON responses are cleaner
+## Upgrading to Flask-Restless 1.0.0B1
+#### Adheres to jsonapi.org specifications
+#### Eliminated need to use pre/post processors for patching
+#### Required a large amount of front-end refactoring
+#### Required adjusting Unit Tests 
 
 ---
 
@@ -33,6 +35,7 @@
 
 +++
 
+### 
 
 ---
 
@@ -55,6 +58,6 @@
 
 +++
 
-##### Unscraped entries
-##### Missing descriptions and images
-##### Associations are limited
+#### Unscraped entries
+#### Missing descriptions and images
+#### Associations are limited
