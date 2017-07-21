@@ -74,8 +74,10 @@
 ##### Flask-restless and the magic of the API manager
 <br>
 
-    manager.create_api(Character, collection_name='characters', 
-            methods=['GET'], results_per_page=6)
+    manager.create_api(Character,  collection_name='characters', 
+        allow_functions=True, allow_client_generated_ids=True, 
+            allow_to_many_replacement=True, allow_delete_from_to_many_relationships=True, 
+                methods=['GET', 'POST', 'DELETE', 'PATCH'], page_size=6)
 
 +++
 
