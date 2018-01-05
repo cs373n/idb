@@ -1,7 +1,6 @@
 var axios = require('axios');
 
-//var baseURL = "http://marveldb.net/api/";
-var baseURL = "http://107.21.57.54/api/"; //URL for server with comicvine images
+var baseURL = "http://marveldb.net/api/";
 module.exports = {
 
     // ************************************************************************

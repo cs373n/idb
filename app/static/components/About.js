@@ -47,18 +47,16 @@ class About extends React.Component{
 			        </div>
 
 			        <div className="col-lg-6 col-sm-6 text-left">
-			            <img className="img-rounded center-block img-responsive" style={{'height': '300px', 'width': '300px'}} src="https://saketksingh.files.wordpress.com/2017/06/me_6_4_2017_cropped.jpg" alt="Saket Singh"/>
-			            <h2 className="text-center page-header">Saket Singh</h2>
+			            <img className="img-rounded center-block img-responsive" style={{'height': '300px', 'width': '300px'}} src="https://saketksingh.files.wordpress.com/2017/12/me_6_4_2017_cropped1.jpg" alt="Somi Singh"/>
+			            <h2 className="text-center page-header">Somi Singh</h2>
 			            <ul style={{'fontSize': '20px'}}>
 			                <li>BIO: 
-			                    <p>Saket Singh was formerly a Systems Administrator and IT Consultant for
-			         small businesses in the Austin area prior to attending the University of Texas.
-			         He will be graduating in December 2018 with a B.S. in Computer Science.</p>
+			                    <p>Somi Singh previously worked as a Systems Administrator and IT Consultant for businesses in the Austin area.  His current interests include databases, operating systems and mobile development.  He will be graduating in December 2018 with a B.S. in Computer Science.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
-			                    <p>AWS, Flask, PostgreSQL, SQLAlchemy, Flask-Restless, Configuring RESTful API, populating database with scraped data </p>
+			                    <p>Backend and DevOps: PostgreSQL, SQLAlchemy, AWS, TravisCI, Flask, Flask-Restless, RestfulAPI</p>
 			                </li>
-			                <li>NO. OF COMMITS: 96</li>
+			                <li>NO. OF COMMITS: 111</li>
 			                <li>NO. OF ISSUES: 35</li>
 			                <li>NO. OF UNIT TESTS: 15</li>
 			            </ul>
@@ -118,8 +116,8 @@ class About extends React.Component{
 				            <div className="row">
 				                <br/>
 				                <ul style={{'fontSize': '22px'}}>
-				                    <li>TOTAL NO. OF COMMITS: 515</li>
-				                    <li>TOTAL NO. OF ISSUES: 83</li>
+				                    <li>TOTAL NO. OF COMMITS: 578</li>
+				                    <li>TOTAL NO. OF ISSUES: 89</li>
 				                    <li>TOTAL NO. OF UNIT TESTS: 15</li>
 				                    <li><a href="http://docs.cs373n.apiary.io/#">APIARY API</a></li>
 				                    <li><a href="https://github.com/cs373n/idb">GITHUB REPO</a></li>
