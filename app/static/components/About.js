@@ -47,11 +47,11 @@ class About extends React.Component{
 			        </div>
 
 			        <div className="col-lg-6 col-sm-6 text-left">
-			            <img className="img-rounded center-block img-responsive" style={{'height': '300px', 'width': '300px'}} src="https://saketksingh.files.wordpress.com/2017/12/me_6_4_2017_cropped1.jpg" alt="Somi Singh"/>
+			            <img className="img-rounded center-block img-responsive" style={{'height': '300px', 'width': '300px'}} src="https://saketksingh.files.wordpress.com/2017/07/somi.jpg" alt="Somi Singh"/>
 			            <h2 className="text-center page-header">Somi Singh</h2>
 			            <ul style={{'fontSize': '20px'}}>
 			                <li>BIO: 
-			                    <p>Somi Singh previously worked as a Systems Administrator and IT Consultant for businesses in the Austin area.  His current interests include databases, operating systems and mobile development.  He will be graduating in December 2018 with a B.S. in Computer Science.</p>
+			                    <p>Somi Singh previously worked as a Systems Administrator and IT Consultant for businesses in the Austin area.  His current interests include databases, application security and mobile development.  He will be graduating in May 2019 with a B.S. in Computer Science.</p>
 			                </li>
 			                <li>RESPONSIBILITIES:
 			                    <p>Backend and DevOps: PostgreSQL, SQLAlchemy, AWS, TravisCI, Flask, Flask-Restless, RestfulAPI</p>
